@@ -1,10 +1,12 @@
 import Phaser from 'phaser'
+import Player from '~/characters/Player'
+import '~/characters/Player'
 
 import { createCharacterAnims } from '~/animations/PlayerAnimation'
 
 export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
-    private faune!: Phaser.Physics.Arcade.Sprite
+    private player!: Player
 
 	constructor(){
 		super('game')
@@ -15,6 +17,9 @@ export default class Game extends Phaser.Scene{
     }
 
     create() {
+
+        // Create anims
+        createCharacterAnims(this.anims)
              
         const dungeon_size = 16
         const tile_size = 16    
@@ -49,16 +54,11 @@ export default class Game extends Phaser.Scene{
 
 
         // Character
-        this.faune = this.physics.add.sprite(128, 128, 'faune', 'walk-down-3.png')
-        this.faune.body.setSize(this.faune.width * 0.5, this.faune.height * 0.8)
-
-        createCharacterAnims(this.anims)
+        this.player = this.add.player(center, center, 'player')
         
-        this.faune.anims.play('faune-run-down')
-
         // Add walls layer
         const wallLayer = this.createWalls(tile_size, dungeon_size)
-        this.physics.add.collider(this.faune, wallLayer)
+        this.physics.add.collider(this.player, wallLayer)
 
     }
 
@@ -73,37 +73,8 @@ export default class Game extends Phaser.Scene{
     }
 
     update(t:number, dt:number){
-        if(!this.cursors || !this.faune){
-            return
-        }
-
-        const speed = 100
-
-        if(this.cursors.left?.isDown) {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(-speed, 0)
-
-            this.faune.scaleX = -1
-            this.faune.body.offset.x = this.faune.body.width * 1.5
-
-        } else if(this.cursors.right?.isDown){
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(speed, 0)
-
-            this.faune.scaleX = 1
-            this.faune.body.offset.x = this.faune.body.width * 0.5
-
-        } else if(this.cursors.up?.isDown){
-            this.faune.anims.play('faune-run-up', true)
-            this.faune.setVelocity(0, -speed)
-
-        } else if(this.cursors.down?.isDown){
-            this.faune.anims.play('faune-run-down', true)
-            this.faune.setVelocity(0, speed)
-
-        } else {
-            this.faune.anims.play('faune-idle-down', true)
-            this.faune.setVelocity(0, 0)
+        if(this.player){
+            this.player.update(this.cursors)
         }
     }
 
