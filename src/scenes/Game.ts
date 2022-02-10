@@ -3,10 +3,14 @@ import Player from '~/characters/Player'
 import '~/characters/Player'
 
 import { createCharacterAnims } from '~/animations/PlayerAnimation'
+import { createMonsterAnims } from '~/animations/MonsterAnimation'
+import Monster from '~/enemies/Monster'
 
 export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
+
     private player!: Player
+    private enemies!: Phaser.Physics.Arcade.Group
 
 	constructor(){
 		super('game')
@@ -20,6 +24,7 @@ export default class Game extends Phaser.Scene{
 
         // Create anims
         createCharacterAnims(this.anims)
+        createMonsterAnims(this.anims)
              
         const dungeon_size = 16
         const tile_size = 16    
@@ -55,10 +60,23 @@ export default class Game extends Phaser.Scene{
 
         // Character
         this.player = this.add.player(center, center, 'player')
+
+        // Enemies
+        this.enemies = this.physics.add.group({
+            classType: Monster,
+            createCallback: (go) => {
+                const enemyGo = go as Monster
+                enemyGo.body.onCollide = true
+            }
+        })
+        this.enemies.get(center + 50, center + 50, 'monster')
         
         // Add walls layer
         const wallLayer = this.createWalls(tile_size, dungeon_size)
         this.physics.add.collider(this.player, wallLayer)
+
+        // Player monster collider
+        this.physics.add.collider(this.player, this.enemies)
 
     }
 
@@ -73,9 +91,24 @@ export default class Game extends Phaser.Scene{
     }
 
     update(t:number, dt:number){
-        if(this.player){
-            this.player.update(this.cursors)
+        if(!this.player){
+            return
         }
+        
+        this.player.update(this.cursors)
+        
+        
+        // Make enemies run towards the player
+        this.enemies.children.each(go => {
+            const enemyGo = go as Monster
+            if (!this.physics.collide(enemyGo, this.player, undefined, undefined, enemyGo)) {
+                enemyGo.runTowards(this.player.x, this.player.y)
+            } else {
+                console.log("collide");
+                
+                enemyGo.setVelocity(0, 0)
+            }
+        })
     }
 
 
