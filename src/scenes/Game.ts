@@ -10,15 +10,11 @@ export default class Game extends Phaser.Scene{
 		super('game')
 	}
 
-	preload(){
-        this.load.image('tiles', 'dungeon_tiles.png')
-        this.load.image('tiles2', 'TilesetFloor.png')
-        this.load.atlas('faune', 'fauna.png', 'fauna.json')
-
+	preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
     }
 
-    create(){
+    create() {
              
         const dungeon_size = 16
         const tile_size = 16    
@@ -85,7 +81,7 @@ export default class Game extends Phaser.Scene{
 
         const speed = 100
 
-        if(this.cursors.left?.isDown){
+        if(this.cursors.left?.isDown) {
             this.faune.anims.play('faune-run-side', true)
             this.faune.setVelocity(-speed, 0)
 
