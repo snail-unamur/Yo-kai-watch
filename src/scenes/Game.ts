@@ -22,8 +22,6 @@ export default class Game extends Phaser.Scene{
         // Add ground layer
         const fundationLayer = this.newLayer(tile_size, dungeon_size)
         fundationLayer.putTilesAt(this.filledMap(dungeon_size, 18), 0, 0)
-
-        // Add ground layer
         
         // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
         // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
