@@ -1,3 +1,6 @@
+import ProjectTreeGenerator from "~/utils/ProjectTreeGenerator"
+import jsonInput from "~/utils/component_tree.json"
+
 export default class Preloader extends Phaser.Scene {
     constructor() {
         super('preloader');
@@ -20,6 +23,10 @@ export default class Preloader extends Phaser.Scene {
          */
         // this.load.json('metrics', 'https://sonarcloud.io/api/measures/component_tree?component=brave_brave-core&metricKeys=code_smells,sqale_index,sqale_rating,vulnerabilities,security_rating,security_remediation_effort,bugs,reliability_rating,reliability_remediation_effort&ps=500&p=1')
         
+        // TODO: load the tree into phaser's cache
+        const ptg = new ProjectTreeGenerator(jsonInput)
+        ptg.makeTree()
+
         /*
          * In the following tileset "dungeon_tiles_full.png":
          * 1 tile = 16 pixels
