@@ -6,6 +6,8 @@ import { createCharacterAnims } from '~/animations/PlayerAnimation'
 import { createMonsterAnims } from '~/animations/MonsterAnimation'
 import Monster from '~/enemies/Monster'
 
+import { Constants } from '~/utils/Const'
+
 export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
@@ -26,17 +28,6 @@ export default class Game extends Phaser.Scene{
             console.log("restart")
             this_scene.restart()
         })
-
-        /*this.load.image('tiles_reduced', 'dungeon_tiles.png')
-
-        
-         * In the following tileset "dungeon_tiles_full.png":
-         * 1 tile = 16 pixels
-         * 1 row = 32 tiles
-
-        
-        this.load.image('tiles', 'dungeon_tiles_full2.png')
-        this.load.atlas('faune', 'fauna.png', 'fauna.json')*/
         
     }
 
@@ -122,12 +113,12 @@ export default class Game extends Phaser.Scene{
         // Add walls layer
         const wallLayer = this.createWalls(tile_size, dungeon_size)
         this.physics.add.collider(this.player, wallLayer)
+        this.physics.add.collider(this.enemies, wallLayer)
 
         // Player monster collider
         this.physics.add.collider(this.player, this.enemies)
 
         //this.debugWalls(wallLayer)
-
     }
 
     generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number){
