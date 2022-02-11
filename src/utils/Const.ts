@@ -1,4 +1,4 @@
-export abstract class Constants {
+export abstract class ConstantsTiles {
     // Constant for tiles
     static readonly WALL_FACE:number = 33
     static readonly WALL_LEFT:number = 257
@@ -25,5 +25,18 @@ export abstract class Constants {
     static readonly GROUND_TOP_RIGHT_HOLE:number = 193
     static readonly GROUND_TOP_LEFT_HOLE:number = 194
     static readonly TREASURE_CLOSED:number = 595
+}
 
+export abstract class MonsterConstantsSize{
+    // Monster size
+    static readonly TINY = 'tiny'
+    static readonly MEDIUM = 'medium'
+    static readonly BIG = 'big'
+}
+
+export abstract class MonsterConstantsType{
+    // Monster type
+    static readonly ZOMBIE = 'zombie'
+    static readonly GOBLIN = 'goblin'
+    static readonly DEMON = 'demon'
 }

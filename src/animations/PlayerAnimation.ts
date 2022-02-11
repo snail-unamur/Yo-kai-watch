@@ -1,47 +1,28 @@
 import Phaser from 'phaser'
 
 function createCharacterAnims(anims: Phaser.Animations.AnimationManager){
+    // 144
     anims.create({
-        key:'player-idle-down',
-        frames: [{ key: 'player', frame: 'walk-down-3.png'}]
-    })
-
-    anims.create({
-        key: 'player-idle-up',
-        frames: [{ key: 'player', frame: 'walk-up-3.png' }]
-    })
-
-    anims.create({
-        key: 'player-idle-side',
-        frames: [{ key: 'player', frame: 'walk-side-3.png' }]
-    })
-
-    anims.create({
-        key:'player-run-down',
-        frames: anims.generateFrameNames('player', {start:1, end:8, prefix:'run-down-', suffix:'.png'}),
+        key:'player-idle',
+        //frames: anims.generateFrameNumbers('animations_tiny_monsters', { start: 55, end: 58 }),
+        frames: anims.generateFrameNumbers('animations_character', { start: 72, end: 75 }),
         repeat:-1,
-        frameRate:15
+        frameRate:7
     })
-    
+
     anims.create({
-        key: 'player-run-up',
-        frames: anims.generateFrameNames('player', { start: 1, end: 8, prefix: 'run-up-', suffix: '.png' }),
+        key: 'player-run',
+        frames: anims.generateFrameNumbers('animations_character', { start: 76, end: 80 }),
         repeat: -1,
         frameRate: 15
     })
 
-    anims.create({
-        key: 'player-run-side',
-        frames: anims.generateFrameNames('player', { start: 1, end: 8, prefix: 'run-side-', suffix: '.png' }),
-        repeat: -1,
-        frameRate: 15
-    })
-
-    anims.create({
+    // No faint animation in the tilset yet
+    /*anims.create({
         key: 'player-faint',
         frames: anims.generateFrameNames('player', { start: 1, end: 4, prefix: 'faint-', suffix: '.png' }),
         frameRate: 15
-    })
+    })*/
 }
 
 export{
