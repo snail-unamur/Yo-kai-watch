@@ -1,29 +1,23 @@
 import Phaser from 'phaser'
+import Player from '~/characters/Player'
+import '~/characters/Player'
 
 import { createCharacterAnims } from '~/animations/PlayerAnimation'
-import { Constants } from '~/utils/Const'
+import { createMonsterAnims } from '~/animations/MonsterAnimation'
+import Monster from '~/enemies/Monster'
 
 export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
-    private faune!: Phaser.Physics.Arcade.Sprite
+
+    private player!: Player
+    private enemies!: Phaser.Physics.Arcade.Group
     private groundLayer
 
 	constructor(){
 		super('game')
 	}
 
-	preload(){
-        this.load.image('tiles_reduced', 'dungeon_tiles.png')
-
-        /**
-         * In the following tileset "dungeon_tiles_full.png":
-         * 1 tile = 16 pixels
-         * 1 row = 32 tiles
-        */
-        
-        this.load.image('tiles', 'dungeon_tiles_full2.png')
-        this.load.atlas('faune', 'fauna.png', 'fauna.json')
-
+	preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
 
         let this_scene = this.scene
@@ -32,13 +26,29 @@ export default class Game extends Phaser.Scene{
             console.log("restart")
             this_scene.restart()
         })
+
+        /*this.load.image('tiles_reduced', 'dungeon_tiles.png')
+
+        
+         * In the following tileset "dungeon_tiles_full.png":
+         * 1 tile = 16 pixels
+         * 1 row = 32 tiles
+
+        
+        this.load.image('tiles', 'dungeon_tiles_full2.png')
+        this.load.atlas('faune', 'fauna.png', 'fauna.json')*/
+        
     }
 
     create(){
+        // Create anims
+        createCharacterAnims(this.anims)
+        createMonsterAnims(this.anims)
+
         const dungeon_min = 16
         const dungeon_max = 24
         const dungeon_size = Math.floor(dungeon_min + (Math.random() * (dungeon_max - dungeon_min)))
-        console.log(dungeon_size)
+
         const tile_size = 16    
 
         // Add ground layer
@@ -97,16 +107,24 @@ export default class Game extends Phaser.Scene{
 
 
         // Character
-        this.faune = this.physics.add.sprite(dungeon_size*tile_size/2, dungeon_size*tile_size/2, 'faune', 'walk-down-3.png')
-        this.faune.body.setSize(this.faune.width * 0.5, this.faune.height * 0.8)
+        this.player = this.add.player(center, center, 'player')
 
-        createCharacterAnims(this.anims)
+        // Enemies
+        this.enemies = this.physics.add.group({
+            classType: Monster,
+            createCallback: (go) => {
+                const enemyGo = go as Monster
+                enemyGo.body.onCollide = true
+            }
+        })
+        this.enemies.get(center + 50, center + 50, 'monster')
         
-        this.faune.anims.play('faune-run-down')
-
         // Add walls layer
         const wallLayer = this.createWalls(tile_size, dungeon_size)
-        this.physics.add.collider(this.faune, wallLayer)
+        this.physics.add.collider(this.player, wallLayer)
+
+        // Player monster collider
+        this.physics.add.collider(this.player, this.enemies)
 
         //this.debugWalls(wallLayer)
 
@@ -155,38 +173,24 @@ export default class Game extends Phaser.Scene{
     }
 
     update(t:number, dt:number){
-        if(!this.cursors || !this.faune){
+        if(!this.player){
             return
         }
-
-        const speed = 100
-
-        if(this.cursors.left?.isDown){
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(-speed, 0)
-
-            this.faune.scaleX = -1
-            this.faune.body.offset.x = this.faune.body.width * 1.5
-
-        } else if(this.cursors.right?.isDown){
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(speed, 0)
-
-            this.faune.scaleX = 1
-            this.faune.body.offset.x = this.faune.body.width * 0.5
-
-        } else if(this.cursors.up?.isDown){
-            this.faune.anims.play('faune-run-up', true)
-            this.faune.setVelocity(0, -speed)
-
-        } else if(this.cursors.down?.isDown){
-            this.faune.anims.play('faune-run-down', true)
-            this.faune.setVelocity(0, speed)
-
-        } else {
-            this.faune.anims.play('faune-idle-down', true)
-            this.faune.setVelocity(0, 0)
-        }
+        
+        this.player.update(this.cursors)
+        
+        
+        // Make enemies run towards the player
+        this.enemies.children.each(go => {
+            const enemyGo = go as Monster
+            if (!this.physics.collide(enemyGo, this.player, undefined, undefined, enemyGo)) {
+                enemyGo.runTowards(this.player.x, this.player.y)
+            } else {
+                console.log("collide");
+                
+                enemyGo.setVelocity(0, 0)
+            }
+        })
     }
 
     newLayer(tile_size:number, dungeon_size:number, tilesString:string = "tiles"){

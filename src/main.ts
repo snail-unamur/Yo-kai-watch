@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 
 import Game from './scenes/Game'
+import Preloader from './scenes/Preloader'
 
 
 export default new Phaser.Game({
@@ -14,7 +15,7 @@ export default new Phaser.Game({
 			debug: true
 		}
 	},
-	scene: [Game],
+	scene: [Preloader, Game],
 	scale: {
 		zoom: 1,
 		autoCenter: Phaser.Scale.CENTER_BOTH
