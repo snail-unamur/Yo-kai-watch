@@ -12,7 +12,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
-        this.anims.play('player-idle-down')
+        this.anims.play('player-idle')
     }
 
     preUpdate(time: number, delta: number) {
@@ -25,41 +25,42 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         const speed = 150
+        const player_speed = new Phaser.Math.Vector2(0, 0)
 
         // Left
         if(cursors.left?.isDown) {
-            this.setVelocity(-speed, 0)
-            this.anims.play('player-run-side', true)
+            player_speed.x = -1
 
             this.flipX = true
         }
 
         // Right
         else if(cursors.right?.isDown) {
-            this.setVelocity(speed, 0)
-            this.anims.play('player-run-side', true)
+            player_speed.x = 1
 
             this.flipX = false
         }
 
         // Up
-        else if(cursors.up?.isDown) {
-            this.setVelocity(0, -speed)
-            this.anims.play('player-run-up', true)
+        if(cursors.up?.isDown) {
+            player_speed.y = -1
         }
 
         // Down
         else if(cursors.down?.isDown) {
-            this.setVelocity(0, speed)
-            this.anims.play('player-run-down', true)
+            player_speed.y = 1
         }
 
-        // Idle
-        else {          
-            const parts = this.anims.currentAnim.key.split('-')
-            parts[1] = 'idle'
-            this.anims.play(parts.join('-'))
-            this.setVelocity(0, 0)
+        player_speed.normalize().scale(speed)
+        this.setVelocity(player_speed.x, player_speed.y)
+
+        if(player_speed.x === 0 && player_speed.y === 0){  
+            // Idle        
+            this.anims.play('player-idle', true)
+        } else {
+            // Run
+            this.anims.play('player-run', true)
+
         }
     }
 }
@@ -72,7 +73,8 @@ Phaser.GameObjects.GameObjectFactory.register('player', function (this: Phaser.G
 
     this.scene.physics.world.enableBody(sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
 
-    sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8)
+    sprite.body.setSize(sprite.width * 0.9, sprite.height * 0.6)
+    sprite.body.setOffset(sprite.width * 0.1, sprite.height * 0.4)
 
     return sprite
 })

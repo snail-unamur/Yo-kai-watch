@@ -6,7 +6,7 @@ import { createCharacterAnims } from '~/animations/PlayerAnimation'
 import { createMonsterAnims } from '~/animations/MonsterAnimation'
 import Monster from '~/enemies/Monster'
 
-import { Constants } from '~/utils/Const'
+import { ConstantsTiles, MonsterConstantsSize, MonsterConstantsType } from '~/utils/Const'
 
 export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
@@ -44,7 +44,7 @@ export default class Game extends Phaser.Scene{
 
         // Add ground layer
         const fundationLayer = this.newLayer(tile_size, dungeon_size)
-        fundationLayer.putTilesAt(this.filledMap(dungeon_size, Constants.ECHELLE), 0, 0)
+        fundationLayer.putTilesAt(this.filledMap(dungeon_size, ConstantsTiles.GROUND_CRACK), 0, 0)
 
         // Add ground layer
         
@@ -53,13 +53,13 @@ export default class Game extends Phaser.Scene{
         this.groundLayer = this.newLayer(tile_size, dungeon_size-2)
 
         // But the map is like displayed from theses coordinates
-        this.groundLayer.putTilesAt(this.filledMap(dungeon_size-4, Constants.GROUND_CLEAN), 2, 2);
+        this.groundLayer.putTilesAt(this.filledMap(dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2);
 
         // Add random cracked tiles
         for(let i=2; i < dungeon_size-2; i++){
             for(let j=2; j < dungeon_size-2; j++){
                 if(Math.random() > 0.9){
-                    this.groundLayer.putTileAt(Constants.GROUND_CRACK, i, j)
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK, i, j)
                 }
             }
         }
@@ -69,7 +69,7 @@ export default class Game extends Phaser.Scene{
         // Add File delimitation layer
         const fileLimitLayer = this.newLayer(tile_size, dungeon_size-2)
 
-        //fileLimitLayer.putTilesAt(this.filledMap(dungeon_size-4, Constants.GROUND_CLEAN), 2, 2);
+        //fileLimitLayer.putTilesAt(this.filledMap(dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2);
         //this.generateFileLimitation()
 
         const file_tiles_size = 4
@@ -82,7 +82,7 @@ export default class Game extends Phaser.Scene{
         // Add treasure
         // treasure = 58
         const treasureLayer = this.newLayer(tile_size, dungeon_size)
-        treasureLayer.putTileAt(Constants.TREASURE_CLOSED, 2, 2)
+        treasureLayer.putTileAt(ConstantsTiles.TREASURE_CLOSED, 2, 2)
 
         
         // Add another layer
@@ -98,6 +98,7 @@ export default class Game extends Phaser.Scene{
 
 
         // Character
+        //this.player = this.add.player(center, center, 'player')
         this.player = this.add.player(center, center, 'player')
 
         // Enemies
@@ -108,12 +109,30 @@ export default class Game extends Phaser.Scene{
                 enemyGo.body.onCollide = true
             }
         })
-        this.enemies.get(center + 50, center + 50, 'monster')
+
+        let enemy:Monster
+        let c=-1
+
+        let arr = [MonsterConstantsType.DEMON, MonsterConstantsType.GOBLIN, MonsterConstantsType.ZOMBIE]
+        arr.forEach((monsterType:MonsterConstantsType) => {
+            let c1=-1
+            let arr2 = [MonsterConstantsSize.BIG, MonsterConstantsSize.MEDIUM, MonsterConstantsSize.TINY]
+            arr2.forEach((monsterSize:MonsterConstantsSize) => {
+                enemy = this.enemies.get(center + 70 * c1, center + 70 * c, 'player')
+                enemy.setMonsterType(monsterType)
+                enemy.setMonsterSize(monsterSize)
+                enemy.playAnim()
+                c1++
+            })
+            c++
+        });
+
         
         // Add walls layer
         const wallLayer = this.createWalls(tile_size, dungeon_size)
         this.physics.add.collider(this.player, wallLayer)
         this.physics.add.collider(this.enemies, wallLayer)
+        this.physics.add.collider(this.enemies, this.enemies)
 
         // Player monster collider
         this.physics.add.collider(this.player, this.enemies)
@@ -128,25 +147,23 @@ export default class Game extends Phaser.Scene{
             t.push(Array.from(l))
         }
 
-        console.log(t)
-        t[0].fill(Constants.WALL_TIP_INNER)
-        t[0][0] = Constants.WALL_TOP_LEFT_INNER_CORNER
-        t[0][size-1] = Constants.WALL_TOP_RIGHT_INNER_CORNER
+        t[0].fill(ConstantsTiles.WALL_TIP_INNER)
+        t[0][0] = ConstantsTiles.WALL_TOP_LEFT_INNER_CORNER
+        t[0][size-1] = ConstantsTiles.WALL_TOP_RIGHT_INNER_CORNER
 
-        console.log(t)
-        t[size-1].fill(Constants.WALL_TIP)
-        t[size-1][size-1] = Constants.WALL_BOTTOM_RIGHT_CORNER_TIP
-        t[size-1][0] = Constants.WALL_BOTTOM_LEFT_CORNER_TIP
+        t[size-1].fill(ConstantsTiles.WALL_TIP)
+        t[size-1][size-1] = ConstantsTiles.WALL_BOTTOM_RIGHT_CORNER_TIP
+        t[size-1][0] = ConstantsTiles.WALL_BOTTOM_LEFT_CORNER_TIP
 
         for(let i=1; i < size-1; i++){
-            t[i][0] = Constants.WALL_LEFT
-            t[i][size-1] = Constants.WALL_RIGHT
+            t[i][0] = ConstantsTiles.WALL_LEFT
+            t[i][size-1] = ConstantsTiles.WALL_RIGHT
         }
 
         fileLayer.putTilesAt(t, x, y).alpha = 0.5
         for(let i=x; i < x+size; i++){
             for(let j=y; j < y+size; j++){
-                this.groundLayer.putTileAt(Constants.GROUND_TOP_LEFT_HOLE, i, j)
+                this.groundLayer.putTileAt(ConstantsTiles.GROUND_TOP_LEFT_HOLE, i, j)
             }
         }
 
@@ -178,7 +195,6 @@ export default class Game extends Phaser.Scene{
                 enemyGo.runTowards(this.player.x, this.player.y)
             } else {
                 console.log("collide");
-                
                 enemyGo.setVelocity(0, 0)
             }
         })
@@ -217,42 +233,42 @@ export default class Game extends Phaser.Scene{
         //     FACES
         for(let i=2; i < dungeon_size - 2; i++){
             // Top walls
-            wallsLayer.putTileAt(Constants.WALL_FACE, i, 1).setCollision(true) // face of the wall
-            wallsLayer.putTileAt(Constants.WALL_TIP, i, 0) // tip of the wall
+            wallsLayer.putTileAt(ConstantsTiles.WALL_FACE, i, 1).setCollision(true) // face of the wall
+            wallsLayer.putTileAt(ConstantsTiles.WALL_TIP, i, 0) // tip of the wall
             // Bottom walls
-            wallsLayer.putTileAt(Constants.WALL_FACE, i, dungeon_size-2).setCollision(true) // face of the wall
-            wallsLayer.putTileAt(Constants.WALL_TIP, i, dungeon_size-3) // tip of the wall
+            wallsLayer.putTileAt(ConstantsTiles.WALL_FACE, i, dungeon_size-2).setCollision(true) // face of the wall
+            wallsLayer.putTileAt(ConstantsTiles.WALL_TIP, i, dungeon_size-3) // tip of the wall
         }
 
         for(let i=2; i < dungeon_size - 3; i++){
             // Left walls
-            wallsLayer.putTileAt(Constants.WALL_LEFT, 1, i) // face of the wall
+            wallsLayer.putTileAt(ConstantsTiles.WALL_LEFT, 1, i) // face of the wall
             wallsLayer.putTileAt(0, 0, i).setCollision(true)
             // Right walls
-            wallsLayer.putTileAt(Constants.WALL_RIGHT, dungeon_size-2, i) // face of the wall
+            wallsLayer.putTileAt(ConstantsTiles.WALL_RIGHT, dungeon_size-2, i) // face of the wall
             wallsLayer.putTileAt(0, dungeon_size-1, i).setCollision(true)
         }
 
         //      CORNERS
         // Top left corner
-        wallsLayer.putTileAt(Constants.WALL_TOP_LEFT_CORNER, 1, 1).setCollision(true)
+        wallsLayer.putTileAt(ConstantsTiles.WALL_TOP_LEFT_CORNER, 1, 1).setCollision(true)
         wallsLayer.putTileAt(0, 0, 1).setCollision(true)
-        wallsLayer.putTileAt(Constants.WALL_TIP_TOP_LEFT, 1, 0)// tip of the wall
+        wallsLayer.putTileAt(ConstantsTiles.WALL_TIP_TOP_LEFT, 1, 0)// tip of the wall
         // Top right corner
-        wallsLayer.putTileAt(Constants.WALL_TOP_RIGHT_CORNER,  dungeon_size - 2, 1).setCollision(true)
+        wallsLayer.putTileAt(ConstantsTiles.WALL_TOP_RIGHT_CORNER,  dungeon_size - 2, 1).setCollision(true)
         wallsLayer.putTileAt(0, dungeon_size - 1, 1).setCollision(true)
-        wallsLayer.putTileAt(Constants.WALL_TIP_TOP_RIGHT,  dungeon_size - 2, 0)// tip of the wall
+        wallsLayer.putTileAt(ConstantsTiles.WALL_TIP_TOP_RIGHT,  dungeon_size - 2, 0)// tip of the wall
         
         // Bottom left corner
-        wallsLayer.putTileAt(Constants.WALL_BOTTOM_LEFT_CORNER_TIP, 1, dungeon_size - 3)// tip of the wall
+        wallsLayer.putTileAt(ConstantsTiles.WALL_BOTTOM_LEFT_CORNER_TIP, 1, dungeon_size - 3)// tip of the wall
         wallsLayer.putTileAt(0, 0, dungeon_size - 3).setCollision(true)
         wallsLayer.putTileAt(0, 0, dungeon_size - 2).setCollision(true)
-        wallsLayer.putTileAt(Constants.WALL_BOTTOM_LEFT_CORNER, 1, dungeon_size - 2).setCollision(true)
+        wallsLayer.putTileAt(ConstantsTiles.WALL_BOTTOM_LEFT_CORNER, 1, dungeon_size - 2).setCollision(true)
         // Bottom right corner
-        wallsLayer.putTileAt(Constants.WALL_BOTTOM_RIGHT_CORNER_TIP, dungeon_size - 2, dungeon_size - 3)// tip of the wall
+        wallsLayer.putTileAt(ConstantsTiles.WALL_BOTTOM_RIGHT_CORNER_TIP, dungeon_size - 2, dungeon_size - 3)// tip of the wall
         wallsLayer.putTileAt(0, dungeon_size - 1, dungeon_size - 3).setCollision(true)
         wallsLayer.putTileAt(0, dungeon_size - 1, dungeon_size - 2).setCollision(true)
-        wallsLayer.putTileAt(Constants.WALL_BOTTOM_RIGHT_CORNER, dungeon_size - 2, dungeon_size - 2).setCollision(true)
+        wallsLayer.putTileAt(ConstantsTiles.WALL_BOTTOM_RIGHT_CORNER, dungeon_size - 2, dungeon_size - 2).setCollision(true)
 
         return wallsLayer
     }
