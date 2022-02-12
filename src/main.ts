@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 
 import Game from './scenes/Game'
 import Preloader from './scenes/Preloader'
+import Map from './scenes/Map'
 
 
 export default new Phaser.Game({
@@ -15,7 +16,7 @@ export default new Phaser.Game({
 			//debug: true
 		}
 	},
-	scene: [Preloader, Game],
+	scene: [Preloader, Map],
 	scale: {
 		zoom: 1,
 		autoCenter: Phaser.Scale.CENTER_BOTH

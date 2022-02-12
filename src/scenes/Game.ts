@@ -13,7 +13,10 @@ export default class Game extends Phaser.Scene{
 
     private player!: Player
     private enemies!: Phaser.Physics.Arcade.Group
-    private groundLayer
+    private groundLayer!: Phaser.Tilemaps.TilemapLayer
+
+    private freezeLayer
+    private freezing: boolean = false
 
 	constructor(){
 		super('game')
@@ -22,19 +25,35 @@ export default class Game extends Phaser.Scene{
 	preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
 
-        let this_scene = this.scene
+        let this_scene = this
         let keyObj = this.input.keyboard.addKey('W') // Get key object
         keyObj.on('down', function(event) {
             console.log("restart")
-            this_scene.restart()
+            this_scene.scene.restart()
         })
+
+        keyObj = this.input.keyboard.addKey('X') // Get key object
+        keyObj.on('down', function(event) {
+            this_scene.handleFreeze()
+        })
+    }
+
+    handleFreeze(){
+        this.freezing = !this.freezing
+        this.freezeLayer.visible = this.freezing
         
+        if(this.freezing){
+            console.log("freeze")
+        } else {
+            console.log("unfreeze")
+        }
     }
 
     create(){
         // Create anims
         createCharacterAnims(this.anims)
         createMonsterAnims(this.anims)
+
 
         const dungeon_min = 16
         const dungeon_max = 24
@@ -138,6 +157,12 @@ export default class Game extends Phaser.Scene{
         this.physics.add.collider(this.player, this.enemies)
 
         //this.debugWalls(wallLayer)
+
+        
+        let gameCanvas = this.sys.game.canvas
+        this.freezeLayer = this.add.renderTexture(0, 0, gameCanvas.width, gameCanvas.height)
+        this.freezeLayer.fill(0x000000, 0.5)
+        this.handleFreeze()
     }
 
     generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number){
@@ -168,6 +193,8 @@ export default class Game extends Phaser.Scene{
         }
 
         return t
+
+        
     }
 
     debugWalls(wallsLayer:Phaser.Tilemaps.TilemapLayer){
