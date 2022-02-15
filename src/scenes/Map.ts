@@ -15,34 +15,13 @@ export default class Map extends Phaser.Scene{
     private olds: FileContainer[] = []
 
 
-    private fileTree = {
-        'root':{
-            'a':{},
-            'c':{},
-            'd':{},
-            'e':{},
-            'b':{},
-            'cde':{
-                'fqfdfsfd':{},
-                'fdqfsdfefazeafdqs':{
-                    'a':{},
-                    'c':{},
-                    'd':{},
-                    'e':{},
-                    'b':{},
-                    'cde':{
-                        'fqfdfsfd':{},
-                        'fdqfsdfefazeafdqs':{}
-                    }
-                }
-            }
-        }
-    }
+    private fileTree
 
-    private current: object = this.fileTree
+    private tree
+
     // There must be always at least 1 element in the pathToCurrent (root)
     //private pathToCurrent: string[] = ['root', 'cde']
-    private pathToCurrent: string[] = ['root']
+    private pathToCurrent: integer[] = [0]
     private selected!: FileContainer
     private selectedId: number = 0
     
@@ -90,7 +69,7 @@ export default class Map extends Phaser.Scene{
     downPressed(event){
         let selectedName = this.selected.getName()
         if(selectedName !== 'root'){
-            this.pathToCurrent.push(selectedName)
+            this.pathToCurrent.push(this.selected.getId())
         } else {
             this.selected.setSelected(false)
 
@@ -143,7 +122,7 @@ export default class Map extends Phaser.Scene{
     upPressed(event){
         let last_element = this.pathToCurrent[this.pathToCurrent.length-1]
 
-        if(last_element === 'root' || last_element === undefined){
+        if(this.pathToCurrent.length <= 1){
             if(this.selected.getName() === 'root'){
                 this.cameras.main.shake(250, 0.005)
 
@@ -171,21 +150,20 @@ export default class Map extends Phaser.Scene{
 
                 if(el) this.olds.push(el)
             }                
-            let el
-            if(this.currentTop.length >= 1) el = this.currentTop.pop()
-            el.setIsTop(false)
-            //this.olds.push(el)
-            el.setDestination(0, + this.cHeight * 0.4)
+            let previousTop
+            if(this.currentTop.length >= 1) previousTop = this.currentTop.pop()
+            previousTop.setIsTop(false)
+            //this.olds.push(previousTop)
+            previousTop.setDestination(0, + this.cHeight * 0.4)
 
             // Olds is full and going up, current empty
             
             this.pathToCurrent.pop()
 
-            this.drawChildren(el)
+            this.drawChildren(previousTop)
             //this.setSelected(last_element!)
             // Change top element
-            console.log(this.pathToCurrent[this.pathToCurrent.length-1])
-            this.drawTopFile(this.pathToCurrent[this.pathToCurrent.length-1])
+            this.drawTopFile(this.getParentPath(), this.pathToCurrent[this.pathToCurrent.length-1])
         }
     }
 
@@ -194,10 +172,15 @@ export default class Map extends Phaser.Scene{
 
     }
 
-    preload(){
-        for(let i=0; i < 1; i++){
-            this.fileTree['root'][i] = {}
-        }
+
+
+    preload(data){
+        // take path from data
+
+        this.fileTree = this.cache.json.get('metrics')
+        this.pathToCurrent = [0]
+
+        this.getCurrentChildren()
         
         // TODO keep button left & right pressed
         // Setup keyboard control
@@ -247,14 +230,18 @@ export default class Map extends Phaser.Scene{
         }
     }
 
-    getCurrentChildren(path?:string[]){
+    getCurrentChildren(path?:integer[]){
         if(!path){
             path = this.pathToCurrent
         }
 
         let children = this.fileTree
         path.forEach(element => {
-            children = children[element]
+            if(children[element].hasOwnProperty('children')){
+                children = children[element].children
+            } else {
+                children = []
+            }
         })
 
         return children // list of strings which are the children
@@ -266,14 +253,13 @@ export default class Map extends Phaser.Scene{
      */
     drawFiles(selectedTop:boolean=false){
         // At the initialization
-        this.drawTopFile(this.pathToCurrent[this.pathToCurrent.length - 1], selectedTop)
+        this.drawTopFile(this.getParentPath(), this.pathToCurrent[this.pathToCurrent.length - 1], selectedTop)
         this.drawChildren(undefined, !selectedTop)
     }
 
     drawChildren(fileToNotDraw?:FileContainer, selected:boolean=true){
         let children = this.getCurrentChildren()
 
-        let keys = Object.keys(children)
 
         let step = this.filestep * this.cWidth
         let firstX = this.cWidth / 2 
@@ -281,7 +267,11 @@ export default class Map extends Phaser.Scene{
         let selec_ = 0
 
         if(fileToNotDraw){
-            selec_ = keys.indexOf(fileToNotDraw.getName())
+            for(let i=0; i < children.length; i++){
+                if(children[i].name === fileToNotDraw.getName()){
+                    selec_ = i
+                }
+            }
             firstX = (this.cWidth / 2) - step * selec_ 
         }
 
@@ -295,13 +285,19 @@ export default class Map extends Phaser.Scene{
         }
 
 
-        for(let i=0; i < keys.length; i++){
+        for(let i=0; i < children.length; i++){
             if(fileToNotDraw && i === selec_){
                 this.currentChildren.push(fileToNotDraw)
             } else {
                 let a = Array.from(this.pathToCurrent)
-                a.push(keys[i])
-                let f = this.drawFile(firstX + i*step, initialY, this.cWidth*0.25, this.cHeight*0.2, keys[i], Object.keys(this.getCurrentChildren(a)).length)
+                a.push(i)
+
+                let f = this.drawFile(
+                    firstX + i*step, initialY, 
+                    this.cWidth*0.25, this.cHeight*0.2, 
+                    children[i].name, i, 
+                    Object.keys(this.getCurrentChildren(a)).length)
+
                 f.setDestination(0, shiftY)
                 this.currentChildren.push(f)
             }
@@ -313,8 +309,21 @@ export default class Map extends Phaser.Scene{
         }
     }
 
-    drawTopFile(fileName:string, selected:boolean=false){
-        let f = this.drawFile(this.cWidth/2, this.cHeight * 0.3, this.cWidth*0.25, this.cHeight*0.2, fileName, Object.keys(this.getCurrentChildren()).length)
+    getParentPath(path?:integer[]){
+        if(!path){
+            path = this.pathToCurrent
+        }
+
+        let currentElement = { children: this.fileTree, name:'super root' }
+        path.forEach(element => {
+            currentElement = currentElement.children[element]
+        })
+
+        return currentElement.name
+    }
+
+    drawTopFile(fileName: string, fileId:number, selected:boolean=false){
+        let f = this.drawFile(this.cWidth/2, this.cHeight * 0.3, this.cWidth*0.25, this.cHeight*0.2, fileName, fileId, Object.keys(this.getCurrentChildren()).length)
         this.currentTop.push(f)
         f.setIsTop(true)
 
@@ -326,8 +335,8 @@ export default class Map extends Phaser.Scene{
     }
 
 
-    drawFile(x:number, y:number, width:number, height:number, name:string, nbChildren:number=0){
-        let fileContainer = this.add.fileContainer(x, y, width, height, name, 0x00aa00, undefined, nbChildren)
+    drawFile(x:number, y:number, width:number, height:number, name:string, fileId:number, nbChildren:number){
+        let fileContainer = this.add.fileContainer(x, y, width, height, name, fileId, 0x00aa00, undefined, nbChildren)
 
         return fileContainer
     }
@@ -345,7 +354,5 @@ export default class Map extends Phaser.Scene{
         }
         this.selected = el
         el.setSelected(true)
-
-        console.log(this.children.length)
     }
 }

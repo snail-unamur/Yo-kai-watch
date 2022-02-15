@@ -5,7 +5,7 @@ import { ConstantsTiles } from '~/utils/Const'
 declare global {
     namespace Phaser.GameObjects {
         interface GameObjectFactory {
-            fileContainer(x: number, y: number, width: number, height: number, name: string, fillColor?: number, selected?: boolean, nbChildren?:number): FileContainer
+            fileContainer(x: number, y: number, width: number, height: number, name: string, id: number, fillColor?: number, selected?: boolean, nbChildren?:number): FileContainer
         }
     }
 }
@@ -19,6 +19,7 @@ export default class FileContainer extends Phaser.GameObjects.Container{
     image: Phaser.GameObjects.Image
     arrow?: Phaser.GameObjects.Rectangle
     isTop: boolean = false
+    id: number
 
     nbChildren: number = 0
 
@@ -30,8 +31,10 @@ export default class FileContainer extends Phaser.GameObjects.Container{
     scaleDestination: number = 1
     scaleAnimDuration: number = 0
 
-    constructor(scene: Phaser.Scene, x: number, y: number, width: number, height: number, name: string, fillColor: number, selected: boolean = false, nbChildren:number = 0){
+    constructor(scene: Phaser.Scene, x: number, y: number, width: number, height: number, name: string, id: number, fillColor: number, selected: boolean = false, nbChildren:number = 0){
         super(scene, x, y)
+
+        this.id = id
 
         this.nbChildren = nbChildren
 
@@ -41,8 +44,6 @@ export default class FileContainer extends Phaser.GameObjects.Container{
         this.name = name
 
         this.rectangle = new Phaser.GameObjects.Graphics(scene)
-        this.rectangle.fillStyle(0x202121, 1)
-        this.rectangle.fillRoundedRect(-width/2, -height/2 + 16, width, height,8)
         this.add(this.rectangle)
         //this.rectangle = new Phaser.GameObjects.Graphics(scene, 0, 16, width, height, 0x000000)
 
@@ -51,9 +52,11 @@ export default class FileContainer extends Phaser.GameObjects.Container{
 
         if(nbChildren > 0){
             this.image = new Phaser.GameObjects.Image(scene, 0, 16, 'big_demon_idle_anim_f1')
+        
+            this.rectangle.fillStyle(0xFFB847, 1)
             let r = new Phaser.GameObjects.Graphics(scene)
             this.add(r)
-            let textChildren = new Phaser.GameObjects.Text(scene, width*0.2, height/2 + 18, nbChildren.toString(), {}).setColor('white')
+            let textChildren = new Phaser.GameObjects.Text(scene, width*0.2, height/2 + 18, nbChildren.toString(), { font: '"Press Start 2P"' }).setColor('white')
             this.add(textChildren)
 
             r.fillStyle(0x202121, 1)
@@ -61,14 +64,17 @@ export default class FileContainer extends Phaser.GameObjects.Container{
 
         } else {
             this.image = new Phaser.GameObjects.Image(scene, 0, 16, 'big_zombie_idle_anim_f1')
+        
+            this.rectangle.fillStyle(0x202121, 1)
 
         }
+        this.rectangle.fillRoundedRect(-width/2, -height/2 + 16, width, height,8)
 
         this.image.setScale(2)
         //this.image.setDisplaySize(width, height)
         this.add(this.image)
 
-        this.nameText = new Phaser.GameObjects.Text(scene, - width / 2, - height / 2, name, {})
+        this.nameText = new Phaser.GameObjects.Text(scene, - width / 2, - height / 2 -2, name, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' })
         this.nameText.setColor('white')
         this.add(this.nameText)
 
@@ -86,6 +92,10 @@ export default class FileContainer extends Phaser.GameObjects.Container{
 
     getName(): string {
         return this.name
+    }
+
+    getId(): number {
+        return this.id
     }
 
     update(t:number, dt:number) {
@@ -161,8 +171,8 @@ export default class FileContainer extends Phaser.GameObjects.Container{
 Phaser.GameObjects.GameObjectFactory.register('fileContainer', 
     function (this: Phaser.GameObjects.GameObjectFactory, 
         x: number, y: number, 
-        width: number, height: number, name: string, 
+        width: number, height: number, name: string, id: number, 
         fillColor: number, selected?: boolean, nbChildren:number=0) {
 
-    return this.displayList.add(new FileContainer(this.scene, x, y, width, height, name, fillColor, selected, nbChildren))
+    return this.displayList.add(new FileContainer(this.scene, x, y, width, height, name, id, fillColor, selected, nbChildren))
 })

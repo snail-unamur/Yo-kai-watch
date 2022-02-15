@@ -19,8 +19,8 @@ export default class Preloader extends Phaser.Scene {
          * reliability_remediation_effort = bugs debt / time to fix (in minutes)
          */
         // ENABLE THIS TO GET DATA (DISABLED TO NOT DESTROY THE SONARCLOUD API EVERY TIME WE TEST SOMETHING)
-        // this.load.json('metrics', 'http://localhost:5000')        
-        
+        this.load.json('metrics', 'http://localhost:5000/metrics?project=Caitanyakotla_Hobby-Projects')
+        //this.load.json('metrics', 'http://localhost:5000/metrics?project=brave_brave-core')  
 
         /*
          * In the following tileset "dungeon_tiles_full.png":
@@ -52,6 +52,9 @@ export default class Preloader extends Phaser.Scene {
 
     create() {
         //this.scene.start('game');
-        this.scene.start('map');
+        this.scene.start('map')
+
+        console.log(this.cache.json.get('metrics'))
+        
     }
 }
