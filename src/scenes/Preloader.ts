@@ -45,9 +45,6 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('animations_character', 'tiles/dungeon_tiles_full2.png', { frameWidth: 16, frameHeight: 32 })
         // loading for tiny and medium monsters
         this.load.spritesheet('animations_tiny_and_medium_monsters', 'tiles/dungeon_tiles_full2.png', { frameWidth: 16, frameHeight: 16 })
-        
-        //this.load.atlas('player', 'characters/fauna.png', 'characters/fauna.json')
-        //this.load.atlas('monster', 'enemies/lizard.png', 'enemies/lizard.json')
 
         // Loading ui
         this.load.image('ui_heart_empty', 'ui/ui_heart_empty.png')
@@ -55,7 +52,7 @@ export default class Preloader extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('game');
-        //this.scene.start('map');
+        //this.scene.start('game');
+        this.scene.start('map');
     }
 }
