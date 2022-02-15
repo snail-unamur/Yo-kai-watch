@@ -4,35 +4,24 @@ import './FileContainer'
 import FileContainer from "./FileContainer";
 
 export default class Map extends Phaser.Scene{
-    private filestep = 3/10
+    private static readonly FILE_STEP = 3/10
     private currentChildren: FileContainer[] = []
     private currentTop: FileContainer[] = []
 
     private lastSelectedId:number = 0
 
-
     private olds: FileContainer[] = []
-
 
     private fileTree
 
     // There must be always at least 1 element in the pathToCurrent (root)
-    //private pathToCurrent: string[] = ['root', 'cde']
     private pathToCurrent: integer[] = [0]
     private selected!: FileContainer
     private selectedId: number = 0
-    
         
     private gameCanvas!: HTMLCanvasElement
     private cWidth!:number
     private cHeight!:number
-
-    private camDistanceY: number = 0
-    private camSpeed: number = 0
-    private camRemainingTime: number = 0
-    private camCenterY: number = 0
-    private camCenterX: number = 0
-    private cam! : Phaser.Cameras.Scene2D.Camera
 
 	constructor(){
 		super('map')
@@ -47,7 +36,7 @@ export default class Map extends Phaser.Scene{
         this.setSelected((this.selectedId + 1) % this.currentChildren.length)
 
         this.currentChildren.forEach(element => {
-            element.setDestination(- this.filestep*this.cWidth, 0)
+            element.setDestination(-Map.FILE_STEP * this.cWidth, 0)
         })
     }
 
@@ -59,7 +48,7 @@ export default class Map extends Phaser.Scene{
         this.setSelected((this.selectedId - 1) % this.currentChildren.length)
 
         this.currentChildren.forEach(element => {
-            element.setDestination(this.filestep*this.cWidth, 0)
+            element.setDestination(Map.FILE_STEP * this.cWidth, 0)
         })
     }
 
@@ -237,13 +226,13 @@ export default class Map extends Phaser.Scene{
         this.cWidth = this.gameCanvas.width
         this.cHeight = this.gameCanvas.height
     
-        this.cam = this.cameras.main
+        let cam = this.cameras.main
         
-        this.camCenterY = this.cHeight/2
-        this.camCenterX = this.cWidth/2
-        this.cam.centerOn(this.camCenterX, this.camCenterY)
+        let camCenterY = this.cHeight/2
+        let camCenterX = this.cWidth/2
+        cam.centerOn(camCenterX, camCenterY)
 
-        this.cam.setBackgroundColor(0x483B3A)
+        cam.setBackgroundColor(0x483B3A)
     
 
         if(data?.mapContext){
@@ -268,15 +257,6 @@ export default class Map extends Phaser.Scene{
         this.olds.forEach(element => {
             element.update(t, dt)
         })
-
-        // update camera
-        if(this.camRemainingTime > 0){
-            let distanceToTravel = (this.camDistanceY/this.camRemainingTime) * dt
-            this.camDistanceY -= distanceToTravel
-            this.camCenterY -= distanceToTravel
-            this.cam.centerOn(this.camCenterX, this.camCenterY)
-            this.camRemainingTime -= dt
-        }
     }
 
     getCurrentChildren(path?:integer[]){
@@ -310,7 +290,7 @@ export default class Map extends Phaser.Scene{
         let children = this.getCurrentChildren()
 
 
-        let step = this.filestep * this.cWidth
+        let step = Map.FILE_STEP * this.cWidth
         let firstX = this.cWidth / 2 
 
         let selec_ = 0
@@ -392,7 +372,6 @@ export default class Map extends Phaser.Scene{
 
     setSelected(id:number){
         this.selected.setSelected(false)
-        //this.currentChildren[this.selectedId].setSelected(false)
         this.selectedId = id
 
         let el
