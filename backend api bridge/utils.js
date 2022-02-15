@@ -7,7 +7,7 @@ import axios from "axios";
  * @returns {array} the dataArray with the sonarqube data appended
  */
  export async function getSonarqubeData(project, page, dataArray) {
-    const url =  `https://sonarcloud.io/api/measures/component_tree?component=${project}&metricKeys=code_smells,sqale_index,sqale_rating,vulnerabilities,security_rating,security_remediation_effort,bugs,reliability_rating,reliability_remediation_effort&ps=500&p=${page}`
+    const url =  `https://sonarcloud.io/api/measures/component_tree?component=${project}&metricKeys=code_smells,sqale_index,sqale_rating,vulnerabilities,security_rating,security_remediation_effort,bugs,reliability_rating,reliability_remediation_effort&ps=500&p=${page}&s=qualifier,name`
     const sonarQubeDataRes = await axios.get(url);
 
     if (page === 1) {
