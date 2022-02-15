@@ -8,6 +8,8 @@ import Monster from '~/enemies/Monster'
 
 import { ConstantsTiles, MonsterConstantsSize, MonsterConstantsType } from '~/utils/Const'
 
+import { sceneEvents } from '~/events/EventCenter'
+
 export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
@@ -17,6 +19,7 @@ export default class Game extends Phaser.Scene{
 
     private freezeLayer
     private freezing: boolean = false
+    private playerMonsterCollider?: Phaser.Physics.Arcade.Collider | null
 
 	constructor(){
 		super('game')
@@ -50,6 +53,9 @@ export default class Game extends Phaser.Scene{
     }
 
     create(){
+        // Launch UI
+        this.scene.run('game-ui')
+
         // Create anims
         createCharacterAnims(this.anims)
         createMonsterAnims(this.anims)
@@ -137,10 +143,12 @@ export default class Game extends Phaser.Scene{
             let c1=-1
             let arr2 = [MonsterConstantsSize.BIG, MonsterConstantsSize.MEDIUM, MonsterConstantsSize.TINY]
             arr2.forEach((monsterSize:MonsterConstantsSize) => {
-                enemy = this.enemies.get(center + 70 * c1, center + 70 * c, 'player')
+                // enemy = this.enemies.get(center + 30 * c1, center + 80 * c, 'player')
+                enemy = this.enemies.get(center + 80 * c1 / 2, center + 80 * c + 40, 'player')
                 enemy.setMonsterType(monsterType)
                 enemy.setMonsterSize(monsterSize)
                 enemy.playAnim()
+                enemy.setBounce(1)
                 c1++
             })
             c++
@@ -154,7 +162,7 @@ export default class Game extends Phaser.Scene{
         this.physics.add.collider(this.enemies, this.enemies)
 
         // Player monster collider
-        this.physics.add.collider(this.player, this.enemies)
+        this.playerMonsterCollider = this.physics.add.collider(this.player, this.enemies, this.handlePlayerMonsterCollision, undefined, this)
 
         //this.debugWalls(wallLayer)
 
@@ -163,6 +171,31 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer = this.add.renderTexture(0, 0, gameCanvas.width, gameCanvas.height)
         this.freezeLayer.fill(0x000000, 0.5)
         this.handleFreeze()
+        this.handleFreeze()
+    }
+
+    handlePlayerMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
+        const player = obj1 as Player
+        const monster = obj2 as Monster
+
+        const dx = player.x - monster.x
+        const dy = player.y - monster.y
+
+        const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(200)
+
+        // player.setHit(1)
+
+        player.handleDamage(dir)
+
+        sceneEvents.emit('player-damage', player.getHealth())
+
+        if(this.player.getHealth() <= 0 && this.playerMonsterCollider !== null
+            && this.playerMonsterCollider !== undefined) {
+            this.playerMonsterCollider.destroy()
+            this.playerMonsterCollider = null
+            
+        }
+
     }
 
     generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number){
@@ -218,12 +251,14 @@ export default class Game extends Phaser.Scene{
         // Make enemies run towards the player
         this.enemies.children.each(go => {
             const enemyGo = go as Monster
-            if (!this.physics.collide(enemyGo, this.player, undefined, undefined, enemyGo)) {
-                enemyGo.runTowards(this.player.x, this.player.y)
-            } else {
-                console.log("collide");
-                enemyGo.setVelocity(0, 0)
-            }
+            // TODO: not working it creates a collider only
+            // if (!this.physics.collide(enemyGo, this.player, undefined, undefined, enemyGo)) {
+            // enemyGo.runTowards(this.player.x, this.player.y)
+            // } else {
+            //     enemyGo.setVelocity(0, 0)
+            // }
+            // 
+            enemyGo.runTowards(this.player.x, this.player.y)
         })
     }
 
