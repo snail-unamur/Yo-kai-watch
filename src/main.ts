@@ -16,7 +16,7 @@ export default new Phaser.Game({
 			//debug: true
 		}
 	},
-	scene: [Preloader, Map],
+	scene: [Preloader, Map, Game],
 	scale: {
 		zoom: 1,
 		autoCenter: Phaser.Scale.CENTER_BOTH

@@ -72,7 +72,7 @@ export default class Game extends Phaser.Scene{
         this.groundLayer = this.newLayer(tile_size, dungeon_size-2)
 
         // But the map is like displayed from theses coordinates
-        this.groundLayer.putTilesAt(this.filledMap(dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2);
+        this.groundLayer.putTilesAt(this.filledMap(dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2)
 
         // Add random cracked tiles
         for(let i=2; i < dungeon_size-2; i++){
