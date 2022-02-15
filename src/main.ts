@@ -3,6 +3,7 @@ import Phaser from 'phaser'
 import Game from './scenes/Game'
 import Preloader from './scenes/Preloader'
 import Map from './scenes/Map'
+import GameUI from './scenes/GameUI'
 
 
 export default new Phaser.Game({
@@ -13,10 +14,10 @@ export default new Phaser.Game({
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 0 },
-			//debug: true
+			debug: true
 		}
 	},
-	scene: [Preloader, Map, Game],
+	scene: [Preloader, Map, Game, GameUI],
 	scale: {
 		zoom: 1,
 		autoCenter: Phaser.Scale.CENTER_BOTH

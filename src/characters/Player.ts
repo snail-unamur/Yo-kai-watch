@@ -8,11 +8,47 @@ declare global {
     }
 }
 
+enum HealthState {
+    IDLE,
+    DAMAGE,
+    DEAD,
+}
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
+    private healthState: HealthState = HealthState.IDLE
+    private health = 3
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
         this.anims.play('player-idle')
+    }
+
+    getHealth(): number {
+        return this.health
+    }
+
+    handleDamage(dir: Phaser.Math.Vector2) {
+        if(this.health <= 0 || this.healthState === HealthState.DAMAGE) {
+            return
+        }
+
+        this.health--
+
+        if (this.health <= 0) {
+            this.healthState = HealthState.DEAD
+            this.anims.play('player-idle')
+            this.setVelocity(0, 0)
+        } else {
+            this.setVelocity(dir.x, dir.y)
+
+            this.setTint(0xff0000)
+            this.healthState = HealthState.DAMAGE
+            this.scene.time.delayedCall(300, () => {
+                this.clearTint()
+                this.healthState = HealthState.IDLE
+            }, [], this)
+        }
     }
 
     preUpdate(time: number, delta: number) {
@@ -20,7 +56,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
-        if(!cursors) {
+        if(!cursors || this.healthState === HealthState.DEAD
+            || this. healthState === HealthState.DAMAGE) {
             return
         }
 
