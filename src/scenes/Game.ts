@@ -21,6 +21,8 @@ export default class Game extends Phaser.Scene{
     private freezing: boolean = false
     private playerMonsterCollider?: Phaser.Physics.Arcade.Collider | null
 
+    private mapContext
+
 	constructor(){
 		super('game')
 	}
@@ -29,16 +31,18 @@ export default class Game extends Phaser.Scene{
         this.cursors = this.input.keyboard.createCursorKeys()
 
         let this_scene = this
-        let keyObj = this.input.keyboard.addKey('W') // Get key object
-        keyObj.on('down', function(event) {
+        this.input.keyboard.addKey('W').on('down', function(event) {
             console.log("restart")
             this_scene.scene.restart()
-        })
+        }, this)
 
-        keyObj = this.input.keyboard.addKey('X') // Get key object
-        keyObj.on('down', function(event) {
-            this_scene.handleFreeze()
-        })
+        this.input.keyboard.addKey('X').on('down', this.handleFreeze, this)
+
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE).on('down', this.startMap, this)
+    }
+
+    startMap(){
+        this.scene.start('map', { mapContext: this.mapContext });
     }
 
     handleFreeze(){
@@ -52,7 +56,11 @@ export default class Game extends Phaser.Scene{
         }
     }
 
-    create(){
+    create(data){
+        if(data?.mapContext){
+            this.mapContext = data.mapContext
+        }
+
         // Launch UI
         this.scene.run('game-ui')
 

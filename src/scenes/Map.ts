@@ -5,7 +5,6 @@ import FileContainer from "./FileContainer";
 
 export default class Map extends Phaser.Scene{
     private filestep = 3/10
-    private currentElements: FileContainer[] = []
     private currentChildren: FileContainer[] = []
     private currentTop: FileContainer[] = []
 
@@ -16,8 +15,6 @@ export default class Map extends Phaser.Scene{
 
 
     private fileTree
-
-    private tree
 
     // There must be always at least 1 element in the pathToCurrent (root)
     //private pathToCurrent: string[] = ['root', 'cde']
@@ -168,17 +165,42 @@ export default class Map extends Phaser.Scene{
     }
 
     selectRoom(event){
-        console.log("selectRoom")
+        let pathTemp = Array.from(this.pathToCurrent)
+        if(this.selected.getName() !== 'root'){
+            pathTemp.push(this.selected.getId())
+        }
 
+
+        let fileToOpen = this.getElementByPath(pathTemp)
+        this.scene.start('game', { 
+            mapContext : {
+                file : fileToOpen,
+                path: this.pathToCurrent,
+                selectedId: this.selectedId,
+                selected: this.selected
+            }
+        });
+
+        // Start game with the element
+    }
+
+    getElementByPath(path?:integer[]){
+        if(!path){
+            path = this.pathToCurrent
+        }
+
+        let currentElement = { children: this.fileTree, name:'super root' }
+        path.forEach(element => {
+            currentElement = currentElement.children[element]
+        })
+
+        return currentElement
     }
 
 
 
-    preload(data){
-        // take path from data
-
+    preload(){
         this.fileTree = this.cache.json.get('metrics')
-        this.pathToCurrent = [0]
 
         this.getCurrentChildren()
         
@@ -193,7 +215,24 @@ export default class Map extends Phaser.Scene{
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER).on('down', this.selectRoom, this)
     }
 
-    create(){
+    create(data){
+        this.olds = []
+
+        if(data?.mapContext){
+            let ctx = data.mapContext
+            this.selected = ctx.selected
+            this.pathToCurrent = ctx.path
+            this.selectedId = ctx.selectedId
+
+        } else {
+            this.pathToCurrent = [0]
+            this.selectedId = 0
+        }
+
+        this.currentChildren = []
+        this.currentTop = []
+        this.lastSelectedId = 0
+        
         this.gameCanvas = this.game.canvas
         this.cWidth = this.gameCanvas.width
         this.cHeight = this.gameCanvas.height
@@ -206,7 +245,17 @@ export default class Map extends Phaser.Scene{
 
         this.cam.setBackgroundColor(0x483B3A)
     
-        this.drawFiles(true)
+
+        if(data?.mapContext){
+            if(this.selectedId === -1){
+                this.drawFiles(true)
+            } else {
+                this.drawTopFile(this.getParentPath(), this.pathToCurrent[this.pathToCurrent.length - 1], false)
+                this.drawChildren(this.selected, true, true)
+            }
+        } else {
+            this.drawFiles(true)
+        }
     }
 
     update(t:number, dt:number){
@@ -257,7 +306,7 @@ export default class Map extends Phaser.Scene{
         this.drawChildren(undefined, !selectedTop)
     }
 
-    drawChildren(fileToNotDraw?:FileContainer, selected:boolean=true){
+    drawChildren(fileToNotDraw?:FileContainer, selected:boolean=true, stillDraw:boolean=false){
         let children = this.getCurrentChildren()
 
 
@@ -286,7 +335,7 @@ export default class Map extends Phaser.Scene{
 
 
         for(let i=0; i < children.length; i++){
-            if(fileToNotDraw && i === selec_){
+            if(fileToNotDraw && i === selec_ && !stillDraw){
                 this.currentChildren.push(fileToNotDraw)
             } else {
                 let a = Array.from(this.pathToCurrent)
