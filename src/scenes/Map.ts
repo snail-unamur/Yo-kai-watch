@@ -1,23 +1,50 @@
 import Phaser from "phaser";
 
+import './FileContainer'
+import FileContainer from "./FileContainer";
+
 export default class Map extends Phaser.Scene{
-    private currentElements = {}
+    private filestep = 3/10
+    private currentElements: FileContainer[] = []
+    private currentChildren: FileContainer[] = []
+    private currentTop: FileContainer[] = []
+
+    private lastSelectedId:number = 0
+
+
+    private olds: FileContainer[] = []
+
 
     private fileTree = {
         'root':{
             'a':{},
+            'c':{},
+            'd':{},
+            'e':{},
             'b':{},
             'cde':{
                 'fqfdfsfd':{},
-                'fdqfsdfefazeafdqs':{}
+                'fdqfsdfefazeafdqs':{
+                    'a':{},
+                    'c':{},
+                    'd':{},
+                    'e':{},
+                    'b':{},
+                    'cde':{
+                        'fqfdfsfd':{},
+                        'fdqfsdfefazeafdqs':{}
+                    }
+                }
             }
         }
     }
 
     private current: object = this.fileTree
     // There must be always at least 1 element in the pathToCurrent (root)
+    //private pathToCurrent: string[] = ['root', 'cde']
     private pathToCurrent: string[] = ['root', 'cde']
-    private selected: string = 'fqfdfsfd'
+    private selected!: FileContainer
+    private selectedId: number = 0
     
         
     private gameCanvas!: HTMLCanvasElement
@@ -37,52 +64,125 @@ export default class Map extends Phaser.Scene{
 
     preload(){
 
+        // Setup keyboard control
         let this_scene = this
-
-        // The cursor of the player is always on the lower level
         this.input.keyboard.addKey('right').on('up', function(event) {
-            let keys = Object.keys(this_scene.getCurrentChildren())
-            let cKey = keys.indexOf(this_scene.selected)
+            if(this_scene.selectedId >= this_scene.currentChildren.length-1 || this_scene.selectedId === -1){
+                this_scene.cameras.main.shake(250, 0.005)
+                return
+            }
 
-            this_scene.setSelected(keys[(cKey + 1) % keys.length])
+            this_scene.setSelected((this_scene.selectedId + 1) % this_scene.currentChildren.length)
+    
+            this_scene.currentChildren.forEach(element => {
+                element.setDestination(- this_scene.filestep*this_scene.cWidth, 0)
+            })
         })
+
 
         this.input.keyboard.addKey('left').on('up', function(event) {
-            let keys = Object.keys(this_scene.getCurrentChildren())
-            let cKey = keys.indexOf(this_scene.selected)
-            if(cKey <= 0){
-                cKey = keys.length
+            if(this_scene.selectedId <= 0){
+                this_scene.cameras.main.shake(250, 0.005)
+                return
             }
-            this_scene.setSelected(keys[(cKey - 1) % keys.length])
+            this_scene.setSelected((this_scene.selectedId - 1) % this_scene.currentChildren.length)
+    
+            this_scene.currentChildren.forEach(element => {
+                element.setDestination(this_scene.filestep*this_scene.cWidth, 0)
+            })
         })
+
 
         this.input.keyboard.addKey('up').on('up', function(event) {
             let last_element = this_scene.pathToCurrent[this_scene.pathToCurrent.length-1]
 
             if(last_element === 'root' || last_element === undefined){
-                if(this_scene.selected === 'root'){
+                if(this_scene.selected.getName() === 'root'){
                     this_scene.cameras.main.shake(250, 0.005)
 
                 } else {
-                    this_scene.setSelected('root')
+                    this_scene.lastSelectedId = this_scene.selectedId
+                    this_scene.setSelected(-1)
 
                 }
 
             } else {
+                // Everything slide up
+                // Old ones fade
+                // New focus grow
+                // New ones appear
+                let s = this_scene.olds.length
+                for(let i=0; i < s; i++){
+                    this_scene.olds.pop()?.destroy()
+                }
+    
+                // Here olds is empty
+                s = this_scene.currentChildren.length
+                for(let i=0; i < s; i++){
+                    let el = this_scene.currentChildren.pop()
+                    el?.setDestination(0, this_scene.cHeight*0.5)
+    
+                    if(el) this_scene.olds.push(el)
+                }                
+                let el
+                if(this_scene.currentTop.length >= 1) el = this_scene.currentTop.pop()
+                el.setIsTop(false)
+                //this_scene.olds.push(el)
+                el.setDestination(0, + this_scene.cHeight * 0.4)
+    
+                // Olds is full and going up, current empty
+                
                 this_scene.pathToCurrent.pop()
-                this_scene.setSelected(last_element!)
+
+                this_scene.drawChildren2(el)
+                //this_scene.setSelected(last_element!)
+                // Change top element
+                console.log(this_scene.pathToCurrent[this_scene.pathToCurrent.length-1])
+                this_scene.drawTopFile(this_scene.pathToCurrent[this_scene.pathToCurrent.length-1])
             }
         })
 
+
         this.input.keyboard.addKey('down').on('up', function(event) {
-            if(this_scene.selected !== 'root'){
-                this_scene.pathToCurrent.push(this_scene.selected)
+            let selectedName = this_scene.selected.getName()
+            if(selectedName !== 'root'){
+                this_scene.pathToCurrent.push(selectedName)
+            } else {
+                this_scene.selected.setSelected(false)
+
+                this_scene.setSelected(this_scene.lastSelectedId)
+                return
             }
 
             let children = Object.keys(this_scene.getCurrentChildren())
-
+            
             if(children.length !== 0){
-                this_scene.setSelected(children[0])
+                // empty olds
+                let s = this_scene.olds.length
+                for(let i=0; i < s; i++){
+                    this_scene.olds.pop()?.destroy()
+                }
+                s = this_scene.currentChildren.length
+
+                let el_
+                this_scene.currentTop.pop()?.destroy() // need to change
+                
+                s = this_scene.currentChildren.length
+                for(let i=0; i < s; i++){
+                    let el = this_scene.currentChildren.pop()
+                    el?.setDestination(0, -this_scene.cHeight*0.4)
+                    if(el?.getName() === this_scene.selected.getName()){
+                        this_scene.currentTop.push(el)
+                        el.setIsTop(true)
+                        el.setSelected(false)
+                    } else {
+                        // Must fade all but chosen one
+                        if(el) this_scene.olds.push(el)
+                    }
+                }
+                this_scene.drawChildren()
+
+                this_scene.setSelected(0)
             } else {
                 this_scene.pathToCurrent.pop()
                 this_scene.cameras.main.shake(250, 0.005)
@@ -112,6 +212,12 @@ export default class Map extends Phaser.Scene{
     }
 
     update(t:number, dt:number){
+        this.currentChildren.forEach(element => {
+            element.update()
+        })
+        this.currentTop.forEach(element => {
+            element.update()
+        })
 
         // update camera
         if(this.camRemainingTime > 0){
@@ -128,12 +234,14 @@ export default class Map extends Phaser.Scene{
         this.pathToCurrent.forEach(element => {
             children = children[element]
         })
-        return children
+        return children // list of strings which are the children
     }
 
     drawFiles(){
+        // At the initialization
         this.drawTopFile(this.pathToCurrent[this.pathToCurrent.length - 1])
         this.drawChildren()
+        //this.currentTop[0].setSelected(true)
     }
 
     drawChildren(){
@@ -141,64 +249,71 @@ export default class Map extends Phaser.Scene{
 
         let keys = Object.keys(children)
 
-        if(keys.length > 2){
-            this.drawRightChild(keys[2])
-        }
+        let step = this.filestep * this.cWidth
+        let firstX = this.cWidth / 2 //-this.cWidth / 10
 
-        if(keys.length > 1){
-            this.drawCenterChild(keys[1])
+
+        /*if(keys.length < 3){
+            firstX += step
+        }*/
+
+        for(let i=0; i < keys.length /*&& i < 5*/; i++){
+            this.currentChildren.push(this.drawFile(firstX + i*step, this.cHeight * 0.7, this.cWidth*0.25, this.cHeight*0.2, keys[i]))
         }
-        
-        if(keys.length > 0){
-            this.drawLeftChild(keys[0])
+        let selec_ = 0
+        this.selectedId = selec_
+        this.selected = this.currentChildren[selec_]
+        this.currentChildren[selec_].setSelected(true)
+    }
+
+    drawChildren2(fileToNotDraw:FileContainer){
+        let children = this.getCurrentChildren()
+
+        let keys = Object.keys(children)
+
+        let selec_ = keys.indexOf(fileToNotDraw.getName())
+
+        let step = this.filestep * this.cWidth
+        let firstX = (this.cWidth / 2) - step * selec_ 
+
+        for(let i=0; i < keys.length; i++){
+            if(i !== selec_){
+                this.currentChildren.push(this.drawFile(firstX + i*step, this.cHeight * 0.7, this.cWidth*0.25, this.cHeight*0.2, keys[i]))
+            } else {
+                this.currentChildren.push(fileToNotDraw)
+            } 
         }
+        this.selectedId = selec_
+        this.selected = this.currentChildren[selec_]
+        this.currentChildren[selec_].setSelected(true)
     }
 
     drawTopFile(fileName:string){
-        this.drawFile(this.cWidth/2, this.cHeight * 0.3, this.cWidth*0.4, this.cHeight*0.25, fileName)
+        let f = this.drawFile(this.cWidth/2, this.cHeight * 0.3, this.cWidth*0.25, this.cHeight*0.2, fileName)
+        this.currentTop.push(f)
+        f.setIsTop(true)
     }
 
-    drawLeftChild(fileName:string){
-        this.drawFile(this.cWidth/5, this.cHeight * 0.7, this.cWidth*0.25, this.cHeight*0.2, fileName)
-    }
-
-    drawRightChild(fileName:string){
-        this.drawFile(this.cWidth -this.cWidth/5, this.cHeight * 0.7, this.cWidth*0.25, this.cHeight*0.2, fileName)
-    }
-
-    drawCenterChild(fileName:string){
-        this.drawFile(this.cWidth/2, this.cHeight * 0.7, this.cWidth*0.25, this.cHeight*0.2, fileName)
-    }
 
     drawFile(x:number, y:number, width:number, height:number, name:string){
-        if(this.selected === name){
-            width *= 1.1
-            height *= 1.1
-        }
+        let fileContainer = this.add.fileContainer(x, y, width, height, name, 0x00aa00)
+        
 
-        let r = this.add.rectangle(x, y, width, height, 0x00aa00)
-        let t = this.add.text(x - width/2, y - height/2 - 16, name)
-        t.setColor('white')
-        r.alpha = 0.5
-
-        this.currentElements[name] = [r, t]
-
-        if(this.selected === name){
-            r.strokeColor = 0xaaffaa
-            r.isStroked = true
-            r.alpha = 1
-        }
+        return fileContainer
     }
 
-    setSelected(name:string){
-        this.selected = name
-        Object.keys(this.currentElements).forEach(element => {
-            this.currentElements[element].forEach(element1 =>{
-                element1.destroy()
-            })
-        });
+    setSelected(id:number){
+        this.selected.setSelected(false)
+        //this.currentChildren[this.selectedId].setSelected(false)
+        this.selectedId = id
 
-        this.drawFiles()
-
+        let el
+        if(id === -1){
+            el =  this.currentTop[0]
+        } else {
+            el = this.currentChildren[id]
+        }
+        this.selected = el
+        el.setSelected(true)
     }
 }
