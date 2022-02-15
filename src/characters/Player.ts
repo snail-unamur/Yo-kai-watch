@@ -38,13 +38,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.health <= 0) {
             this.healthState = HealthState.DEAD
             this.anims.play('player-idle')
+            this.setTint(0x8c0000)
             this.setVelocity(0, 0)
         } else {
             this.setVelocity(dir.x, dir.y)
 
             this.setTint(0xff0000)
             this.healthState = HealthState.DAMAGE
-            this.scene.time.delayedCall(300, () => {
+            this.scene.time.delayedCall(120, () => {
                 this.clearTint()
                 this.healthState = HealthState.IDLE
             }, [], this)
