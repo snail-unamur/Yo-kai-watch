@@ -40,6 +40,14 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    getMonsterType(){
+        return this.monsterType
+    }
+    
+    getMonsterSize(){
+        return this.monsterSize
+    }
+
     playAnim(){
         this.anims.play(this.monsterSize+'-'+this.monsterType+'-run')
     }
