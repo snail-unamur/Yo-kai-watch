@@ -64,10 +64,9 @@ export default class FileContainer extends Phaser.GameObjects.Container{
 
         } else {
             this.image = new Phaser.GameObjects.Image(scene, 0, 16, 'big_zombie_idle_anim_f1')
-        
             this.rectangle.fillStyle(0x202121, 1)
-
         }
+        
         this.rectangle.fillRoundedRect(-width/2, -height/2 + 16, width, height,8)
 
         this.image.setScale(2)
