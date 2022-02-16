@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser, { Time } from 'phaser'
 import Player from '~/characters/Player'
 import '~/characters/Player'
 
@@ -8,8 +8,11 @@ import Monster from '~/enemies/Monster'
 
 import { ConstantsTiles, MonsterConstantsSize, MonsterConstantsType } from '~/utils/Const'
 
+import FileChild from './FileChild'
+
 import { sceneEvents } from '~/events/EventCenter'
 import SwordContainer from '~/weapons/SwordContainer'
+import { Vector } from 'matter'
 
 export default class Game extends Phaser.Scene{
     private static readonly TILE_SIZE = 16  
@@ -23,13 +26,22 @@ export default class Game extends Phaser.Scene{
 
     private enemies!: Phaser.Physics.Arcade.Group
     private groundLayer!: Phaser.Tilemaps.TilemapLayer
+    private fileLayer!: Phaser.Tilemaps.TilemapLayer
 
     private freezeLayer
     private freezing: boolean = false
     private playerMonsterCollider?: Phaser.Physics.Arcade.Collider | null
 
+
+    private tooltip!: Phaser.GameObjects.Text
+
     private mapContext
     private sonarQubeData
+
+    private monsterHovered:boolean = false
+
+
+    private fileChildren:FileChild[] = []
 
 	constructor(){
 		super('game')
@@ -47,6 +59,7 @@ export default class Game extends Phaser.Scene{
         this.input.keyboard.addKey('X').on('down', this.handleFreeze, this)
 
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE).on('down', this.startMap, this)
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
     }
 
     startMap(){
@@ -65,6 +78,7 @@ export default class Game extends Phaser.Scene{
     }
 
     create(data){
+        this.fileChildren = []
         if(data?.mapContext){
             this.mapContext = data.mapContext
             this.sonarQubeData = this.mapContext.file
@@ -72,6 +86,7 @@ export default class Game extends Phaser.Scene{
         } else {
             this.generationRandom()
         }
+
 
         // Launch UI
         this.scene.run('game-ui')
@@ -98,32 +113,27 @@ export default class Game extends Phaser.Scene{
         this.sword = new SwordContainer(this, this.player.x, this.player.y)
 
         // Enemies
+        let this_game = this
         this.enemies = this.physics.add.group({
             classType: Monster,
             createCallback: (go) => {
                 const enemyGo = go as Monster
                 enemyGo.body.onCollide = true
+                enemyGo.setBounce(1)
+                enemyGo.setInteractive()
+
+                enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
+                    this_game.tooltip.setVisible(true)
+                    this_game.monsterHovered = true
+                    this_game.tooltip.setText(enemyGo.getMonsterSize().toString())
+                })
+
+                enemyGo.on('pointerout', function(pointer){
+                    this_game.monsterHovered = false
+                    this_game.tooltip.setVisible(false)
+                })
             }
         })
-
-        let enemy:Monster
-        let c=-1
-
-        let arr = [MonsterConstantsType.DEMON, MonsterConstantsType.GOBLIN, MonsterConstantsType.ZOMBIE]
-        arr.forEach((monsterType:MonsterConstantsType) => {
-            let c1=-1
-            let arr2 = [MonsterConstantsSize.BIG, MonsterConstantsSize.MEDIUM, MonsterConstantsSize.TINY]
-            arr2.forEach((monsterSize:MonsterConstantsSize) => {
-                // enemy = this.enemies.get(center + 30 * c1, center + 80 * c, 'player')
-                enemy = this.enemies.get(center + 80 * c1 / 2, center + 80 * c + 40, 'player')
-                enemy.setMonsterType(monsterType)
-                enemy.setMonsterSize(monsterSize)
-                enemy.playAnim()
-                enemy.setBounce(1)
-                c1++
-            })
-            c++
-        });
 
         
         // Add walls layer
@@ -152,6 +162,49 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer.fill(0x000000, 0.5)
         this.handleFreeze()
         this.handleFreeze()
+
+
+
+        const textStyle = {
+            font: "normal 16px Arial",
+            fill: '#ffffff',
+            align: 'center',
+            boundsAlignH: "center", // bounds center align horizontally
+            boundsAlignV: "middle", // bounds center align vertically
+            padding: {
+                x: 8,
+                y: 8
+            }
+        }
+
+        this.tooltip = this.add.text(0, 0, "this is a tooltip", textStyle)
+        this.tooltip.setScale(0.5) // revert camera zoom
+        this.tooltip.setWordWrapWidth(100) // buggy when text is overriden
+        this.tooltip.setBackgroundColor('black')
+        this.tooltip.setAlpha(0.7)
+        this.tooltip.setVisible(false)
+
+
+        this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
+            this_game.tooltip.setPosition(pointer.worldX - this_game.tooltip.getBounds().width, pointer.worldY - this_game.tooltip.getBounds().height)
+
+            if(!this_game.monsterHovered){
+                let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
+                if(tileHovered){
+                    this_game.tooltip.visible = true
+                    this_game.tooltip.setText(tileHovered.collisionCallback().getName())
+                }  else {
+                    this_game.tooltip.visible = false
+                }
+            }
+        }, this)
+
+
+        this.fileChildren.forEach((file:FileChild) => {
+            setTimeout(() => {
+                file.getMonster()
+            }, 500*Math.floor(Math.random()*5)) // The randomness here is just to make the first spawn more funky :)
+        })
     }
 
     generation(){
@@ -169,7 +222,7 @@ export default class Game extends Phaser.Scene{
         this.dungeon_size = Game.NB_TILE_PER_FILE * 5
 
         if(nbFileBySide >= 4){
-            this.dungeon_size = Game.NB_TILE_PER_FILE * nbFileBySide + 4
+            this.dungeon_size = (Game.NB_TILE_PER_FILE+1) * nbFileBySide + 4
         }
 
         // Add ground layer
@@ -218,16 +271,19 @@ export default class Game extends Phaser.Scene{
         }
 
         // Add File delimitation layer
-        const fileLimitLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+        this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
         let baseX = 2
         let baseY = 2
 
+        let file
+
         for(let i=0; i < nbFile; i++){
+            file = this.sonarQubeData.children[i]
             this.generateFileLimitation(
-                fileLimitLayer, 
+                this.fileLayer, 
                 baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
                 baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-                Game.NB_TILE_PER_FILE)
+                Game.NB_TILE_PER_FILE, file)
         }
     }
 
@@ -262,16 +318,33 @@ export default class Game extends Phaser.Scene{
 
 
         // Add File delimitation layer
-        const fileLimitLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+        this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
 
         //fileLimitLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2);
         //this.generateFileLimitation()
 
         const file_tiles_size = 4
+        const file = {
+            name: 'UserRegistrationForm.php', 
+            type: 'FIL', 
+            path: 'root/UserRegistrationForm.php', 
+            key: 'Caitanyakotla_Hobby-Projects:UserRegistrationForm.php', 
+            measures: [
+                {metric: 'code_smells', value: '3', bestValue: false},
+                {metric: 'sqale_index', value: '15', bestValue: false},
+                {metric: 'sqale_rating', value: '1.0', bestValue: true}, 
+                {metric: 'security_rating', value: '1.0', bestValue: true}, 
+                {metric: 'reliability_rating', value: '3.0', bestValue: false}, 
+                {metric: 'reliability_remediation_effort', value: '20', bestValue: false}, 
+                {metric: 'security_remediation_effort', value: '0', bestValue: true}, 
+                {metric: 'vulnerabilities', value: '0', bestValue: true}
+            ]
+        }
+        
 
-        this.generateFileLimitation(fileLimitLayer, 3, 7, file_tiles_size)
-        this.generateFileLimitation(fileLimitLayer, 6, 9, file_tiles_size)
-        this.generateFileLimitation(fileLimitLayer, 4, 4, file_tiles_size)
+        this.generateFileLimitation(this.fileLayer, 3, 7, file_tiles_size, file)
+        this.generateFileLimitation(this.fileLayer, 6, 9, file_tiles_size, file)
+        this.generateFileLimitation(this.fileLayer, 4, 4, file_tiles_size, file)
     }
 
     handlePlayerMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
@@ -298,8 +371,8 @@ export default class Game extends Phaser.Scene{
 
     }
 
-    generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number){
-        let l = new Array(size).fill(-1)
+    generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number, file:{name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
+        let l = new Array(size).fill(0)
         let t = new Array()
         for(let i=0; i < size; i++){
             t.push(Array.from(l))
@@ -318,25 +391,22 @@ export default class Game extends Phaser.Scene{
             t[i][size-1] = ConstantsTiles.WALL_RIGHT
         }
 
-        fileLayer.putTilesAt(t, x, y).alpha = 0.5
-        
-        /*for(let i=x; i < x+size; i++){
-            for(let j=y; j < y+size; j++){
-                this.groundLayer.putTileAt(ConstantsTiles.GROUND_TOP_LEFT_HOLE, i, j)
-            }
-        }*/
+        this.fileLayer.putTilesAt(t, x, y).alpha = 0.5
+
+        let fileChild = new FileChild(file, this, x*Game.TILE_SIZE, y*Game.TILE_SIZE, size*Game.TILE_SIZE, size*Game.TILE_SIZE)
+        this.fileChildren.push(fileChild)
+
+        this.fileLayer.tilemap.setTileLocationCallback(x, y, size*Game.TILE_SIZE, size*Game.TILE_SIZE, (): FileChild => {
+            return fileChild
+        }, {})
 
         return t
-
-        
     }
 
     debugWalls(wallsLayer:Phaser.Tilemaps.TilemapLayer){
         // debug Walls
         const debugGraphics = this.add.graphics().setAlpha(0.3)
         wallsLayer.renderDebug(debugGraphics, {
-            //tileColor:new Phaser.Display.Color(40, 39, 37, 255),
-            //faceColor: new Phaser.Display.Color(40, 39, 37, 255),
             collidingTileColor: new Phaser.Display.Color(243, 234, 48, 200)
         })
     }
@@ -434,5 +504,9 @@ export default class Game extends Phaser.Scene{
         wallsLayer.putTileAt(ConstantsTiles.WALL_BOTTOM_RIGHT_CORNER, dungeon_size - 2, dungeon_size - 2).setCollision(true)
 
         return wallsLayer
+    }
+
+    getEnemies(){
+        return this.enemies
     }
 }

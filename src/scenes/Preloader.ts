@@ -24,7 +24,7 @@ export default class Preloader extends Phaser.Scene {
 
         /*
          * In the following tileset "dungeon_tiles_full.png":
-         * 1 tile = 16 pixels
+         * 1 tile = 16x16 pixels
          * 1 row = 32 tiles
          * */
         this.load.image('tiles', 'tiles/dungeon_tiles_full2.png')
