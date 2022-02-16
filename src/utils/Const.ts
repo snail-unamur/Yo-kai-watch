@@ -18,7 +18,6 @@ export abstract class ConstantsTiles {
     static readonly ECHELLE:number = 195
     static readonly GROUND_CLEAN:number = 129
     static readonly GROUND_CRACK:number = 130
-    static readonly GROUND_SMALL_CRACKS:number = 131
     static readonly GROUND_SLIGHTLY_CRACKED:number = 162
     static readonly GROUND_BOTTOM_LEFT_HOLE:number = 161
     static readonly GROUND_BOTTOM_RIGHT_HOLE:number = 163

@@ -12,6 +12,10 @@ import { sceneEvents } from '~/events/EventCenter'
 import SwordContainer from '~/weapons/SwordContainer'
 
 export default class Game extends Phaser.Scene{
+    private static readonly TILE_SIZE = 16  
+    private static readonly NB_TILE_PER_FILE = 3  
+    private dungeon_size = 10
+
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
     private player!: Player
@@ -25,6 +29,7 @@ export default class Game extends Phaser.Scene{
     private playerMonsterCollider?: Phaser.Physics.Arcade.Collider | null
 
     private mapContext
+    private sonarQubeData
 
 	constructor(){
 		super('game')
@@ -62,6 +67,10 @@ export default class Game extends Phaser.Scene{
     create(data){
         if(data?.mapContext){
             this.mapContext = data.mapContext
+            this.sonarQubeData = this.mapContext.file
+            this.generation()
+        } else {
+            this.generationRandom()
         }
 
         // Launch UI
@@ -72,70 +81,18 @@ export default class Game extends Phaser.Scene{
         createMonsterAnims(this.anims)
 
 
-        const dungeon_min = 16
-        const dungeon_max = 24
-        const dungeon_size = Math.floor(dungeon_min + (Math.random() * (dungeon_max - dungeon_min)))
-
-        const tile_size = 16    
-
-        // Add ground layer
-        const fundationLayer = this.newLayer(tile_size, dungeon_size)
-        fundationLayer.putTilesAt(this.filledMap(dungeon_size, ConstantsTiles.GROUND_CRACK), 0, 0)
-
-        // Add ground layer
-        
-        // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
-        // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
-        this.groundLayer = this.newLayer(tile_size, dungeon_size-2)
-
-        // But the map is like displayed from theses coordinates
-        this.groundLayer.putTilesAt(this.filledMap(dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2)
-
-        // Add random cracked tiles
-        for(let i=2; i < dungeon_size-2; i++){
-            for(let j=2; j < dungeon_size-2; j++){
-                if(Math.random() > 0.9){
-                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK, i, j)
-                }
-            }
-        }
-
-
-
-        // Add File delimitation layer
-        const fileLimitLayer = this.newLayer(tile_size, dungeon_size-2)
-
-        //fileLimitLayer.putTilesAt(this.filledMap(dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2);
-        //this.generateFileLimitation()
-
-        const file_tiles_size = 4
-
-        this.generateFileLimitation(fileLimitLayer, 3, 7, file_tiles_size)
-        this.generateFileLimitation(fileLimitLayer, 6, 9, file_tiles_size)
-        this.generateFileLimitation(fileLimitLayer, 4, 4, file_tiles_size)
-
-
-        // Add treasure
-        // treasure = 58
-        const treasureLayer = this.newLayer(tile_size, dungeon_size)
-        treasureLayer.putTileAt(ConstantsTiles.TREASURE_CLOSED, 2, 2)
-
-        
-        // Add another layer
-        //const acidLayer = this.newLayer(tile_size, dungeon_size/2, "tiles2")
-        //acidLayer.putTilesAt(this.filledMap(8, 1), 0, 0);
-
-
         // Camera management
         let cam = this.cameras.main
-        let center = tile_size * dungeon_size / 2
+        let center = Game.TILE_SIZE * this.dungeon_size / 2
         cam.centerOn(center, center)
         cam.zoom = 2
+        cam.setBackgroundColor(0x202121)
 
 
         // Character
         //this.player = this.add.player(center, center, 'player')
         this.player = this.add.player(center, center, 'player')
+        cam.startFollow(this.player)
 
         // Character Sword
         this.sword = new SwordContainer(this, this.player.x, this.player.y)
@@ -170,7 +127,7 @@ export default class Game extends Phaser.Scene{
 
         
         // Add walls layer
-        const wallLayer = this.createWalls(tile_size, dungeon_size)
+        const wallLayer = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
         this.physics.add.collider(this.player, wallLayer)
         this.physics.add.collider(this.enemies, wallLayer)
         this.physics.add.collider(this.enemies, this.enemies)
@@ -195,6 +152,126 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer.fill(0x000000, 0.5)
         this.handleFreeze()
         this.handleFreeze()
+    }
+
+    generation(){
+        let nbFile
+        console.log(this.sonarQubeData)
+
+        if(this.sonarQubeData.children){
+            nbFile = this.sonarQubeData.children.length
+        } else {
+            nbFile = 0
+        }
+
+        let nbFileBySide = Math.ceil(Math.sqrt(nbFile))
+
+        this.dungeon_size = Game.NB_TILE_PER_FILE * 5
+
+        if(nbFileBySide >= 4){
+            this.dungeon_size = Game.NB_TILE_PER_FILE * nbFileBySide + 4
+        }
+
+        // Add ground layer
+        const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
+        fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CLEAN), 0, 0)
+
+        // Add ground layer
+        /**
+         * 3 type of ground =  CLEAN/SLIGHTLY_CRACKED/CRACK
+         * based on the reliability_rating (1.0=A -> 5.0=E)
+         * 1.0 -> CLEAN
+         * 2.0 -> CLEAN + SLIGHTLY CRACKED
+         * ..
+         * 5.0 -> CRACK
+         * 
+         * General is always clean
+         */
+
+        const reliability_rating = this.sonarQubeData.measures[6].value
+        const probaCracked = -0.2 + reliability_rating*0.2
+        const probaSlightlyCracked = 0.2
+        const probaClean = 1 - probaCracked - probaSlightlyCracked
+        
+
+        
+        // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
+        // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
+        this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+
+        // But the map is like displayed from theses coordinates
+        this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2)
+
+        // Add random cracked tiles based on bugs
+        let r
+        for(let i=2; i < this.dungeon_size-2; i++){
+            for(let j=2; j < this.dungeon_size-2; j++){
+                r = Math.random()
+                if(r >= 1 - probaCracked){
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK, i, j)
+                } else if(r > 1 - probaCracked - probaCracked) {
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_SLIGHTLY_CRACKED, i, j)
+                } else {
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN, i, j)
+                }
+            }
+        }
+
+        // Add File delimitation layer
+        const fileLimitLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+        let baseX = 2
+        let baseY = 2
+
+        for(let i=0; i < nbFile; i++){
+            this.generateFileLimitation(
+                fileLimitLayer, 
+                baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+                baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+                Game.NB_TILE_PER_FILE)
+        }
+    }
+
+    generationRandom(){
+        // generate random dungeon
+        const dungeon_min = 16
+        const dungeon_max = 24
+        this.dungeon_size = Math.floor(dungeon_min + (Math.random() * (dungeon_max - dungeon_min)))  
+
+        // Add ground layer
+        const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
+        fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CRACK), 0, 0)
+
+        // Add ground layer
+
+        // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
+        // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
+        this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+
+        // But the map is like displayed from theses coordinates
+        this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2)
+
+        // Add random cracked tiles
+        for(let i=2; i < this.dungeon_size-2; i++){
+            for(let j=2; j < this.dungeon_size-2; j++){
+                if(Math.random() > 0.9){
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK, i, j)
+                }
+            }
+        }
+
+
+
+        // Add File delimitation layer
+        const fileLimitLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+
+        //fileLimitLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2);
+        //this.generateFileLimitation()
+
+        const file_tiles_size = 4
+
+        this.generateFileLimitation(fileLimitLayer, 3, 7, file_tiles_size)
+        this.generateFileLimitation(fileLimitLayer, 6, 9, file_tiles_size)
+        this.generateFileLimitation(fileLimitLayer, 4, 4, file_tiles_size)
     }
 
     handlePlayerMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
@@ -242,11 +319,12 @@ export default class Game extends Phaser.Scene{
         }
 
         fileLayer.putTilesAt(t, x, y).alpha = 0.5
-        for(let i=x; i < x+size; i++){
+        
+        /*for(let i=x; i < x+size; i++){
             for(let j=y; j < y+size; j++){
                 this.groundLayer.putTileAt(ConstantsTiles.GROUND_TOP_LEFT_HOLE, i, j)
             }
-        }
+        }*/
 
         return t
 
