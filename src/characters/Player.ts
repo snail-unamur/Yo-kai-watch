@@ -1,4 +1,5 @@
-import Phaser from 'phaser'
+import Phaser, { GameObjects } from 'phaser'
+import SwordContainer from '~/weapons/SwordContainer'
 
 declare global {
     namespace Phaser.GameObjects {
@@ -56,7 +57,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         super.preUpdate(time, delta)
     }
 
-    update(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
+    update(cursors: Phaser.Types.Input.Keyboard.CursorKeys, sword: SwordContainer) {
         if(!cursors || this.healthState === HealthState.DEAD
             || this. healthState === HealthState.DAMAGE) {
             return
@@ -100,6 +101,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.anims.play('player-run', true)
 
         }
+
+        
+        if(cursors.space?.isDown && sword.isPhysicsDisplayContained) {
+            sword.rotateBy(50)
+            sword.setVisible(true)
+            sword.physicsBody.setEnable(true)
+        } else {
+            sword.physicsBody.setEnable(false)
+            sword.setVisible(false)
+            sword.setActive(false)
+        }
+        sword.updatePosition(this.x, this.y)
     }
 }
 

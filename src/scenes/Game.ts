@@ -9,11 +9,14 @@ import Monster from '~/enemies/Monster'
 import { ConstantsTiles, MonsterConstantsSize, MonsterConstantsType } from '~/utils/Const'
 
 import { sceneEvents } from '~/events/EventCenter'
+import SwordContainer from '~/weapons/SwordContainer'
 
 export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
     private player!: Player
+    private sword?: SwordContainer
+
     private enemies!: Phaser.Physics.Arcade.Group
     private groundLayer!: Phaser.Tilemaps.TilemapLayer
 
@@ -134,6 +137,9 @@ export default class Game extends Phaser.Scene{
         //this.player = this.add.player(center, center, 'player')
         this.player = this.add.player(center, center, 'player')
 
+        // Character Sword
+        this.sword = new SwordContainer(this, this.player.x, this.player.y)
+
         // Enemies
         this.enemies = this.physics.add.group({
             classType: Monster,
@@ -172,6 +178,15 @@ export default class Game extends Phaser.Scene{
         // Player monster collider
         this.playerMonsterCollider = this.physics.add.collider(this.player, this.enemies, this.handlePlayerMonsterCollision, undefined, this)
 
+        // Sword monster collider
+        this.physics.add.overlap(this.sword.physicsDisplay, this.enemies, (obj1, obj2) => {
+            // Destroy the enemy
+            const sword = obj1 as SwordContainer
+            const enemy = obj2 as Monster
+            enemy.destroy()
+            
+        })
+        
         //this.debugWalls(wallLayer)
 
         
@@ -249,11 +264,11 @@ export default class Game extends Phaser.Scene{
     }
 
     update(t:number, dt:number){
-        if(!this.player){
+        if(!this.player || !this.sword){
             return
         }
         
-        this.player.update(this.cursors)
+        this.player.update(this.cursors, this.sword)
         
         
         // Make enemies run towards the player
