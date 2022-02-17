@@ -23,6 +23,7 @@ export default new Phaser.Game({
 	scene: [MenuProjects, Preloader, Map, Game, GameUI],
 	parent: 'phaser-container',
 	scale: {
+		mode: Phaser.Scale.FIT,
 		zoom: 1,
 		autoCenter: Phaser.Scale.CENTER_BOTH
 	},
