@@ -1,4 +1,4 @@
-import Phaser, { GameObjects } from 'phaser'
+import Phaser from 'phaser'
 import SwordContainer from '~/weapons/SwordContainer'
 
 declare global {
