@@ -1,31 +1,39 @@
-import express from 'express';
-import cors from 'cors';
-import { getSonarqubeData, makeTree } from './utils.js';
+import express from 'express'
+import cors from 'cors'
+import { getSonarqubeMetricData, getSonarqubeProjects, makeTree } from './utils.js'
 
-const app = express();
-let tree;
+const app = express()
+let tree
 
 app.use(cors(
     {
         origin: 'http://localhost:8000',
     }
-));
+))
 
 app.get('/metrics', async (req, res) => {
-    const project = req.query.project;
+    const project = req.query.project
 
     if(!tree){
         // Get sonarqube data
-        const sqData = await getSonarqubeData(project, 1, []);
+        const sqData = await getSonarqubeMetricData(project, 1, [])
         
         // Convert to data structure
-        tree = makeTree(sqData);
+        tree = makeTree(sqData)
     }
     
-    res.json(tree);
+    res.json(tree)
 });
 
-const PORT = process.env.PORT || 5000;
+app.get('/search', async (req, res) => {
+    const query = req.query.query
 
-app.listen(PORT, () => { console.log(`Server started on port ${PORT}`)});
+    const sqData = await getSonarqubeProjects(query)
+
+    res.json(sqData)
+})
+
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, () => { console.log(`Server started on port ${PORT}`)})
 

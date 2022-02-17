@@ -21,7 +21,7 @@ export default class Preloader extends Phaser.Scene {
          * reliability_remediation_effort = bugs debt / time to fix (in minutes)
          */
         // ENABLE THIS TO GET DATA (DISABLED TO NOT DESTROY THE SONARCLOUD API EVERY TIME WE TEST SOMETHING)
-        this.load.json('metrics', 'http://localhost:5000/metrics?project=Caitanyakotla_Hobby-Projects')
+        // this.load.json('metrics', 'http://localhost:5000/metrics?project=Caitanyakotla_Hobby-Projects')
         //this.load.json('metrics', 'http://localhost:5000/metrics?project=brave_brave-core')  
 
         /*
@@ -52,14 +52,15 @@ export default class Preloader extends Phaser.Scene {
         this.load.image('ui_heart_empty', 'ui/ui_heart_empty.png')
         this.load.image('ui_heart_full', 'ui/ui_heart_full.png')
 
-
+        // Loading weapons
+        this.load.image('sword', 'weapons/swordGold.png')
         this.createLoading()
     }
 
 
     create() {
         this.scene.start('game');
-        //this.scene.start('map');
+        // this.scene.start('map');
     }
 
 

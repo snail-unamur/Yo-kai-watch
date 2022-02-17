@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 /**
  * 
@@ -6,26 +6,26 @@ import axios from "axios";
  * @param {array} dataArray the array to append to
  * @returns {array} the dataArray with the sonarqube data appended
  */
- export async function getSonarqubeData(project, page, dataArray) {
+ export async function getSonarqubeMetricData(project, page, dataArray) {
     const url =  `https://sonarcloud.io/api/measures/component_tree?component=${project}&metricKeys=code_smells,sqale_index,sqale_rating,vulnerabilities,security_rating,security_remediation_effort,bugs,reliability_rating,reliability_remediation_effort&ps=500&p=${page}&s=qualifier,name`
-    const sonarQubeDataRes = await axios.get(url);
+    const sonarQubeDataRes = await axios.get(url)
 
     if (page === 1) {
-        sonarQubeDataRes.data.baseComponent.path = 'root';
+        sonarQubeDataRes.data.baseComponent.path = 'root'
         const cleanedDataRes = [
             sonarQubeDataRes.data.baseComponent,
             sonarQubeDataRes.data.components
-        ].flat();
-        dataArray.push(cleanedDataRes);
-        return getSonarqubeData(project, page + 1, dataArray);
+        ].flat()
+        dataArray.push(cleanedDataRes)
+        return getSonarqubeMetricData(project, page + 1, dataArray)
 
     } else {
         const components = sonarQubeDataRes.data.components
         if(components.length !== 0) {
-            dataArray.push(components);
-            return getSonarqubeData(project, page + 1, dataArray);
+            dataArray.push(components)
+            return getSonarqubeMetricData(project, page + 1, dataArray)
         } else {
-            return dataArray.flat();
+            return dataArray.flat()
         }
     }
 }
@@ -60,11 +60,18 @@ export function makeTree(data) {
     for (const component of data) {
         // add 'root/' to the beginning of the path
         if (component.path !== 'root') {
-            component.path = 'root/' + component.path;
+            component.path = 'root/' + component.path
         }
         const splittedPath = component.path.split('/')
         addPath(splittedPath, tree, component)
     }
 
     return tree
+}
+
+export async function getSonarqubeProjects(query) {
+    const url = `https://sonarcloud.io/api/components/search_projects?boostNewProjects=false&ps=50&f=analysisDate&filter=query=${query}&s=analysisDate&asc=false`
+
+    const sonarQubeDataRes = await axios.get(url)
+    return sonarQubeDataRes.data.components
 }
