@@ -32,7 +32,7 @@ export default class MenuProjects extends Phaser.Scene {
         this.projectNames = this.cache.json.get('project_names')
 
 
-        this.textEditZone = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.4, this.projectQuery, { 
+        this.textEditZone = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.3, this.projectQuery, { 
             fixedWidth: 300, 
             fixedHeight: 36,
             padding:{
@@ -86,7 +86,7 @@ export default class MenuProjects extends Phaser.Scene {
 
         this.suggestionPanel = this.rexUI.add.scrollablePanel({
             x: this.game.canvas.width/2,
-            y: this.game.canvas.height * 0.4 + 40,
+            y: this.game.canvas.height * 0.3 + 40,
             // anchor: undefined,
             width: 480,
             height: 300,
@@ -132,7 +132,7 @@ export default class MenuProjects extends Phaser.Scene {
     createPanel(data) {
         let panel = this.rexUI.add.sizer({
             orientation: 'y',
-            space: { item: 20, top: 20, bottom: 20 }
+            space: { item: 20, top: 7.5, bottom: 20 }
         })
     
     
