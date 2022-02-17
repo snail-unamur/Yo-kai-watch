@@ -57,7 +57,7 @@ export default class SwordContainer extends Phaser.GameObjects.Container
 		this.display.x += width * 0.35
 
 		this.physicsBody.setCircle(25)
-        this.setScale(0.3)
+        this.setScale(0.2)
 		scene.add.existing(this)
 	}
 
