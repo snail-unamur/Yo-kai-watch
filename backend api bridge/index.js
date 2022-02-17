@@ -3,7 +3,6 @@ import cors from 'cors'
 import { getSonarqubeMetricData, getSonarqubeProjects, makeTree } from './utils.js'
 
 const app = express()
-let tree
 
 app.use(cors(
     {
@@ -14,13 +13,11 @@ app.use(cors(
 app.get('/metrics', async (req, res) => {
     const project = req.query.project
 
-    if(!tree){
-        // Get sonarqube data
-        const sqData = await getSonarqubeMetricData(project, 1, [])
-        
-        // Convert to data structure
-        tree = makeTree(sqData)
-    }
+    // Get sonarqube data
+    const sqData = await getSonarqubeMetricData(project, 1, [])
+    
+    // Convert to data structure
+    const tree = makeTree(sqData)
     
     res.json(tree)
 });
@@ -29,8 +26,11 @@ app.get('/search', async (req, res) => {
     const query = req.query.query
 
     console.log(`Project list queried with ${query}`)
+    if(!query) return [] // This is required or the server crash when req.query.query = ""
 
     const sqData = await getSonarqubeProjects(query)
+
+    console.log(sqData.length)
 
     res.json(sqData)
 })

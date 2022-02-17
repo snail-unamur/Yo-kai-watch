@@ -3,25 +3,22 @@ import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
 
 export default class MenuProjects extends Phaser.Scene {
-    private suggestionPanel!: ScrollablePanel
     private textEditZone!: BBCodeText
+    private suggestionPanel!: ScrollablePanel
     private textEdit!: TextEdit
 
-    private projectNames
+    private sceneUI!: Phaser.Scene
 
     private rexUI
 
-    private projectQuery:string = "brave"
+    private projectNames: { key:string }[] = []
+
+
+    private projectQuery:string = "abc"
 
 
     constructor() {
         super('menu_projects');
-    }
-
-    init(data){
-        if(data?.query){
-            this.projectQuery = data.query
-        }
     }
 
     preload() {
@@ -33,7 +30,7 @@ export default class MenuProjects extends Phaser.Scene {
     create() {
         this.projectNames = this.cache.json.get('project_names')
 
-        console.log(this.projectNames)
+
         this.textEditZone = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.4, this.projectQuery, { 
             fixedWidth: 300, 
             fixedHeight: 36,
@@ -54,18 +51,33 @@ export default class MenuProjects extends Phaser.Scene {
             this.textEdit = this.rexUI.edit(this.textEditZone, {
                 onTextChanged: (textObject, text) => {
                     textObject.text = text
-                    this.scene.start('menu_projects', { query:text })
-                    /*console.log(`Text: ${text}`)
-                    this.load.json('project_names', `http://localhost:5000/search?query=${text}`)
-                    this.projectNames = this.cache.json.get('project_names')
-                    console.log(this.projectNames)*/
+                    this.projectQuery = text
+
+                    this.cache.json.remove('project_names')
+                    this.load.json('project_names', `http://localhost:5000/search?query=${this.projectQuery}`)
+                    this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+                        // TODO : don't reload on each key pressed, but only after a short delay in order to not spawn the API 
+                        // texture loaded so use instead of the placeholder
+                        console.log(`requested ${this.projectQuery}`)
+
+                        this.projectNames = this.cache.json.get('project_names')
+
+                        this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+                        this.generatePanel()
+                    })
+                    this.load.start()
+
+
                 }
             })
             //To get the dom element use that: const elem = this.textEdit.inputText.node
         })
 
-        
-        let panelData = []
+        this.generatePanel()
+    }
+
+    generatePanel(){
+        let panelData: string[] = []
 
         this.projectNames.forEach(element => {
             panelData.push(element.key)
@@ -73,12 +85,19 @@ export default class MenuProjects extends Phaser.Scene {
 
         this.suggestionPanel = this.rexUI.add.scrollablePanel({
             x: this.game.canvas.width/2,
-            y: this.game.canvas.height * 0.4 + 20,
+            y: this.game.canvas.height * 0.4 + 40,
             // anchor: undefined,
-            width: 280,
-            height: 100,
+            width: 480,
+            height: 300,
+
+            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, '#0000FF', 0.2),
+          
+            mouseWheelScroller: {
+                focus: false,
+                speed: 0.2
+            },
         
-            scrollMode: 1,// vertical scroll
+            scrollMode: 0,// vertical scroll
         
             // Elements
             panel: {
@@ -94,8 +113,7 @@ export default class MenuProjects extends Phaser.Scene {
             targets: [this.suggestionPanel.getElement('panel')] // The target is the group of element
             
         }).on('child.click', function (child) {
-            console.log(child.name)
-            this_game.scene.start('preloader', { projectName:child.name})
+            this_game.scene.start('preloader', { projectName: child.name })
         })
     }
 
@@ -110,11 +128,11 @@ export default class MenuProjects extends Phaser.Scene {
             let bg = this.rexUI.add.roundRectangle(0, 0, 400, 400, 15, 0x171818)
             panel.add(this.rexUI.add.label({
                 orientation: 'y',
-                width: 280,
+                width: 480,
                 height: 10,
         
                 background: bg,
-                text: this.add.text(0, 0, data[i]),
+                text: this.add.text(0, 0, data[i], { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }),
         
                 align: 'center',
                 name: data[i]
@@ -123,5 +141,5 @@ export default class MenuProjects extends Phaser.Scene {
     
         return panel;
     }
-    
+
 }

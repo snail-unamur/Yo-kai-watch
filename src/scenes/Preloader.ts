@@ -30,6 +30,8 @@ export default class Preloader extends Phaser.Scene {
         // ENABLE THIS TO GET DATA (DISABLED TO NOT DESTROY THE SONARCLOUD API EVERY TIME WE TEST SOMETHING)
         // this.load.json('metrics', 'http://localhost:5000/metrics?project=Caitanyakotla_Hobby-Projects')
         //this.load.json('metrics', 'http://localhost:5000/metrics?project=brave_brave-core')  
+        console.log(`dowloading: ${this.projectName}`)
+        this.load.json('metrics', `http://localhost:5000/metrics?project=${this.projectName}`)
 
         /*
          * In the following tileset "dungeon_tiles_full.png":
