@@ -1,5 +1,6 @@
 import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
 import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
+import Label from "phaser3-rex-plugins/templates/ui/label/Label";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
 
 export default class MenuProjects extends Phaser.Scene {
@@ -109,11 +110,22 @@ export default class MenuProjects extends Phaser.Scene {
 
 
         let this_game = this
-        this.rexUI.setChildrenInteractive(this.suggestionPanel, {
+        let el = this.rexUI.setChildrenInteractive(this.suggestionPanel, {
             targets: [this.suggestionPanel.getElement('panel')] // The target is the group of element
             
-        }).on('child.click', function (child) {
+        })
+        
+        el.on('child.click', function (child) {
+            child.backgroundChildren[0].alpha = 1
             this_game.scene.start('preloader', { projectName: child.name })
+        })
+        
+        el.on('child.over', function (child) {
+            child.backgroundChildren[0].alpha = 0.2
+        })
+        
+        el.on('child.out', function (child) {
+            child.backgroundChildren[0].alpha = 1
         })
     }
 
@@ -126,6 +138,7 @@ export default class MenuProjects extends Phaser.Scene {
     
         for(let i=0; i < data.length; i++){
             let bg = this.rexUI.add.roundRectangle(0, 0, 400, 400, 15, 0x171818)
+   
             panel.add(this.rexUI.add.label({
                 orientation: 'y',
                 width: 480,
