@@ -12,7 +12,7 @@ import FileChild from './FileChild'
 
 import { sceneEvents } from '~/events/EventCenter'
 import SwordContainer from '~/weapons/SwordContainer'
-import { Vector } from 'matter'
+import HealthBar from '~/graphics/Healthbar'
 
 export default class Game extends Phaser.Scene{
     private static readonly TILE_SIZE = 16  
@@ -121,6 +121,9 @@ export default class Game extends Phaser.Scene{
                 enemyGo.body.onCollide = true
                 enemyGo.setBounce(1)
                 enemyGo.setInteractive()
+
+                // Test healthbar
+                const healthbar = new HealthBar(this_game, 30, 0)
 
                 enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
                     this_game.tooltip.setVisible(true)
