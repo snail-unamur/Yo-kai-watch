@@ -14,11 +14,23 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     private health: number = 3
     private healthState: HealthState = HealthState.IDLE
 
+    private infoString: string = ""
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
         this.monsterType = MonsterConstantsType.DEMON
         this.monsterSize = MonsterConstantsSize.TINY
+
+        this.setInfo()
+    }
+
+    setInfo(){
+        this.infoString = `${this.monsterSize} ${this.monsterType}`
+    }
+
+    getInfoString(){
+        return this.infoString
     }
 
     setMonsterType(type:MonsterConstantsType){

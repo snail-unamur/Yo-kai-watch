@@ -125,7 +125,7 @@ export default class Game extends Phaser.Scene{
                 enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
                     this_game.tooltip.setVisible(true)
                     this_game.monsterHovered = true
-                    this_game.tooltip.setText(enemyGo.getMonsterSize().toString())
+                    this_game.tooltip.setText(enemyGo.getInfoString())
                 })
 
                 enemyGo.on('pointerout', function(pointer){
@@ -173,10 +173,11 @@ export default class Game extends Phaser.Scene{
 
         this.tooltip = this.add.text(0, 0, "this is a tooltip", textStyle)
         this.tooltip.setScale(0.5) // revert camera zoom
-        this.tooltip.setWordWrapWidth(10) // buggy when text is overriden
+        this.tooltip.setWordWrapWidth(500) // buggy when text is overriden
         this.tooltip.setBackgroundColor('black')
         this.tooltip.setAlpha(0.7)
         this.tooltip.setVisible(false)
+        this.tooltip.setDepth(1) // put the tooltip in front of every other things
 
 
         this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
@@ -187,7 +188,7 @@ export default class Game extends Phaser.Scene{
                 if(tileHovered){
                     this_game.tooltip.visible = true
                     
-                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getName()))
+                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
                 }  else {
                     this_game.tooltip.visible = false
                 }
