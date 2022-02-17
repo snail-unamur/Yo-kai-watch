@@ -72,7 +72,11 @@ export default class Game extends Phaser.Scene{
         
         if(this.freezing){
             console.log("freeze")
+            this.physics.pause()
+            this.anims.pauseAll()
         } else {
+            this.physics.resume()
+            this.anims.resumeAll()
             console.log("unfreeze")
         }
     }
@@ -153,8 +157,9 @@ export default class Game extends Phaser.Scene{
 
         
         let gameCanvas = this.sys.game.canvas
-        this.freezeLayer = this.add.renderTexture(0, 0, gameCanvas.width, gameCanvas.height)
+        this.freezeLayer = this.add.renderTexture(0, 0, this.dungeon_size*Game.TILE_SIZE, this.dungeon_size*Game.TILE_SIZE)
         this.freezeLayer.fill(0x000000, 0.5)
+        this.freezeLayer.setDepth(1)
         this.handleFreeze()
         this.handleFreeze()
 
@@ -178,7 +183,7 @@ export default class Game extends Phaser.Scene{
         this.tooltip.setBackgroundColor('black')
         this.tooltip.setAlpha(0.7)
         this.tooltip.setVisible(false)
-        this.tooltip.setDepth(1) // put the tooltip in front of every other things
+        this.tooltip.setDepth(2) // put the tooltip in front of every other things
 
 
         this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
@@ -419,6 +424,9 @@ export default class Game extends Phaser.Scene{
             return
         }
         
+        if(this.freezing){
+            return
+        }
         this.player.update(this.cursors, this.sword, dt)
         
         
