@@ -2,10 +2,18 @@ import Phaser from "phaser"
 
 import { MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
 
+enum HealthState {
+    IDLE,
+    DAMAGE,
+    DEAD,
+}
+
 export default class Monster extends Phaser.Physics.Arcade.Sprite {
     private colliding: boolean = false
     private monsterType: MonsterConstantsType
     private monsterSize: MonsterConstantsSize
+    private health: number = 3
+    private healthState: HealthState = HealthState.IDLE
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
@@ -40,6 +48,10 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    setMonsterHealth(hp: number) {
+        this.health = hp
+    }
+
     getMonsterType(){
         return this.monsterType
     }
@@ -48,12 +60,19 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         return this.monsterSize
     }
 
+    getMonsterHealth() {
+        return this.health
+    }
+
     playAnim(){
         this.anims.play(this.monsterSize+'-'+this.monsterType+'-run')
     }
 
 
     runTowards(x: number, y: number) {
+        if (this.healthState === HealthState.DAMAGE) {
+            return
+        }
         const speed = 10
 
         const dx = x - this.x
@@ -69,5 +88,23 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         }
 
         this.setVelocity(monsterVelocity.x, monsterVelocity.y)
+    }
+
+    handleDamage(dir: Phaser.Math.Vector2) {
+        this.health--
+
+        if (this.health <= 0) {
+            // Play animation ?
+            this.healthState = HealthState.DEAD
+            this.destroy()
+        } else {
+            this.setVelocity(dir.x, dir.y)
+            this.setTint(0xff0000)
+            this.healthState = HealthState.DAMAGE
+            this.scene.time.delayedCall(120, () => {
+                this.clearTint()
+                this.healthState = HealthState.IDLE
+            }, [], this)
+        }
     }
 }

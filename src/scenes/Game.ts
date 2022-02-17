@@ -146,13 +146,7 @@ export default class Game extends Phaser.Scene{
         this.playerMonsterCollider = this.physics.add.collider(this.player, this.enemies, this.handlePlayerMonsterCollision, undefined, this)
 
         // Sword monster collider
-        this.physics.add.overlap(this.sword.physicsDisplay, this.enemies, (obj1, obj2) => {
-            // Destroy the enemy
-            const sword = obj1 as SwordContainer
-            const enemy = obj2 as Monster
-            enemy.destroy()
-            
-        })
+        this.physics.add.overlap(this.sword.physicsDisplay, this.enemies, this.handleSwordMonsterCollision, undefined, this)
         
         //this.debugWalls(wallLayer)
 
@@ -208,7 +202,16 @@ export default class Game extends Phaser.Scene{
         })
     }
 
-    generation(){
+    handleSwordMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
+        const enemy = obj2 as Monster
+        
+        // Knockback enemies
+        const knockback = new Phaser.Math.Vector2(enemy.x - this.player.x, enemy.y - this.player.y).normalize().scale(250)
+        
+        enemy.handleDamage(knockback)
+    }
+
+    generation() {
         let nbFile
         console.log(this.sonarQubeData)
 
@@ -356,8 +359,6 @@ export default class Game extends Phaser.Scene{
         const dy = player.y - monster.y
 
         const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(200)
-
-        // player.setHit(1)
 
         player.handleDamage(dir)
 
