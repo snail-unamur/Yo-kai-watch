@@ -145,7 +145,7 @@ export default class MenuProjects extends Phaser.Scene {
                 height: 10,
         
                 background: bg,
-                text: this.add.text(0, 0, data[i], { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }),
+                text: this.add.text(0, 0, data[i], { fontFamily: 'Helvetica, sans-serif' }),
         
                 align: 'center',
                 name: data[i]
