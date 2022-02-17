@@ -1,3 +1,5 @@
+
+
 export default class Preloader extends Phaser.Scene {
     constructor() {
         super('preloader');
@@ -49,10 +51,66 @@ export default class Preloader extends Phaser.Scene {
         // Loading ui
         this.load.image('ui_heart_empty', 'ui/ui_heart_empty.png')
         this.load.image('ui_heart_full', 'ui/ui_heart_full.png')
+
+
+        this.createLoading()
     }
 
+
     create() {
-        //this.scene.start('game');
-        this.scene.start('map');
+        this.scene.start('game');
+        //this.scene.start('map');
+    }
+
+
+    createLoading(){
+        let progressBar = this.add.graphics();
+        let progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(240, 270, 320, 50);
+        
+        let width = this.cameras.main.width;
+        let height = this.cameras.main.height;
+        let loadingText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 50,
+            text: 'Loading...',
+            style: {
+                font: '20px monospace'
+            }
+        });
+        loadingText.setOrigin(0.5, 0.5);
+        
+        let percentText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 5,
+            text: '0%',
+            style: {
+                font: '18px monospace'
+            }
+        });
+        percentText.setOrigin(0.5, 0.5);
+        
+        let assetText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 50,
+            text: '',
+            style: {
+                font: '18px monospace'
+            }
+        });
+        assetText.setOrigin(0.5, 0.5);
+        
+        this.load.on('progress', function (value) {
+            percentText.setText((value * 100).toString() + '%');
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(250, 280, 300 * value, 30);
+        });
+        
+        this.load.on('fileprogress', function (file) {
+            assetText.setText('Loading asset: ' + file.key);
+        });
+
     }
 }
