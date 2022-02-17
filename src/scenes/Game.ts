@@ -82,10 +82,10 @@ export default class Game extends Phaser.Scene{
         if(data?.mapContext){
             this.mapContext = data.mapContext
             this.sonarQubeData = this.mapContext.file
-            this.generation()
         } else {
-            this.generationRandom()
+            this.sonarQubeData = this.cache.json.get('metrics')[0]
         }
+        this.generation()
 
 
         // Launch UI
