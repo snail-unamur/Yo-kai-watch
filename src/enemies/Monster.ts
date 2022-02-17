@@ -24,7 +24,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
 
         this.monsterType = MonsterConstantsType.DEMON
-        this.monsterSize = MonsterConstantsSize.TINY
+        this.monsterSize = MonsterConstantsSize.BIG
         //this.healthBar = new HealthBar(this.scene, 0, 0)
 
         this.setInfo()
@@ -32,7 +32,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     initialize(){
         this.setMonsterSize(this.monsterSize)
-        this.healthBar = new HealthBar(this.scene, -this.body.width/2 - 10, -this.body.height/2 - 15)  
+        this.healthBar = new HealthBar(this.scene, 0, -this.body.height/2 - 15+ this.body.offset.y)  
     }
 
     destroy(fromScene?: boolean): void {

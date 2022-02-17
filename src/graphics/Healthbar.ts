@@ -2,7 +2,7 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
     private value = 100
 
     constructor(scene, x, y) {
-        super(scene, { x, y })
+        super(scene, { x:-15.75, y:y })
 
         scene.add.existing(this)
         this.draw()
@@ -22,11 +22,11 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
 
         // Background
         this.fillStyle(0x202121)
-        this.fillRect(this.x, this.y, 33, 10)
+        this.fillRect(this.x, this.y, 31.5, 5)
 
         // Health
         this.fillStyle(0x69ff4f)
-        this.fillRect(this.x, this.y, 30, 7)
+        this.fillRect(this.x, this.y, 30, 3.5)
 
         if (this.value < 30) {
             this.fillStyle(0xff0000)
