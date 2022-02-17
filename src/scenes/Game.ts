@@ -161,7 +161,7 @@ export default class Game extends Phaser.Scene{
 
         this.tooltip = this.add.text(0, 0, "this is a tooltip", textStyle)
         this.tooltip.setScale(0.5) // revert camera zoom
-        this.tooltip.setWordWrapWidth(100) // buggy when text is overriden
+        this.tooltip.setWordWrapWidth(10) // buggy when text is overriden
         this.tooltip.setBackgroundColor('black')
         this.tooltip.setAlpha(0.7)
         this.tooltip.setVisible(false)
@@ -174,7 +174,8 @@ export default class Game extends Phaser.Scene{
                 let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
                 if(tileHovered){
                     this_game.tooltip.visible = true
-                    this_game.tooltip.setText(tileHovered.collisionCallback().getName())
+                    
+                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getName()))
                 }  else {
                     this_game.tooltip.visible = false
                 }
