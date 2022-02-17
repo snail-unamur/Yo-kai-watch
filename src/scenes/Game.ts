@@ -417,7 +417,7 @@ export default class Game extends Phaser.Scene{
             return
         }
         
-        this.player.update(this.cursors, this.sword)
+        this.player.update(this.cursors, this.sword, dt)
         
         
         // Make enemies run towards the player
