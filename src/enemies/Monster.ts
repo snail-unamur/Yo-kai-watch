@@ -9,7 +9,6 @@ enum HealthState {
 }
 
 export default class Monster extends Phaser.Physics.Arcade.Sprite {
-    private colliding: boolean = false
     private monsterType: MonsterConstantsType
     private monsterSize: MonsterConstantsSize
     private health: number = 3
