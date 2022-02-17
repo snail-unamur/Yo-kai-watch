@@ -32,7 +32,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             this_.playAnim("run")
             this_.body.enable = true
             this_.body.onCollide = true
-            this_.healthBar = new HealthBar(this_.scene, 0, -this_.body.height/2 - 15+ this_.body.offset.y)  
+            this_.healthBar = new HealthBar(this_.scene, -this_.body.height/2 - 15+ this_.body.offset.y)  
             this_.removeListener('animationrepeat')
         })
         this.setInfo()
@@ -131,7 +131,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
 
     handleDamage(dir: Phaser.Math.Vector2) {
-        this.health--
+        this.health = this.healthBar.decrease(34)
+        
 
         if (this.health <= 0) {
             // Play animation ?
