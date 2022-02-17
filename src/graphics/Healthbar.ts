@@ -18,16 +18,14 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
     }
 
     draw() {
-        console.log(this.x, this.y);
-        
         this.clear()
 
         // Background
-        this.fillStyle(0x000000)
+        this.fillStyle(0x202121)
         this.fillRect(this.x, this.y, 33, 10)
 
         // Health
-        this.fillStyle(0x00ff00)
+        this.fillStyle(0x69ff4f)
         this.fillRect(this.x, this.y, 30, 7)
 
         if (this.value < 30) {
