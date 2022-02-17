@@ -28,6 +28,8 @@ app.get('/metrics', async (req, res) => {
 app.get('/search', async (req, res) => {
     const query = req.query.query
 
+    console.log(`Project list queried with ${query}`)
+
     const sqData = await getSonarqubeProjects(query)
 
     res.json(sqData)

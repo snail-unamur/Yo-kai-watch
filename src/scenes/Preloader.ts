@@ -1,8 +1,15 @@
 
 
 export default class Preloader extends Phaser.Scene {
+    private projectName
     constructor() {
         super('preloader');
+    }
+
+    init(data){
+        if(data?.projectName){
+            this.projectName = data.projectName
+        }
     }
 
     preload() {
