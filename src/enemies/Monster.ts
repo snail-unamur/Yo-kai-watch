@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import HealthBar from "~/graphics/Healthbar"
 
 import { MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
 
@@ -13,16 +14,30 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     private monsterSize: MonsterConstantsSize
     private health: number = 3
     private healthState: HealthState = HealthState.IDLE
+    private healthBar!: HealthBar
+
 
     private infoString: string = ""
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
+
         this.monsterType = MonsterConstantsType.DEMON
         this.monsterSize = MonsterConstantsSize.TINY
+        //this.healthBar = new HealthBar(this.scene, 0, 0)
 
         this.setInfo()
+    }
+
+    initialize(){
+        this.setMonsterSize(this.monsterSize)
+        this.healthBar = new HealthBar(this.scene, -this.body.width/2 - 10, -this.body.height/2 - 15)  
+    }
+
+    destroy(fromScene?: boolean): void {
+        super.destroy(fromScene)
+        this.healthBar.destroy()
     }
 
     setInfo(){
@@ -79,6 +94,12 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         this.anims.play(this.monsterSize+'-'+this.monsterType+'-run')
     }
 
+    protected preUpdate(time: number, delta: number): void {
+        super.preUpdate(time, delta)
+        this.healthBar?.setPosition(this.x, this.y)
+
+    }
+
 
     runTowards(x: number, y: number) {
         if (this.healthState === HealthState.DAMAGE) {
@@ -100,6 +121,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
         this.setVelocity(monsterVelocity.x, monsterVelocity.y)
     }
+
 
     handleDamage(dir: Phaser.Math.Vector2) {
         this.health--

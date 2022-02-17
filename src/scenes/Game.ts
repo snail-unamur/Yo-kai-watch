@@ -121,9 +121,7 @@ export default class Game extends Phaser.Scene{
                 enemyGo.body.onCollide = true
                 enemyGo.setBounce(1)
                 enemyGo.setInteractive()
-
-                // Test healthbar
-                const healthbar = new HealthBar(this_game, 30, 0)
+                enemyGo.initialize()
 
                 enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
                     this_game.tooltip.setVisible(true)
@@ -217,7 +215,6 @@ export default class Game extends Phaser.Scene{
 
     generation() {
         let nbFile
-        console.log(this.sonarQubeData)
 
         if(this.sonarQubeData.children){
             nbFile = this.sonarQubeData.children.length
