@@ -187,7 +187,16 @@ export default class Game extends Phaser.Scene{
 
 
         this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
-            this_game.tooltip.setPosition(pointer.worldX - this_game.tooltip.getBounds().width, pointer.worldY - this_game.tooltip.getBounds().height)
+            let x = pointer.worldX
+            let y = pointer.worldY
+
+            if(pointer.x > this_game.game.canvas.width/2){
+                x -= this_game.tooltip.getBounds().width
+            }
+            if(pointer.y > this_game.game.canvas.height/2){
+                y -= this_game.tooltip.getBounds().height
+            }
+            this_game.tooltip.setPosition(x, y)
 
             if(!this_game.monsterHovered){
                 let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
