@@ -131,10 +131,8 @@ export default class Game extends Phaser.Scene{
         this.restart()
     }
 
-    restart(){
-        this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
-        this.incomingMonster = []
 
+    restart(){
         this.scene.restart({
             mapContext: this.mapContext
         })
@@ -173,6 +171,9 @@ export default class Game extends Phaser.Scene{
     }
 
     create(data){
+        this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
+        this.incomingMonster = []
+        
         this.fileChildren = []
         if(data?.mapContext){
             this.mapContext = data.mapContext
@@ -187,6 +188,7 @@ export default class Game extends Phaser.Scene{
                 selectedId:-1
             }
         }
+        console.log(this.sonarQubeData)
         this.generation()
 
 
