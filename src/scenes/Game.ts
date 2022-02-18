@@ -48,6 +48,8 @@ export default class Game extends Phaser.Scene{
     private fileTree
     private sonarQubeData
 
+    private issues
+
     private monsterHovered:boolean = false
 
 
@@ -70,7 +72,9 @@ export default class Game extends Phaser.Scene{
 	}
 
 	preload() {
+        FileChild.projectIssues = this.cache.json.get('issues')
         this.fileTree = this.cache.json.get('metrics')
+
         this.cursors = this.input.keyboard.createCursorKeys()
 
         let this_scene = this
@@ -173,12 +177,11 @@ export default class Game extends Phaser.Scene{
     create(data){
         this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
         this.incomingMonster = []
-        
+
         this.fileChildren = []
         if(data?.mapContext){
             this.mapContext = data.mapContext
             this.sonarQubeData = this.mapContext.file
-            console.log(this.mapContext)
         } else {
             this.sonarQubeData = this.cache.json.get('metrics')[0]
             this.mapContext = {
@@ -317,14 +320,19 @@ export default class Game extends Phaser.Scene{
 
 
         
-        this.fileChildren.forEach((file:FileChild) => {
-            this.incomingMonster.push(
-                setTimeout(
-                    () => { file.getMonster() }, 
-                    500*Math.floor(Math.random()*5)
-                )
-            ) // The randomness here is just to make the first spawn more funky :)
-        })
+        this.fileChildren.forEach(this.newMonster, this)
+    }
+
+    newMonster(file:FileChild){
+        this.incomingMonster.push(
+            setTimeout(
+                () => { 
+                    file.getMonster()
+                    this.newMonster(file) 
+                }, 
+                500*Math.floor((Math.random()+1)*2.5)
+            )
+        ) // The randomness here is just to make the first spawn more funky :)
     }
 
     handleSwordMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
@@ -413,6 +421,17 @@ export default class Game extends Phaser.Scene{
                 baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
                 baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
                 Game.NB_TILE_PER_FILE, file)
+        }
+
+        if(nbFile === 0){
+            // We are in a leaf
+            this.sonarQubeData.id = 0
+            this.generateFileLimitation(
+                this.fileLayer, 
+                Math.floor(this.dungeon_size/2) - 2, 
+                Math.floor(this.dungeon_size/2) - 2, 
+                Game.NB_TILE_PER_FILE + 2, this.sonarQubeData)
+
         }
     }
 
@@ -519,6 +538,7 @@ export default class Game extends Phaser.Scene{
             t[i][size-1] = ConstantsTiles.WALL_RIGHT
         }
 
+        console.log(t, x, y)
         this.fileLayer.putTilesAt(t, x, y).alpha = 0.5
 
         let fileChild = new FileChild(file, this, x*Game.TILE_SIZE, y*Game.TILE_SIZE, size*Game.TILE_SIZE, size*Game.TILE_SIZE)
