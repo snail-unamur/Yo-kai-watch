@@ -1,6 +1,6 @@
 export abstract class ConstantsTiles {
     // Constant for tiles
-    static readonly WALL_FACE:number = 33
+    static readonly WALL_FACE:number = 34
     static readonly WALL_LEFT:number = 257
     static readonly WALL_TOP_LEFT_CORNER:number = 258
     static readonly WALL_TOP_LEFT_INNER_CORNER:number = 384

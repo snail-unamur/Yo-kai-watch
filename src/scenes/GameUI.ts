@@ -1,14 +1,17 @@
 import Phaser from "phaser"
 import { sceneEvents } from "~/events/EventCenter"
+import FileContainer from "./FileContainer"
 
 export default class GameUI extends Phaser.Scene {
     private hearts!: Phaser.GameObjects.Group
+    private roomFile!: Phaser.GameObjects.Text
+    private tileFile!: Phaser.GameObjects.Text
 
     constructor() {
         super({key: 'game-ui'})
     }
 
-    create() {
+    create(data:{ roomFile: string }) {
         this.hearts = this.add.group({
             classType: Phaser.GameObjects.Image
         })
@@ -24,11 +27,24 @@ export default class GameUI extends Phaser.Scene {
             quantity: 3
         })
 
+        this.roomFile = this.add.text(5, 35, data.roomFile)
+        this.tileFile = this.add.text(5, 55, "NaN")
+
         sceneEvents.on('player-damage', this.handlePlayerDamage, this)
+        sceneEvents.on('tile-file-update', this.handleTileFileUpdate, this)
+
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             sceneEvents.off('player-damage', this.handlePlayerDamage, this)
+            sceneEvents.off('tile-file-update', this.handleTileFileUpdate, this)
         })
+    }
 
+    private handleRoomFileUpdate(newName:string){
+        this.roomFile.setText(newName)
+    }
+
+    private handleTileFileUpdate(newName:string){
+        this.tileFile.setText(newName)
     }
 
     private handlePlayerDamage(health: number) {
