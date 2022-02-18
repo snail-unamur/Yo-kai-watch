@@ -67,6 +67,14 @@ export default class Preloader extends Phaser.Scene {
         // Loading weapons
         this.load.image('sword', 'weapons/swordGold.png')
         this.createLoading()
+
+        // Loading music
+        this.load.audio('ambient_a', 'audio/A.mp3')
+        this.load.audio('ambient_b', 'audio/B.mp3')
+        this.load.audio('ambient_c', 'audio/C.mp3')
+        this.load.audio('ambient_d', 'audio/D.mp3')
+        this.load.audio('ambient_e', 'audio/E.mp3')
+        this.load.audio('main_theme', 'audio/main_theme.mp3')
     }
 
 
