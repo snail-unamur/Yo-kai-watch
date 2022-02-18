@@ -30,7 +30,7 @@ import axios from "axios"
     }
 }
 
-export function addPath(pathComponents, tree, leafInfo, typeOfData) {
+function addPath(pathComponents, tree, leafInfo, typeOfData) {
     let pathComponent = pathComponents.shift()
     
     let treePath = tree.find(item => item.name === pathComponent)
@@ -52,6 +52,23 @@ export function addPath(pathComponents, tree, leafInfo, typeOfData) {
             treePath.issues ? treePath.issues.push(leafInfo) : (treePath.issues = [leafInfo])
         }
     }
+}
+
+function deleteDuplicate(tree, pathToAdd){
+    tree.forEach((element, index, object) => {
+
+        if(element.children){
+            deleteDuplicate(element.children)
+            
+            if(!element.measures){
+                element.children.forEach(element_ => {
+                    element_.name = element.name + "/" + element_.name
+                    tree.push(element_)
+                })
+                object.splice(index, 1)
+            }
+        } 
+    });
 }
 
 /**
@@ -79,6 +96,8 @@ export function makeTree(data) {
         const splittedPath = issue.component.split('/')
         addPath(splittedPath, tree, issue, 'issues')
     }
+
+    deleteDuplicate(tree)
 
     return tree
 }

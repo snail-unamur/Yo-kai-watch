@@ -292,7 +292,7 @@ export default class Map extends Phaser.Scene{
         this.drawChildren(undefined, !selectedTop)
     }
 
-    drawChildren(fileToNotDraw?:FileContainer, selected:boolean=true, stillDraw:boolean=false){
+    drawChildren(fileToNotDraw?:FileContainer | string, selected:boolean=true, stillDraw:boolean=false){
         let children = this.getCurrentChildren()
 
 
@@ -301,9 +301,17 @@ export default class Map extends Phaser.Scene{
 
         let selec_ = 0
 
+        let n = ""
+
         if(fileToNotDraw){
             for(let i=0; i < children.length; i++){
-                if(children[i].name === fileToNotDraw.getName()){
+                if(typeof fileToNotDraw === "string"){
+                    n = fileToNotDraw
+                } else {
+                    n = fileToNotDraw.getName()
+                }
+                
+                if(children[i].name === n){
                     selec_ = i
                 }
             }
@@ -322,7 +330,21 @@ export default class Map extends Phaser.Scene{
 
         for(let i=0; i < children.length; i++){
             if(fileToNotDraw && i === selec_ && !stillDraw){
-                this.currentChildren.push(fileToNotDraw)
+                if(typeof fileToNotDraw === "string"){
+                    let a = Array.from(this.pathToCurrent)
+                    a.push(i)
+    
+                    let f = this.drawFile(
+                        firstX + i*step, initialY, 
+                        this.cWidth*0.25, this.cHeight*0.2, 
+                        children[i].name, i, 
+                        Object.keys(this.getCurrentChildren(a)).length)
+    
+                    f.setDestination(0, shiftY)
+                    this.currentChildren.push(f)
+                } else {
+                    this.currentChildren.push(fileToNotDraw)
+                }
             } else {
                 let a = Array.from(this.pathToCurrent)
                 a.push(i)
