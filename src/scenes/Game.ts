@@ -45,6 +45,7 @@ export default class Game extends Phaser.Scene{
         selectedId: number,
         selected: FileContainer|string
     }
+    private fileTree
     private sonarQubeData
 
     private monsterHovered:boolean = false
@@ -53,18 +54,23 @@ export default class Game extends Phaser.Scene{
     private fileChildren:FileChild[] = []
 
     private playerControls!: {
-        up:Phaser.Input.Keyboard.Key,
-        down:Phaser.Input.Keyboard.Key,
-        left:Phaser.Input.Keyboard.Key,
-        right:Phaser.Input.Keyboard.Key,
-        attack:Phaser.Input.Keyboard.Key
+        up: Phaser.Input.Keyboard.Key,
+        down: Phaser.Input.Keyboard.Key,
+        left: Phaser.Input.Keyboard.Key,
+        right: Phaser.Input.Keyboard.Key,
+        attack: Phaser.Input.Keyboard.Key,
+        dig: Phaser.Input.Keyboard.Key,
+        goUp: Phaser.Input.Keyboard.Key
     }
+
+    private incomingMonster: number[] = []
 
 	constructor(){
 		super('game')
 	}
 
 	preload() {
+        this.fileTree = this.cache.json.get('metrics')
         this.cursors = this.input.keyboard.createCursorKeys()
 
         let this_scene = this
@@ -83,8 +89,64 @@ export default class Game extends Phaser.Scene{
             down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            attack: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+            attack: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
+            dig: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            goUp: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
         }
+
+        this.playerControls.dig.on('down', this.dig, this)
+        this.playerControls.goUp.on('down', this.goUp, this)
+    }
+
+    dig(){
+        let fileObject:FileChild = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
+        if(fileObject) {
+            if(this.mapContext.selectedId !== -1){
+                this.mapContext.path.push(this.mapContext.selectedId)
+            }
+            this.mapContext.selectedId = fileObject.getFile().id
+            this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
+            this.mapContext.selected = fileObject.getFile().name
+        }
+
+        this.restart()
+    }
+
+    goUp(){
+        let parent = this.getParent(this.mapContext.path)
+        
+        let id_ = -1
+        if(parent.name !== "root"){
+            this.mapContext.path.pop()
+            let c = 0
+            parent.children.forEach(el => {
+                if(el.name === this.mapContext.file.name){ id_ = c }
+                c++
+            })
+        }
+        this.mapContext.selectedId = id_
+        this.mapContext.file = parent
+        this.mapContext.selected = parent.name
+
+        this.restart()
+    }
+
+    restart(){
+        this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
+        this.incomingMonster = []
+
+        this.scene.restart({
+            mapContext: this.mapContext
+        })
+    }
+
+    getParent(path:integer[]){
+        let currentElement = { children: this.fileTree, name:'super root' }
+        path.forEach(element => {
+            currentElement = currentElement.children[element]
+        })
+
+        return currentElement
     }
 
     startMap(){
@@ -100,13 +162,13 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer.visible = this.freezing
         
         if(this.freezing){
-            console.log("freeze")
+            //console.log("freeze")
             this.physics.pause()
             this.anims.pauseAll()
         } else {
             this.physics.resume()
             this.anims.resumeAll()
-            console.log("unfreeze")
+            //console.log("unfreeze")
         }
     }
 
@@ -115,8 +177,15 @@ export default class Game extends Phaser.Scene{
         if(data?.mapContext){
             this.mapContext = data.mapContext
             this.sonarQubeData = this.mapContext.file
+            console.log(this.mapContext)
         } else {
             this.sonarQubeData = this.cache.json.get('metrics')[0]
+            this.mapContext = {
+                file: this.sonarQubeData,
+                path: [0],
+                selected: "root",
+                selectedId:-1
+            }
         }
         this.generation()
 
@@ -245,10 +314,14 @@ export default class Game extends Phaser.Scene{
         }, this)
 
 
+        
         this.fileChildren.forEach((file:FileChild) => {
-            setTimeout(() => {
-                file.getMonster()
-            }, 500*Math.floor(Math.random()*5)) // The randomness here is just to make the first spawn more funky :)
+            this.incomingMonster.push(
+                setTimeout(
+                    () => { file.getMonster() }, 
+                    500*Math.floor(Math.random()*5)
+                )
+            ) // The randomness here is just to make the first spawn more funky :)
         })
     }
 
@@ -332,6 +405,7 @@ export default class Game extends Phaser.Scene{
 
         for(let i=0; i < nbFile; i++){
             file = this.sonarQubeData.children[i]
+            file.id = i
             this.generateFileLimitation(
                 this.fileLayer, 
                 baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
@@ -378,6 +452,7 @@ export default class Game extends Phaser.Scene{
 
         const file_tiles_size = 4
         const file = {
+            id: 1,
             name: 'UserRegistrationForm.php', 
             type: 'FIL', 
             path: 'root/UserRegistrationForm.php', 
@@ -422,7 +497,7 @@ export default class Game extends Phaser.Scene{
 
     }
 
-    generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number, file:{name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
+    generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number, file:{id:number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
         let l = new Array(size).fill(0)
         let t = new Array()
         for(let i=0; i < size; i++){
