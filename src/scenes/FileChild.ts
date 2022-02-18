@@ -85,10 +85,10 @@ export default class FileChild {
                 monsterSize = MonsterConstantsSize.TINY
                 break
             case 'MINOR':
-                monsterSize = MonsterConstantsSize.TINY
+                monsterSize = MonsterConstantsSize.MEDIUM
                 break
             case 'MAJOR':
-                monsterSize = MonsterConstantsSize.MEDIUM
+                monsterSize = MonsterConstantsSize.BIG
                 break
             case 'CRITICAL':
                 monsterSize = MonsterConstantsSize.BIG
