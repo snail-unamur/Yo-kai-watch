@@ -22,7 +22,6 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
-
         // Default value ovewritten later
         this.monsterType = MonsterConstantsType.DEMON
         this.monsterSize = MonsterConstantsSize.BIG
