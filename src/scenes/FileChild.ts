@@ -4,7 +4,7 @@ import Game from "./Game"
 import { MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
 
 export default class FileChild {
-    private file!: {name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}
+    private file!: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}
     private x: number
     private y: number
     private width: number
@@ -14,7 +14,7 @@ export default class FileChild {
 
     private infoString: string = ""
 
-    constructor(file: {name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}, 
+    constructor(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}, 
         game: Game, x:number, y:number, width:number, height:number){
         this.setFile(file)
 
@@ -26,7 +26,7 @@ export default class FileChild {
         this.height = height
     }
 
-    setFile(file: {name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
+    setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
         this.file = file
         this.infoString = `${this.file.name}, ${this.file.type}, ${this.file.path}, ${this.file.key}\n`
         if(this.file.measures){
@@ -34,6 +34,10 @@ export default class FileChild {
                 this.infoString += `${element.metric}, ${element.value}, ${element.bestValue}\n`
             }) 
         }
+    }
+
+    getFile(){
+        return this.file
     }
 
     getInfoString(){
