@@ -44,11 +44,14 @@ export default class Preloader extends Phaser.Scene {
         // Or load the entire tileset with different frame size.
 
         // Load big monsters
-        for(let i=0; i < 4; i++){
-            this.load.image('big_demon_idle_anim_f' + i.toString(), 'frames/big_demon_idle_anim_f'+ i.toString()+'.png')
-            this.load.image('big_zombie_idle_anim_f' + i.toString(), 'frames/big_zombie_idle_anim_f'+ i.toString()+'.png')
-            this.load.image('ogre_idle_anim_f' + i.toString(), 'frames/ogre_idle_anim_f'+ i.toString()+'.png')
-        }
+        let ar = ["idle", "appear", "run"]
+        ar.forEach(element => {
+            for(let i=0; i < 4; i++){
+                this.load.image(`big_demon_${element}_anim_f` + i.toString(), `frames/big_demon_${element}_anim_f`+ i.toString()+'.png')
+                this.load.image(`big_zombie_${element}_anim_f` + i.toString(), `frames/big_zombie_${element}_anim_f`+ i.toString()+'.png')
+                this.load.image(`ogre_${element}_anim_f` + i.toString(), `frames/ogre_${element}_anim_f`+ i.toString()+'.png')
+            }
+        });
 
         // loading for big monsters
         this.load.spritesheet('animations_big_monsters', 'tiles/dungeon_tiles_full2.png', { frameWidth: 16, frameHeight: 36 })

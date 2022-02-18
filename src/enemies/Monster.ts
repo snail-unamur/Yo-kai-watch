@@ -23,16 +23,23 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame)
 
 
+        // Default value ovewritten later
         this.monsterType = MonsterConstantsType.DEMON
         this.monsterSize = MonsterConstantsSize.BIG
-        //this.healthBar = new HealthBar(this.scene, 0, 0)
 
+        let this_ = this
+        this.on('animationrepeat', function(){
+            this_.playAnim("run")
+            this_.body.enable = true
+            this_.body.onCollide = true
+            this_.healthBar = new HealthBar(this_.scene, 0, -this_.body.height/2 - 15+ this_.body.offset.y)  
+            this_.removeListener('animationrepeat')
+        })
         this.setInfo()
     }
 
     initialize(){
         this.setMonsterSize(this.monsterSize)
-        this.healthBar = new HealthBar(this.scene, 0, -this.body.height/2 - 15+ this.body.offset.y)  
     }
 
     destroy(fromScene?: boolean): void {
@@ -90,8 +97,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         return this.health
     }
 
-    playAnim(){
-        this.anims.play(this.monsterSize+'-'+this.monsterType+'-run')
+    playAnim(animKey:string='appear'){
+        this.anims.play(this.monsterSize + '-' + this.monsterType + '-' + animKey)
     }
 
     protected preUpdate(time: number, delta: number): void {

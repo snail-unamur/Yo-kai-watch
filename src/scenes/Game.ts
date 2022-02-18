@@ -122,7 +122,7 @@ export default class Game extends Phaser.Scene{
             classType: Monster,
             createCallback: (go) => {
                 const enemyGo = go as Monster
-                enemyGo.body.onCollide = true
+                enemyGo.body.enable = false
                 enemyGo.setBounce(1)
                 enemyGo.setInteractive()
                 enemyGo.initialize()
