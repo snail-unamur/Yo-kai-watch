@@ -39,7 +39,8 @@ export default class Game extends Phaser.Scene{
     private mapContext!:{
         file : {
             children:any,
-            name:string
+            name:string,
+            type:string
         },
         path: number[],
         selectedId: number,
@@ -104,16 +105,16 @@ export default class Game extends Phaser.Scene{
 
     dig(){
         let fileObject:FileChild = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
-        if(fileObject) {
+        if(fileObject && this.mapContext.file.children) {
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
             }
             this.mapContext.selectedId = fileObject.getFile().id
             this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
             this.mapContext.selected = fileObject.getFile().name
-        }
 
-        this.restart()
+            this.restart()
+        }
     }
 
     goUp(){
@@ -127,12 +128,13 @@ export default class Game extends Phaser.Scene{
                 if(el.name === this.mapContext.file.name){ id_ = c }
                 c++
             })
-        }
-        this.mapContext.selectedId = id_
-        this.mapContext.file = parent
-        this.mapContext.selected = parent.name
 
-        this.restart()
+            this.mapContext.selectedId = id_
+            this.mapContext.file = parent
+            this.mapContext.selected = parent.name
+    
+            this.restart()
+        }
     }
 
 
@@ -143,7 +145,7 @@ export default class Game extends Phaser.Scene{
     }
 
     getParent(path:integer[]){
-        let currentElement = { children: this.fileTree, name:'super root' }
+        let currentElement = { children: this.fileTree, name:'super root', type:'DIR' }
         path.forEach(element => {
             currentElement = currentElement.children[element]
         })
