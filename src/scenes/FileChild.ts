@@ -38,9 +38,9 @@ export default class FileChild {
         this.textObject.setScale(0.5)
         this.textObject.setOrigin(0.5)
         this.textObject.setBackgroundColor('black')
-        this.textObject.setAlpha(0.7)
+        this.textObject.setAlpha(1)
         this.textObject.setVisible(false)
-        this.textObject.setDepth(3)
+        this.textObject.setDepth(6)
 
 
         this.x = x
