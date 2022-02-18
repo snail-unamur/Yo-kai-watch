@@ -30,6 +30,7 @@ export default class Preloader extends Phaser.Scene {
         // ENABLE THIS TO GET DATA (DISABLED TO NOT DESTROY THE SONARCLOUD API EVERY TIME WE TEST SOMETHING)
         console.log(`dowloading: ${this.projectName}`)
         this.load.json('metrics', `http://localhost:5000/metrics?project=${this.projectName}`)
+        this.load.json('issues', `http://localhost:5000/issues?project=${this.projectName}`)
 
         /*
          * In the following tileset "dungeon_tiles_full.png":
@@ -69,6 +70,7 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+        console.log(this.cache.json.get('issues'))
         this.scene.start('game');
         // this.scene.start('map');
     }
