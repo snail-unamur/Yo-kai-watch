@@ -124,8 +124,8 @@ Phaser.GameObjects.GameObjectFactory.register('player', function (this: Phaser.G
 
     this.scene.physics.world.enableBody(sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
 
-    sprite.body.setSize(sprite.width * 0.9, sprite.height * 0.6)
-    sprite.body.setOffset(sprite.width * 0.1, sprite.height * 0.4)
+    sprite.body.setSize(sprite.width * 0.9, sprite.height * 0.4)
+    sprite.body.setOffset(sprite.width * 0.1, sprite.height * 0.6)
 
     return sprite
 })

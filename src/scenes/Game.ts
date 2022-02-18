@@ -111,6 +111,7 @@ export default class Game extends Phaser.Scene{
         // Character
         //this.player = this.add.player(center, center, 'player')
         this.player = this.add.player(center, center, 'player')
+        this.player.setDepth(1)
         cam.startFollow(this.player)
 
         // Character Sword
@@ -142,9 +143,13 @@ export default class Game extends Phaser.Scene{
 
         
         // Add walls layer
-        const wallLayer = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
+        let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
+        const wallLayer = walls[0]
+        const topWallLayer = walls[1]
         this.physics.add.collider(this.player, wallLayer)
         this.physics.add.collider(this.enemies, wallLayer)
+        this.physics.add.collider(this.player, topWallLayer)
+        this.physics.add.collider(this.enemies, topWallLayer)
         this.physics.add.collider(this.enemies, this.enemies)
 
         // Player monster collider
@@ -159,7 +164,7 @@ export default class Game extends Phaser.Scene{
         let gameCanvas = this.sys.game.canvas
         this.freezeLayer = this.add.renderTexture(0, 0, this.dungeon_size*Game.TILE_SIZE, this.dungeon_size*Game.TILE_SIZE)
         this.freezeLayer.fill(0x000000, 0.5)
-        this.freezeLayer.setDepth(1)
+        this.freezeLayer.setDepth(5)
         this.handleFreeze()
         this.handleFreeze()
 
@@ -183,7 +188,7 @@ export default class Game extends Phaser.Scene{
         this.tooltip.setBackgroundColor('black')
         this.tooltip.setAlpha(0.7)
         this.tooltip.setVisible(false)
-        this.tooltip.setDepth(2) // put the tooltip in front of every other things
+        this.tooltip.setDepth(100) // put the tooltip in front of every other things
 
 
         this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
@@ -479,15 +484,17 @@ export default class Game extends Phaser.Scene{
     }
 
     createWalls(tile_size:number, dungeon_size:number){
-
+        const topWallLayer = this.newLayer(tile_size, dungeon_size, "tiles")
+        topWallLayer.setDepth(0)
         const wallsLayer = this.newLayer(tile_size, dungeon_size, "tiles")
+        wallsLayer.setDepth(2)
         let tile:Phaser.Tilemaps.Tile
 
         //     FACES
         for(let i=2; i < dungeon_size - 2; i++){
             // Top walls
-            wallsLayer.putTileAt(ConstantsTiles.WALL_FACE, i, 1).setCollision(true) // face of the wall
-            wallsLayer.putTileAt(ConstantsTiles.WALL_TIP, i, 0) // tip of the wall
+            topWallLayer.putTileAt(ConstantsTiles.WALL_FACE, i, 1).setCollision(true) // face of the wall
+            topWallLayer.putTileAt(ConstantsTiles.WALL_TIP, i, 0) // tip of the wall
             // Bottom walls
             wallsLayer.putTileAt(ConstantsTiles.WALL_FACE, i, dungeon_size-2).setCollision(true) // face of the wall
             wallsLayer.putTileAt(ConstantsTiles.WALL_TIP, i, dungeon_size-3) // tip of the wall
@@ -504,13 +511,13 @@ export default class Game extends Phaser.Scene{
 
         //      CORNERS
         // Top left corner
-        wallsLayer.putTileAt(ConstantsTiles.WALL_TOP_LEFT_CORNER, 1, 1).setCollision(true)
-        wallsLayer.putTileAt(0, 0, 1).setCollision(true)
-        wallsLayer.putTileAt(ConstantsTiles.WALL_TIP_TOP_LEFT, 1, 0)// tip of the wall
+        topWallLayer.putTileAt(ConstantsTiles.WALL_TOP_LEFT_CORNER, 1, 1).setCollision(true)
+        topWallLayer.putTileAt(0, 0, 1).setCollision(true)
+        topWallLayer.putTileAt(ConstantsTiles.WALL_TIP_TOP_LEFT, 1, 0)// tip of the wall
         // Top right corner
-        wallsLayer.putTileAt(ConstantsTiles.WALL_TOP_RIGHT_CORNER,  dungeon_size - 2, 1).setCollision(true)
-        wallsLayer.putTileAt(0, dungeon_size - 1, 1).setCollision(true)
-        wallsLayer.putTileAt(ConstantsTiles.WALL_TIP_TOP_RIGHT,  dungeon_size - 2, 0)// tip of the wall
+        topWallLayer.putTileAt(ConstantsTiles.WALL_TOP_RIGHT_CORNER,  dungeon_size - 2, 1).setCollision(true)
+        topWallLayer.putTileAt(0, dungeon_size - 1, 1).setCollision(true)
+        topWallLayer.putTileAt(ConstantsTiles.WALL_TIP_TOP_RIGHT,  dungeon_size - 2, 0)// tip of the wall
         
         // Bottom left corner
         wallsLayer.putTileAt(ConstantsTiles.WALL_BOTTOM_LEFT_CORNER_TIP, 1, dungeon_size - 3)// tip of the wall
@@ -523,7 +530,7 @@ export default class Game extends Phaser.Scene{
         wallsLayer.putTileAt(0, dungeon_size - 1, dungeon_size - 2).setCollision(true)
         wallsLayer.putTileAt(ConstantsTiles.WALL_BOTTOM_RIGHT_CORNER, dungeon_size - 2, dungeon_size - 2).setCollision(true)
 
-        return wallsLayer
+        return [wallsLayer, topWallLayer]
     }
 
     getEnemies(){
