@@ -74,6 +74,10 @@ export default class Preloader extends Phaser.Scene {
         this.load.audio('ambient_d', 'audio/D.mp3')
         this.load.audio('ambient_e', 'audio/E.mp3')
         this.load.audio('main_theme', 'audio/main_theme.mp3')
+
+        // Load sound effects
+        this.load.audio('oof', 'audio/oof.mp3')
+        this.load.audio('player_death', 'audio/player_death.mp3')
     }
 
 

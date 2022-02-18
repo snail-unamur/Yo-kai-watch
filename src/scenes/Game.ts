@@ -438,7 +438,7 @@ export default class Game extends Phaser.Scene{
 
         // Add music of room
         // Switch case based on the sqale_rating (1.0=A -> 5.0=E)
-        const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'sqale_rating').value
+        const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
         console.log(sqale_rating)        
         switch(sqale_rating) {
             default:
