@@ -13,6 +13,7 @@ import FileChild from './FileChild'
 import { sceneEvents } from '~/events/EventCenter'
 import SwordContainer from '~/weapons/SwordContainer'
 import HealthBar from '~/graphics/Healthbar'
+import FileContainer from './FileContainer'
 
 export default class Game extends Phaser.Scene{
     private static readonly TILE_SIZE = 16  
@@ -35,7 +36,15 @@ export default class Game extends Phaser.Scene{
 
     private tooltip!: Phaser.GameObjects.Text
 
-    private mapContext
+    private mapContext!:{
+        file : {
+            children:any,
+            name:string
+        },
+        path: number[],
+        selectedId: number,
+        selected: FileContainer|string
+    }
     private sonarQubeData
 
     private monsterHovered:boolean = false
@@ -79,6 +88,10 @@ export default class Game extends Phaser.Scene{
     }
 
     startMap(){
+        if(this.mapContext && typeof this.mapContext?.selected !== "string"){
+            this.mapContext.selected = this.mapContext.selected.getName()
+        }
+        
         this.scene.start('map', { mapContext: this.mapContext });
     }
 
