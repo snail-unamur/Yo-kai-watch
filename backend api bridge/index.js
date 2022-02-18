@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { getSonarqubeMetricData, getSonarqubeProjects, makeTree } from './utils.js'
+import { getSonarqubeMetricData, getSonarqubeProjects, getSonarqubeProjectIssues, makeTree } from './utils.js'
 
 const app = express()
 
@@ -31,6 +31,17 @@ app.get('/search', async (req, res) => {
     const sqData = await getSonarqubeProjects(query)
 
     console.log(sqData.length)
+
+    res.json(sqData)
+})
+
+app.get('/issues', async (req, res) => {
+    const query = req.query.project
+    console.log('Retrieving issues for ' + query)
+
+    if(!query) return [] // This is required or the server crash when req.query.query = ""
+
+    const sqData = await getSonarqubeProjectIssues(query)
 
     res.json(sqData)
 })

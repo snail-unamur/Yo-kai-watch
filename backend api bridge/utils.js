@@ -24,23 +24,8 @@ import axios from "axios"
         if(components.length !== 0) {
             dataArray.push(components)
             return getSonarqubeMetricData(project, page + 1, dataArray)
-        } else {
-            // Get issues
-            let issues = []
-            url = `https://sonarcloud.io/api/issues/search?resolved=false&ps=500&componentKeys=${project}&additionalFields=_all&p=1`
-            let sonarQubeIssuesDataRes = await axios.get(url)
-
-            issues = issues.concat(sonarQubeIssuesDataRes.data.issues)
-
-            const nbMaxPg = Math.ceil(sonarQubeIssuesDataRes.data.total / 500)
-            for (let i = 2; i <= nbMaxPg; i++) {
-                url = `https://sonarcloud.io/api/issues/search?resolved=false&ps=500&componentKeys=${project}&additionalFields=_all&p=${i}`
-                sonarQubeIssuesDataRes = await axios.get(url)  
-
-                issues = issues.concat(sonarQubeIssuesDataRes.data.issues)
-            }
-            
-            return {data: dataArray.flat(), issues: issues}
+        } else {            
+            return {data: dataArray.flat(), issues: await getSonarqubeProjectIssues(project)}
         }
     }
 }
@@ -103,4 +88,23 @@ export async function getSonarqubeProjects(query) {
 
     const sonarQubeDataRes = await axios.get(url)
     return sonarQubeDataRes.data.components
+}
+
+export async function getSonarqubeProjectIssues(project) {
+    // Get issues
+    let issues = []
+    let url = `https://sonarcloud.io/api/issues/search?resolved=false&ps=500&componentKeys=${project}&additionalFields=_all&p=1`
+    let sonarQubeIssuesDataRes = await axios.get(url)
+
+    issues = issues.concat(sonarQubeIssuesDataRes.data.issues)
+
+    const nbMaxPg = Math.ceil(sonarQubeIssuesDataRes.data.total / 500)
+    for (let i = 2; i <= nbMaxPg; i++) {
+        url = `https://sonarcloud.io/api/issues/search?resolved=false&ps=500&componentKeys=${project}&additionalFields=_all&p=${i}`
+        sonarQubeIssuesDataRes = await axios.get(url)  
+
+        issues = issues.concat(sonarQubeIssuesDataRes.data.issues)
+    }
+    
+    return issues
 }
