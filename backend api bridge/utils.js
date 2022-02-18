@@ -55,7 +55,11 @@ function addPath(pathComponents, tree, leafInfo, typeOfData) {
 }
 
 function deleteDuplicate(tree, pathToAdd){
-    tree.forEach((element, index, object) => {
+    let index = tree.length - 1
+    let element
+
+    while (index >= 0) {
+        element = tree[index]
 
         if(element.children){
             deleteDuplicate(element.children)
@@ -65,10 +69,12 @@ function deleteDuplicate(tree, pathToAdd){
                     element_.name = element.name + "/" + element_.name
                     tree.push(element_)
                 })
-                object.splice(index, 1)
+                tree.splice(index, 1)
             }
-        } 
-    });
+        }
+
+        index -= 1
+    }
 }
 
 /**
