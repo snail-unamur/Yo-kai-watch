@@ -379,7 +379,7 @@ export default class Game extends Phaser.Scene{
          * General is always clean
          */
 
-        const reliability_rating = this.sonarQubeData.measures[6].value
+        const reliability_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
         const probaCracked = -0.2 + reliability_rating*0.2
         const probaSlightlyCracked = 0.2
         const probaClean = 1 - probaCracked - probaSlightlyCracked
