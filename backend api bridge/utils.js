@@ -7,7 +7,7 @@ import axios from "axios"
  * @returns {array} the dataArray with the sonarqube data appended
  */
  export async function getSonarqubeMetricData(project, page, dataArray) {
-    const url =  `https://sonarcloud.io/api/measures/component_tree?component=${project}&metricKeys=code_smells,sqale_index,sqale_rating,vulnerabilities,security_rating,security_remediation_effort,bugs,reliability_rating,reliability_remediation_effort&ps=500&p=${page}&s=qualifier,name`
+    let url =  `https://sonarcloud.io/api/measures/component_tree?component=${project}&metricKeys=code_smells,sqale_index,sqale_rating,vulnerabilities,security_rating,security_remediation_effort,bugs,reliability_rating,reliability_remediation_effort&ps=500&p=${page}&s=qualifier,name`
     const sonarQubeDataRes = await axios.get(url)
 
     if (page === 1) {
@@ -25,12 +25,27 @@ import axios from "axios"
             dataArray.push(components)
             return getSonarqubeMetricData(project, page + 1, dataArray)
         } else {
-            return dataArray.flat()
+            // Get issues
+            let issues = []
+            url = `https://sonarcloud.io/api/issues/search?resolved=false&ps=500&componentKeys=${project}&additionalFields=_all&p=1`
+            let sonarQubeIssuesDataRes = await axios.get(url)
+
+            issues = issues.concat(sonarQubeIssuesDataRes.data.issues)
+
+            const nbMaxPg = Math.ceil(sonarQubeIssuesDataRes.data.total / 500)
+            for (let i = 2; i <= nbMaxPg; i++) {
+                url = `https://sonarcloud.io/api/issues/search?resolved=false&ps=500&componentKeys=${project}&additionalFields=_all&p=${i}`
+                sonarQubeIssuesDataRes = await axios.get(url)  
+
+                issues = issues.concat(sonarQubeIssuesDataRes.data.issues)
+            }
+            
+            return {data: dataArray.flat(), issues: issues}
         }
     }
 }
 
-export function addPath(pathComponents, tree, leafInfo) {
+export function addPath(pathComponents, tree, leafInfo, typeOfData) {
     let pathComponent = pathComponents.shift()
     
     let treePath = tree.find(item => item.name === pathComponent)
@@ -39,14 +54,18 @@ export function addPath(pathComponents, tree, leafInfo) {
         tree.push(treePath)
     }
     if(pathComponents.length) {
-       addPath(pathComponents, treePath.children || (treePath.children = []), leafInfo)
+       addPath(pathComponents, treePath.children || (treePath.children = []), leafInfo, typeOfData)
     } 
     // we're at the leaf of the path
     else {
-        treePath.type = leafInfo.qualifier
-        treePath.path = leafInfo.path
-        treePath.key = leafInfo.key
-        treePath.measures = leafInfo.measures
+        if (typeOfData === 'metrics') {
+            treePath.type = leafInfo.qualifier
+            treePath.path = leafInfo.path
+            treePath.key = leafInfo.key
+            treePath.measures = leafInfo.measures
+        } else if (typeOfData === 'issues') {
+            treePath.issues ? treePath.issues.push(leafInfo) : (treePath.issues = [leafInfo])
+        }
     }
 }
 
@@ -57,13 +76,23 @@ export function addPath(pathComponents, tree, leafInfo) {
  */
 export function makeTree(data) {
     var tree = []
-    for (const component of data) {
+
+    // Make tree of the data
+    for (const component of data.data) {
         // add 'root/' to the beginning of the path
         if (component.path !== 'root') {
             component.path = 'root/' + component.path
         }
         const splittedPath = component.path.split('/')
-        addPath(splittedPath, tree, component)
+        addPath(splittedPath, tree, component, 'metrics')
+    }
+
+    // Add issues to the tree
+    for (const issue of data.issues) {
+        // replace path key to root
+        issue.component = issue.component.replace(/.+:/gm, 'root/')
+        const splittedPath = issue.component.split('/')
+        addPath(splittedPath, tree, issue, 'issues')
     }
 
     return tree
