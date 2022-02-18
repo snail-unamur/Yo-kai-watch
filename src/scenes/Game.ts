@@ -43,6 +43,14 @@ export default class Game extends Phaser.Scene{
 
     private fileChildren:FileChild[] = []
 
+    private playerControls!: {
+        up:Phaser.Input.Keyboard.Key,
+        down:Phaser.Input.Keyboard.Key,
+        left:Phaser.Input.Keyboard.Key,
+        right:Phaser.Input.Keyboard.Key,
+        attack:Phaser.Input.Keyboard.Key
+    }
+
 	constructor(){
 		super('game')
 	}
@@ -60,6 +68,14 @@ export default class Game extends Phaser.Scene{
 
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE).on('down', this.startMap, this)
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
+
+        this.playerControls = {
+            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
+            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            attack: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        }
     }
 
     startMap(){
@@ -441,7 +457,9 @@ export default class Game extends Phaser.Scene{
         if(this.freezing){
             return
         }
-        this.player.update(this.cursors, this.sword, dt)
+
+
+        this.player.update(this.playerControls, this.sword, dt)
         
         
         // Make enemies run towards the player

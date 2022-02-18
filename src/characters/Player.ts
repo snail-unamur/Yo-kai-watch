@@ -57,7 +57,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         super.preUpdate(time, delta)
     }
 
-    update(cursors: Phaser.Types.Input.Keyboard.CursorKeys, sword: SwordContainer, dt: number) {
+    update(cursors: {
+        up:Phaser.Input.Keyboard.Key,
+        down:Phaser.Input.Keyboard.Key,
+        left:Phaser.Input.Keyboard.Key,
+        right:Phaser.Input.Keyboard.Key,
+        attack:Phaser.Input.Keyboard.Key
+    }, sword: SwordContainer, dt: number) {
+        
         if(!cursors || this.healthState === HealthState.DEAD
             || this. healthState === HealthState.DAMAGE) {
             return
@@ -103,7 +110,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         
-        if(cursors.space?.isDown && sword.isPhysicsDisplayContained) {
+        if(cursors.attack?.isDown && sword.isPhysicsDisplayContained) {
             sword.rotateBy(1.5 * dt)
             sword.setVisible(true)
             sword.physicsBody.setEnable(true)
