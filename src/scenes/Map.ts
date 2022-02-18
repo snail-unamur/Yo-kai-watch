@@ -166,7 +166,7 @@ export default class Map extends Phaser.Scene{
                 file : fileToOpen,
                 path: this.pathToCurrent,
                 selectedId: this.selectedId,
-                selected: this.selected
+                selected: this.selected.name
             }
         });
 

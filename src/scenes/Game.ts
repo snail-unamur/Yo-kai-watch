@@ -20,6 +20,8 @@ export default class Game extends Phaser.Scene{
     private static readonly NB_TILE_PER_FILE = 3  
     private dungeon_size = 10
 
+    private oldFileNameShowed
+
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
     private player!: Player
@@ -52,6 +54,7 @@ export default class Game extends Phaser.Scene{
     private issues
 
     private monsterHovered:boolean = false
+    private currentTileHovered
 
 
     private fileChildren:FileChild[] = []
@@ -99,12 +102,21 @@ export default class Game extends Phaser.Scene{
             goUp: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
         }
 
+        this.input.on('pointerdown', this.onPointerDown, this)
+
         this.playerControls.dig.on('down', this.dig, this)
         this.playerControls.goUp.on('down', this.goUp, this)
     }
 
-    dig(){
-        let fileObject:FileChild = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
+    onPointerDown(cursor: Phaser.Input.Pointer){
+        if(this.currentTileHovered){
+            this.dig(this.currentTileHovered.collisionCallback())
+            
+        }
+    }
+
+    dig(fileObject?: FileChild){
+        if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
         if(fileObject && this.mapContext.file.children) {
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
@@ -119,19 +131,24 @@ export default class Game extends Phaser.Scene{
 
     goUp(){
         let parent = this.getParent(this.mapContext.path)
+        console.log(this.mapContext, parent)
         
         let id_ = -1
-        if(parent.name !== "root"){
-            this.mapContext.path.pop()
-            let c = 0
-            parent.children.forEach(el => {
-                if(el.name === this.mapContext.file.name){ id_ = c }
-                c++
-            })
+        if(this.mapContext.selectedId !== -1){
+            if(parent.name !== 'root'){
+                this.mapContext.path.pop()
+                let c = 0
+    
+                parent.children.forEach(el => {
+                    if(el.name === this.mapContext.file.name){ id_ = c }
+                    c++
+                })
 
-            this.mapContext.selectedId = id_
+            }
+    
             this.mapContext.file = parent
             this.mapContext.selected = parent.name
+            this.mapContext.selectedId = id_
     
             this.restart()
         }
@@ -166,13 +183,13 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer.visible = this.freezing
         
         if(this.freezing){
-            //console.log("freeze")
             this.physics.pause()
             this.anims.pauseAll()
+            this.fileChildren.forEach((el:FileChild) => { el.showName() })
         } else {
             this.physics.resume()
             this.anims.resumeAll()
-            //console.log("unfreeze")
+            this.fileChildren.forEach((el:FileChild) => { el.showName(false) })
         }
     }
 
@@ -198,7 +215,7 @@ export default class Game extends Phaser.Scene{
 
 
         // Launch UI
-        this.scene.run('game-ui')
+        this.scene.run('game-ui', { roomFile: this.mapContext.selected })
 
         // Create anims
         createCharacterAnims(this.anims)
@@ -312,11 +329,15 @@ export default class Game extends Phaser.Scene{
                 let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
                 if(tileHovered){
                     this_game.tooltip.visible = true
+                    this_game.currentTileHovered = tileHovered
                     
                     this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
                 }  else {
                     this_game.tooltip.visible = false
+                    this_game.currentTileHovered = undefined
                 }
+            } else {
+                this_game.currentTileHovered = undefined
             }
         }, this)
 
@@ -610,6 +631,19 @@ export default class Game extends Phaser.Scene{
 
 
         this.player.update(this.playerControls, this.sword, dt)
+
+        let file: FileChild = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
+        if(file){
+            sceneEvents.emit('tile-file-update', file.getName())
+            file.showName()
+            this.oldFileNameShowed = file
+        } else {
+            sceneEvents.emit('tile-file-update', "Nothing here")
+            if(this.oldFileNameShowed){
+                this.oldFileNameShowed.showName(false)
+                this.oldFileNameShowed = undefined
+            } 
+        }
         
         
         // Make enemies run towards the player
@@ -627,8 +661,6 @@ export default class Game extends Phaser.Scene{
     }
 
     newLayer(tile_size:number, dungeon_size:number, tilesString:string = "tiles"){
-
-        //tile_size = 16
         const map = this.make.tilemap({
             tileWidth: tile_size,
             tileHeight: tile_size,

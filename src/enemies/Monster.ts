@@ -19,6 +19,12 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     private infoString: string = ""
 
+    private issue?: {
+        component:string,
+        type:string, 
+        severity:string
+    }
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
@@ -34,7 +40,44 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             this_.healthBar = new HealthBar(this_.scene, -this_.body.height/2 - 15+ this_.body.offset.y)  
             this_.removeListener('animationrepeat')
         })
-        this.setInfo()
+        this.updateInfo()
+    }
+
+    setIssue(issue:{ component:string, type:string, severity:string }){
+        this.issue = issue
+        let monsterType = MonsterConstantsType.ZOMBIE
+        switch(issue.type){
+            case 'CODE_SMELL':
+                monsterType = MonsterConstantsType.ZOMBIE
+                break
+            case 'BUG':
+                monsterType = MonsterConstantsType.GOBLIN
+                break
+            case 'VULNERABILITY':
+                monsterType = MonsterConstantsType.DEMON
+                break
+        }
+
+        let monsterSize = MonsterConstantsSize.MEDIUM
+        switch(issue.severity){
+            case 'INFO':
+                monsterSize = MonsterConstantsSize.TINY
+                break
+            case 'MINOR':
+                monsterSize = MonsterConstantsSize.MEDIUM
+                break
+            case 'MAJOR':
+                monsterSize = MonsterConstantsSize.BIG
+                break
+            case 'CRITICAL':
+                monsterSize = MonsterConstantsSize.BIG
+                break
+        }
+        
+        this.setMonsterType(monsterType)
+        this.setMonsterSize(monsterSize)
+        this.playAnim()
+        this.updateInfo()
     }
 
     initialize(){
@@ -46,8 +89,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         this.healthBar?.destroy()
     }
 
-    setInfo(){
-        this.infoString = `${this.monsterSize} ${this.monsterType}`
+    updateInfo(){
+        this.infoString = `${this.monsterSize} ${this.monsterType}\n ${this.issue?.severity} ${this.issue?.type}`
     }
 
     getInfoString(){

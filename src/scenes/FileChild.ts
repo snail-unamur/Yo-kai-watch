@@ -26,11 +26,22 @@ export default class FileChild {
         severity:string
     }[] = []
 
+    private textObject: Phaser.GameObjects.Text
+
     constructor(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}, 
         game: Game, x:number, y:number, width:number, height:number){
         this.setFile(file)
 
         this.game = game
+
+        this.textObject = this.game.add.text(x + width/2, y + 16, file.name)
+        this.textObject.setScale(0.5)
+        this.textObject.setOrigin(0.5)
+        this.textObject.setBackgroundColor('black')
+        this.textObject.setAlpha(0.7)
+        this.textObject.setVisible(false)
+        this.textObject.setDepth(3)
+
 
         this.x = x
         this.y = y
@@ -50,6 +61,10 @@ export default class FileChild {
         }
     }
 
+    showName(value:boolean = true){
+        this.textObject.setVisible(value)
+    }
+
     getFile(){
         return this.file
     }
@@ -65,40 +80,9 @@ export default class FileChild {
     getMonster(){
         let issue = this.issues.pop()
         if(!issue) return
-
-        let monsterType = MonsterConstantsType.ZOMBIE
-        switch(issue.type){
-            case 'CODE_SMELL':
-                monsterType = MonsterConstantsType.ZOMBIE
-                break
-            case 'BUG':
-                monsterType = MonsterConstantsType.GOBLIN
-                break
-            case 'VULNERABILITY':
-                monsterType = MonsterConstantsType.DEMON
-                break
-        }
-
-        let monsterSize = MonsterConstantsSize.MEDIUM
-        switch(issue.severity){
-            case 'INFO':
-                monsterSize = MonsterConstantsSize.TINY
-                break
-            case 'MINOR':
-                monsterSize = MonsterConstantsSize.MEDIUM
-                break
-            case 'MAJOR':
-                monsterSize = MonsterConstantsSize.BIG
-                break
-            case 'CRITICAL':
-                monsterSize = MonsterConstantsSize.BIG
-                break
-        }
         
         let enemy = this.game.getEnemies().get(this.x + this.width/2, this.y + this.height/2, 'player') // Why "player" here?
-        enemy.setMonsterType(monsterType)
-        enemy.setMonsterSize(monsterSize)
-        enemy.playAnim()
+        enemy.setIssue(issue)
         enemy.input.hitArea = new Phaser.GameObjects.Rectangle(this.game, enemy.body.offset.x, enemy.body.offset.y, enemy.body.width, enemy.body.height)
 
         return enemy
