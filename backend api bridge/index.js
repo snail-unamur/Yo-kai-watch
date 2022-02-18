@@ -23,10 +23,10 @@ app.get('/metrics', async (req, res) => {
 });
 
 app.get('/search', async (req, res) => {
-    const query = req.query.query
+    let query = req.query.query
 
     console.log(`Project list queried with ${query}`)
-    if(!query) return [] // This is required otherwise the server crash when req.query.query = ""
+    if(!query) query = "a" // This is required otherwise the server crash when req.query.query = ""
 
     const sqData = await getSonarqubeProjects(query)
 
@@ -36,10 +36,10 @@ app.get('/search', async (req, res) => {
 })
 
 app.get('/issues', async (req, res) => {
-    const query = req.query.project
+    let query = req.query.project
     console.log('Retrieving issues for ' + query)
 
-    if(!query) return [] // This is required otherwise the server crash when req.query.query = ""
+    if(!query) query = "a" // This is required otherwise the server crash when req.query.query = ""
 
     const sqData = await getSonarqubeProjectIssues(query)
 
