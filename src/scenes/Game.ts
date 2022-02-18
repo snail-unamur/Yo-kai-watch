@@ -424,7 +424,7 @@ export default class Game extends Phaser.Scene{
                 baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
                 Game.NB_TILE_PER_FILE, file)
         }
-
+        
         if(nbFile === 0){
             // We are in a leaf
             this.sonarQubeData.id = 0
@@ -434,6 +434,44 @@ export default class Game extends Phaser.Scene{
                 Math.floor(this.dungeon_size/2) - 2, 
                 Game.NB_TILE_PER_FILE + 2, this.sonarQubeData)
 
+        }
+
+        // Add music of room
+        // Switch case based on the sqale_rating (1.0=A -> 5.0=E)
+        const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'sqale_rating').value
+        console.log(sqale_rating)        
+        switch(sqale_rating) {
+            default:
+            case '1.0':
+                if (!this.sound.get('ambient_a')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_a', {loop: true})
+                }
+                break
+            case '2.0':
+                if (!this.sound.get('ambient_b')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_b', {loop: true})
+                }
+                break
+            case '3.0':
+                if (!this.sound.get('ambient_c')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_c', {loop: true})
+                }
+                break
+            case '4.0':
+                if (!this.sound.get('ambient_d')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_d', {loop: true})
+                }
+                break
+            case '5.0':
+                if (!this.sound.get('ambient_e')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_e', {loop: true})
+                }
+                break
         }
     }
 
