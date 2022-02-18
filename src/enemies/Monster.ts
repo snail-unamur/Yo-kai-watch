@@ -44,7 +44,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     destroy(fromScene?: boolean): void {
         super.destroy(fromScene)
-        this.healthBar.destroy()
+        this.healthBar?.destroy()
     }
 
     setInfo(){
