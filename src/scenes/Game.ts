@@ -12,7 +12,6 @@ import FileChild from './FileChild'
 
 import { sceneEvents } from '~/events/EventCenter'
 import SwordContainer from '~/weapons/SwordContainer'
-import HealthBar from '~/graphics/Healthbar'
 import FileContainer from './FileContainer'
 
 export default class Game extends Phaser.Scene{
@@ -104,7 +103,7 @@ export default class Game extends Phaser.Scene{
 
         this.input.on('pointerdown', this.onPointerDown, this)
 
-        this.playerControls.dig.on('down', this.dig, this)
+        this.playerControls.dig.on('down', this.onDig, this)
         this.playerControls.goUp.on('down', this.goUp, this)
     }
 
@@ -115,12 +114,17 @@ export default class Game extends Phaser.Scene{
         }
     }
 
+    onDig(){
+        this.dig()
+    }
+
     dig(fileObject?: FileChild){
         if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
         if(fileObject && this.mapContext.file.children) {
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
             }
+            console.log(fileObject)
             this.mapContext.selectedId = fileObject.getFile().id
             this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
             this.mapContext.selected = fileObject.getFile().name
@@ -174,7 +178,7 @@ export default class Game extends Phaser.Scene{
         if(this.mapContext && typeof this.mapContext?.selected !== "string"){
             this.mapContext.selected = this.mapContext.selected.getName()
         }
-        
+        this.scene.stop("game-ui")
         this.scene.start('map', { mapContext: this.mapContext });
     }
 
