@@ -5,7 +5,6 @@ import FileContainer from "./FileContainer";
 
 import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
 import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
-import Label from "phaser3-rex-plugins/templates/ui/label/Label";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
 
 export default class Map extends Phaser.Scene{
