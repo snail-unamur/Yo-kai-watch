@@ -65,11 +65,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(cursors: {
-        up:Phaser.Input.Keyboard.Key,
-        down:Phaser.Input.Keyboard.Key,
-        left:Phaser.Input.Keyboard.Key,
-        right:Phaser.Input.Keyboard.Key,
-        attack:Phaser.Input.Keyboard.Key
+        up: Phaser.Input.Keyboard.Key[],
+        down: Phaser.Input.Keyboard.Key[],
+        left: Phaser.Input.Keyboard.Key[],
+        right: Phaser.Input.Keyboard.Key[],
+        attack: Phaser.Input.Keyboard.Key[],
+        dig: Phaser.Input.Keyboard.Key[],
+        goUp: Phaser.Input.Keyboard.Key[],
+        openMap: Phaser.Input.Keyboard.Key[],
+        freeze: Phaser.Input.Keyboard.Key[],
+        restart: Phaser.Input.Keyboard.Key[]
     }, sword: SwordContainer, dt: number) {
         
         if(!cursors || this.healthState === HealthState.DEAD
@@ -81,26 +86,26 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const player_speed = new Phaser.Math.Vector2(0, 0)
 
         // Left
-        if(cursors.left?.isDown) {
+        if(cursors.left.some(el => el.isDown)) {
             player_speed.x = -1
 
             this.flipX = true
         }
 
         // Right
-        else if(cursors.right?.isDown) {
+        else if(cursors.right.some(el => el.isDown)) {
             player_speed.x = 1
 
             this.flipX = false
         }
 
         // Up
-        if(cursors.up?.isDown) {
+        if(cursors.up.some(el => el.isDown)) {
             player_speed.y = -1
         }
 
         // Down
-        else if(cursors.down?.isDown) {
+        else if(cursors.down.some(el => el.isDown)) {
             player_speed.y = 1
         }
 
@@ -117,7 +122,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         
-        if(cursors.attack?.isDown && sword.isPhysicsDisplayContained) {
+        if(cursors.attack.some(el => el.isDown) && sword.isPhysicsDisplayContained) {
             sword.rotateBy(1.5 * dt)
             sword.setVisible(true)
             sword.physicsBody.setEnable(true)

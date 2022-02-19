@@ -3,6 +3,11 @@ import Phaser from "phaser";
 import './FileContainer'
 import FileContainer from "./FileContainer";
 
+import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
+import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
+import Label from "phaser3-rex-plugins/templates/ui/label/Label";
+import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
+
 export default class Map extends Phaser.Scene{
     private static readonly FILE_STEP = 3/10
     private currentChildren: FileContainer[] = []
@@ -22,6 +27,13 @@ export default class Map extends Phaser.Scene{
     private gameCanvas!: HTMLCanvasElement
     private cWidth!:number
     private cHeight!:number
+
+    private rexUI
+    private textEditZone!: BBCodeText
+    private suggestionPanel!: ScrollablePanel
+    private textEdit!: TextEdit
+
+    private keys: Phaser.Input.Keyboard.Key[] = []
 
 	constructor(){
 		super('map')
@@ -187,27 +199,36 @@ export default class Map extends Phaser.Scene{
     }
 
 
+    addKeys(){
+        // TODO keep button left & right pressed
+        // Setup keyboard control
+        this.keys = []
+        
+        this.keys.push(this.input.keyboard.addKey('right').on('down', this.rightPressed, this))
+        this.keys.push(this.input.keyboard.addKey('left').on('down', this.leftPressed, this))
+        this.keys.push(this.input.keyboard.addKey('up').on('down', this.upPressed, this))
+        this.keys.push(this.input.keyboard.addKey('down').on('down', this.downPressed, this))
+        // Setup keyboard control
+        this.keys.push(this.input.keyboard.addKey('d').on('down', this.rightPressed, this))
+        this.keys.push(this.input.keyboard.addKey('q').on('down', this.leftPressed, this))
+        this.keys.push(this.input.keyboard.addKey('z').on('down', this.upPressed, this))
+        this.keys.push(this.input.keyboard.addKey('s').on('down', this.downPressed, this))
+
+        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', this.selectRoom, this))
+        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER).on('down', this.selectRoom, this))
+        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.selectRoom, this))
+
+    }
 
     preload(){
+        this.rexUI = this['rexUI']
         this.fileTree = this.cache.json.get('metrics')
 
         this.getCurrentChildren()
         
-        // TODO keep button left & right pressed
-        // Setup keyboard control
-        this.input.keyboard.addKey('right').on('down', this.rightPressed, this)
-        this.input.keyboard.addKey('left').on('down', this.leftPressed, this)
-        this.input.keyboard.addKey('up').on('down', this.upPressed, this)
-        this.input.keyboard.addKey('down').on('down', this.downPressed, this)
-        // Setup keyboard control
-        this.input.keyboard.addKey('d').on('down', this.rightPressed, this)
-        this.input.keyboard.addKey('q').on('down', this.leftPressed, this)
-        this.input.keyboard.addKey('z').on('down', this.upPressed, this)
-        this.input.keyboard.addKey('s').on('down', this.downPressed, this)
-
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', this.selectRoom, this)
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER).on('down', this.selectRoom, this)
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.selectRoom, this)
+        this.addKeys()
+        //this.input.keyboard.addCapture()
+        //this.input.keyboard.removeCapture('d')
     }
 
     create(data){
@@ -251,6 +272,15 @@ export default class Map extends Phaser.Scene{
         } else {
             this.drawFiles(true)
         }
+
+        let zone = this.add.zone(0, 0, this.cWidth, this.cHeight)
+        zone.setInteractive().on('pointerdown', () => {
+            this.addKeys()
+        })
+        zone.setDepth(1)
+        zone.setOrigin(0, 0)
+
+        this.generateSearchBar()
     }
 
     update(t:number, dt:number){
@@ -410,5 +440,138 @@ export default class Map extends Phaser.Scene{
         }
         this.selected = el
         el.setSelected(true)
+    }
+
+
+
+    generateSearchBar(){
+        
+        this.textEditZone = new BBCodeText(this, 15, 15, "text", { 
+            fixedWidth: 200, 
+            fixedHeight: 36,
+            padding:{
+                left:10
+            },
+            backgroundColor: '#202121',
+            valign: "center",
+            align:"center"
+        })
+        this.textEditZone.setOrigin(0, 0)
+        this.textEditZone.setDepth(2)
+        this.add.existing(this.textEditZone)
+
+        this.cameras.main.setBackgroundColor(0x483B3A)
+        
+
+        this.textEditZone.setInteractive().on('pointerdown', () => {
+            this.keys.forEach((el:Phaser.Input.Keyboard.Key) => {
+                console.log("delete", el.keyCode)
+                this.input.keyboard.removeKey(el.keyCode)
+                this.input.keyboard.removeCapture(el.keyCode)
+            })
+            this.keys = []
+            //this.input.keyboard.enabled = false
+            //this.input.keyboard.enableGlobalCapture()
+
+            this.textEdit = this.rexUI.edit(this.textEditZone, {
+                onTextChanged: (textObject, text) => {
+                    textObject.text = text
+
+                    console.log(text)
+
+                    this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+                    this.generatePanel()
+
+
+                }
+            })
+            //To get the dom element use that: const elem = this.textEdit.inputText.node
+        })
+
+        this.generatePanel()
+    }
+
+
+    
+
+    generatePanel(){
+        let panelData: string[] = [
+            "example",
+            "example",
+            "example",
+            "example",
+            "example"
+        ]
+
+        this.suggestionPanel = this.rexUI.add.scrollablePanel({
+            x: 15,
+            y: 15 + 40,
+            // anchor: undefined,
+            width: 200,
+            height: 100,
+
+            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, '#0000FF', 0.2),
+          
+            mouseWheelScroller: {
+                focus: false,
+                speed: 0.2
+            },
+        
+            scrollMode: 0,// vertical scroll
+        
+            // Elements
+            panel: {
+                child: this.createPanel(panelData)
+            }
+        })
+        this.suggestionPanel.setDepth(2)
+        this.suggestionPanel.setOrigin(0, 0)
+        this.suggestionPanel.layout()
+
+
+        let this_game = this
+        let el = this.rexUI.setChildrenInteractive(this.suggestionPanel, {
+            targets: [this.suggestionPanel.getElement('panel')] // The target is the group of element
+            
+        })
+        
+        el.on('child.click', function (child) {
+            child.backgroundChildren[0].alpha = 1
+            console.log(child.name)
+        })
+        
+        el.on('child.over', function (child) {
+            child.backgroundChildren[0].alpha = 0.2
+        })
+        
+        el.on('child.out', function (child) {
+            child.backgroundChildren[0].alpha = 1
+        })
+    }
+
+    createPanel(data) {
+        let panel = this.rexUI.add.sizer({
+            orientation: 'y',
+            space: { item: 20, top: 7.5, bottom: 20 }
+        })
+    
+    
+        for(let i=0; i < data.length; i++){
+            let bg = this.rexUI.add.roundRectangle(0, 0, 200, 100, 15, 0x171818)
+   
+            panel.add(this.rexUI.add.label({
+                orientation: 'y',
+                width: 200,
+                height: 10,
+        
+                background: bg,
+                text: this.add.text(0, 0, data[i], { fontFamily: 'Helvetica, sans-serif' }),
+        
+                align: 'center',
+                name: data[i]
+            }))
+        }
+    
+        return panel;
     }
 }

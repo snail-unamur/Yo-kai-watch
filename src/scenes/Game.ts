@@ -59,13 +59,16 @@ export default class Game extends Phaser.Scene{
     private fileChildren:FileChild[] = []
 
     private playerControls!: {
-        up: Phaser.Input.Keyboard.Key,
-        down: Phaser.Input.Keyboard.Key,
-        left: Phaser.Input.Keyboard.Key,
-        right: Phaser.Input.Keyboard.Key,
-        attack: Phaser.Input.Keyboard.Key,
-        dig: Phaser.Input.Keyboard.Key,
-        goUp: Phaser.Input.Keyboard.Key
+        up: Phaser.Input.Keyboard.Key[],
+        down: Phaser.Input.Keyboard.Key[],
+        left: Phaser.Input.Keyboard.Key[],
+        right: Phaser.Input.Keyboard.Key[],
+        attack: Phaser.Input.Keyboard.Key[],
+        dig: Phaser.Input.Keyboard.Key[],
+        goUp: Phaser.Input.Keyboard.Key[],
+        openMap: Phaser.Input.Keyboard.Key[],
+        freeze: Phaser.Input.Keyboard.Key[],
+        restart: Phaser.Input.Keyboard.Key[]
     }
 
     private incomingMonster: number[] = []
@@ -78,33 +81,44 @@ export default class Game extends Phaser.Scene{
         FileChild.projectIssues = this.cache.json.get('issues')
         this.fileTree = this.cache.json.get('metrics')
 
-        this.cursors = this.input.keyboard.createCursorKeys()
+        //this.cursors = this.input.keyboard.createCursorKeys()
 
         let this_scene = this
-        this.input.keyboard.addKey('W').on('down', function(event) {
-            console.log("restart")
-            this_scene.scene.restart()
-        }, this)
-
+/*
         this.input.keyboard.addKey('X').on('down', this.handleFreeze, this)
 
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE).on('down', this.startMap, this)
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE).on('down', this.startMap, this)*/
+
+        // Don't put TAB key in the playerControls object or when the map will be open the capture will be cleared and a "tab action" will happen in the browser
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
 
         this.playerControls = {
-            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
-            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            attack: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
-            dig: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-            goUp: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
+            up: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z)],
+            down: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)],
+            left: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q)],
+            right: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)],
+            attack: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)],
+            dig: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)],
+            goUp: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)],
+            openMap: [ this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE) ],
+            freeze: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X)],
+            restart: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)]
         }
 
-        this.input.on('pointerdown', this.onPointerDown, this)
+        this.playerControls.openMap.forEach(element => { element.on('down', this.startMap, this) });
+        this.playerControls.freeze.forEach(element => { element.on('down', this.handleFreeze, this) });
 
-        this.playerControls.dig.on('down', this.onDig, this)
-        this.playerControls.goUp.on('down', this.goUp, this)
+        this.playerControls.restart.forEach(element => { element.on('down', function(event) {
+                console.log("restart")
+                this_scene.scene.restart()
+            }, this)
+        })
+
+        let i = this.input.on('pointerdown', this.onPointerDown, this)
+        
+
+        this.playerControls.dig.forEach(element => { element.on('down', this.onDig, this) })
+        this.playerControls.goUp.forEach(element => { element.on('down', this.goUp, this) })
     }
 
     onPointerDown(cursor: Phaser.Input.Pointer){
@@ -178,6 +192,13 @@ export default class Game extends Phaser.Scene{
         if(this.mapContext && typeof this.mapContext?.selected !== "string"){
             this.mapContext.selected = this.mapContext.selected.getName()
         }
+        Object.keys(this.playerControls).forEach(el => {
+            let e:Phaser.Input.Keyboard.Key[] = this.playerControls[el]
+            e.forEach((el: Phaser.Input.Keyboard.Key) => {
+                this.input.keyboard.removeCapture(el.keyCode)
+            })
+        })
+
         this.scene.stop("game-ui")
         this.scene.start('map', { mapContext: this.mapContext });
     }
