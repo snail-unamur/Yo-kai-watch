@@ -67,7 +67,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
                 monsterSize = MonsterConstantsSize.MEDIUM
                 break
             case 'MAJOR':
-                monsterSize = MonsterConstantsSize.BIG
+                monsterSize = MonsterConstantsSize.MEDIUM
                 break
             case 'CRITICAL':
                 monsterSize = MonsterConstantsSize.BIG
