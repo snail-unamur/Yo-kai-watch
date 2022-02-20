@@ -37,7 +37,7 @@ export default class Preloader extends Phaser.Scene {
          * 1 tile = 16x16 pixels
          * 1 row = 32 tiles
          * */
-        this.load.image('tiles', 'tiles/dungeon_tiles_full2.png')
+        this.load.image('tiles', 'tiles/dungeon_tiles_extruded.png')
 
         // TODO: clean. There are 2 strategies right now, load frame by frame from separated files.
         // Or load the entire tileset with different frame size.
@@ -53,11 +53,11 @@ export default class Preloader extends Phaser.Scene {
         });
 
         // loading for big monsters
-        this.load.spritesheet('animations_big_monsters', 'tiles/dungeon_tiles_full2.png', { frameWidth: 16, frameHeight: 36 })
+        this.load.spritesheet('animations_big_monsters', 'tiles/tiles_monster.png', { frameWidth: 16, frameHeight: 36 })
         // loading for player characters
-        this.load.spritesheet('animations_character', 'tiles/dungeon_tiles_full2.png', { frameWidth: 16, frameHeight: 32 })
+        this.load.spritesheet('animations_character', 'tiles/tiles_monster.png', { frameWidth: 16, frameHeight: 32 })
         // loading for tiny and medium monsters
-        this.load.spritesheet('animations_tiny_and_medium_monsters', 'tiles/dungeon_tiles_full2.png', { frameWidth: 16, frameHeight: 16 })
+        this.load.spritesheet('animations_tiny_and_medium_monsters', 'tiles/tiles_monster.png', { frameWidth: 16, frameHeight: 16 })
 
         // Loading ui
         this.load.image('ui_heart_empty', 'ui/ui_heart_empty.png')

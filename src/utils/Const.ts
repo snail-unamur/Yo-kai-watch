@@ -1,24 +1,28 @@
 export abstract class ConstantsTiles {
     // Constant for tiles
-    static readonly WALL_FACE:number = 34
-    static readonly WALL_LEFT:number = 257
-    static readonly WALL_TOP_LEFT_CORNER:number = 258
+    static readonly textureId = 0
+    // Each texture is seperated by 4 tiles
+    static readonly tileDistance = 5
+    static readonly diff = ConstantsTiles.textureId *  ConstantsTiles.tileDistance
+    static readonly WALL_FACE:number = 33 + ConstantsTiles.diff
+    static readonly WALL_LEFT:number = 69 // not done yet
+    static readonly WALL_TOP_LEFT_CORNER:number = 34 + ConstantsTiles.diff
     static readonly WALL_TOP_LEFT_INNER_CORNER:number = 384
     static readonly WALL_TIP_INNER:number = 321
-    static readonly WALL_TIP_TOP_LEFT:number = 226
-    static readonly WALL_BOTTOM_LEFT_CORNER:number = 322
-    static readonly WALL_BOTTOM_LEFT_CORNER_TIP:number = 290
-    static readonly WALL_RIGHT:number = 256
-    static readonly WALL_TOP_RIGHT_CORNER:number = 259 
+    static readonly WALL_TIP_TOP_LEFT:number = 2 + ConstantsTiles.diff
+    static readonly WALL_BOTTOM_LEFT_CORNER:number = 98 + ConstantsTiles.diff
+    static readonly WALL_BOTTOM_LEFT_CORNER_TIP:number = 66 + ConstantsTiles.diff
+    static readonly WALL_RIGHT:number = 101 // not done yet
+    static readonly WALL_TOP_RIGHT_CORNER:number = 35 + ConstantsTiles.diff 
     static readonly WALL_TOP_RIGHT_INNER_CORNER:number = 352
-    static readonly WALL_TIP_TOP_RIGHT:number = 227
-    static readonly WALL_BOTTOM_RIGHT_CORNER:number = 323
-    static readonly WALL_BOTTOM_RIGHT_CORNER_TIP:number = 291
-    static readonly WALL_TIP:number = 1
+    static readonly WALL_TIP_TOP_RIGHT:number = 3 + ConstantsTiles.diff
+    static readonly WALL_BOTTOM_RIGHT_CORNER:number = 99 + ConstantsTiles.diff
+    static readonly WALL_BOTTOM_RIGHT_CORNER_TIP:number = 67 + ConstantsTiles.diff
+    static readonly WALL_TIP:number = 1 + ConstantsTiles.diff
     static readonly ECHELLE:number = 195
-    static readonly GROUND_CLEAN:number = 129
-    static readonly GROUND_CRACK:number = 130
-    static readonly GROUND_SLIGHTLY_CRACKED:number = 162
+    static readonly GROUND_CLEAN:number = 36 + ConstantsTiles.diff
+    static readonly GROUND_CRACK:number = 68 + ConstantsTiles.diff
+    static readonly GROUND_SLIGHTLY_CRACKED:number = 100 + ConstantsTiles.diff
     static readonly GROUND_BOTTOM_LEFT_HOLE:number = 161
     static readonly GROUND_BOTTOM_RIGHT_HOLE:number = 163
     static readonly GROUND_TOP_RIGHT_HOLE:number = 193
