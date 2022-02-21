@@ -143,7 +143,6 @@ export default class Game extends Phaser.Scene{
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
             }
-            console.log(fileObject)
             this.mapContext.selectedId = fileObject.getFile().id
             this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
             this.mapContext.selected = fileObject.getFile().name
@@ -154,19 +153,12 @@ export default class Game extends Phaser.Scene{
 
     goUp(){
         let parent = this.getParent(this.mapContext.path)
-        console.log(this.mapContext, parent)
         
         let id_ = -1
         if(this.mapContext.selectedId !== -1){
-            if(parent.name !== 'root' || this.mapContext.file.type === "FIL"){
+            if(parent.name !== 'root'){
+                id_ = this.mapContext.path[this.mapContext.path.length-1]
                 this.mapContext.path.pop()
-                let c = 0
-    
-                parent.children.forEach(el => {
-                    if(el.name === this.mapContext.file.name){ id_ = c }
-                    c++
-                })
-
             }
     
             this.mapContext.file = parent
@@ -486,7 +478,7 @@ export default class Game extends Phaser.Scene{
         // Add music of room
         // Switch case based on the sqale_rating (1.0=A -> 5.0=E)
         const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
-        console.log(sqale_rating)        
+     
         switch(sqale_rating) {
             default:
             case '1.0':
