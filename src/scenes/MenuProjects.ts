@@ -35,12 +35,14 @@ export default class MenuProjects extends Phaser.Scene {
         this.textEditZone = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.3, this.projectQuery, { 
             fixedWidth: 300, 
             fixedHeight: 36,
-            padding:{
-                left:10
-            },
+            
             backgroundColor: '#202121',
+            backgroundCornerRadius: 10,
+            /*backgroundStrokeColor: 0x181818,
+            backgroundStrokeLineWidth: 3,*/
             valign: "center",
-            align:"center"
+            align:"center",
+            fontFamily: 'Helvetica, sans-serif' 
         })
         this.textEditZone.setOrigin(0.5, 0.5)
         this.add.existing(this.textEditZone)
@@ -84,18 +86,52 @@ export default class MenuProjects extends Phaser.Scene {
             panelData.push(element.key)
         })
 
+        let nbSuggestion = panelData.length
+        let sizeSuggestion = 50
+        if(nbSuggestion === 0) nbSuggestion = 1
+        let heightPanel = nbSuggestion * sizeSuggestion
+        let toScroll = false
+        if(heightPanel > 300){
+            heightPanel = 300
+            toScroll = true
+        } 
+        
+        let slider_ = {}
+        if(toScroll){
+            slider_ = {
+                input: 0,
+                track: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, 0x101111, 1),
+                thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 13, 0x555555, 1)
+            }
+        }
+
         this.suggestionPanel = this.rexUI.add.scrollablePanel({
             x: this.game.canvas.width/2,
             y: this.game.canvas.height * 0.3 + 40,
             // anchor: undefined,
             width: 480,
-            height: 300,
+            height: heightPanel,
 
-            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, '#0000FF', 0.2),
+            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, 0x000000, 0.2),
           
             mouseWheelScroller: {
                 focus: false,
                 speed: 0.2
+            },
+
+            scroller: {
+                // pointerOutRelease: false
+            },
+
+            slider: slider_,
+
+            space: {
+                left: 10,
+                right: 10,
+                top: 10,
+                bottom: 10,
+
+                panel: 10,
             },
         
             scrollMode: 0,// vertical scroll
@@ -132,23 +168,33 @@ export default class MenuProjects extends Phaser.Scene {
     createPanel(data) {
         let panel = this.rexUI.add.sizer({
             orientation: 'y',
-            space: { item: 20, top: 7.5, bottom: 20 }
+            space: { item: 7.5, top: 0, bottom: 20 }
         })
     
     
         for(let i=0; i < data.length; i++){
-            let bg = this.rexUI.add.roundRectangle(0, 0, 400, 400, 15, 0x171818)
+            let bg = this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, 0x171818)
    
             panel.add(this.rexUI.add.label({
                 orientation: 'y',
-                width: 480,
+                width: 460,
                 height: 10,
         
                 background: bg,
                 text: this.add.text(0, 0, data[i], { fontFamily: 'Helvetica, sans-serif' }),
         
                 align: 'center',
-                name: data[i]
+                name: data[i],
+                
+                space: {
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                    bottom: 10,
+            
+                    icon: 0,
+                    text: 0,
+                },
             }))
         }
     
