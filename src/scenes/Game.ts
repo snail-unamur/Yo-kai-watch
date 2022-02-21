@@ -158,7 +158,7 @@ export default class Game extends Phaser.Scene{
         
         let id_ = -1
         if(this.mapContext.selectedId !== -1){
-            if(parent.name !== 'root'){
+            if(parent.name !== 'root' || this.mapContext.file.type === "FIL"){
                 this.mapContext.path.pop()
                 let c = 0
     
@@ -634,8 +634,7 @@ export default class Game extends Phaser.Scene{
             t[i][0] = ConstantsTiles.WALL_LEFT
             t[i][size-1] = ConstantsTiles.WALL_RIGHT
         }
-
-        console.log(t, x, y)
+ 
         this.fileLayer.putTilesAt(t, x, y).alpha = 0.5
 
         let fileChild = new FileChild(file, this, x*Game.TILE_SIZE, y*Game.TILE_SIZE, size*Game.TILE_SIZE, size*Game.TILE_SIZE)
