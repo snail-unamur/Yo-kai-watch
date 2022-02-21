@@ -523,68 +523,7 @@ export default class Game extends Phaser.Scene{
         this.wall1Layer = walls[0]
         this.wall2Layer = walls[1]
     }
-/*
-    generationRandom(){
-        // generate random dungeon
-        const dungeon_min = 16
-        const dungeon_max = 24
-        this.dungeon_size = Math.floor(dungeon_min + (Math.random() * (dungeon_max - dungeon_min)))  
-
-        // Add ground layer
-        const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
-        fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CRACK), 0, 0)
-
-        // Add ground layer
-
-        // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
-        // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
-        this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-
-        // But the map is like displayed from theses coordinates
-        this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2)
-
-        // Add random cracked tiles
-        for(let i=2; i < this.dungeon_size-2; i++){
-            for(let j=2; j < this.dungeon_size-2; j++){
-                if(Math.random() > 0.9){
-                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK, i, j)
-                }
-            }
-        }
-
-
-
-        // Add File delimitation layer
-        this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-
-        //fileLimitLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN), 2, 2);
-        //this.generateFileLimitation()
-
-        const file_tiles_size = 4
-        const file = {
-            id: 1,
-            name: 'UserRegistrationForm.php', 
-            type: 'FIL', 
-            path: 'root/UserRegistrationForm.php', 
-            key: 'Caitanyakotla_Hobby-Projects:UserRegistrationForm.php', 
-            measures: [
-                {metric: 'code_smells', value: '3', bestValue: false},
-                {metric: 'sqale_index', value: '15', bestValue: false},
-                {metric: 'sqale_rating', value: '1.0', bestValue: true}, 
-                {metric: 'security_rating', value: '1.0', bestValue: true}, 
-                {metric: 'reliability_rating', value: '3.0', bestValue: false}, 
-                {metric: 'reliability_remediation_effort', value: '20', bestValue: false}, 
-                {metric: 'security_remediation_effort', value: '0', bestValue: true}, 
-                {metric: 'vulnerabilities', value: '0', bestValue: true}
-            ]
-        }
-        
-
-        this.generateFileLimitation(this.fileLayer, 3, 7, file_tiles_size, file)
-        this.generateFileLimitation(this.fileLayer, 6, 9, file_tiles_size, file)
-        this.generateFileLimitation(this.fileLayer, 4, 4, file_tiles_size, file)
-    }*/
-
+    
     handlePlayerMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
         const player = obj1 as Player
         const monster = obj2 as Monster
