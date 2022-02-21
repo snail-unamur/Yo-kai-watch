@@ -109,7 +109,7 @@ export function makeTree(data) {
 }
 
 export async function getSonarqubeProjects(query) {
-    const url = `https://sonarcloud.io/api/components/search_projects?boostNewProjects=false&ps=50&f=analysisDate&filter=query=${query}&s=analysisDate&asc=false`
+    const url = `https://sonarcloud.io/api/components/search_projects?boostNewProjects=false&ps=25&f=analysisDate&filter=query=${query}&s=analysisDate&asc=false`
 
     const sonarQubeDataRes = await axios.get(url)
     return sonarQubeDataRes.data.components
