@@ -38,8 +38,6 @@ export default class MenuProjects extends Phaser.Scene {
             
             backgroundColor: '#202121',
             backgroundCornerRadius: 10,
-            /*backgroundStrokeColor: 0x181818,
-            backgroundStrokeLineWidth: 3,*/
             valign: "center",
             align:"center",
             fontFamily: 'Helvetica, sans-serif' 
