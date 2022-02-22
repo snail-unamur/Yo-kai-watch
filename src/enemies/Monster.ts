@@ -116,6 +116,10 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         return this.infoString
     }
 
+    getHealthState(): HealthState {
+        return this.healthState
+    }
+
     setMonsterType(type:MonsterConstantsType){
         this.monsterType = type
     }
@@ -195,6 +199,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
 
     handleDamage(dir: Phaser.Math.Vector2) {
+        if(this.healthState === HealthState.DAMAGE) return
+
         this.health = this.healthBar.decrease(5)
         
 
@@ -212,7 +218,6 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             }, [], this)
         }*/
 
-        
         
         // Version above with an animation dedicated is better, this one is temporary
         this.setVelocity(dir.x * this.knockBackScaling.x, dir.y * this.knockBackScaling.y)

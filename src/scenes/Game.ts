@@ -11,7 +11,8 @@ import { ConstantsTiles, MonsterConstantsSize, MonsterConstantsType } from '~/ut
 import FileChild from './FileChild'
 
 import { sceneEvents } from '~/events/EventCenter'
-import SwordContainer from '~/weapons/SwordContainer'
+import Sword from '~/weapons/Sword'
+import '~/weapons/Sword'
 import FileContainer from './FileContainer'
 
 export default class Game extends Phaser.Scene{
@@ -24,7 +25,7 @@ export default class Game extends Phaser.Scene{
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
     private player!: Player
-    private sword?: SwordContainer
+    private sword!: Sword
 
     private enemies!: Phaser.Physics.Arcade.Group
     private groundLayer!: Phaser.Tilemaps.TilemapLayer
@@ -259,13 +260,15 @@ export default class Game extends Phaser.Scene{
 
 
         // Character
-        //this.player = this.add.player(center, center, 'player')
-        this.player = this.add.player(center, center, 'player')
+        this.player = this.add.player(center, center, 'animations_character', 72)
         this.player.setDepth(1)
         cam.startFollow(this.player)
 
         // Character Sword
-        this.sword = new SwordContainer(this, this.player.x, this.player.y)
+        // this.sword = new SwordContainer(this, this.player.x, this.player.y)
+        this.sword = this.add.sword(this.player.x, this.player.y, 'animations_tiny_and_medium_monsters', 37)
+        // this.add.existing(this.sword)
+        // this.physics.world.add(this.sword.body)
 
         // Enemies
         let this_game = this
@@ -295,7 +298,7 @@ export default class Game extends Phaser.Scene{
         this.playerMonsterCollider = this.physics.add.collider(this.player, this.enemies, this.handlePlayerMonsterCollision, undefined, this)
 
         // Sword monster collider
-        this.physics.add.overlap(this.sword.physicsDisplay, this.enemies, this.handleSwordMonsterCollision, undefined, this)
+        this.physics.add.overlap(this.sword, this.enemies, this.handleSwordMonsterCollision, undefined, this)
         
 
         
@@ -382,6 +385,7 @@ export default class Game extends Phaser.Scene{
     }
 
     handleSwordMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
+        console.log("hit")
         const enemy = obj2 as Monster
         
         // Knockback enemies

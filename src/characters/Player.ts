@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import SwordContainer from '~/weapons/SwordContainer'
+import SwordContainer from '~/weapons/Sword'
 import { sceneEvents } from '~/events/EventCenter'
 
 declare global {
@@ -19,6 +19,8 @@ enum HealthState {
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     private healthState: HealthState = HealthState.IDLE
     private health = 3
+
+    private attacking: boolean = false
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
@@ -78,6 +80,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         freeze: Phaser.Input.Keyboard.Key[],
         restart: Phaser.Input.Keyboard.Key[]
     }, sword: SwordContainer, dt: number) {
+
+        // if(this.attacking){
+        //     return
+        // }
         
         if(!cursors || this.healthState === HealthState.DEAD
             || this. healthState === HealthState.DAMAGE) {
@@ -111,6 +117,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             player_speed.y = 1
         }
 
+        sword.updatePosition(this.x, this.y, player_speed.clone())
+
         player_speed.normalize().scale(speed)
         this.setVelocity(player_speed.x, player_speed.y)
 
@@ -123,17 +131,43 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         }
 
-        
-        if(cursors.attack.some(el => el.isDown) && sword.isPhysicsDisplayContained) {
-            sword.rotateBy(1.5 * dt)
-            sword.setVisible(true)
-            sword.physicsBody.setEnable(true)
-        } else {
-            sword.physicsBody.setEnable(false)
-            sword.setVisible(false)
-            sword.setActive(false)
+        if(cursors.attack.some(el => el.isDown) && !this.attacking){
+            this.attacking = true
+            console.log("attack")
+            let swordSprite = sword
+            swordSprite.body.enable = true
+            swordSprite.anims.play('player-attack', true)
+            const startHit = (anim: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame) => {
+                //sword.rotateBy(0.1 * dt)
+                console.log(anim.key, "update attack")
+
+                // sword.x = this.flipX
+                //     ? this.x - this.width * 1
+                //     : this.x + this.width * 1
+    
+                // this.swordHitbox.y = this.y + this.height * 0.2
+    
+                // this.swordHitbox.body.enable = true
+                // this.scene.physics.world.add(this.swordHitbox.body)
+            }
+    
+            //swordSprite.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+    
+            swordSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
+                swordSprite.body.enable = false
+                setTimeout(() => {
+                    console.log(animation.key + "completed")
+                    //swordSprite.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+                    this.attacking = false
+                }, 500)
+                //swordSprite.anims.play('player-idle', true)
+                //this.knightStateMachine.setState('idle')
+    
+                // // TODO: hide and remove the sword swing hitbox
+                // this.swordHitbox.body.enable = false
+                // this.scene.physics.world.remove(this.swordHitbox.body)
+            })
         }
-        sword.updatePosition(this.x, this.y)
     }
 }
 

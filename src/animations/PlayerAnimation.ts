@@ -17,6 +17,13 @@ function createCharacterAnims(anims: Phaser.Animations.AnimationManager){
         frameRate: 15
     })
 
+    anims.create({
+        key: 'player-attack',
+        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 33, end: 37 }),
+        repeat: 0,
+        frameRate: 16
+    })
+
     // No faint animation in the tilset yet
     /*anims.create({
         key: 'player-faint',
