@@ -4,7 +4,6 @@ function createCharacterAnims(anims: Phaser.Animations.AnimationManager){
     // 144
     anims.create({
         key:'player-idle',
-        //frames: anims.generateFrameNumbers('animations_tiny_monsters', { start: 55, end: 58 }),
         frames: anims.generateFrameNumbers('animations_character', { start: 72, end: 75 }),
         repeat:-1,
         frameRate:7

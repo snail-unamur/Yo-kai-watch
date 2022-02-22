@@ -137,35 +137,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             let swordSprite = sword
             swordSprite.body.enable = true
             swordSprite.anims.play('player-attack', true)
-            const startHit = (anim: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame) => {
-                //sword.rotateBy(0.1 * dt)
-                console.log(anim.key, "update attack")
-
-                // sword.x = this.flipX
-                //     ? this.x - this.width * 1
-                //     : this.x + this.width * 1
-    
-                // this.swordHitbox.y = this.y + this.height * 0.2
-    
-                // this.swordHitbox.body.enable = true
-                // this.scene.physics.world.add(this.swordHitbox.body)
-            }
-    
-            //swordSprite.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
     
             swordSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
                 swordSprite.body.enable = false
                 setTimeout(() => {
                     console.log(animation.key + "completed")
-                    //swordSprite.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
                     this.attacking = false
                 }, 500)
-                //swordSprite.anims.play('player-idle', true)
-                //this.knightStateMachine.setState('idle')
-    
-                // // TODO: hide and remove the sword swing hitbox
-                // this.swordHitbox.body.enable = false
-                // this.scene.physics.world.remove(this.swordHitbox.body)
             })
         }
     }

@@ -249,9 +249,6 @@ export default class Map extends Phaser.Scene{
             this.allPathSliced.push(string)
             this.allPath.push(name)
         })
-
-        //this.input.keyboard.addCapture()
-        //this.input.keyboard.removeCapture('d')
     }
 
     create(data){
@@ -494,8 +491,6 @@ export default class Map extends Phaser.Scene{
                 this.input.keyboard.removeCapture(el.keyCode)
             })
             this.keys = []
-            //this.input.keyboard.enabled = false
-            //this.input.keyboard.enableGlobalCapture()
 
             this.textEdit = this.rexUI.edit(this.textEditZone, {
                 onTextChanged: (textObject, text) => {

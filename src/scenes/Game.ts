@@ -265,10 +265,7 @@ export default class Game extends Phaser.Scene{
         cam.startFollow(this.player)
 
         // Character Sword
-        // this.sword = new SwordContainer(this, this.player.x, this.player.y)
         this.sword = this.add.sword(this.player.x, this.player.y, 'animations_tiny_and_medium_monsters', 37)
-        // this.add.existing(this.sword)
-        // this.physics.world.add(this.sword.body)
 
         // Enemies
         let this_game = this

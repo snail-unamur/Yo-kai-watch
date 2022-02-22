@@ -202,21 +202,6 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         if(this.healthState === HealthState.DAMAGE) return
 
         this.health = this.healthBar.decrease(5)
-        
-
-        /*if (this.health <= 0) {
-            // Play animation ?
-            this.healthState = HealthState.DEAD
-            this.destroy()
-        } else {
-            this.setVelocity(dir.x * this.knockBackScaling.x, dir.y * this.knockBackScaling.y)
-            this.setTint(0xff0000)
-            this.healthState = HealthState.DAMAGE
-            this.scene.time.delayedCall(120, () => {
-                this.clearTint()
-                this.healthState = HealthState.IDLE
-            }, [], this)
-        }*/
 
         
         // Version above with an animation dedicated is better, this one is temporary
