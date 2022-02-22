@@ -482,9 +482,9 @@ export default class Game extends Phaser.Scene{
         }
 
         // Add music of room
-        // Switch case based on the sqale_rating (1.0=A -> 5.0=E)
+        // Switch case based on the reliability_rating (1.0=A -> 5.0=E)
      
-        switch(sqale_rating) {
+        switch(reliability_rating) {
             default:
             case '1.0':
                 if (!this.sound.get('ambient_a')) {
