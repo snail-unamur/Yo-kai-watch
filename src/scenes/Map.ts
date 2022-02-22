@@ -6,6 +6,7 @@ import FileContainer from "./FileContainer";
 import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
 import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
+import FileChild from "./FileChild";
 
 export default class Map extends Phaser.Scene{
     private static readonly FILE_STEP = 3/10
@@ -33,6 +34,9 @@ export default class Map extends Phaser.Scene{
     private textEdit!: TextEdit
 
     private keys: Phaser.Input.Keyboard.Key[] = []
+    
+    private allPath: string[] = []
+    private allPathSliced: string[] = []
 
 	constructor(){
 		super('map')
@@ -226,6 +230,24 @@ export default class Map extends Phaser.Scene{
         this.getCurrentChildren()
         
         this.addKeys()
+
+        
+
+        FileChild.projectIssues.forEach(el => {
+            let name = el.component.split(":")[1]
+            let list_ = name.match(/.{1,20}/g)
+            let string = ""
+
+            list_!.forEach(el => {
+                string += el + "\n"
+            })
+
+            string = string.slice(0, -1)
+
+            this.allPathSliced.push(string)
+            this.allPath.push(name)
+        })
+
         //this.input.keyboard.addCapture()
         //this.input.keyboard.removeCapture('d')
     }
@@ -274,7 +296,7 @@ export default class Map extends Phaser.Scene{
 
         let zone = this.add.zone(0, 0, this.cWidth, this.cHeight)
         zone.setInteractive().on('pointerdown', () => {
-            this.addKeys()
+            if(this.keys.length === 0) this.addKeys()
         })
         zone.setDepth(1)
         zone.setOrigin(0, 0)
@@ -446,12 +468,13 @@ export default class Map extends Phaser.Scene{
     generateSearchBar(){
         
         this.textEditZone = new BBCodeText(this, 15, 15, "text", { 
-            fixedWidth: 200, 
+            fixedWidth: 220, 
             fixedHeight: 36,
             padding:{
                 left:10
             },
             backgroundColor: '#202121',
+            backgroundCornerRadius: 10,
             valign: "center",
             align:"center"
         })
@@ -479,7 +502,7 @@ export default class Map extends Phaser.Scene{
                     console.log(text)
 
                     this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
-                    this.generatePanel()
+                    this.generatePanel(text)
 
 
                 }
@@ -493,21 +516,25 @@ export default class Map extends Phaser.Scene{
 
     
 
-    generatePanel(){
-        let panelData: string[] = [
-            "example",
-            "example",
-            "example",
-            "example",
-            "example"
-        ]
+    generatePanel(txt: string = ""){
+        let panelData: string[] = []
+        
+        let c = 0
+        for(let i=0; i < this.allPath.length && c < 10; i++){
+            if(this.allPath[i].startsWith(txt)){
+                panelData.push(this.allPathSliced[i])
+                c++
+            }
+
+        }
+        // TODO set panel data to the suggestions 
 
         this.suggestionPanel = this.rexUI.add.scrollablePanel({
             x: 15,
             y: 15 + 40,
             // anchor: undefined,
             width: 200,
-            height: 100,
+            height: 200,
 
             background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, '#0000FF', 0.2),
           
@@ -521,6 +548,15 @@ export default class Map extends Phaser.Scene{
             // Elements
             panel: {
                 child: this.createPanel(panelData)
+            },
+
+            space: {
+                left: 5,
+                right: 5,
+                top: 5,
+                bottom: 5,
+
+                panel: 5,
             }
         })
         this.suggestionPanel.setDepth(2)
@@ -528,7 +564,6 @@ export default class Map extends Phaser.Scene{
         this.suggestionPanel.layout()
 
 
-        let this_game = this
         let el = this.rexUI.setChildrenInteractive(this.suggestionPanel, {
             targets: [this.suggestionPanel.getElement('panel')] // The target is the group of element
             
@@ -548,15 +583,17 @@ export default class Map extends Phaser.Scene{
         })
     }
 
-    createPanel(data) {
+    createPanel(data: string[]) {
         let panel = this.rexUI.add.sizer({
             orientation: 'y',
-            space: { item: 20, top: 7.5, bottom: 20 }
+            space: { item: 5, top: 0, bottom: 20 }
         })
     
     
         for(let i=0; i < data.length; i++){
             let bg = this.rexUI.add.roundRectangle(0, 0, 200, 100, 15, 0x171818)
+            let text = this.add.text(0, 0, data[i], { fontFamily: 'Helvetica, sans-serif' })
+
    
             panel.add(this.rexUI.add.label({
                 orientation: 'y',
@@ -564,10 +601,20 @@ export default class Map extends Phaser.Scene{
                 height: 10,
         
                 background: bg,
-                text: this.add.text(0, 0, data[i], { fontFamily: 'Helvetica, sans-serif' }),
+                text: text,
         
                 align: 'center',
-                name: data[i]
+                name: data[i],
+                
+                space: {
+                    left: 5,
+                    right: 5,
+                    top: 5,
+                    bottom: 5,
+            
+                    icon: 0,
+                    text: 0,
+                }
             }))
         }
     
