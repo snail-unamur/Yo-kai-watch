@@ -526,7 +526,6 @@ export default class Map extends Phaser.Scene{
         let c = 0
         for(let i=0; i < this.allPath.length && c < 10; i++){
             if(this.allPath[i].startsWith(txt)){
-                
                 let list_ = this.allPath[i].slice(txt.length).match(/.{1,20}/g)
                 let string = ""
 
@@ -536,8 +535,8 @@ export default class Map extends Phaser.Scene{
 
                 string = string.slice(0, -1)
 
-
                 panelData.push(/*"..." + */string)
+                c++
             }
 
         }
