@@ -196,6 +196,9 @@ export default class Game extends Phaser.Scene{
             })
         })
 
+        this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
+        this.incomingMonster = []
+        
         this.scene.stop("game-ui")
         this.scene.start('map', { mapContext: this.mapContext });
     }
