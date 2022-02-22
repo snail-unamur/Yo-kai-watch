@@ -133,7 +133,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         if(cursors.attack.some(el => el.isDown) && !this.attacking){
             this.attacking = true
-            console.log("attack")
             let swordSprite = sword
             swordSprite.body.enable = true
             swordSprite.anims.play('player-attack', true)
@@ -141,7 +140,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             swordSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
                 swordSprite.body.enable = false
                 setTimeout(() => {
-                    console.log(animation.key + "completed")
                     this.attacking = false
                 }, 500)
             })
