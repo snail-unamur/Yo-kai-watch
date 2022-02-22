@@ -1,16 +1,24 @@
 export default class HealthBar extends Phaser.GameObjects.Graphics {
-    private value = 100
+    private value: number
+    private maxValue: number
 
     private offsetX: number
     private offsetY: number
 
-    constructor(scene, offsetY) {
+    constructor(scene, offsetY, value:number = 3) {
         super(scene)
+        this.value = value
+        this.maxValue = value
         this.offsetX = -15.75
         this.offsetY = offsetY
 
         scene.add.existing(this)
         this.draw()
+    }
+
+    setValue(value:number){
+        this.value = value
+        this.maxValue = value
     }
 
     decrease(amount) {
@@ -32,7 +40,7 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
 
         // Health
         this.fillStyle(0x69ff4f)
-        this.fillRect(this.offsetX, this.offsetY, 30*(this.value/100), 3.5)
+        this.fillRect(this.offsetX, this.offsetY, 30*(this.value/this.maxValue), 3.5)
 
         /* TODO: color bar based on reamining health points
         
