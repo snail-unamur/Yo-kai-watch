@@ -49,7 +49,12 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     setIssue(issue:{ component:string, type:string, severity:string, debt:string }){
         this.issue = issue
 
-        this.health = parseInt(issue.debt.slice(0, -3)) + 1
+        console.log(issue.debt)
+        let l = issue.debt.split("h")
+        let hours = parseInt(l[0])
+        let minutes = parseInt(l[1].slice(0, -3))
+        this.health = hours*60 + minutes + 1
+        console.log(this.health)
         this.healthBar?.setValue(this.health)
 
         let monsterType = MonsterConstantsType.ZOMBIE
