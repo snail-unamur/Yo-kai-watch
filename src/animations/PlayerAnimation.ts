@@ -11,7 +11,7 @@ function createCharacterAnims(anims: Phaser.Animations.AnimationManager){
 
     anims.create({
         key: 'player-run',
-        frames: anims.generateFrameNumbers('animations_character', { start: 76, end: 80 }),
+        frames: anims.generateFrameNumbers('animations_character', { start: 75, end: 79 }),
         repeat: -1,
         frameRate: 15
     })
