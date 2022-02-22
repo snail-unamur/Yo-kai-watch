@@ -25,6 +25,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         severity:string
     }
 
+    private knockBackScaling: { x:number, y:number } = { x:1, y:1 }
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
@@ -32,19 +34,24 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         this.monsterType = MonsterConstantsType.DEMON
         this.monsterSize = MonsterConstantsSize.BIG
 
-        let this_ = this
-        this.on('animationrepeat', function(){
-            this_.playAnim("run")
-            this_.body.enable = true
-            this_.body.onCollide = true
-            this_.healthBar = new HealthBar(this_.scene, -this_.body.height/2 - 15+ this_.body.offset.y)  
-            this_.removeListener('animationrepeat')
-        })
+        this.on('animationrepeat', this.onSpawn)
         this.updateInfo()
     }
 
-    setIssue(issue:{ component:string, type:string, severity:string }){
+    onSpawn(){
+        this.playAnim("run")
+        this.body.enable = true
+        this.body.onCollide = true
+        this.healthBar = new HealthBar(this.scene, -this.body.height/2 - 15+ this.body.offset.y, this.health)  
+        this.removeListener('animationrepeat')
+    }
+
+    setIssue(issue:{ component:string, type:string, severity:string, debt:string }){
         this.issue = issue
+
+        this.health = parseInt(issue.debt.slice(0, -3)) + 1
+        this.healthBar?.setValue(this.health)
+
         let monsterType = MonsterConstantsType.ZOMBIE
         switch(issue.type){
             case 'CODE_SMELL':
@@ -109,16 +116,19 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             case MonsterConstantsSize.TINY:
                 this.body.setSize(12, 12)
                 this.body.setOffset(3, 3)
+                this.knockBackScaling = { x:1, y:1 }
                 break;
 
             case MonsterConstantsSize.MEDIUM:
                 this.body.setSize(12, 16)
                 this.body.setOffset(2, 0)
+                this.knockBackScaling = { x:0.6, y:0.6 }
                 break;
 
             case MonsterConstantsSize.BIG:
                 this.body.setSize(20, 26)
                 this.body.setOffset(5, 8)
+                this.knockBackScaling = { x:0.3, y:0.3 }
                 break;
         }
     }
@@ -173,17 +183,37 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
 
     handleDamage(dir: Phaser.Math.Vector2) {
-        this.health = this.healthBar.decrease(34)
+        this.health = this.healthBar.decrease(5)
         
 
-        if (this.health <= 0) {
+        /*if (this.health <= 0) {
             // Play animation ?
             this.healthState = HealthState.DEAD
             this.destroy()
         } else {
-            this.setVelocity(dir.x, dir.y)
+            this.setVelocity(dir.x * this.knockBackScaling.x, dir.y * this.knockBackScaling.y)
             this.setTint(0xff0000)
             this.healthState = HealthState.DAMAGE
+            this.scene.time.delayedCall(120, () => {
+                this.clearTint()
+                this.healthState = HealthState.IDLE
+            }, [], this)
+        }*/
+
+        
+        
+        // Version above with an animation dedicated is better, this one is temporary
+        this.setVelocity(dir.x * this.knockBackScaling.x, dir.y * this.knockBackScaling.y)
+        this.setTint(0xff0000)
+        this.healthState = HealthState.DAMAGE
+        if (this.health <= 0) {
+            // Play animation ?
+            this.scene.time.delayedCall(120, () => {
+                this.clearTint()
+                this.healthState = HealthState.DEAD
+                this.destroy()
+            }, [], this)
+        } else {
             this.scene.time.delayedCall(120, () => {
                 this.clearTint()
                 this.healthState = HealthState.IDLE
