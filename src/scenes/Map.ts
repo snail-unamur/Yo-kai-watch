@@ -38,6 +38,8 @@ export default class Map extends Phaser.Scene{
     private allPath: string[] = []
     private allPathSliced: string[] = []
 
+    private lastTypeTime: number = 0
+
 	constructor(){
 		super('map')
 	}
@@ -183,7 +185,7 @@ export default class Map extends Phaser.Scene{
                 selectedId: this.selectedId,
                 selected: this.selected.name
             }
-        });
+        })
 
         // Start game with the element
     }
@@ -500,11 +502,13 @@ export default class Map extends Phaser.Scene{
                     textObject.text = text
 
                     console.log(text)
-
-                    this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
-                    this.generatePanel(text)
-
-
+                    this.lastTypeTime = Date.now()
+                    setTimeout(() => {
+                        if(Date.now() - this.lastTypeTime > 500){
+                            this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+                            this.generatePanel(text)
+                        }
+                    }, 600)
                 }
             })
             //To get the dom element use that: const elem = this.textEdit.inputText.node
@@ -522,8 +526,18 @@ export default class Map extends Phaser.Scene{
         let c = 0
         for(let i=0; i < this.allPath.length && c < 10; i++){
             if(this.allPath[i].startsWith(txt)){
-                panelData.push(this.allPathSliced[i])
-                c++
+                
+                let list_ = this.allPath[i].slice(txt.length).match(/.{1,20}/g)
+                let string = ""
+
+                list_!.forEach(el => {
+                    string += el + "\n"
+                })
+
+                string = string.slice(0, -1)
+
+
+                panelData.push(/*"..." + */string)
             }
 
         }
@@ -569,10 +583,7 @@ export default class Map extends Phaser.Scene{
             
         })
         
-        el.on('child.click', function (child) {
-            child.backgroundChildren[0].alpha = 1
-            console.log(child.name)
-        })
+        el.on('child.click', this.onClickSuggestion, this)
         
         el.on('child.over', function (child) {
             child.backgroundChildren[0].alpha = 0.2
@@ -581,6 +592,49 @@ export default class Map extends Phaser.Scene{
         el.on('child.out', function (child) {
             child.backgroundChildren[0].alpha = 1
         })
+    }
+
+    createMapContextFromPath(path:string){
+        path = path.split('\n').join("")
+        console.log(path)
+        let pathList = path.split('/')
+        let fullPath: number[] = []
+        let selectedId = 0
+        let selected = "root"
+        let file = this.fileTree[0]
+
+
+        pathList.forEach((pathElementToFind:string) => {
+            fullPath.push(selectedId)
+            file.children.forEach((el:{ name:string }, index) => {
+                if(el.name === pathElementToFind){
+                    file = el // Path element is the new parent element
+                    selectedId = index
+                    selected = el.name
+                }
+            })
+
+        })
+
+        let newMapContext = {
+            file: file,
+            path: fullPath,
+            selected: selected,
+            selectedId:selectedId
+        }
+        console.log(newMapContext)
+        
+        this.scene.start('game', { 
+            mapContext : newMapContext
+        });
+    }
+
+    onClickSuggestion(child){
+        child.backgroundChildren[0].alpha = 1
+        console.log(child.name)
+        console.log(this.fileTree)
+        this.createMapContextFromPath(child.name)
+
     }
 
     createPanel(data: string[]) {
