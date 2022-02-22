@@ -216,6 +216,9 @@ export default class Game extends Phaser.Scene{
     }
 
     create(data){
+        sceneEvents.on('player-dead', () => {
+            this.scene.restart()
+        })
         this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
         this.incomingMonster = []
 
@@ -318,7 +321,7 @@ export default class Game extends Phaser.Scene{
         this.tooltip.setScale(0.5) // revert camera zoom
         this.tooltip.setWordWrapWidth(500) // buggy when text is overriden
         this.tooltip.setBackgroundColor('black')
-        this.tooltip.setAlpha(0.7)
+        this.tooltip.setAlpha(1)
         this.tooltip.setVisible(false)
         this.tooltip.setDepth(100) // put the tooltip in front of every other things
 
@@ -415,8 +418,11 @@ export default class Game extends Phaser.Scene{
          */
 
         const reliability_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
+        const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'sqale_rating').value
         this.groundTexture = 5 - Math.floor(reliability_rating)
-        const probaCracked = -0.2 + reliability_rating*0.2
+
+
+        const probaCracked = -0.2 + sqale_rating*0.2
         const probaSlightlyCracked = 0.2
         const probaClean = 1 - probaCracked - probaSlightlyCracked
         
@@ -477,7 +483,6 @@ export default class Game extends Phaser.Scene{
 
         // Add music of room
         // Switch case based on the sqale_rating (1.0=A -> 5.0=E)
-        const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
      
         switch(sqale_rating) {
             default:
@@ -523,7 +528,7 @@ export default class Game extends Phaser.Scene{
         this.wall1Layer = walls[0]
         this.wall2Layer = walls[1]
     }
-    
+
     handlePlayerMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
         const player = obj1 as Player
         const monster = obj2 as Monster

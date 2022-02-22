@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import SwordContainer from '~/weapons/SwordContainer'
+import { sceneEvents } from '~/events/EventCenter'
 
 declare global {
     namespace Phaser.GameObjects {
@@ -43,6 +44,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocity(0, 0)
 
             // play death sound
+            sceneEvents.emit('player-dead')
             this.scene.sound.play('player_death', { volume: 1.5 })
         } else {
             this.setVelocity(dir.x, dir.y)
