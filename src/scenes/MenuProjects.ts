@@ -33,6 +33,9 @@ export default class MenuProjects extends Phaser.Scene {
     create() {
         this.projectNames = this.cache.json.get('project_names')
 
+        this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.1, "The Coding of Isaac", {
+            fontSize: "40px"
+        }).setOrigin(0.5)
 
         this.textEditZone = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.3, this.projectQuery, { 
             fixedWidth: 300, 
@@ -46,6 +49,10 @@ export default class MenuProjects extends Phaser.Scene {
         })
         this.textEditZone.setOrigin(0.5, 0.5)
         this.add.existing(this.textEditZone)
+
+        this.add.text(this.textEditZone.x - 150, this.game.canvas.height * 0.3 - 36, "Search a project:", {
+            fontSize: "16px"
+        }).setOrigin(0, 0.5)
 
         this.cameras.main.setBackgroundColor(0x483B3A)
 
