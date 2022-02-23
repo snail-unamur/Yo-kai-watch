@@ -167,6 +167,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     dig(){
+        if(this.digging || this.goingUp) return
         this.body.enable = false
         this.setVelocity(0, 0)
         this.digging = true
@@ -174,6 +175,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     goUp(){
+        if(this.digging || this.goingUp) return
         this.body.enable = false
         this.setVelocity(0, 0)
         this.goingUp = true
