@@ -5,8 +5,8 @@ USER root
 # Install nginx with node and npm
 RUN apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/main libuv \
     && apk add --no-cache --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/main nodejs=16.13.2-r1 npm=8.3.0-r0 \
-    && echo "NodeJS Version:" "$(node -v)" \
-    && echo "NPM Version:" "$(npm -v)"
+    && echo "NPM Version:" "$(npm -v)" \
+    && echo "NodeJS Version:" "$(node -v)"
 
 
 # Make directory
@@ -26,7 +26,7 @@ RUN npm install
 RUN npm run build
 
 # Put front end in nginx exposed folder
-COPY ["./dist", "/usr/share/nginx/html"]
+RUN cp -R /home/node/app/dist/* /usr/share/nginx/html/
 
 # Expose api and frontend
 EXPOSE 5000
