@@ -16,6 +16,7 @@ export default class Sword extends Phaser.Physics.Arcade.Sprite
 		super(scene, x, y, texture, frame)
 
 		this.lastDirection = new Phaser.Math.Vector2(0, 1)
+		this.setScale(1.5)
 	}
 
     updatePosition(x: number, y: number, direction: Phaser.Math.Vector2) {
