@@ -21,15 +21,37 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private health = 3
 
     private attacking: boolean = false
+    private digging: boolean = false
+    private goingUp: boolean = false
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
         this.anims.play('player-idle')
+    
+        this.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'player-dig', (animation) => {
+            console.log("PLAYER dig done ")
+            sceneEvents.emit('player-dig-done')
+            this.digging = false
+        })
+    
+        this.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'player-go-up', (animation) => {
+            console.log("PLAYER go-up done ")
+            sceneEvents.emit('player-go-up-done')
+            this.goingUp = false
+        })
     }
 
     getHealth(): number {
         return this.health
+    }
+
+    isDigging(): boolean{
+        return this.digging
+    }
+
+    isGoingUp(): boolean{
+        return this.goingUp
     }
 
     handleDamage(dir: Phaser.Math.Vector2) {
@@ -80,13 +102,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         freeze: Phaser.Input.Keyboard.Key[],
         restart: Phaser.Input.Keyboard.Key[]
     }, sword: SwordContainer, dt: number) {
-
-        // if(this.attacking){
-        //     return
-        // }
         
         if(!cursors || this.healthState === HealthState.DEAD
-            || this. healthState === HealthState.DAMAGE) {
+            || this. healthState === HealthState.DAMAGE
+            || this.digging
+            || this.goingUp) {
             return
         }
 
@@ -144,6 +164,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 }, 500)
             })
         }
+    }
+
+    dig(){
+        this.body.enable = false
+        this.setVelocity(0, 0)
+        this.digging = true
+        this.anims.play('player-dig', true)
+    }
+
+    goUp(){
+        this.body.enable = false
+        this.setVelocity(0, 0)
+        this.goingUp = true
+        this.anims.play('player-go-up', true)
     }
 }
 

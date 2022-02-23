@@ -49,9 +49,9 @@ Phaser.GameObjects.GameObjectFactory.register('sword', function (this: Phaser.Ga
     this.updateList.add(sprite)
 
     this.scene.physics.world.enableBody(sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
+	sprite.body.enable = false
 
 
-	console.log(sprite)
     sprite.body.setSize(20, 20)
     sprite.body.setOffset(-2, -2)
 

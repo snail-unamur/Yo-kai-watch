@@ -17,6 +17,18 @@ function createCharacterAnims(anims: Phaser.Animations.AnimationManager){
     })
 
     anims.create({
+        key: 'player-dig',
+        frames: anims.generateFrameNumbers('animations_character', { start: 136, end: 143 }),
+        frameRate: 12
+    })
+
+    anims.create({
+        key: 'player-go-up',
+        frames: anims.generateFrameNumbers('animations_character', { start: 200, end: 207 }),
+        frameRate: 12
+    })
+
+    anims.create({
         key: 'player-attack',
         frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 33, end: 37 }),
         repeat: 0,

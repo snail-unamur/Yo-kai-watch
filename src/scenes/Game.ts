@@ -139,8 +139,10 @@ export default class Game extends Phaser.Scene{
     }
 
     dig(fileObject?: FileChild){
+        if(this.player.isDigging()) return
         if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
         if(fileObject && this.mapContext.file.children) {
+            this.player.dig()
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
             }
@@ -148,7 +150,7 @@ export default class Game extends Phaser.Scene{
             this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
             this.mapContext.selected = fileObject.getFile().name
 
-            this.restart()
+            //this.restart()
         }
     }
 
@@ -165,8 +167,10 @@ export default class Game extends Phaser.Scene{
             this.mapContext.file = parent
             this.mapContext.selected = parent.name
             this.mapContext.selectedId = id_
+
+            this.player.goUp()
     
-            this.restart()
+            //this.restart()
         }
     }
 
@@ -223,6 +227,18 @@ export default class Game extends Phaser.Scene{
         sceneEvents.on('player-dead', () => {
             this.scene.restart()
         })
+        sceneEvents.removeAllListeners('player-dig-done')
+        console.log(sceneEvents.listeners('player-dig-done'))
+        sceneEvents.on('player-dig-done', () => {
+            console.log(/*Date.now(),*/ "dig done")
+            this.restart()
+        })
+        sceneEvents.removeAllListeners('player-go-up-done')
+        console.log(sceneEvents.listeners('player-go-up-done'))
+        sceneEvents.on('player-go-up-done', () => {
+            console.log(/*Date.now(),*/ "go-up done")
+            this.restart()
+        })
         this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
         this.incomingMonster = []
 
@@ -239,7 +255,7 @@ export default class Game extends Phaser.Scene{
                 selectedId:-1
             }
         }
-        console.log(this.sonarQubeData)
+        //console.log(this.sonarQubeData)
         this.generation()
 
 
