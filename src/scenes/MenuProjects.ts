@@ -17,6 +17,8 @@ export default class MenuProjects extends Phaser.Scene {
 
     private projectQuery:string = "abc"
 
+    private lastTypeTime: number = 0
+
 
     constructor() {
         super('menu_projects');
@@ -54,19 +56,26 @@ export default class MenuProjects extends Phaser.Scene {
                     textObject.text = text
                     this.projectQuery = text
 
-                    this.cache.json.remove('project_names')
-                    this.load.json('project_names', `http://localhost:5000/search?query=${this.projectQuery}`)
-                    this.load.once(Phaser.Loader.Events.COMPLETE, () => {
-                        // TODO : don't reload on each key pressed, but only after a short delay in order to not spawn the API 
-                        // texture loaded so use instead of the placeholder
-                        console.log(`requested ${this.projectQuery}`)
 
-                        this.projectNames = this.cache.json.get('project_names')
+                    this.lastTypeTime = Date.now()
+                    setTimeout(() => {
+                        if(Date.now() - this.lastTypeTime > 500){
 
-                        this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
-                        this.generatePanel()
-                    })
-                    this.load.start()
+                            this.cache.json.remove('project_names')
+                            this.load.json('project_names', `http://localhost:5000/search?query=${this.projectQuery}`)
+                            this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+                                // TODO : don't reload on each key pressed, but only after a short delay in order to not spawn the API 
+                                // texture loaded so use instead of the placeholder
+                                console.log(`requested ${this.projectQuery}`)
+        
+                                this.projectNames = this.cache.json.get('project_names')
+        
+                                this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+                                this.generatePanel()
+                            })
+                            this.load.start()
+                        }
+                    }, 600)
 
 
                 }
