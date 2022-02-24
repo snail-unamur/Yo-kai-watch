@@ -50,4 +50,5 @@ export abstract class LogConstant{
     static readonly DIE = 'die'
     static readonly KILL = 'kill'
     static readonly GET_HIT = 'get_hit'
+    static readonly START_ROOM = 'start_room'
 }

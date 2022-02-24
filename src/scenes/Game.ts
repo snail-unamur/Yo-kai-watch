@@ -230,6 +230,7 @@ export default class Game extends Phaser.Scene{
     }
 
     create(data){
+        Log.addInformation(LogConstant.START_ROOM, this.mapContext)
         sceneEvents.on('player-dead', () => {
             Log.addInformation(LogConstant.DIE, this.mapContext)
             this.scene.restart()
