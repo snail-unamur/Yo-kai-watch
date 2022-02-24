@@ -26,7 +26,9 @@ export default class MenuProjects extends Phaser.Scene {
 
     preload() {
         this.rexUI = this['rexUI']
-        this.load.json('project_names', `http://localhost:5000/search?query=${this.projectQuery}`)
+        const domain = process.env.DOMAIN || 'http://localhost:5000'
+        this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
+
     }
 
 
@@ -77,7 +79,8 @@ export default class MenuProjects extends Phaser.Scene {
                         if(Date.now() - this.lastTypeTime > 500){
 
                             this.cache.json.remove('project_names')
-                            this.load.json('project_names', `http://localhost:5000/search?query=${this.projectQuery}`)
+                            const domain = process.env.DOMAIN || 'http://localhost:5000'
+                            this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
                             this.load.once(Phaser.Loader.Events.COMPLETE, () => {
                                 // TODO : don't reload on each key pressed, but only after a short delay in order to not spawn the API 
                                 // texture loaded so use instead of the placeholder
