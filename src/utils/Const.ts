@@ -43,3 +43,11 @@ export abstract class MonsterConstantsType{
     static readonly GOBLIN = 'goblin'
     static readonly DEMON = 'demon'
 }
+
+export abstract class LogConstant{
+    static readonly DIG = 'dig'
+    static readonly GO_UP = 'go_up'
+    static readonly DIE = 'die'
+    static readonly KILL = 'kill'
+    static readonly GET_HIT = 'get_hit'
+}

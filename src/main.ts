@@ -5,6 +5,7 @@ import Preloader from './scenes/Preloader'
 import Map from './scenes/Map'
 import GameUI from './scenes/GameUI'
 import MenuProjects from './scenes/MenuProjects'
+import PauseOverlay from './scenes/PauseOverlay'
 
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin'
 
@@ -20,7 +21,7 @@ export default new Phaser.Game({
 			//debug: true
 		}
 	},
-	scene: [MenuProjects, Preloader, Map, Game, GameUI],
+	scene: [MenuProjects, Preloader, Map, Game, GameUI, PauseOverlay],
 	parent: 'phaser-container',
 	scale: {
 		zoom: 1,

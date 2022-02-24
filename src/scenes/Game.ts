@@ -6,7 +6,7 @@ import { createCharacterAnims } from '~/animations/PlayerAnimation'
 import { createMonsterAnims } from '~/animations/MonsterAnimation'
 import Monster from '~/enemies/Monster'
 
-import { ConstantsTiles, MonsterConstantsSize, MonsterConstantsType } from '~/utils/Const'
+import { ConstantsTiles, LogConstant, MonsterConstantsSize, MonsterConstantsType } from '~/utils/Const'
 
 import FileChild from './FileChild'
 
@@ -14,6 +14,7 @@ import { sceneEvents } from '~/events/EventCenter'
 import Sword from '~/weapons/Sword'
 import '~/weapons/Sword'
 import FileContainer from './FileContainer'
+import Log from '~/utils/Log'
 
 export default class Game extends Phaser.Scene{
     private static readonly TILE_SIZE = 16  
@@ -97,6 +98,7 @@ export default class Game extends Phaser.Scene{
 
         // Don't put TAB key in the playerControls object or when the map will be open the capture will be cleared and a "tab action" will happen in the browser
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onPause, this)
 
         this.playerControls = {
             up: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z)],
@@ -127,10 +129,14 @@ export default class Game extends Phaser.Scene{
         this.playerControls.goUp.forEach(element => { element.on('down', this.goUp, this) })
     }
 
-    onPointerDown(cursor: Phaser.Input.Pointer){
+    onPause(){
+        this.scene.pause()
+        this.scene.run('pause', { game: this })
+    }
+
+    onPointerDown(){
         if(this.currentTileHovered){
             this.dig(this.currentTileHovered.collisionCallback())
-            
         }
     }
 
@@ -225,18 +231,19 @@ export default class Game extends Phaser.Scene{
 
     create(data){
         sceneEvents.on('player-dead', () => {
+            Log.addInformation(LogConstant.DIE, this.mapContext)
             this.scene.restart()
         })
+
         sceneEvents.removeAllListeners('player-dig-done')
-        console.log(sceneEvents.listeners('player-dig-done'))
         sceneEvents.on('player-dig-done', () => {
-            console.log(/*Date.now(),*/ "dig done")
+            Log.addInformation(LogConstant.DIG, this.mapContext)
             this.restart()
         })
+
         sceneEvents.removeAllListeners('player-go-up-done')
-        console.log(sceneEvents.listeners('player-go-up-done'))
         sceneEvents.on('player-go-up-done', () => {
-            console.log(/*Date.now(),*/ "go-up done")
+            Log.addInformation(LogConstant.GO_UP, this.mapContext)
             this.restart()
         })
         this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
@@ -398,7 +405,6 @@ export default class Game extends Phaser.Scene{
     }
 
     handleSwordMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
-        console.log("hit")
         const enemy = obj2 as Monster
         
         // Knockback enemies

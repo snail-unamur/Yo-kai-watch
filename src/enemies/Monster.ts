@@ -1,7 +1,8 @@
 import Phaser from "phaser"
 import HealthBar from "~/graphics/Healthbar"
 
-import { MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
+import { LogConstant, MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
+import Log from "~/utils/Log"
 
 enum HealthState {
     IDLE,
@@ -211,6 +212,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         if (this.health <= 0) {
             // Play animation ?
             this.scene.time.delayedCall(120, () => {
+                Log.addInformation(LogConstant.KILL, this.issue)
                 this.clearTint()
                 this.healthState = HealthState.DEAD
                 this.destroy()
