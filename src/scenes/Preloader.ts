@@ -82,8 +82,12 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
-        this.scene.start('game');
-        // this.scene.start('map');
+        if(this.cache.json.get('metrics')[0].measures.length === 0){
+            this.scene.start('menu_projects', { loadFailed: true })
+        } else {
+            this.scene.start('game')
+        }
+
     }
 
 

@@ -30,7 +30,15 @@ export default class MenuProjects extends Phaser.Scene {
     }
 
 
-    create() {
+    create(data) {
+        if(data?.loadFailed){
+            this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.175, "Loading failed: project not analysed yet", {
+                fontSize: "20px",
+                color: "#FF5050"
+            }).setOrigin(0.5)
+        }
+
+
         this.projectNames = this.cache.json.get('project_names')
 
         this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.1, "The Coding of Isaac", {
@@ -101,12 +109,12 @@ export default class MenuProjects extends Phaser.Scene {
         })
 
         let nbSuggestion = panelData.length
-        let sizeSuggestion = 50
+        let sizeSuggestion = 45
         if(nbSuggestion === 0) nbSuggestion = 1
         let heightPanel = nbSuggestion * sizeSuggestion
         let toScroll = false
-        if(heightPanel > 300){
-            heightPanel = 300
+        if(heightPanel > sizeSuggestion*6){
+            heightPanel = sizeSuggestion*6
             toScroll = true
         } 
         
@@ -124,7 +132,7 @@ export default class MenuProjects extends Phaser.Scene {
             y: this.game.canvas.height * 0.3 + 40,
             // anchor: undefined,
             width: 480,
-            height: heightPanel,
+            height: heightPanel + 15,
 
             background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, 0x000000, 0.2),
           
