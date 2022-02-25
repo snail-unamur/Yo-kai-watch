@@ -92,6 +92,9 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             case 'CRITICAL':
                 monsterSize = MonsterConstantsSize.BIG
                 break
+            case 'BLOCKER':
+                monsterSize = MonsterConstantsSize.BIG
+                break
         }
         
         this.setMonsterType(monsterType)
