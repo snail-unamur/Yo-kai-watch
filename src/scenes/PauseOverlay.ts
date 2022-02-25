@@ -35,17 +35,17 @@ export default class PauseOverlay extends Phaser.Scene {
         this.veil.setScrollFactor(0)
 
 
-        this.exitButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height*0.5, 300, 100, 0x000000)
+        this.exitButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height*0.5, 300, 100, 0x000000).setOrigin(0.5)
         this.exitButton.setInteractive()
         this.exitButton.on('pointerdown', this.onExit, this)
 
-        this.exitText = this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.5, 'EXIT')
+        this.exitText = this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.5, 'EXIT').setOrigin(0.5)
 
-        this.resumeButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height*0.7, 300, 100, 0x000000)
+        this.resumeButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height*0.7, 300, 100, 0x000000).setOrigin(0.5)
         this.resumeButton.setInteractive()
         this.resumeButton.on('pointerdown', this.onResume, this)
         
-        this.resumeText = this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.5, 'RESUME')
+        this.resumeText = this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.7, 'RESUME').setOrigin(0.5)
     }
 
     onExit(){
