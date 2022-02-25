@@ -78,7 +78,7 @@ export default class Game extends Phaser.Scene{
         restart: Phaser.Input.Keyboard.Key[]
     }
 
-    private incomingMonster: number[] = []
+    private incomingMonster: { durationLeft: number, callback}[] = []
 
 	constructor(){
 		super('game')
@@ -207,7 +207,6 @@ export default class Game extends Phaser.Scene{
             })
         })
 
-        this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
         this.incomingMonster = []
 
         this.scene.stop("game-ui")
@@ -247,7 +246,6 @@ export default class Game extends Phaser.Scene{
             Log.addInformation(LogConstant.GO_UP, this.mapContext)
             this.restart()
         })
-        this.incomingMonster.forEach(timeoutId => { clearTimeout(timeoutId) })
         this.incomingMonster = []
 
         this.fileChildren = []
@@ -394,15 +392,23 @@ export default class Game extends Phaser.Scene{
     }
 
     newMonster(file:FileChild){
-        this.incomingMonster.push(
-            setTimeout(
-                () => { 
-                    file.getMonster()
-                    this.newMonster(file) 
-                }, 
-                500*Math.floor((Math.random()+1)*2.5)
-            )
-        ) // The randomness here is just to make the first spawn more funky :)
+        this.incomingMonster.push({
+            durationLeft: 500*Math.floor((Math.random()+1)*2.5),
+            callback: () => { 
+                file.getMonster()
+                this.newMonster(file)
+            }
+        })
+        // this.incomingMonster.push(
+        //     setTimeout(
+        //         () => { 
+        //             file.getMonster()
+        //             this.newMonster(file) 
+        //         }, 
+        //         500*Math.floor((Math.random()+1)*2.5)
+        //     )
+        // ) 
+        // The randomness here is just to make the first spawn more funky :)
     }
 
     handleSwordMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
@@ -626,6 +632,27 @@ export default class Game extends Phaser.Scene{
         if(this.freezing){
             return
         }
+
+        // this.incomingMonster.forEach((el:{ durationLeft:number, callback }) => {
+        //     el.durationLeft -= dt
+        //     if(el.durationLeft < 0){
+        //         el.callback()
+        //     }
+        // })
+        
+        let index = this.incomingMonster.length - 1
+        let el
+      
+        while (index >= 0) {
+            el = this.incomingMonster[index]
+            el.durationLeft -= dt
+            if(el.durationLeft < 0){
+                el.callback()
+                this.incomingMonster.splice(index, 1);
+            }
+            index -= 1
+        }
+      
 
 
         this.player.update(this.playerControls, this.sword, dt)
