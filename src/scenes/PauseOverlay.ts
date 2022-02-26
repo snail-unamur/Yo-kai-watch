@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import { LogConstant } from "~/utils/Const"
 import Log from "~/utils/Log"
 import Game from './Game'
 
@@ -20,6 +21,7 @@ export default class PauseOverlay extends Phaser.Scene {
     }
 
     create(data:{ game:Game }) {
+        Log.addInformation(LogConstant.PAUSE, { state: true })
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onResume, this)
         this.game_ = data.game
 
@@ -49,6 +51,7 @@ export default class PauseOverlay extends Phaser.Scene {
     }
 
     onExit(){
+        Log.addInformation(LogConstant.EXIT)
         Log.sendResult()
         this.game_.scene.stop("game-ui")
         this.game_.scene.stop()
@@ -57,6 +60,7 @@ export default class PauseOverlay extends Phaser.Scene {
     }
 
     onResume(){
+        Log.addInformation(LogConstant.PAUSE, { state: false })
         this.game_.scene.resume()
         this.scene.stop()
         console.log("resume game")

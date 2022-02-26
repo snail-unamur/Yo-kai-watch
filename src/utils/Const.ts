@@ -42,4 +42,10 @@ export abstract class LogConstant{
     static readonly KILL = 'kill'
     static readonly GET_HIT = 'get_hit'
     static readonly START_ROOM = 'start_room'
+    static readonly PROJECT_LOADING = 'project_loading'
+    static readonly PROJECT_LOADED = 'project_loaded'
+    static readonly PROJECT_LOADING_FAILED = 'project_loading_failed'
+    static readonly PAUSE = 'pause'
+    static readonly FREEZE = 'freeze'
+    static readonly EXIT = 'exit'
 }

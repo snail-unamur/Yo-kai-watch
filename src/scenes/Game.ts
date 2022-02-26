@@ -88,14 +88,6 @@ export default class Game extends Phaser.Scene{
         FileChild.projectIssues = this.cache.json.get('issues')
         this.fileTree = this.cache.json.get('metrics')
 
-        //this.cursors = this.input.keyboard.createCursorKeys()
-
-        let this_scene = this
-/*
-        this.input.keyboard.addKey('X').on('down', this.handleFreeze, this)
-
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE).on('down', this.startMap, this)*/
-
         // Don't put TAB key in the playerControls object or when the map will be open the capture will be cleared and a "tab action" will happen in the browser
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onPause, this)
@@ -116,10 +108,7 @@ export default class Game extends Phaser.Scene{
         this.playerControls.openMap.forEach(element => { element.on('down', this.startMap, this) });
         this.playerControls.freeze.forEach(element => { element.on('down', this.handleFreeze, this) });
 
-        this.playerControls.restart.forEach(element => { element.on('down', function(event) {
-                console.log("restart")
-                this_scene.scene.restart()
-            }, this)
+        this.playerControls.restart.forEach(element => { element.on('down', this.restart, this)
         })
 
         let i = this.input.on('pointerdown', this.onPointerDown, this)
@@ -155,8 +144,6 @@ export default class Game extends Phaser.Scene{
             this.mapContext.selectedId = fileObject.getFile().id
             this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
             this.mapContext.selected = fileObject.getFile().name
-
-            //this.restart()
         }
     }
 
@@ -175,8 +162,6 @@ export default class Game extends Phaser.Scene{
             this.mapContext.selectedId = id_
 
             this.player.goUp()
-    
-            //this.restart()
         }
     }
 
@@ -215,6 +200,7 @@ export default class Game extends Phaser.Scene{
 
     handleFreeze(){
         this.freezing = !this.freezing
+        Log.addInformation(LogConstant.FREEZE, { state: this.freezing })
         this.freezeLayer.visible = this.freezing
         
         if(this.freezing){

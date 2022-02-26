@@ -1,3 +1,5 @@
+import { LogConstant } from "~/utils/Const";
+import Log from "~/utils/Log";
 
 
 export default class Preloader extends Phaser.Scene {
@@ -16,6 +18,7 @@ export default class Preloader extends Phaser.Scene {
     }
 
     preload() {
+        Log.addInformation(LogConstant.PROJECT_LOADING, { name: this.projectName })
         if(this.extruded) this.suffix = "_extruded"
         // Load metrics data
         /**
@@ -83,6 +86,7 @@ export default class Preloader extends Phaser.Scene {
         if(this.cache.json.get('metrics')[0].measures.length === 0){
             this.scene.start('menu_projects', { loadFailed: true })
         } else {
+            Log.addInformation(LogConstant.PROJECT_LOADED, { name: this.projectName })
             this.scene.start('game')
         }
 
