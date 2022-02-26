@@ -1,33 +1,24 @@
 export abstract class ConstantsTiles {
-    // Constant for tiles
-    static readonly textureId = 0
-    // Each texture is seperated by 4 tiles
+    // Nb of tiles separating each texture
     static readonly tileDistance = 5
-    static readonly diff = ConstantsTiles.textureId *  ConstantsTiles.tileDistance
-    static readonly WALL_FACE:number = 33 + ConstantsTiles.diff
-    static readonly WALL_LEFT:number = 69 // not done yet
-    static readonly WALL_TOP_LEFT_CORNER:number = 34 + ConstantsTiles.diff
-    static readonly WALL_TOP_LEFT_INNER_CORNER:number = 384
-    static readonly WALL_TIP_INNER:number = 321
-    static readonly WALL_TIP_TOP_LEFT:number = 2 + ConstantsTiles.diff
-    static readonly WALL_BOTTOM_LEFT_CORNER:number = 98 + ConstantsTiles.diff
-    static readonly WALL_BOTTOM_LEFT_CORNER_TIP:number = 66 + ConstantsTiles.diff
-    static readonly WALL_RIGHT:number = 101 // not done yet
-    static readonly WALL_TOP_RIGHT_CORNER:number = 35 + ConstantsTiles.diff 
-    static readonly WALL_TOP_RIGHT_INNER_CORNER:number = 352
-    static readonly WALL_TIP_TOP_RIGHT:number = 3 + ConstantsTiles.diff
-    static readonly WALL_BOTTOM_RIGHT_CORNER:number = 99 + ConstantsTiles.diff
-    static readonly WALL_BOTTOM_RIGHT_CORNER_TIP:number = 67 + ConstantsTiles.diff
-    static readonly WALL_TIP:number = 1 + ConstantsTiles.diff
-    static readonly ECHELLE:number = 195
-    static readonly GROUND_CLEAN:number = 36 + ConstantsTiles.diff
-    static readonly GROUND_CRACK:number = 68 + ConstantsTiles.diff
-    static readonly GROUND_SLIGHTLY_CRACKED:number = 100 + ConstantsTiles.diff
-    static readonly GROUND_BOTTOM_LEFT_HOLE:number = 161
-    static readonly GROUND_BOTTOM_RIGHT_HOLE:number = 163
-    static readonly GROUND_TOP_RIGHT_HOLE:number = 193
-    static readonly GROUND_TOP_LEFT_HOLE:number = 194
-    static readonly TREASURE_CLOSED:number = 595
+    static readonly WALL_FACE:number = 33
+    static readonly WALL_LEFT:number = 69
+    static readonly WALL_TOP_LEFT_CORNER:number = 34
+    static readonly WALL_TOP_LEFT_INNER_CORNER:number = 161
+    static readonly WALL_TIP_INNER:number = 162
+    static readonly WALL_TIP_TOP_LEFT:number = 2
+    static readonly WALL_BOTTOM_LEFT_CORNER:number = 98
+    static readonly WALL_BOTTOM_LEFT_CORNER_TIP:number = 66
+    static readonly WALL_RIGHT:number = 101
+    static readonly WALL_TOP_RIGHT_CORNER:number = 35 
+    static readonly WALL_TOP_RIGHT_INNER_CORNER:number = 163
+    static readonly WALL_TIP_TOP_RIGHT:number = 3
+    static readonly WALL_BOTTOM_RIGHT_CORNER:number = 99
+    static readonly WALL_BOTTOM_RIGHT_CORNER_TIP:number = 67
+    static readonly WALL_TIP:number = 1
+    static readonly GROUND_CLEAN:number = 36
+    static readonly GROUND_CRACK:number = 68
+    static readonly GROUND_SLIGHTLY_CRACKED:number = 100
 }
 
 export abstract class MonsterConstantsSize{

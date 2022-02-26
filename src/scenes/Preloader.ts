@@ -2,6 +2,9 @@
 
 export default class Preloader extends Phaser.Scene {
     private projectName
+    private extruded:boolean = true
+    private suffix:string = ""
+
     constructor() {
         super('preloader');
     }
@@ -13,6 +16,7 @@ export default class Preloader extends Phaser.Scene {
     }
 
     preload() {
+        if(this.extruded) this.suffix = "_extruded"
         // Load metrics data
         /**
          * For ratings -> A=1 B=2 C=3 D=4 E=5
@@ -38,35 +42,26 @@ export default class Preloader extends Phaser.Scene {
          * 1 tile = 16x16 pixels
          * 1 row = 32 tiles
          * */
-        this.load.image('tiles', 'tiles/dungeon_tiles_extruded.png')
+        this.load.image('tiles', `tiles/dungeon_tiles${this.suffix}.png`)
 
-        // TODO: clean. There are 2 strategies right now, load frame by frame from separated files.
+        // TODO: clean. There are 3 strategies right now, load frame by frame from separated files.
         // Or load the entire tileset with different frame size.
+        // Or load multiple tilesets with different frame size.
 
-        // Load big monsters
-        let ar = ["idle", "appear", "run"]
-        ar.forEach(element => {
-            for(let i=0; i < 4; i++){
-                this.load.image(`big_demon_${element}_anim_f` + i.toString(), `frames/big_demon_${element}_anim_f`+ i.toString()+'.png')
-                this.load.image(`big_zombie_${element}_anim_f` + i.toString(), `frames/big_zombie_${element}_anim_f`+ i.toString()+'.png')
-                this.load.image(`ogre_${element}_anim_f` + i.toString(), `frames/ogre_${element}_anim_f`+ i.toString()+'.png')
-            }
-        });
-
+        
         // loading for big monsters
-        this.load.spritesheet('animations_big_monsters', 'tiles/tiles_monster.png', { frameWidth: 16, frameHeight: 36 })
+        this.load.spritesheet('big_monsters', `tiles/big_monsters${this.suffix}.png`, { frameWidth: 32, frameHeight: 32, margin: 1, spacing: 2  })
         // loading for player characters
-        this.load.spritesheet('animations_character', 'tiles/tiles_monster.png', { frameWidth: 16, frameHeight: 32 })
+        this.load.spritesheet('character', `tiles/character${this.suffix}.png`, { frameWidth: 16, frameHeight: 32, margin: 1, spacing: 2 })
         // loading for tiny and medium monsters
-        this.load.spritesheet('animations_tiny_and_medium_monsters', 'tiles/tiles_monster.png', { frameWidth: 16, frameHeight: 16 })
+        this.load.spritesheet('small_medium_monsters', `tiles/small_medium_monsters${this.suffix}.png`, { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  })
+        this.load.spritesheet('sword', `tiles/sword${this.suffix}.png`, { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  })
 
         // Loading ui
         this.load.image('ui_heart_empty', 'ui/ui_heart_empty.png')
         this.load.image('ui_heart_full', 'ui/ui_heart_full.png')
 
         // Loading weapons
-        this.load.image('sword', 'weapons/swordGold.png')
-        this.createLoading()
 
         // Loading music
         this.load.audio('ambient_a', 'audio/A.mp3')
@@ -79,6 +74,8 @@ export default class Preloader extends Phaser.Scene {
         // Load sound effects
         this.load.audio('oof', 'audio/oof.mp3')
         this.load.audio('player_death', 'audio/player_death.mp3')
+
+        this.createLoading()
     }
 
 

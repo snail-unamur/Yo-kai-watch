@@ -1,25 +1,26 @@
 import Phaser from "phaser"
 
 export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) => {
+    const width: number = 12
     // ---------- TINY MONSTERS -------------
     // Tiny zombie
     anims.create({
         key: 'tiny-zombie-idle',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 55, end: 58 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 4, end: 7 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'tiny-zombie-run',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 59, end: 62 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 8, end: 11 }),
         repeat: -1,
         frameRate: 7
     })
 
     anims.create({
         key: 'tiny-zombie-appear',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 865, end: 868 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 0, end: 3 }),
         repeat: -1,
         frameRate: 3
     })
@@ -27,21 +28,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Tiny goblin
     anims.create({
         key: 'tiny-goblin-idle',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 87, end: 90 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 16, end: 19 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'tiny-goblin-run',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 91, end: 94 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 20, end: 23 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'tiny-goblin-appear',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 896, end: 900 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 12, end: 15 }),
         repeat: -1,
         frameRate: 3
     })
@@ -49,21 +50,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Tiny demon
     anims.create({
         key: 'tiny-demon-idle',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 119, end: 122 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 28, end: 31 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'tiny-demon-run',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 123, end: 126 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 32, end: 35 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'tiny-demon-appear',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 928, end: 932 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 24, end: 27 }),
         repeat: -1,
         frameRate: 3
     })
@@ -72,21 +73,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Medium zombie
     anims.create({
         key: 'medium-zombie-idle',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 311, end: 314 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 40, end: 43 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'medium-zombie-run',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 311, end: 314 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 44, end: 47 }),
         repeat: -1,
         frameRate: 7
     })
 
     anims.create({
         key: 'medium-zombie-appear',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 869, end: 872 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 36, end: 39 }),
         repeat: -1,
         frameRate: 3
     })
@@ -94,21 +95,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Medium goblin
     anims.create({
         key: 'medium-goblin-idle',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 439, end: 443 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 52, end: 55 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'medium-goblin-run',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 443, end: 446 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 56, end: 59 }),
         repeat: -1,
         frameRate: 7
     })
 
     anims.create({
         key: 'medium-goblin-appear',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 901, end: 904 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 48, end: 51 }),
         repeat: -1,
         frameRate: 3
     })
@@ -116,21 +117,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Medium demon
     anims.create({
         key: 'medium-demon-idle',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 631, end: 635 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 64, end: 67 }),
         repeat: -1,
         frameRate: 10
     })
 
     anims.create({
         key: 'medium-demon-run',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 635, end: 638 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 68, end: 71 }),
         repeat: -1,
         frameRate: 5
     })
 
     anims.create({
         key: 'medium-demon-appear',
-        frames: anims.generateFrameNumbers('animations_tiny_and_medium_monsters', { start: 933, end: 936 }),
+        frames: anims.generateFrameNumbers('small_medium_monsters', { start: 60, end: 63 }),
         repeat: -1,
         frameRate: 3
     })
@@ -140,36 +141,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Big demon
     anims.create({
         key: 'big-demon-run',
-        frames: [
-            {key:'big_demon_run_anim_f0'},
-            {key:'big_demon_run_anim_f1'},
-            {key:'big_demon_run_anim_f2'},
-            {key:'big_demon_run_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 32, end: 35 }),
         repeat: -1,
         frameRate: 5
     })
     
     anims.create({
         key: 'big-demon-idle',
-        frames: [
-            {key:'big_demon_idle_anim_f0'},
-            {key:'big_demon_idle_anim_f1'},
-            {key:'big_demon_idle_anim_f2'},
-            {key:'big_demon_idle_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 28, end: 31 }),
         repeat: -1,
         frameRate: 5
     })
 
     anims.create({
         key: 'big-demon-appear',
-        frames: [
-            {key:'big_demon_appear_anim_f0'},
-            {key:'big_demon_appear_anim_f1'},
-            {key:'big_demon_appear_anim_f2'},
-            {key:'big_demon_appear_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 24, end: 27 }),
         repeat: -1,
         frameRate: 3
     })
@@ -177,36 +163,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Big goblin
     anims.create({
         key: 'big-goblin-run',
-        frames: [
-            {key:'ogre_run_anim_f0'},
-            {key:'ogre_run_anim_f1'},
-            {key:'ogre_run_anim_f2'},
-            {key:'ogre_run_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 20, end: 23 }),
         repeat: -1,
         frameRate: 5
     })
 
     anims.create({
         key: 'big-goblin-idle',
-        frames: [
-            {key:'ogre_idle_anim_f0'},
-            {key:'ogre_idle_anim_f1'},
-            {key:'ogre_idle_anim_f2'},
-            {key:'ogre_idle_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 16, end: 19 }),
         repeat: -1,
         frameRate: 5
     })
 
     anims.create({
         key: 'big-goblin-appear',
-        frames: [
-            {key:'ogre_appear_anim_f0'},
-            {key:'ogre_appear_anim_f1'},
-            {key:'ogre_appear_anim_f2'},
-            {key:'ogre_appear_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 12, end: 15 }),
         repeat: -1,
         frameRate: 3
     })
@@ -214,36 +185,21 @@ export const createMonsterAnims = (anims: Phaser.Animations.AnimationManager) =>
     // Big zombie
     anims.create({
         key: 'big-zombie-run',
-        frames: [
-            {key:'big_zombie_run_anim_f0'},
-            {key:'big_zombie_run_anim_f1'},
-            {key:'big_zombie_run_anim_f2'},
-            {key:'big_zombie_run_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 8, end: 11 }),
         repeat: -1,
         frameRate: 5
     })
     
     anims.create({
         key: 'big-zombie-idle',
-        frames: [
-            {key:'big_zombie_idle_anim_f0'},
-            {key:'big_zombie_idle_anim_f1'},
-            {key:'big_zombie_idle_anim_f2'},
-            {key:'big_zombie_idle_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 4, end: 7 }),
         repeat: -1,
         frameRate: 5
     })
     
     anims.create({
         key: 'big-zombie-appear',
-        frames: [
-            {key:'big_zombie_appear_anim_f0'},
-            {key:'big_zombie_appear_anim_f1'},
-            {key:'big_zombie_appear_anim_f2'},
-            {key:'big_zombie_appear_anim_f3'}
-        ],
+        frames: anims.generateFrameNumbers('big_monsters', { start: 0, end: 3 }),
         repeat: -1,
         frameRate: 3
     })
