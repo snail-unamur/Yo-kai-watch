@@ -1,7 +1,8 @@
 import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
 import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
-import Label from "phaser3-rex-plugins/templates/ui/label/Label";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
+import { LogConstant } from "~/utils/Const";
+import Log from "~/utils/Log";
 
 export default class MenuProjects extends Phaser.Scene {
     private textEditZone!: BBCodeText
@@ -34,6 +35,7 @@ export default class MenuProjects extends Phaser.Scene {
 
     create(data) {
         if(data?.loadFailed){
+            Log.addInformation(LogConstant.PROJECT_LOADING_FAILED)
             this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.175, "Loading failed: project not analysed yet", {
                 fontSize: "20px",
                 color: "#FF5050"
