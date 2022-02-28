@@ -137,13 +137,17 @@ export default class Game extends Phaser.Scene{
         if(this.player.isDigging()) return
         if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
         if(fileObject && this.mapContext.file.children) {
-            this.player.dig()
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
             }
             this.mapContext.selectedId = fileObject.getFile().id
             this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
             this.mapContext.selected = fileObject.getFile().name
+            if(this.freezing){
+                this.restart()
+            } else {
+                this.player.dig()
+            }
         }
     }
 
@@ -161,7 +165,11 @@ export default class Game extends Phaser.Scene{
             this.mapContext.selected = parent.name
             this.mapContext.selectedId = id_
 
-            this.player.goUp()
+            if(this.freezing){
+                this.restart()
+            } else {
+                this.player.goUp()
+            }
         }
     }
 
