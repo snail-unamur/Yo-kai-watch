@@ -17,34 +17,34 @@ import FileContainer from './FileContainer'
 import Log from '~/utils/Log'
 
 export default class Game extends Phaser.Scene{
-    private static readonly TILE_SIZE = 16  
-    private static readonly NB_TILE_PER_FILE = 3  
-    private dungeon_size = 10
+    static readonly TILE_SIZE = 16  
+    static readonly NB_TILE_PER_FILE = 3  
+    protected dungeon_size = 10
 
     private oldFileNameShowed
 
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
-    private player!: Player
-    private sword!: Sword
+    protected player!: Player
+    protected sword!: Sword
 
-    private enemies!: Phaser.Physics.Arcade.Group
-    private groundLayer!: Phaser.Tilemaps.TilemapLayer
-    private wall1Layer!: Phaser.Tilemaps.TilemapLayer
-    private wall2Layer!: Phaser.Tilemaps.TilemapLayer
-    private fileLayer!: Phaser.Tilemaps.TilemapLayer
+    protected enemies!: Phaser.Physics.Arcade.Group
+    protected groundLayer!: Phaser.Tilemaps.TilemapLayer
+    protected wall1Layer!: Phaser.Tilemaps.TilemapLayer
+    protected wall2Layer!: Phaser.Tilemaps.TilemapLayer
+    protected fileLayer!: Phaser.Tilemaps.TilemapLayer
 
     private wallTexture: number = 0
     private groundTexture: number = 0
 
-    private freezeLayer
+    protected freezeLayer
     private freezing: boolean = false
-    private playerMonsterCollider?: Phaser.Physics.Arcade.Collider | null
+    protected playerMonsterCollider?: Phaser.Physics.Arcade.Collider | null
 
 
-    private tooltip!: Phaser.GameObjects.Text
+    protected tooltip!: Phaser.GameObjects.Text
 
-    private mapContext!:{
+    protected mapContext!:{
         file : {
             children:any,
             name:string,
@@ -54,16 +54,16 @@ export default class Game extends Phaser.Scene{
         selectedId: number,
         selected: FileContainer|string
     }
-    private fileTree
-    private sonarQubeData
+    protected fileTree
+    protected sonarQubeData
 
     private issues
 
-    private monsterHovered:boolean = false
-    private currentTileHovered
+    protected monsterHovered:boolean = false
+    protected currentTileHovered
 
 
-    private fileChildren:FileChild[] = []
+    protected fileChildren:FileChild[] = []
 
     private playerControls!: {
         up: Phaser.Input.Keyboard.Key[],
@@ -78,10 +78,10 @@ export default class Game extends Phaser.Scene{
         restart: Phaser.Input.Keyboard.Key[]
     }
 
-    private incomingMonster: { durationLeft: number, callback}[] = []
+    protected incomingMonster: { durationLeft: number, callback}[] = []
 
-	constructor(){
-		super('game')
+	constructor(key:string = "game"){
+		super(key)
 	}
 
 	preload() {
@@ -203,7 +203,7 @@ export default class Game extends Phaser.Scene{
         this.incomingMonster = []
 
         this.scene.stop("game-ui")
-        this.scene.start('map', { mapContext: this.mapContext });
+        this.scene.start('map', { mapContext: this.mapContext, lastScene: this.scene.key });
     }
 
     handleFreeze(){
@@ -223,6 +223,7 @@ export default class Game extends Phaser.Scene{
     }
 
     create(data){
+        console.log('game scene started')
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
         sceneEvents.on('player-dead', () => {
             Log.addInformation(LogConstant.DIE, this.mapContext)

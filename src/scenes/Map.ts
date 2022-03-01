@@ -40,6 +40,8 @@ export default class Map extends Phaser.Scene{
 
     private lastTypeTime: number = 0
 
+    private lastScene: string = "game"
+
 	constructor(){
 		super('map')
 	}
@@ -178,7 +180,7 @@ export default class Map extends Phaser.Scene{
 
 
         let fileToOpen = this.getElementByPath(pathTemp)
-        this.scene.start('game', { 
+        this.scene.start(this.lastScene, { 
             mapContext : {
                 file : fileToOpen,
                 path: this.pathToCurrent,
@@ -253,6 +255,10 @@ export default class Map extends Phaser.Scene{
 
     create(data){
         this.olds = []
+
+        if(data?.lastScene){
+            this.lastScene = data.lastScene
+        }
 
         if(data?.mapContext){
             let ctx = data.mapContext
@@ -618,7 +624,7 @@ export default class Map extends Phaser.Scene{
         }
         console.log(newMapContext)
         
-        this.scene.start('game', { 
+        this.scene.start(this.lastScene, { 
             mapContext : newMapContext
         });
     }

@@ -87,7 +87,7 @@ export default class Preloader extends Phaser.Scene {
             this.scene.start('menu_projects', { loadFailed: true })
         } else {
             Log.addInformation(LogConstant.PROJECT_LOADED, { name: this.projectName })
-            this.scene.start('game')
+            this.scene.start('tutorial')
         }
 
     }
