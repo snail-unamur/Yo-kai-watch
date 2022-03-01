@@ -51,7 +51,7 @@ export default class FileContainer extends Phaser.GameObjects.Container{
 
 
         if(nbChildren > 0){
-            this.image = new Phaser.GameObjects.Image(scene, 0, 16, 'big_demon_idle_anim_f1')
+            this.image = new Phaser.GameObjects.Image(scene, 0, 16, 'big_monsters', 28)
         
             this.rectangle.fillStyle(0xFFB847, 1)
             let r = new Phaser.GameObjects.Graphics(scene)
@@ -63,7 +63,7 @@ export default class FileContainer extends Phaser.GameObjects.Container{
             r.fillRoundedRect(width*0.2-7, height/2 + 16, textChildren.width + 14, 20, { tl: 0, tr: 0, bl: 8, br: 8 })
 
         } else {
-            this.image = new Phaser.GameObjects.Image(scene, 0, 16, 'big_zombie_idle_anim_f1')
+            this.image = new Phaser.GameObjects.Image(scene, 0, 16, 'big_monsters', 4)
             this.rectangle.fillStyle(0x202121, 1)
         }
         
