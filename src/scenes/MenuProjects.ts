@@ -27,7 +27,7 @@ export default class MenuProjects extends Phaser.Scene {
 
     preload() {
         this.rexUI = this['rexUI']
-        const domain = process.env.DOMAIN || 'http://localhost:5000'
+        const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
         this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
 
     }
@@ -81,7 +81,7 @@ export default class MenuProjects extends Phaser.Scene {
                         if(Date.now() - this.lastTypeTime > 500){
 
                             this.cache.json.remove('project_names')
-                            const domain = process.env.DOMAIN || 'http://localhost:5000'
+                            const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
                             this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
                             this.load.once(Phaser.Loader.Events.COMPLETE, () => {
                                 // TODO : don't reload on each key pressed, but only after a short delay in order to not spawn the API 
