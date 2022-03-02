@@ -287,6 +287,7 @@ export default class Map extends Phaser.Scene{
         cam.centerOn(camCenterX, camCenterY)
 
         cam.setBackgroundColor(0x483B3A)
+        //cam.setBackgroundColor(0x000000)
     
 
         if(data?.mapContext){
@@ -488,7 +489,6 @@ export default class Map extends Phaser.Scene{
         this.textEditZone.setDepth(2)
         this.add.existing(this.textEditZone)
 
-        this.cameras.main.setBackgroundColor(0x483B3A)
         
 
         this.textEditZone.setInteractive().on('pointerdown', () => {
