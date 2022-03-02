@@ -24,6 +24,9 @@ export default class Game extends Phaser.Scene{
 
     private oldFileNameShowed
 
+    protected reliability_rating
+    protected sqale_rating
+
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 
     protected player!: Player
@@ -231,6 +234,7 @@ export default class Game extends Phaser.Scene{
         this.fileTree = Global.fileTree
         console.log('game scene started')
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
+        sceneEvents.removeAllListeners('player-dead')
         sceneEvents.on('player-dead', () => {
             Log.addInformation(LogConstant.DIE, this.mapContext)
             this.scene.restart()
@@ -262,7 +266,6 @@ export default class Game extends Phaser.Scene{
                 selectedId:-1
             }
         }
-        console.log(this.sonarQubeData)
         this.generation()
 
 
@@ -279,7 +282,7 @@ export default class Game extends Phaser.Scene{
         let center = Game.TILE_SIZE * this.dungeon_size / 2
         cam.centerOn(center, center)
         cam.zoom = 2
-        cam.setBackgroundColor(0x202121)
+        cam.setBackgroundColor(0x070707)
 
 
         // Character
@@ -439,6 +442,7 @@ export default class Game extends Phaser.Scene{
         }
 
 
+        this.setGroundTexture()
         this.generateGround()
 
         // Add File delimitation layer
@@ -511,17 +515,17 @@ export default class Game extends Phaser.Scene{
             t.push(Array.from(l))
         }
 
-        t[0].fill(ConstantsTiles.WALL_TIP_INNER)
-        t[0][0] = ConstantsTiles.WALL_TOP_LEFT_INNER_CORNER
-        t[0][size-1] = ConstantsTiles.WALL_TOP_RIGHT_INNER_CORNER
+        t[0].fill(ConstantsTiles.FILE_LIMIT_TOP)
+        t[0][0] = ConstantsTiles.FILE_LIMIT_TOP_LEFT
+        t[0][size-1] = ConstantsTiles.FILE_LIMIT_TOP_RIGHT
 
-        t[size-1].fill(ConstantsTiles.WALL_TIP)
-        t[size-1][size-1] = ConstantsTiles.WALL_BOTTOM_RIGHT_CORNER_TIP
-        t[size-1][0] = ConstantsTiles.WALL_BOTTOM_LEFT_CORNER_TIP
+        t[size-1].fill(ConstantsTiles.FILE_LIMIT_BOTTOM)
+        t[size-1][size-1] = ConstantsTiles.FILE_LIMIT_BOTTOM_RIGHT
+        t[size-1][0] = ConstantsTiles.FILE_LIMIT_BOTTOM_LEFT
 
         for(let i=1; i < size-1; i++){
-            t[i][0] = ConstantsTiles.WALL_LEFT
-            t[i][size-1] = ConstantsTiles.WALL_RIGHT
+            t[i][0] = ConstantsTiles.FILE_LIMIT_LEFT
+            t[i][size-1] = ConstantsTiles.FILE_LIMIT_RIGHT
         }
  
         this.fileLayer.putTilesAt(t, x, y).alpha = 0.5
@@ -682,9 +686,7 @@ export default class Game extends Phaser.Scene{
         return this.enemies
     }
 
-    
-
-    generateGround(){
+    setGroundTexture(){
         // Add ground layer
         /**
          * 3 type of ground =  CLEAN/SLIGHTLY_CRACKED/CRACK
@@ -697,12 +699,15 @@ export default class Game extends Phaser.Scene{
          * General is always clean
          */
 
-         const reliability_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
-         const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'sqale_rating').value
-         this.groundTexture = 5 - Math.floor(reliability_rating)
+         this.reliability_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
+         this.sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'sqale_rating').value
+         this.groundTexture = 5 - Math.floor(this.reliability_rating)
+    }
+
+    generateGround(){
  
  
-         const probaCracked = -0.2 + sqale_rating*0.2
+         const probaCracked = -0.2 + this.sqale_rating*0.2
          const probaSlightlyCracked = 0.2
          const probaClean = 1 - probaCracked - probaSlightlyCracked
          

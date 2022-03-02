@@ -19,6 +19,17 @@ export abstract class ConstantsTiles {
     static readonly GROUND_CLEAN:number = 36
     static readonly GROUND_CRACK:number = 68
     static readonly GROUND_SLIGHTLY_CRACKED:number = 100
+
+    static readonly FILE_LIMIT_TOP:number = 162
+    static readonly FILE_LIMIT_TOP_LEFT:number = 161
+    static readonly FILE_LIMIT_TOP_RIGHT:number = 163
+
+    static readonly FILE_LIMIT_LEFT:number = 193
+    static readonly FILE_LIMIT_RIGHT:number = 195
+
+    static readonly FILE_LIMIT_BOTTOM:number = 226
+    static readonly FILE_LIMIT_BOTTOM_LEFT:number = 225
+    static readonly FILE_LIMIT_BOTTOM_RIGHT:number = 227
 }
 
 export abstract class MonsterConstantsSize{

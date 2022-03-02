@@ -10,6 +10,8 @@ import Game from "./Game";
 
 export default class Tutorial extends Game{
 
+    private textColor = "#000000"
+
     private issueExample = {
         "severity": "MINOR",
         "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
@@ -118,6 +120,7 @@ export default class Tutorial extends Game{
         if(this.mapContext.path.length === 1 && this.mapContext.selected === "root"){
             this.generationRoot()
         } else {
+            this.setGroundTexture()
             this.generation()
         }
 
@@ -135,7 +138,7 @@ export default class Tutorial extends Game{
         let center = Game.TILE_SIZE * this.dungeon_size / 2
         cam.centerOn(center, center)
         cam.zoom = 2
-        cam.setBackgroundColor(0x202121)
+        cam.setBackgroundColor(0x070707)
 
 
         // Character
@@ -359,6 +362,8 @@ export default class Tutorial extends Game{
     }
 
     generationRoot() {
+        this.wallTexture = 5
+        this.groundTexture = 5
         // This function is called only in the root room then we can
         // make the assumption that we're in it. Thus we will place 
         // files manually, not with the automatic way
@@ -422,7 +427,7 @@ export default class Tutorial extends Game{
 
         this.add.text(6 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             4.5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            "Come here\nand press").setScale(0.5).setOrigin(0.5, 0.5)
+            "Come here\nand press").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
 
 
         this.addKey(
@@ -439,7 +444,7 @@ export default class Tutorial extends Game{
             
         this.add.text((this.dungeon_size - 6 - 3) * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            "Click me").setScale(0.5).setOrigin(0.5, 0.5)
+            "Click me").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
 
         // Generate exit tile in the center
         let exitFile = {
@@ -542,8 +547,6 @@ export default class Tutorial extends Game{
 
         
         // Add walls layer
-        const security_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'security_rating').value
-        this.wallTexture = 5 - Math.floor(security_rating)
 
         let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
         this.wall1Layer = walls[0]
@@ -558,7 +561,7 @@ export default class Tutorial extends Game{
             this.wall2Layer.putTileAt(ConstantsTiles.WALL_FACE + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY).setCollision(true)
             this.wall1Layer.putTileAt(ConstantsTiles.WALL_TIP + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY-1)
         }
-        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 0.4, "Walls represent the security").setScale(0.5).setOrigin(0.5, 0.5)
+        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 0.4, "Walls represent the security").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
 
         // add ground texture examples
         let groundExampleX = wallExampleX
@@ -568,11 +571,11 @@ export default class Tutorial extends Game{
                 this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, groundExampleX + i, groundExampleY + j)
             }
         }
-        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 4.3, "Ground tiles represent the reliability").setScale(0.5).setOrigin(0.5, 0.5)
+        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 4.3, "Ground tiles represent the reliability").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
 
     }
 
-    addKey(x: number, y: number, keyName: string, caption?:string, large:boolean = false, captionColor:string = "#FFFFFF"){
+    addKey(x: number, y: number, keyName: string, caption?:string, large:boolean = false, captionColor:string = this.textColor){
         let keyId = "key"
 
         if(large){
@@ -580,7 +583,7 @@ export default class Tutorial extends Game{
         }
 
         this.add.image(x, y, keyId).setAlpha(0.7).setOrigin(0.5, 0.5)
-        this.add.text(x, y, keyName).setOrigin(0.5, 0.5).setScale(0.5).setColor("#000000")
+        this.add.text(x, y - 0.5, keyName).setOrigin(0.5, 0.5).setScale(0.5).setColor(this.textColor)
         if(caption){
             this.add.text(
                 x, y - 0.8 * Game.TILE_SIZE, 
