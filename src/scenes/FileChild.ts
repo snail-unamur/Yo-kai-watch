@@ -37,12 +37,21 @@ export default class FileChild {
 
         this.game = game
 
-        this.textObject = this.game.add.text(x + width/2, y + 16, file.name)
-        this.textObject.setScale(0.5)
-        this.textObject.setOrigin(0.5)
+        let string = file.name
+        // let list_ = file.name.match(/.{1,12}/g)
+        // let string = ""
+
+        // list_!.forEach(el => {
+        //     string += el + "\n"
+        // })
+
+        // string = string.slice(0, -1)
+
+        this.textObject = this.game.add.text(x + width/2, y + 16, string)
+        this.textObject.setScale(0.5).setOrigin(0.5).setAlpha(1)
         this.textObject.setBackgroundColor('black')
-        this.textObject.setAlpha(1)
         this.textObject.setVisible(false)
+        this.textObject.setAlign('center')
         this.textObject.setDepth(6)
 
 

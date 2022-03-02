@@ -428,6 +428,8 @@ export default class Tutorial extends Game{
         this.add.text(6 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             4.5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             "Come here\nand press").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+            .setBackgroundColor('#FFFFFF')
+            .setAlpha(0.7)
 
 
         this.addKey(
@@ -445,6 +447,8 @@ export default class Tutorial extends Game{
         this.add.text((this.dungeon_size - 6 - 3) * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             "Click me").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+            .setBackgroundColor('#FFFFFF')
+            .setAlpha(0.7)
 
         // Generate exit tile in the center
         let exitFile = {
@@ -553,7 +557,7 @@ export default class Tutorial extends Game{
         this.wall2Layer = walls[1]
 
         // add wall texture examples
-        let wallExampleX = 4
+        let wallExampleX = 2
         let wallExampleY = 1
         let totalNbTextureExample = 15
         let totalNbVerticalTextureExample = 10
@@ -561,7 +565,12 @@ export default class Tutorial extends Game{
             this.wall2Layer.putTileAt(ConstantsTiles.WALL_FACE + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY).setCollision(true)
             this.wall1Layer.putTileAt(ConstantsTiles.WALL_TIP + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY-1)
         }
-        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 0.4, "Walls represent the security").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+        this.add.text((wallExampleX + totalNbTextureExample / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 0.4, "Walls represent the security")
+            .setScale(0.5)
+            .setOrigin(0.5, 0.5)
+            .setColor(this.textColor)
+            .setBackgroundColor('#FFFFFF')
+            .setAlpha(0.7)
 
         // add ground texture examples
         let groundExampleX = wallExampleX
@@ -571,8 +580,26 @@ export default class Tutorial extends Game{
                 this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, groundExampleX + i, groundExampleY + j)
             }
         }
-        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 4.3, "Ground tiles represent the reliability").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+        this.add.text((wallExampleX + totalNbTextureExample / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 4.3, "Ground tiles represent the reliability")
+            .setScale(0.5)
+            .setOrigin(0.5, 0.5)
+            .setColor(this.textColor)
+            .setBackgroundColor('#FFFFFF')
+            .setAlpha(0.7)
 
+        let code_smellsX = 3
+        let code_smellsY = 3
+        this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
+        this.add.image((this.dungeon_size - code_smellsX) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.7).setOrigin(0)
+
+        this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Music and \ncracks represent\nthe sqaling")
+            .setScale(0.5)
+            .setOrigin(0.5, 0.5)
+            .setColor(this.textColor)
+            .setAlign('center')
+            .setDepth(15)
+            .setBackgroundColor('#FFFFFF')
+            .setAlpha(0.7)
     }
 
     addKey(x: number, y: number, keyName: string, caption?:string, large:boolean = false, captionColor:string = this.textColor){
@@ -588,6 +615,8 @@ export default class Tutorial extends Game{
             this.add.text(
                 x, y - 0.8 * Game.TILE_SIZE, 
                 caption).setScale(0.5).setOrigin(0.5, 0.5).setColor(captionColor)
+                .setBackgroundColor('#FFFFFF')
+                .setAlpha(0.7)
         }
     }
 }

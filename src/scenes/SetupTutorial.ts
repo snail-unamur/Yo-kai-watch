@@ -124,8 +124,7 @@ export default class SetupTutorial extends Phaser.Scene {
                 "value": "0",
                 "bestValue": true
             }
-        ],
-        "children": []
+        ]
     }
 
     private key:string = ""
