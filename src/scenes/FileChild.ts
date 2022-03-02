@@ -65,12 +65,14 @@ export default class FileChild {
 
     setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
         this.file = file
-        this.infoString = `${this.file.name}, ${this.file.type}, ${this.file.path}, ${this.file.key}\n`
-        if(this.file.measures){
-            this.file.measures.forEach(element => {
-                this.infoString += `${element.metric}, ${element.value}, ${element.bestValue}\n`
-            }) 
-        }
+        this.infoString = `${this.file.name}`
+
+        // this.infoString = `${this.file.name}, ${this.file.type}, ${this.file.path}, ${this.file.key}\n`
+        // if(this.file.measures){
+        //     this.file.measures.forEach(element => {
+        //         this.infoString += `${element.metric}, ${element.value}, ${element.bestValue}\n`
+        //     }) 
+        // }
     }
 
     showName(value:boolean = true){
