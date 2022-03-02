@@ -7,6 +7,7 @@ import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
 import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
 import FileChild from "./FileChild";
+import { Global } from "~/utils/Global";
 
 export default class Map extends Phaser.Scene{
     private static readonly FILE_STEP = 3/10
@@ -229,7 +230,7 @@ export default class Map extends Phaser.Scene{
 
     preload(){
         this.rexUI = this['rexUI']
-        this.fileTree = this.cache.json.get('metrics')
+        this.fileTree = Global.fileTree
 
         this.getCurrentChildren()
         

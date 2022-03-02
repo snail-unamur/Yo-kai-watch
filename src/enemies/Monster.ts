@@ -28,6 +28,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     private knockBackScaling: { x:number, y:number } = { x:1, y:1 }
 
+    private canMove: boolean = true
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
         super(scene, x, y, texture, frame)
 
@@ -37,6 +39,10 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
         this.on('animationrepeat', this.onSpawn)
         this.updateInfo()
+    }
+
+    setCanMove(val:boolean){
+        this.canMove = val
     }
 
     onSpawn(){
@@ -198,7 +204,11 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             this.flipX = false
         }
 
-        this.setVelocity(monsterVelocity.x, monsterVelocity.y)
+        if(this.canMove){
+            this.setVelocity(monsterVelocity.x, monsterVelocity.y)
+        } else {
+            this.setVelocity(0, 0)
+        }
     }
 
 

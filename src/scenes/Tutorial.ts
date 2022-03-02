@@ -2,22 +2,86 @@ import { createMonsterAnims } from "~/animations/MonsterAnimation";
 import { createCharacterAnims } from "~/animations/PlayerAnimation";
 import Monster from "~/enemies/Monster";
 import { sceneEvents } from "~/events/EventCenter";
-import { LogConstant } from "~/utils/Const";
+import { ConstantsTiles, LogConstant, MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const";
+import { Global } from "~/utils/Global";
 import Log from "~/utils/Log";
+import FileChild from "./FileChild";
 import Game from "./Game";
 
 export default class Tutorial extends Game{
 
+    private issueExample = {
+        "severity": "MINOR",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "CODE_SMELL"
+    }
+
+    private issues = [{
+        "severity": "CRITICAL",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "CODE_SMELL"
+    },
+    {
+        "severity": "MINOR",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "CODE_SMELL"
+    },
+    {
+        "severity": "INFO",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "CODE_SMELL"
+    },
+    {
+        "severity": "CRITICAL",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "VULNERABILITY"
+    },
+    {
+        "severity": "MINOR",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "VULNERABILITY"
+    },
+    {
+        "severity": "INFO",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "VULNERABILITY"
+    },
+    {
+        "severity": "CRITICAL",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "BUG"
+    },
+    {
+        "severity": "MINOR",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "BUG"
+    },
+    {
+        "severity": "INFO",
+        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
+        "debt": "1min",
+        "type": "BUG"
+    }]
+    
     constructor(){
         super('tutorial')
     }
 
-
-
     create(data) {
-        console.log('Tutorial scene started')
+        console.log("create tutorial")
+        this.fileTree = Global.fileTree
         
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
+        sceneEvents.removeAllListeners('player-dead')
         sceneEvents.on('player-dead', () => {
             Log.addInformation(LogConstant.DIE, this.mapContext)
             this.scene.restart()
@@ -37,11 +101,12 @@ export default class Tutorial extends Game{
         this.incomingMonster = []
 
         this.fileChildren = []
+
         if(data?.mapContext){
             this.mapContext = data.mapContext
             this.sonarQubeData = this.mapContext.file
         } else {
-            this.sonarQubeData = this.cache.json.get('metrics')[0]
+            this.sonarQubeData = this.fileTree[0]
             this.mapContext = {
                 file: this.sonarQubeData,
                 path: [0],
@@ -49,8 +114,11 @@ export default class Tutorial extends Game{
                 selectedId:-1
             }
         }
-        //console.log(this.sonarQubeData)
-        this.generation()
+        if(this.mapContext.path.length === 1 && this.mapContext.selected === "root"){
+            this.generationRoot()
+        } else {
+            this.generation()
+        }
 
 
         // Launch UI
@@ -108,14 +176,11 @@ export default class Tutorial extends Game{
         this.physics.add.overlap(this.sword, this.enemies, this.handleSwordMonsterCollision, undefined, this)
         
 
-        
-        let gameCanvas = this.sys.game.canvas
         this.freezeLayer = this.add.renderTexture(0, 0, this.dungeon_size*Game.TILE_SIZE, this.dungeon_size*Game.TILE_SIZE)
         this.freezeLayer.fill(0x000000, 0.5)
         this.freezeLayer.setDepth(5)
         this.handleFreeze()
         this.handleFreeze()
-
 
 
         const textStyle = {
@@ -177,5 +242,304 @@ export default class Tutorial extends Game{
         this.physics.add.collider(this.player, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.enemies)
+    }
+
+    digProcess(fileObject: FileChild): void {
+        if(fileObject.getName() === "exit_tutorial"){
+            this.exit()
+        } else {
+            super.digProcess(fileObject)
+        }
+    }
+
+    exit(){
+        // Delete player controls
+        Object.keys(this.playerControls).forEach(el => {
+            let e:Phaser.Input.Keyboard.Key[] = this.playerControls[el]
+            e.forEach((el: Phaser.Input.Keyboard.Key) => {
+                this.input.keyboard.removeCapture(el.keyCode)
+            })
+        })
+
+        sceneEvents.removeAllListeners()
+
+        Log.addInformation(LogConstant.EXIT)
+        this.scene.stop("game-ui")
+        this.scene.stop()
+        this.scene.start('menu_projects')
+        this.scene.remove("tutorial")
+        console.log("exit tutorial")
+    }
+
+    
+    newMonster(file:FileChild){
+        this.incomingMonster.push({
+            durationLeft: 500*Math.floor((Math.random()+1)*2.5),
+            callback: () => { 
+                file.getMonster()?.setCanMove(false)
+                this.newMonster(file)
+            }
+        })
+    }
+
+    generation() {
+        let nbFile
+
+        if(this.sonarQubeData.children){
+            nbFile = this.sonarQubeData.children.length
+        } else {
+            nbFile = 0
+        }
+
+        let nbFileBySide = Math.ceil(Math.sqrt(nbFile))
+
+        this.dungeon_size = Game.NB_TILE_PER_FILE * 5
+
+        if(nbFileBySide >= 4){
+            this.dungeon_size = (Game.NB_TILE_PER_FILE+1) * nbFileBySide + 4
+        }
+
+
+        this.generateGround()
+
+        // Add File delimitation layer
+        this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+        let baseX = 2
+        let baseY = 2
+
+        let file
+
+        for(let i=0; i < nbFile; i++){
+            file = this.sonarQubeData.children[i]
+            file.id = i
+            this.generateFileLimitation(
+                this.fileLayer, 
+                baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+                baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+                Game.NB_TILE_PER_FILE, file)
+        }
+        
+        if(nbFile === 0){
+            this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 2.5, "Press 'E' to go up").setScale(0.5).setOrigin(0.5, 0.5).setColor("#000000")
+            this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 3.5, "Or 'TAB' to use the minimap").setScale(0.5).setOrigin(0.5, 0.5).setColor("#000000")
+            // We are in a leaf
+            this.sonarQubeData.id = 0
+            this.generateFileLimitation(
+                this.fileLayer, 
+                Math.floor(this.dungeon_size/2) - 2, 
+                Math.floor(this.dungeon_size/2) - 2, 
+                Game.NB_TILE_PER_FILE + 2, this.sonarQubeData)
+
+        }
+
+
+
+        this.generateMusic()
+        
+
+        
+        // Add walls layer
+        const security_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'security_rating').value
+        this.wallTexture = 5 - Math.floor(security_rating)
+
+        let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
+        this.wall1Layer = walls[0]
+        this.wall2Layer = walls[1]
+
+
+    }
+
+    generationRoot() {
+        // This function is called only in the root room then we can
+        // make the assumption that we're in it. Thus we will place 
+        // files manually, not with the automatic way
+        let nbFile
+
+        if(this.sonarQubeData.children){
+            nbFile = this.sonarQubeData.children.length
+        } else {
+            nbFile = 0
+        }
+
+        let nbFileBySide = Math.ceil(Math.sqrt(nbFile))
+
+        this.dungeon_size = 23
+
+        this.generateGround()
+
+        // Add File delimitation layer
+        this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+        let baseX = 3
+        let baseY = 8
+
+        let file
+
+
+        // Place first file
+        let fileId = 0
+        // this.generateFileLimitation(
+        //     this.fileLayer, 
+        //     baseX + (0 % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+        //     baseY + Math.floor(0 / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+        //     Game.NB_TILE_PER_FILE, file)
+
+        for(let i=0; i<3; i++){
+            this.generateFileLimitation(
+                this.fileLayer, 
+                2, 
+                baseY + i * (Game.NB_TILE_PER_FILE + 1), 
+                Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
+        }
+        fileId += 3
+
+        for(let i=2; i >= 0; i--){
+            this.generateFileLimitation(
+                this.fileLayer, 
+                this.dungeon_size - 5, 
+                baseY + i * (Game.NB_TILE_PER_FILE + 1), 
+                Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
+        }
+        fileId += 3
+
+        for(let i=0; i<3; i++){
+            this.generateFileLimitation(
+                this.fileLayer, 
+                6 + i * (Game.NB_TILE_PER_FILE + 1), 
+                this.dungeon_size - 6, 
+                Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
+        }
+        fileId += 3
+
+        this.fileChildren.forEach((file, index)=> {
+            file.setIssues([Global.issues[index]])
+        })
+
+        
+        this.generateFileLimitation(
+            this.fileLayer, 
+            6, 5, 
+            Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
+
+        this.add.text(6 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+            5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+            "Come here\n   and\npress 'A'").setScale(0.5).setOrigin(0.5, 0.5)
+
+        fileId++
+
+        this.generateFileLimitation(
+            this.fileLayer, 
+            this.dungeon_size - 6 - 3, 5, 
+            Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
+            
+        this.add.text((this.dungeon_size - 6 - 3) * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+            5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+            "Click me").setScale(0.5).setOrigin(0.5, 0.5)
+        // Automatic way to generate file limitation
+
+        // for(let i=0; i < nbFile; i++){
+        //     file = this.sonarQubeData.children[i]
+        //     file.id = i
+        //     this.generateFileLimitation(
+        //         this.fileLayer, 
+        //         baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+        //         baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+        //         Game.NB_TILE_PER_FILE, file)
+        // }
+
+        // Generate exit tile in the center
+        let exitFile = {
+            "name": "exit_tutorial",
+            "type": "FIL",
+            "path": "root/exit_tutorial",
+            "key": "project-key-example:exit_tutorial",
+            "id": 0,
+            "measures": [
+                {
+                    "metric": "reliability_rating",
+                    "value": "1.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "security_rating",
+                    "value": "1.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "sqale_rating",
+                    "value": "1.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "bugs",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "reliability_remediation_effort",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "security_remediation_effort",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "vulnerabilities",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "sqale_index",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        }
+        this.generateFileLimitation(
+            this.fileLayer, 
+            Math.floor(this.dungeon_size/2) - 2, 
+            Math.floor(this.dungeon_size/2) - 2, 
+            Game.NB_TILE_PER_FILE + 2, exitFile)
+
+
+
+        this.generateMusic()
+        
+
+        
+        // Add walls layer
+        const security_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'security_rating').value
+        this.wallTexture = 5 - Math.floor(security_rating)
+
+        let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
+        this.wall1Layer = walls[0]
+        this.wall2Layer = walls[1]
+
+        // add wall texture examples
+        let wallExampleX = 4
+        let wallExampleY = 1
+        let totalNbTextureExample = 15
+        let totalNbVerticalTextureExample = 10
+        for(let i=0; i < totalNbTextureExample; i++){
+            this.wall2Layer.putTileAt(ConstantsTiles.WALL_FACE + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY).setCollision(true)
+            this.wall1Layer.putTileAt(ConstantsTiles.WALL_TIP + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY-1)
+        }
+        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 0.4, "Walls represent the security").setScale(0.5).setOrigin(0.5, 0.5)
+
+        // add ground texture examples
+        let groundExampleX = wallExampleX
+        let groundExampleY = wallExampleY+1
+        for(let i=0; i < totalNbTextureExample; i++){
+            for(let j=0; j < Math.floor(totalNbVerticalTextureExample / 5); j++){
+                this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, groundExampleX + i, groundExampleY + j)
+            }
+        }
+        this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 4.3, "Ground tiles represent the reliability").setScale(0.5).setOrigin(0.5, 0.5)
     }
 }

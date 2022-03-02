@@ -32,13 +32,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('player-idle')
     
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'player-dig', (animation) => {
-            console.log("PLAYER dig done ")
             sceneEvents.emit('player-dig-done')
             this.digging = false
         })
     
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'player-go-up', (animation) => {
-            console.log("PLAYER go-up done ")
             sceneEvents.emit('player-go-up-done')
             this.goingUp = false
         })

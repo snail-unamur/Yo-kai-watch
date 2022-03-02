@@ -15,6 +15,7 @@ import Sword from '~/weapons/Sword'
 import '~/weapons/Sword'
 import FileContainer from './FileContainer'
 import Log from '~/utils/Log'
+import { Global } from '~/utils/Global'
 
 export default class Game extends Phaser.Scene{
     static readonly TILE_SIZE = 16  
@@ -34,8 +35,8 @@ export default class Game extends Phaser.Scene{
     protected wall2Layer!: Phaser.Tilemaps.TilemapLayer
     protected fileLayer!: Phaser.Tilemaps.TilemapLayer
 
-    private wallTexture: number = 0
-    private groundTexture: number = 0
+    protected wallTexture: number = 0
+    protected groundTexture: number = 0
 
     protected freezeLayer
     private freezing: boolean = false
@@ -57,15 +58,13 @@ export default class Game extends Phaser.Scene{
     protected fileTree
     protected sonarQubeData
 
-    private issues
-
     protected monsterHovered:boolean = false
     protected currentTileHovered
 
 
     protected fileChildren:FileChild[] = []
 
-    private playerControls!: {
+    protected playerControls!: {
         up: Phaser.Input.Keyboard.Key[],
         down: Phaser.Input.Keyboard.Key[],
         left: Phaser.Input.Keyboard.Key[],
@@ -86,7 +85,7 @@ export default class Game extends Phaser.Scene{
 
 	preload() {
         FileChild.projectIssues = this.cache.json.get('issues')
-        this.fileTree = this.cache.json.get('metrics')
+        if(!FileChild.projectIssues) FileChild.projectIssues = []
 
         // Don't put TAB key in the playerControls object or when the map will be open the capture will be cleared and a "tab action" will happen in the browser
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
@@ -134,9 +133,14 @@ export default class Game extends Phaser.Scene{
     }
 
     dig(fileObject?: FileChild){
-        if(this.player.isDigging()) return
+        if(this.player.isDigging() || this.player.isGoingUp()) return
         if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
-        if(fileObject && this.mapContext.file.children) {
+
+        if(fileObject) this.digProcess(fileObject)
+    }
+
+    digProcess(fileObject: FileChild){
+        if(this.mapContext.file.children) {
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
             }
@@ -152,6 +156,7 @@ export default class Game extends Phaser.Scene{
     }
 
     goUp(){
+        if(this.player.isDigging() || this.player.isGoingUp()) return
         let parent = this.getParent(this.mapContext.path)
         
         let id_ = -1
@@ -223,6 +228,7 @@ export default class Game extends Phaser.Scene{
     }
 
     create(data){
+        this.fileTree = Global.fileTree
         console.log('game scene started')
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
         sceneEvents.on('player-dead', () => {
@@ -248,7 +254,7 @@ export default class Game extends Phaser.Scene{
             this.mapContext = data.mapContext
             this.sonarQubeData = this.mapContext.file
         } else {
-            this.sonarQubeData = this.cache.json.get('metrics')[0]
+            this.sonarQubeData = this.fileTree[0]
             this.mapContext = {
                 file: this.sonarQubeData,
                 path: [0],
@@ -256,7 +262,7 @@ export default class Game extends Phaser.Scene{
                 selectedId:-1
             }
         }
-        //console.log(this.sonarQubeData)
+        console.log(this.sonarQubeData)
         this.generation()
 
 
@@ -433,53 +439,7 @@ export default class Game extends Phaser.Scene{
         }
 
 
-        // Add ground layer
-        /**
-         * 3 type of ground =  CLEAN/SLIGHTLY_CRACKED/CRACK
-         * based on the reliability_rating (1.0=A -> 5.0=E)
-         * 1.0 -> CLEAN
-         * 2.0 -> CLEAN + SLIGHTLY CRACKED
-         * ..
-         * 5.0 -> CRACK
-         * 
-         * General is always clean
-         */
-
-        const reliability_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
-        const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'sqale_rating').value
-        this.groundTexture = 5 - Math.floor(reliability_rating)
-
-
-        const probaCracked = -0.2 + sqale_rating*0.2
-        const probaSlightlyCracked = 0.2
-        const probaClean = 1 - probaCracked - probaSlightlyCracked
-        
-
-        // Add ground layer
-        const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
-        fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 0, 0)
-        
-        // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
-        // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
-        this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-
-        // But the map is like displayed from theses coordinates
-        this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 2, 2)
-
-        // Add random cracked tiles based on bugs
-        let r
-        for(let i=2; i < this.dungeon_size-2; i++){
-            for(let j=2; j < this.dungeon_size-2; j++){
-                r = Math.random()
-                if(r >= 1 - probaCracked){
-                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK + this.groundTexture * ConstantsTiles.tileDistance, i, j)
-                } else if(r > 1 - probaCracked - probaCracked) {
-                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_SLIGHTLY_CRACKED + this.groundTexture * ConstantsTiles.tileDistance, i, j)
-                } else {
-                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance, i, j)
-                }
-            }
-        }
+        this.generateGround()
 
         // Add File delimitation layer
         this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
@@ -509,42 +469,7 @@ export default class Game extends Phaser.Scene{
 
         }
 
-        // Add music of room
-        // Switch case based on the reliability_rating (1.0=A -> 5.0=E)
-     
-        switch(reliability_rating) {
-            default:
-            case '1.0':
-                if (!this.sound.get('ambient_a')) {
-                    this.sound.removeAll()
-                    this.sound.play('ambient_a', {loop: true})
-                }
-                break
-            case '2.0':
-                if (!this.sound.get('ambient_b')) {
-                    this.sound.removeAll()
-                    this.sound.play('ambient_b', {loop: true})
-                }
-                break
-            case '3.0':
-                if (!this.sound.get('ambient_c')) {
-                    this.sound.removeAll()
-                    this.sound.play('ambient_c', {loop: true})
-                }
-                break
-            case '4.0':
-                if (!this.sound.get('ambient_d')) {
-                    this.sound.removeAll()
-                    this.sound.play('ambient_d', {loop: true})
-                }
-                break
-            case '5.0':
-                if (!this.sound.get('ambient_e')) {
-                    this.sound.removeAll()
-                    this.sound.play('ambient_e', {loop: true})
-                }
-                break
-        }
+        this.generateMusic()
         
 
         
@@ -604,7 +529,7 @@ export default class Game extends Phaser.Scene{
         let fileChild = new FileChild(file, this, x*Game.TILE_SIZE, y*Game.TILE_SIZE, size*Game.TILE_SIZE, size*Game.TILE_SIZE)
         this.fileChildren.push(fileChild)
 
-        this.fileLayer.tilemap.setTileLocationCallback(x, y, size*Game.TILE_SIZE, size*Game.TILE_SIZE, (): FileChild => {
+        this.fileLayer.tilemap.setTileLocationCallback(x, y, size, size, (): FileChild => {
             return fileChild
         }, {})
 
@@ -755,5 +680,97 @@ export default class Game extends Phaser.Scene{
 
     getEnemies(){
         return this.enemies
+    }
+
+    
+
+    generateGround(){
+        // Add ground layer
+        /**
+         * 3 type of ground =  CLEAN/SLIGHTLY_CRACKED/CRACK
+         * based on the reliability_rating (1.0=A -> 5.0=E)
+         * 1.0 -> CLEAN
+         * 2.0 -> CLEAN + SLIGHTLY CRACKED
+         * ..
+         * 5.0 -> CRACK
+         * 
+         * General is always clean
+         */
+
+         const reliability_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
+         const sqale_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'sqale_rating').value
+         this.groundTexture = 5 - Math.floor(reliability_rating)
+ 
+ 
+         const probaCracked = -0.2 + sqale_rating*0.2
+         const probaSlightlyCracked = 0.2
+         const probaClean = 1 - probaCracked - probaSlightlyCracked
+         
+ 
+         // Add ground layer
+         const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
+         fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 0, 0)
+         
+         // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
+         // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
+         this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+ 
+         // But the map is like displayed from theses coordinates
+         this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 2, 2)
+ 
+         // Add random cracked tiles based on bugs
+         let r
+         for(let i=2; i < this.dungeon_size-2; i++){
+             for(let j=2; j < this.dungeon_size-2; j++){
+                 r = Math.random()
+                 if(r >= 1 - probaCracked){
+                     this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK + this.groundTexture * ConstantsTiles.tileDistance, i, j)
+                 } else if(r > 1 - probaCracked - probaCracked) {
+                     this.groundLayer.putTileAt(ConstantsTiles.GROUND_SLIGHTLY_CRACKED + this.groundTexture * ConstantsTiles.tileDistance, i, j)
+                 } else {
+                     this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance, i, j)
+                 }
+             }
+         }
+    }
+
+    generateMusic(){
+        // Add music of room
+        // Switch case based on the reliability_rating (1.0=A -> 5.0=E)
+     
+        const reliability_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'reliability_rating').value
+        switch(reliability_rating) {
+            default:
+            case '1.0':
+                if (!this.sound.get('ambient_a')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_a', {loop: true})
+                }
+                break
+            case '2.0':
+                if (!this.sound.get('ambient_b')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_b', {loop: true})
+                }
+                break
+            case '3.0':
+                if (!this.sound.get('ambient_c')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_c', {loop: true})
+                }
+                break
+            case '4.0':
+                if (!this.sound.get('ambient_d')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_d', {loop: true})
+                }
+                break
+            case '5.0':
+                if (!this.sound.get('ambient_e')) {
+                    this.sound.removeAll()
+                    this.sound.play('ambient_e', {loop: true})
+                }
+                break
+        }
     }
 }

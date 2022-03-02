@@ -28,12 +28,29 @@ export default class MenuProjects extends Phaser.Scene {
     preload() {
         this.rexUI = this['rexUI']
         const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
-        this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
-
+        // Don't call the API for project names here, to smoothen the loading here
+        //this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
     }
 
 
     create(data) {
+        // Load project names
+        const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
+        this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
+        this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+            // TODO : don't reload on each key pressed, but only after a short delay in order to not spawn the API 
+            // texture loaded so use instead of the placeholder
+            console.log(`requested ${this.projectQuery}`)
+
+            this.projectNames = this.cache.json.get('project_names')
+
+            this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+            this.generatePanel()
+        })
+        this.load.start()
+
+
+
         if(data?.loadFailed){
             Log.addInformation(LogConstant.PROJECT_LOADING_FAILED)
             this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.175, "Loading failed: project not analysed yet", {
@@ -42,8 +59,10 @@ export default class MenuProjects extends Phaser.Scene {
             }).setOrigin(0.5)
         }
 
+        this.cameras.main.setBackgroundColor(0x483B3A)
 
-        this.projectNames = this.cache.json.get('project_names')
+
+        //this.projectNames = this.cache.json.get('project_names')
 
         this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.1, "The Coding of Isaac", {
             fontSize: "40px"
@@ -65,8 +84,6 @@ export default class MenuProjects extends Phaser.Scene {
         this.add.text(this.textEditZone.x - 150, this.game.canvas.height * 0.3 - 36, "Search a project:", {
             fontSize: "16px"
         }).setOrigin(0, 0.5)
-
-        this.cameras.main.setBackgroundColor(0x483B3A)
 
         this.textEditZone.setInteractive().on('pointerdown', () => {
 
@@ -103,7 +120,15 @@ export default class MenuProjects extends Phaser.Scene {
             //To get the dom element use that: const elem = this.textEdit.inputText.node
         })
 
+        
         this.generatePanel()
+
+
+    }
+
+    
+    selectProject(projectName:string){
+        this.scene.start('preloader', { projectName: projectName })
     }
 
     generatePanel(){
@@ -180,7 +205,7 @@ export default class MenuProjects extends Phaser.Scene {
         
         el.on('child.click', function (child) {
             child.backgroundChildren[0].alpha = 1
-            this_game.scene.start('preloader', { projectName: child.name })
+            this_game.selectProject(child.name)
         })
         
         el.on('child.over', function (child) {

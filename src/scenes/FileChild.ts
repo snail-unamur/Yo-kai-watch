@@ -2,6 +2,7 @@ import Phaser from "phaser"
 import Game from "./Game"
 
 import { MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
+import Monster from "~/enemies/Monster"
 
 export default class FileChild {
     private file!: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}
@@ -17,13 +18,15 @@ export default class FileChild {
     static projectIssues: {
         component:string,
         type:string, 
-        severity:string
+        severity:string,
+        debt:string
     }[] = []
 
     private issues: {
         component:string,
         type:string, 
-        severity:string
+        severity:string,
+        debt:string
     }[] = []
 
     private textObject: Phaser.GameObjects.Text
@@ -77,11 +80,11 @@ export default class FileChild {
         return this.file.name
     }
 
-    getMonster(){
+    getMonster(): Monster | null{
         let issue = this.issues.pop()
-        if(!issue) return
+        if(!issue) return null
         
-        let enemy = this.game.getEnemies().get(this.x + this.width/2, this.y + this.height/2, 'player') // Why "player" here?
+        let enemy: Monster = this.game.getEnemies().get(this.x + this.width/2, this.y + this.height/2, 'player') // Why "player" here?
         enemy.setIssue(issue)
         enemy.input.hitArea = new Phaser.GameObjects.Rectangle(this.game, enemy.body.offset.x, enemy.body.offset.y, enemy.body.width, enemy.body.height)
 
@@ -89,11 +92,19 @@ export default class FileChild {
     }
 
     initIssues(){
-        FileChild.projectIssues.forEach((element:{ component:string, type:string, severity:string }) => {
+        FileChild.projectIssues.forEach((element: { component:string, type:string, severity:string, debt:string }) => {
             if(element.component.startsWith(this.file.key)){
                 this.issues.push(element)
             }
         })
     }
-
+    
+    setIssues(issues: {
+        component:string,
+        type:string, 
+        severity:string,
+        debt:string
+    }[]){
+        this.issues = issues
+    }
 }
