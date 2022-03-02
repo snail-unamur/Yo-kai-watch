@@ -24,6 +24,7 @@ export default class PauseOverlay extends Phaser.Scene {
     }
 
     create(data:{ game:Game }) {
+        const buttonColor = 0x202020
         Log.addInformation(LogConstant.PAUSE, { state: true })
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onResume, this)
         this.game_ = data.game
@@ -33,7 +34,7 @@ export default class PauseOverlay extends Phaser.Scene {
             y:0, 
             fillStyle:{
                 color: 0x000000,
-                alpha: 0.3
+                alpha: 0.6
             }
         })
         this.veil.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height)
@@ -41,7 +42,7 @@ export default class PauseOverlay extends Phaser.Scene {
 
 
         // EXIT TO PROJECT SELECTION
-        this.exitButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.5, 300, 100, 0x000000).setOrigin(0.5)
+        this.exitButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.5, 300, 100, buttonColor).setOrigin(0.5)
         this.exitButton.setInteractive()
         this.exitButton.on('pointerdown', this.onGoProjectSelection, this)
 
@@ -50,7 +51,7 @@ export default class PauseOverlay extends Phaser.Scene {
 
 
         // EXIT TO TUTORIAL
-        this.tutorialButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.7, 300, 100, 0x000000).setOrigin(0.5)
+        this.tutorialButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.7, 300, 100, buttonColor).setOrigin(0.5)
         this.tutorialButton.setInteractive()
         this.tutorialButton.on('pointerdown', this.onGoTutorial, this)
 
@@ -59,7 +60,7 @@ export default class PauseOverlay extends Phaser.Scene {
 
 
         // RESUME
-        this.resumeButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.3, 300, 100, 0x000000).setOrigin(0.5)
+        this.resumeButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.3, 300, 100, buttonColor).setOrigin(0.5)
         this.resumeButton.setInteractive()
         this.resumeButton.on('pointerdown', this.onResume, this)
         
