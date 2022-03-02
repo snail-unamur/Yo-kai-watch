@@ -17,6 +17,7 @@ export default class Preloader extends Phaser.Scene {
     }
 
     preload() {
+        this.createLoading()
         // Load metrics data
         /**
          * For ratings -> A=1 B=2 C=3 D=4 E=5
@@ -34,7 +35,8 @@ export default class Preloader extends Phaser.Scene {
         // ENABLE THIS TO GET DATA (DISABLED TO NOT DESTROY THE SONARCLOUD API EVERY TIME WE TEST SOMETHING)
         console.log(`dowloading: ${this.projectName}`)
         const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
-        this.createLoading()
+        this.cache.json.remove('metrics')
+        this.cache.json.remove('issues')
         this.load.json('metrics', `${domain}/metrics?project=${this.projectName}`)
         this.load.json('issues', `${domain}/issues?project=${this.projectName}`)
 
@@ -42,6 +44,7 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+        this.load.removeAllListeners()
         Global.fileTree = this.cache.json.get('metrics')
         if(this.cache.json.get('metrics')[0].measures.length === 0){
             this.scene.start('menu_projects', { loadFailed: true })

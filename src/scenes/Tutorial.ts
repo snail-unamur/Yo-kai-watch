@@ -268,7 +268,6 @@ export default class Tutorial extends Game{
         this.scene.stop("game-ui")
         this.scene.stop()
         this.scene.start('menu_projects')
-        this.scene.remove("tutorial")
         console.log("exit tutorial")
     }
 

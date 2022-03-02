@@ -5,7 +5,10 @@ import Game from './Game'
 
 export default class PauseOverlay extends Phaser.Scene {
     private veil!: Phaser.GameObjects.Graphics
-    
+
+    private tutorialButton!: Phaser.GameObjects.Rectangle
+    private tutorialText!: Phaser.GameObjects.Text
+
     private exitButton!: Phaser.GameObjects.Rectangle
     private exitText!: Phaser.GameObjects.Text
 
@@ -37,26 +40,47 @@ export default class PauseOverlay extends Phaser.Scene {
         this.veil.setScrollFactor(0)
 
 
-        this.exitButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height*0.5, 300, 100, 0x000000).setOrigin(0.5)
+        // EXIT TO PROJECT SELECTION
+        this.exitButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.5, 300, 100, 0x000000).setOrigin(0.5)
         this.exitButton.setInteractive()
-        this.exitButton.on('pointerdown', this.onExit, this)
+        this.exitButton.on('pointerdown', this.onGoProjectSelection, this)
 
-        this.exitText = this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.5, 'EXIT').setOrigin(0.5)
+        this.exitText = this.add.text(this.game.canvas.width/2, this.game.canvas.height * 0.5, 'PROJECT SELECTION').setOrigin(0.5)
 
-        this.resumeButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height*0.7, 300, 100, 0x000000).setOrigin(0.5)
+
+
+        // EXIT TO TUTORIAL
+        this.tutorialButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.7, 300, 100, 0x000000).setOrigin(0.5)
+        this.tutorialButton.setInteractive()
+        this.tutorialButton.on('pointerdown', this.onGoTutorial, this)
+
+        this.tutorialText = this.add.text(this.game.canvas.width/2, this.game.canvas.height * 0.7, 'TUTORIAL').setOrigin(0.5)
+
+
+
+        // RESUME
+        this.resumeButton = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height * 0.3, 300, 100, 0x000000).setOrigin(0.5)
         this.resumeButton.setInteractive()
         this.resumeButton.on('pointerdown', this.onResume, this)
         
-        this.resumeText = this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.7, 'RESUME').setOrigin(0.5)
+        this.resumeText = this.add.text(this.game.canvas.width/2, this.game.canvas.height * 0.3, 'RESUME').setOrigin(0.5)
     }
 
-    onExit(){
+    onExit(sceneName:string = "menu_projects"){
         Log.addInformation(LogConstant.EXIT)
         Log.sendResult()
         this.game_.scene.stop("game-ui")
         this.game_.scene.stop()
-        this.scene.start('menu_projects')
+        this.scene.start(sceneName)
         console.log("exit pause screen")
+    }
+
+    onGoProjectSelection(){
+        this.onExit()
+    }
+
+    onGoTutorial(){
+        this.onExit("setup-tutorial")
     }
 
     onResume(){
