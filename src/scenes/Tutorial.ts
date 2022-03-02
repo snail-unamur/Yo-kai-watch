@@ -77,6 +77,7 @@ export default class Tutorial extends Game{
     }
 
     create(data) {
+        FileChild.projectIssues = Global.issues
         console.log("create tutorial")
         this.fileTree = Global.fileTree
         
@@ -143,7 +144,7 @@ export default class Tutorial extends Game{
         cam.startFollow(this.player)
 
         // Character Sword
-        this.sword = this.add.sword(this.player.x, this.player.y, 'sword', 4)
+        this.sword = this.add.sword(this.player.x, this.player.y, 'sword', 7)
 
         // Enemies
         let this_game = this
@@ -320,8 +321,17 @@ export default class Tutorial extends Game{
         }
         
         if(nbFile === 0){
-            this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 2.5, "Press 'E' to go up").setScale(0.5).setOrigin(0.5, 0.5).setColor("#000000")
-            this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 3.5, "Or 'TAB' to use the minimap").setScale(0.5).setOrigin(0.5, 0.5).setColor("#000000")
+            
+            this.addKey(
+                this.dungeon_size * 0.7 * Game.TILE_SIZE,
+                Game.TILE_SIZE * 3.5,
+                "E", "Go up", false, "#000000")
+                
+            this.addKey(
+                this.dungeon_size * 0.3 * Game.TILE_SIZE,
+                Game.TILE_SIZE * 3.5,
+                "Tab", "Minimap", true, "#000000")
+
             // We are in a leaf
             this.sonarQubeData.id = 0
             this.generateFileLimitation(
@@ -377,11 +387,6 @@ export default class Tutorial extends Game{
 
         // Place first file
         let fileId = 0
-        // this.generateFileLimitation(
-        //     this.fileLayer, 
-        //     baseX + (0 % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-        //     baseY + Math.floor(0 / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-        //     Game.NB_TILE_PER_FILE, file)
 
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
@@ -392,11 +397,11 @@ export default class Tutorial extends Game{
         }
         fileId += 3
 
-        for(let i=2; i >= 0; i--){
+        for(let i=0; i<3; i++){
             this.generateFileLimitation(
                 this.fileLayer, 
                 this.dungeon_size - 5, 
-                baseY + i * (Game.NB_TILE_PER_FILE + 1), 
+                baseY + (2-i) * (Game.NB_TILE_PER_FILE + 1), 
                 Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
         }
         fileId += 3
@@ -410,10 +415,6 @@ export default class Tutorial extends Game{
         }
         fileId += 3
 
-        this.fileChildren.forEach((file, index)=> {
-            file.setIssues([Global.issues[index]])
-        })
-
         
         this.generateFileLimitation(
             this.fileLayer, 
@@ -421,8 +422,14 @@ export default class Tutorial extends Game{
             Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
 
         this.add.text(6 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            "Come here\n   and\npress 'A'").setScale(0.5).setOrigin(0.5, 0.5)
+            4.5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+            "Come here\nand press").setScale(0.5).setOrigin(0.5, 0.5)
+
+
+        this.addKey(
+            6 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+            5.5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2,
+            "A")
 
         fileId++
 
@@ -434,17 +441,6 @@ export default class Tutorial extends Game{
         this.add.text((this.dungeon_size - 6 - 3) * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             5 * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             "Click me").setScale(0.5).setOrigin(0.5, 0.5)
-        // Automatic way to generate file limitation
-
-        // for(let i=0; i < nbFile; i++){
-        //     file = this.sonarQubeData.children[i]
-        //     file.id = i
-        //     this.generateFileLimitation(
-        //         this.fileLayer, 
-        //         baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-        //         baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-        //         Game.NB_TILE_PER_FILE, file)
-        // }
 
         // Generate exit tile in the center
         let exitFile = {
@@ -501,13 +497,46 @@ export default class Tutorial extends Game{
                 }
             ]
         }
+        let exitTiles = {
+            x: Math.floor(this.dungeon_size/2) - 2,
+            y: Math.floor(this.dungeon_size/2) - 2,
+            size: Game.NB_TILE_PER_FILE + 2
+        }
         this.generateFileLimitation(
             this.fileLayer, 
-            Math.floor(this.dungeon_size/2) - 2, 
-            Math.floor(this.dungeon_size/2) - 2, 
+            exitTiles.x, 
+            exitTiles.y, 
             Game.NB_TILE_PER_FILE + 2, exitFile)
 
+        this.addKey(
+            (exitTiles.x + exitTiles.size / 2) * Game.TILE_SIZE, 
+            (exitTiles.y - 0.5) * Game.TILE_SIZE, 
+            "Z")
 
+        this.addKey(
+            (exitTiles.x + exitTiles.size / 2) * Game.TILE_SIZE, 
+            (exitTiles.y + exitTiles.size + 0.5) * Game.TILE_SIZE, 
+            "S")
+
+        this.addKey(
+            (exitTiles.x - 0.5) * Game.TILE_SIZE, 
+            (exitTiles.y + exitTiles.size / 2) * Game.TILE_SIZE, 
+            "Q")
+
+        this.addKey(
+            (exitTiles.x + exitTiles.size + 0.5) * Game.TILE_SIZE, 
+            (exitTiles.y + exitTiles.size / 2) * Game.TILE_SIZE, 
+            "D")
+
+        this.addKey(
+            (exitTiles.x + exitTiles.size + 1.5) * Game.TILE_SIZE, 
+            (exitTiles.y + exitTiles.size + 1.5) * Game.TILE_SIZE, 
+            "X", "(un)freeze")
+
+        this.addKey(
+            (exitTiles.x - 1.5) * Game.TILE_SIZE, 
+            (exitTiles.y + exitTiles.size + 1.5) * Game.TILE_SIZE, 
+            "space", "Attack", true)
 
         this.generateMusic()
         
@@ -541,5 +570,22 @@ export default class Tutorial extends Game{
             }
         }
         this.add.text(this.dungeon_size * Game.TILE_SIZE / 2, Game.TILE_SIZE * 4.3, "Ground tiles represent the reliability").setScale(0.5).setOrigin(0.5, 0.5)
+
+    }
+
+    addKey(x: number, y: number, keyName: string, caption?:string, large:boolean = false, captionColor:string = "#FFFFFF"){
+        let keyId = "key"
+
+        if(large){
+            keyId = "large_key"
+        }
+
+        this.add.image(x, y, keyId).setAlpha(0.7).setOrigin(0.5, 0.5)
+        this.add.text(x, y, keyName).setOrigin(0.5, 0.5).setScale(0.5).setColor("#000000")
+        if(caption){
+            this.add.text(
+                x, y - 0.8 * Game.TILE_SIZE, 
+                caption).setScale(0.5).setOrigin(0.5, 0.5).setColor(captionColor)
+        }
     }
 }
