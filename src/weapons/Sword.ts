@@ -16,7 +16,7 @@ export default class Sword extends Phaser.Physics.Arcade.Sprite
 		super(scene, x, y, texture, frame)
 
 		this.lastDirection = new Phaser.Math.Vector2(0, 1)
-		this.setScale(1.5)
+		//this.setScale(1.5)
 	}
 
     updatePosition(x: number, y: number, direction: Phaser.Math.Vector2) {
@@ -27,8 +27,8 @@ export default class Sword extends Phaser.Physics.Arcade.Sprite
 
 		this.lastDirection = direction
 
-		x += direction.x * this.width
-		y += direction.y * this.height
+		x += direction.x * 16//this.width
+		y += direction.y * 16//this.height
 
 
 		if(direction.y === 0 && direction.x === -1){
@@ -52,8 +52,8 @@ Phaser.GameObjects.GameObjectFactory.register('sword', function (this: Phaser.Ga
 	sprite.body.enable = false
 
 
-    sprite.body.setSize(20, 20)
-    sprite.body.setOffset(-2, -2)
+    sprite.body.setSize(24, 24)
+    //sprite.body.setOffset(-2, -2)
 
     return sprite
 })

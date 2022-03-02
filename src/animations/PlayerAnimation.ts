@@ -30,9 +30,9 @@ function createCharacterAnims(anims: Phaser.Animations.AnimationManager){
 
     anims.create({
         key: 'player-attack',
-        frames: anims.generateFrameNumbers('sword', { start: 0, end: 4 }),
+        frames: anims.generateFrameNumbers('sword', { start: 0, end: 7 }),
         repeat: 0,
-        frameRate: 16
+        frameRate: 40
     })
 
     // No faint animation in the tilset yet

@@ -3,6 +3,7 @@ import { Global } from "~/utils/Global";
 import Log from "~/utils/Log";
 
 export default class PreloaderTutorial extends Phaser.Scene {
+    private swordSize: number = 24
     private extruded:boolean = true
     private suffix:string = ""
     
@@ -161,11 +162,15 @@ export default class PreloaderTutorial extends Phaser.Scene {
         this.load.spritesheet('character', `tiles/character${this.suffix}.png`, { frameWidth: 16, frameHeight: 32, margin: 1, spacing: 2 })
         // loading for tiny and medium monsters
         this.load.spritesheet('small_medium_monsters', `tiles/small_medium_monsters${this.suffix}.png`, { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  })
-        this.load.spritesheet('sword', `tiles/sword${this.suffix}.png`, { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  })
+
+        this.load.spritesheet('sword', `tiles/sword${this.suffix}.png`, { frameWidth: this.swordSize, frameHeight: this.swordSize, margin: 1, spacing: 2  })
 
         // Loading ui
         this.load.image('ui_heart_empty', 'ui/ui_heart_empty.png')
         this.load.image('ui_heart_full', 'ui/ui_heart_full.png')
+
+        this.load.image('key', 'tiles/key.png')
+        this.load.image('large_key', 'tiles/large_key.png')
 
         // Loading weapons
 
@@ -193,7 +198,7 @@ export default class PreloaderTutorial extends Phaser.Scene {
 
                 this.issues.push({
                     severity: severity,
-                    component: this.tutorialLayout[0].children[this.tutorialLayout[0].children.length - 1],
+                    component: this.tutorialLayout[0].children[this.tutorialLayout[0].children.length - 1].key,
                     debt: "1min",
                     type: type
                 })
