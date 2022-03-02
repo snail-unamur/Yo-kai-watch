@@ -18,60 +18,7 @@ export default class SetupTutorial extends Phaser.Scene {
         path:string,
         key:string,
         measures:any[]
-    }[] = [{
-        "name": "root",
-        "type": "TRK",
-        "path": "root",
-        "key": "project-key-example",
-        "measures": [
-            {
-                "metric": "security_remediation_effort",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "sqale_index",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "sqale_rating",
-                "value": "1.0",
-                "bestValue": true
-            },
-            {
-                "metric": "bugs",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "reliability_remediation_effort",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "reliability_rating",
-                "value": "4.0",
-                "bestValue": true
-            },
-            {
-                "metric": "code_smells",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "security_rating",
-                "value": "4.0",
-                "bestValue": true
-            },
-            {
-                "metric": "vulnerabilities",
-                "value": "0",
-                "bestValue": true
-            }
-        ],
-        "children": []
-    }]
+    }[] = []
 
     private childExample = {
         "name": "small_demon_room.js",
@@ -134,6 +81,7 @@ export default class SetupTutorial extends Phaser.Scene {
     }
 
     preload(){
+        this.resetTutorialLayout()
         this.key = this.tutorialLayout[0].key
 
         let types = ['CODE_SMELL', "BUG", "VULNERABILITY"]
@@ -178,6 +126,63 @@ export default class SetupTutorial extends Phaser.Scene {
         Log.addInformation(LogConstant.TUTORIAL_LOADED)
         console.log("tuto setup")
         this.scene.start('tutorial')
+    }
+
+    resetTutorialLayout(){
+        this.tutorialLayout = [{
+            "name": "root",
+            "type": "TRK",
+            "path": "root",
+            "key": "project-key-example",
+            "measures": [
+                {
+                    "metric": "security_remediation_effort",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "sqale_index",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "sqale_rating",
+                    "value": "1.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "bugs",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "reliability_remediation_effort",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "reliability_rating",
+                    "value": "4.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "security_rating",
+                    "value": "4.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "vulnerabilities",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ],
+            "children": []
+        }]
     }
 }
 
