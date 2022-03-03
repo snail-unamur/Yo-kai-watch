@@ -72,6 +72,22 @@ export default class FileChild {
         this.initIssues()
     }
 
+    getX(): number{
+        return this.x
+    }
+
+    getY(): number{
+        return this.y
+    }
+
+    getWidth(): number{
+        return this.width
+    }
+
+    getHeight(): number{
+        return this.height
+    }
+
     setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
         this.file = file
         this.updateInfoString()
