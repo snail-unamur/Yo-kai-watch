@@ -20,9 +20,10 @@ enum HealthState {
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     private healthState: HealthState = HealthState.IDLE
+    private inControl: boolean = true
     private health = 3
 
-    private invicibilityDuration: number = 250
+    private invincibilityDuration: number = 1000
 
     private attacking: boolean = false
     private digging: boolean = false
@@ -81,11 +82,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
             this.setTint(0xff0000)
             this.healthState = HealthState.DAMAGE
+            this.inControl = false
 
             // play damage sound
             this.scene.sound.play('oof', { volume: 2.0 })
 
-            this.scene.time.delayedCall(this.invicibilityDuration, () => {
+            this.scene.time.delayedCall(100, () => {
+                this.setTint(0x606060)
+                this.inControl = true
+            }, [], this)
+
+            this.scene.time.delayedCall(this.invincibilityDuration, () => {
                 this.clearTint()
                 this.healthState = HealthState.IDLE
             }, [], this)
@@ -110,7 +117,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }, sword: SwordContainer, dt: number) {
         
         if(!cursors || this.healthState === HealthState.DEAD
-            || this. healthState === HealthState.DAMAGE
+            || !this.inControl
             || this.digging
             || this.goingUp) {
             return
