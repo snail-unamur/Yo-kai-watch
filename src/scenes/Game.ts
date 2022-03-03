@@ -18,8 +18,11 @@ import Log from '~/utils/Log'
 import { Global } from '~/utils/Global'
 
 export default class Game extends Phaser.Scene{
-    static readonly TILE_SIZE = 16  
-    static readonly NB_TILE_PER_FILE = 3  
+    static readonly TILE_SIZE = 16
+    static readonly NB_TILE_PER_FILE = 3
+    static readonly ROW_SIZE = 2
+    static readonly MIN_NB_FILE_LIMIT_ROW = 2
+
     protected dungeon_size = 10
 
     private oldFileNameShowed
@@ -441,6 +444,7 @@ export default class Game extends Phaser.Scene{
     generation() {
         let nbFile
 
+
         if(this.sonarQubeData.children){
             nbFile = this.sonarQubeData.children.length
         } else {
@@ -449,10 +453,10 @@ export default class Game extends Phaser.Scene{
 
         let nbFileBySide = Math.ceil(Math.sqrt(nbFile))
 
-        this.dungeon_size = Game.NB_TILE_PER_FILE * 5
+        this.dungeon_size = (Game.NB_TILE_PER_FILE + Game.ROW_SIZE) * Game.MIN_NB_FILE_LIMIT_ROW + 3
 
-        if(nbFileBySide >= 4){
-            this.dungeon_size = (Game.NB_TILE_PER_FILE+1) * nbFileBySide + 4
+        if(nbFileBySide >= Game.MIN_NB_FILE_LIMIT_ROW){
+            this.dungeon_size = (Game.NB_TILE_PER_FILE + Game.ROW_SIZE) * nbFileBySide + 4
         }
 
 
@@ -461,8 +465,8 @@ export default class Game extends Phaser.Scene{
 
         // Add File delimitation layer
         this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-        let baseX = 2
-        let baseY = 2
+        let baseX = Game.ROW_SIZE/2 + 2
+        let baseY = baseX
 
         let file
 
@@ -471,8 +475,8 @@ export default class Game extends Phaser.Scene{
             file.id = i
             this.generateFileLimitation(
                 this.fileLayer, 
-                baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-                baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
+                baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + Game.ROW_SIZE), 
+                baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + Game.ROW_SIZE), 
                 Game.NB_TILE_PER_FILE, file)
         }
         

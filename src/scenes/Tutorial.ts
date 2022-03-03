@@ -303,36 +303,9 @@ export default class Tutorial extends Game{
             nbFile = 0
         }
 
-        let nbFileBySide = Math.ceil(Math.sqrt(nbFile))
+        super.generation()
 
-        this.dungeon_size = Game.NB_TILE_PER_FILE * 5
-
-        if(nbFileBySide >= 4){
-            this.dungeon_size = (Game.NB_TILE_PER_FILE+1) * nbFileBySide + 4
-        }
-
-
-        this.generateGround()
-
-        // Add File delimitation layer
-        this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-        let baseX = 2
-        let baseY = 2
-
-        let file
-
-        for(let i=0; i < nbFile; i++){
-            file = this.sonarQubeData.children[i]
-            file.id = i
-            this.generateFileLimitation(
-                this.fileLayer, 
-                baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-                baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + 1), 
-                Game.NB_TILE_PER_FILE, file)
-        }
-        
         if(nbFile === 0){
-            
             this.addKey(
                 this.dungeon_size * 0.7 * Game.TILE_SIZE,
                 Game.TILE_SIZE * 3.5,
@@ -342,32 +315,7 @@ export default class Tutorial extends Game{
                 this.dungeon_size * 0.3 * Game.TILE_SIZE,
                 Game.TILE_SIZE * 3.5,
                 "Tab", "Minimap", true, "#000000")
-
-            // We are in a leaf
-            this.sonarQubeData.id = 0
-            this.generateFileLimitation(
-                this.fileLayer, 
-                Math.floor(this.dungeon_size/2) - 2, 
-                Math.floor(this.dungeon_size/2) - 2, 
-                Game.NB_TILE_PER_FILE + 2, this.sonarQubeData)
-
         }
-
-
-
-        this.generateMusic()
-        
-
-        
-        // Add walls layer
-        const security_rating = this.sonarQubeData.measures.find(measure => measure.metric === 'security_rating').value
-        this.wallTexture = 5 - Math.floor(security_rating)
-
-        let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
-        this.wall1Layer = walls[0]
-        this.wall2Layer = walls[1]
-
-
     }
 
     generationRoot() {
