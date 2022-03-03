@@ -252,23 +252,30 @@ export default class Game extends Phaser.Scene{
         this.fileTree = Global.fileTree
         console.log('game scene started')
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
-        sceneEvents.removeAllListeners('player-dead')
+        
+        
+        // This should be a "once" I think
         sceneEvents.on('player-dead', () => {
             Log.addInformation(LogConstant.DIE, this.mapContext)
             this.scene.restart()
         })
 
-        sceneEvents.removeAllListeners('player-dig-done')
         sceneEvents.on('player-dig-done', () => {
             Log.addInformation(LogConstant.DIG, this.mapContext)
             this.restart()
         })
 
-        sceneEvents.removeAllListeners('player-go-up-done')
         sceneEvents.on('player-go-up-done', () => {
             Log.addInformation(LogConstant.GO_UP, this.mapContext)
             this.restart()
         })
+
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            sceneEvents.off('player-dead')
+            sceneEvents.off('player-dig-done')
+            sceneEvents.off('player-go-up-done')
+        })
+        
         this.incomingMonster = []
 
         this.fileChildren = []
