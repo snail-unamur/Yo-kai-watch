@@ -137,7 +137,7 @@ export default class Game extends Phaser.Scene{
 
     dig(fileObject?: FileChild){
         if(this.player.isDigging() || this.player.isGoingUp()) return
-        if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
+        if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y + Game.TILE_SIZE)?.collisionCallback()
 
         if(fileObject) this.digProcess(fileObject)
     }
@@ -533,6 +533,7 @@ export default class Game extends Phaser.Scene{
         let fileChild = new FileChild(file, this, x*Game.TILE_SIZE, y*Game.TILE_SIZE, size*Game.TILE_SIZE, size*Game.TILE_SIZE)
         this.fileChildren.push(fileChild)
 
+        console.log(y)
         this.fileLayer.tilemap.setTileLocationCallback(x, y, size, size, (): FileChild => {
             return fileChild
         }, {})
@@ -581,7 +582,7 @@ export default class Game extends Phaser.Scene{
 
         this.player.update(this.playerControls, this.sword, dt)
 
-        let file: FileChild = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y)?.collisionCallback()
+        let file: FileChild = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y + Game.TILE_SIZE)?.collisionCallback()
         if(file){
             sceneEvents.emit('tile-file-update', file.getName())
             file.showName()
