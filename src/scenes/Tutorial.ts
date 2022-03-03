@@ -596,7 +596,6 @@ export default class Tutorial extends Game{
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
             .setAlign('center')
-            .setDepth(15)
             .setBackgroundColor('#FFFFFF')
             .setAlpha(0.7)
     }
