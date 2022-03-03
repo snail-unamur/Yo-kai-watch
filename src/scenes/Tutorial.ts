@@ -85,7 +85,7 @@ export default class Tutorial extends Game{
         this.fileTree = Global.fileTree
         
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
-        
+
         // This should be a "once" I think
         sceneEvents.on('player-dead', () => {
             Log.addInformation(LogConstant.DIE, this.mapContext)
@@ -551,9 +551,9 @@ export default class Tutorial extends Game{
             (exitTiles.y + exitTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
             "space", "Attack", true)
 
-        this.generateMusic()
+        this.sound.removeAll()
+        this.sound.play('main_theme', { loop: true, volume: Game.MUSIC_VOLUME })
         
-
         
         // Add walls layer
 
@@ -595,7 +595,7 @@ export default class Tutorial extends Game{
         let code_smellsX = 5
         let code_smellsY = 3
         this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
-        this.add.image((this.dungeon_size - code_smellsX) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.7).setOrigin(0)
+        this.add.image((this.dungeon_size - code_smellsX) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
 
         this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Music and \ncracks represent\nthe maintainability")
             .setScale(0.5)
