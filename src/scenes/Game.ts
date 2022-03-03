@@ -125,6 +125,7 @@ export default class Game extends Phaser.Scene{
     }
 
     onPause(){
+        this.reduceVolume()
         this.scene.pause()
         this.scene.run('pause', { game: this })
     }
@@ -213,10 +214,19 @@ export default class Game extends Phaser.Scene{
         })
 
         this.incomingMonster = []
-
+        this.reduceVolume()
         this.scene.setVisible(false, "game-ui")
         //this.scene.stop("game-ui")
         this.scene.start('map', { mapContext: this.mapContext, lastScene: this.scene.key })
+    }
+
+    reduceVolume(){
+        let new_vol = Game.MUSIC_VOLUME - 0.1
+        if(new_vol > 0){
+            this.sound.volume = new_vol
+        } else {
+            this.sound.volume = 0
+        }
     }
 
     handleFreeze(){
@@ -225,10 +235,12 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer.visible = this.freezing
         
         if(this.freezing){
+            this.reduceVolume()
             this.physics.pause()
             this.anims.pauseAll()
             this.fileChildren.forEach((el:FileChild) => { el.showName() })
         } else {
+            this.sound.volume = Game.MUSIC_VOLUME
             this.physics.resume()
             this.anims.resumeAll()
             this.fileChildren.forEach((el:FileChild) => { el.showName(false) })
@@ -236,6 +248,7 @@ export default class Game extends Phaser.Scene{
     }
 
     create(data){
+        this.sound.volume = Game.MUSIC_VOLUME
         this.fileTree = Global.fileTree
         console.log('game scene started')
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)

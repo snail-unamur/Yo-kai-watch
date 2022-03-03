@@ -86,6 +86,7 @@ export default class PauseOverlay extends Phaser.Scene {
 
     onResume(){
         Log.addInformation(LogConstant.PAUSE, { state: false })
+        this.game_.sound.volume = Game.MUSIC_VOLUME
         this.game_.scene.resume()
         this.scene.stop()
         console.log("resume game")

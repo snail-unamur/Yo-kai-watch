@@ -79,6 +79,7 @@ export default class Tutorial extends Game{
     }
 
     create(data) {
+        this.sound.volume = Game.MUSIC_VOLUME
         FileChild.projectIssues = Global.issues
         console.log("create tutorial")
         this.fileTree = Global.fileTree
