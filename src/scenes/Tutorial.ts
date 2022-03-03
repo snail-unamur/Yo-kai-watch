@@ -546,8 +546,10 @@ export default class Tutorial extends Game{
             (exitTiles.y + exitTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
             "space", "Attack", true)
 
-        this.sound.removeAll()
-        this.sound.play('main_theme', { loop: true, volume: Game.MUSIC_VOLUME })
+        if(!this.sound.get('main_theme')){
+            this.sound.removeAll()
+            this.sound.play('main_theme', { loop: true, volume: Game.MUSIC_VOLUME })
+        }
         
         
         // Add walls layer
