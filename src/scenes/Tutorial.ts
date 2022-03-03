@@ -594,9 +594,9 @@ export default class Tutorial extends Game{
 
         let code_smellsX = 5
         let code_smellsY = 3
-        this.add.image((this.dungeon_size - code_smellsX - 1) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
-        this.add.image((this.dungeon_size - code_smellsX) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
-        this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
+        for(let i=0; i < 3; i++){
+            this.add.image((this.dungeon_size - code_smellsX - i) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
+        }
 
         this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Cracks represent\nthe maintainability\n(code smells)")
             .setScale(0.5)
