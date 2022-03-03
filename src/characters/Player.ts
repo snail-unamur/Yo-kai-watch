@@ -22,6 +22,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private healthState: HealthState = HealthState.IDLE
     private health = 3
 
+    private invicibilityDuration: number = 250
+
     private attacking: boolean = false
     private digging: boolean = false
     private goingUp: boolean = false
@@ -80,7 +82,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             // play damage sound
             this.scene.sound.play('oof', { volume: 2.5 })
 
-            this.scene.time.delayedCall(120, () => {
+            this.scene.time.delayedCall(this.invicibilityDuration, () => {
                 this.clearTint()
                 this.healthState = HealthState.IDLE
             }, [], this)
