@@ -117,6 +117,7 @@ export default class Game extends Phaser.Scene{
         this.playerControls.restart.forEach(element => { element.on('down', this.restart, this)
         })
 
+        this.input.mouse.disableContextMenu()
         let i = this.input.on('pointerdown', this.onPointerDown, this)
         
 
@@ -130,8 +131,10 @@ export default class Game extends Phaser.Scene{
         this.scene.run('pause', { game: this })
     }
 
-    onPointerDown(){
-        if(this.currentTileHovered){
+    onPointerDown(pointer){
+        if(pointer.rightButtonDown()){
+            this.goUp()
+        } else if(this.currentTileHovered){
             this.dig(this.currentTileHovered.collisionCallback())
         }
     }
@@ -391,6 +394,7 @@ export default class Game extends Phaser.Scene{
         this.tooltip.setDepth(100) // put the tooltip in front of every other things
 
 
+
         this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
             let x = pointer.worldX
             let y = pointer.worldY
@@ -470,7 +474,6 @@ export default class Game extends Phaser.Scene{
 
     generation() {
         let nbFile
-
 
         if(this.sonarQubeData.children){
             nbFile = this.sonarQubeData.children.length
