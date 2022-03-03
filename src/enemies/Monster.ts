@@ -218,6 +218,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
         this.health = this.healthBar.decrease(5)
 
+        this.scene.sound.play('sword_hit', { volume: 0.5 })
+
         
         // Version above with an animation dedicated is better, this one is temporary
         this.setVelocity(dir.x * this.knockBackScaling.x, dir.y * this.knockBackScaling.y)

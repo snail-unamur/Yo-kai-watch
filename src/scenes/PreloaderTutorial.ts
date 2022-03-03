@@ -64,6 +64,9 @@ export default class PreloaderTutorial extends Phaser.Scene {
         this.load.audio('ambient_d', 'audio/D.mp3')
         this.load.audio('ambient_e', 'audio/E.mp3')
         this.load.audio('main_theme', 'audio/main_theme.mp3')
+        this.load.audio('sword_slash', 'audio/sword_slash.mp3')
+        this.load.audio('sword_hit', 'audio/sword_hit.mp3')
+        this.load.audio('running', 'audio/running.mp3')
 
         // Load sound effects
         this.load.audio('oof', 'audio/oof.mp3')

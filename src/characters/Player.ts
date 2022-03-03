@@ -63,6 +63,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.health--
 
+
         if (this.health <= 0) {
             this.healthState = HealthState.DEAD
             this.anims.play('player-idle')
@@ -71,8 +72,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
             // play death sound
             sceneEvents.emit('player-dead')
+            sceneEvents.emit('player-dead-ui')
             this.scene.sound.play('player_death', { volume: 1.5 })
         } else {
+            sceneEvents.emit('player-damage', this.health)
             Log.addInformation(LogConstant.GET_HIT, this)
             this.setVelocity(dir.x, dir.y)
 
@@ -80,7 +83,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.healthState = HealthState.DAMAGE
 
             // play damage sound
-            this.scene.sound.play('oof', { volume: 2.5 })
+            this.scene.sound.play('oof', { volume: 2.0 })
 
             this.scene.time.delayedCall(this.invicibilityDuration, () => {
                 this.clearTint()
@@ -146,27 +149,36 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(player_speed.x, player_speed.y)
 
         if(player_speed.x === 0 && player_speed.y === 0){  
-            // Idle        
+            // Idle
+            this.scene.sound.stopByKey('running')
             this.anims.play('player-idle', true)
         } else {
             // Run
+            if(this.anims.currentAnim.key !== "player-run"){
+                this.scene.sound.play('running', { volume: 0.5, loop: true })
+            }
             this.anims.play('player-run', true)
 
         }
 
         if(cursors.attack.some(el => el.isDown) && !this.attacking){
-            this.attacking = true
-            let swordSprite = sword
-            swordSprite.body.enable = true
-            swordSprite.anims.play('player-attack', true)
-    
-            swordSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
-                swordSprite.body.enable = false
-                setTimeout(() => {
-                    this.attacking = false
-                }, 500)
-            })
+            this.attack(sword)
         }
+    }
+
+    attack(sword){
+        this.scene.sound.play('sword_slash', { volume: 0.5 })
+        this.attacking = true
+        let swordSprite = sword
+        swordSprite.body.enable = true
+        swordSprite.anims.play('player-attack', true)
+
+        swordSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
+            swordSprite.body.enable = false
+            setTimeout(() => {
+                this.attacking = false
+            }, 500)
+        })
     }
 
     dig(){

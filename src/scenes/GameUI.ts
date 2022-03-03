@@ -38,6 +38,7 @@ export default class GameUI extends Phaser.Scene {
 
 
         sceneEvents.on('player-damage', this.handlePlayerDamage, this)
+        sceneEvents.on('player-dead-ui', this.handlePlayerDead, this)
         sceneEvents.on('tile-file-update', this.handleTileFileUpdate, this)
         sceneEvents.on('room-file-update', this.handleRoomFileUpdate, this)
 
@@ -47,12 +48,21 @@ export default class GameUI extends Phaser.Scene {
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             sceneEvents.off('player-damage', this.handlePlayerDamage, this)
+            sceneEvents.off('player-dead-ui', this.handlePlayerDead, this)
             sceneEvents.off('tile-file-update', this.handleTileFileUpdate, this)
             sceneEvents.off('room-file-update', this.handleRoomFileUpdate, this)
 
             sceneEvents.off('monster-reset', this.handleMonsterReset, this)
             sceneEvents.off('monster-add', this.handleMonsterAdd, this)
             sceneEvents.off('monster-killed', this.handleMonsterKill, this)
+        })
+    }
+
+    private handlePlayerDead(){
+        console.log("UI player dead")
+        this.hearts.children.each((go: Phaser.GameObjects.GameObject, idx) => {
+            const heart = go as Phaser.GameObjects.Image
+            heart.setTexture('ui_heart_full')
         })
     }
 

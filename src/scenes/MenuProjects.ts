@@ -34,6 +34,8 @@ export default class MenuProjects extends Phaser.Scene {
 
 
     create(data) {
+        this.sound.removeAll()
+        this.sound.play('main_theme', {loop: true})
         // Load project names
         const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
         this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)

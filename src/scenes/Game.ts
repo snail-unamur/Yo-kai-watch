@@ -22,6 +22,7 @@ export default class Game extends Phaser.Scene{
     static readonly NB_TILE_PER_FILE = 3
     static readonly ROW_SIZE = 2
     static readonly MIN_NB_FILE_LIMIT_ROW = 2
+    static readonly MUSIC_VOLUME = 0.3
 
     protected dungeon_size = 10
 
@@ -515,8 +516,6 @@ export default class Game extends Phaser.Scene{
 
         player.handleDamage(dir)
 
-        sceneEvents.emit('player-damage', player.getHealth())
-
         if(this.player.getHealth() <= 0 && this.playerMonsterCollider !== null
             && this.playerMonsterCollider !== undefined) {
             this.playerMonsterCollider.destroy()
@@ -767,31 +766,31 @@ export default class Game extends Phaser.Scene{
             case '1.0':
                 if (!this.sound.get('ambient_a')) {
                     this.sound.removeAll()
-                    this.sound.play('ambient_a', {loop: true})
+                    this.sound.play('ambient_a', { loop: true, volume: Game.MUSIC_VOLUME })
                 }
                 break
             case '2.0':
                 if (!this.sound.get('ambient_b')) {
                     this.sound.removeAll()
-                    this.sound.play('ambient_b', {loop: true})
+                    this.sound.play('ambient_b', { loop: true, volume: Game.MUSIC_VOLUME })
                 }
                 break
             case '3.0':
                 if (!this.sound.get('ambient_c')) {
                     this.sound.removeAll()
-                    this.sound.play('ambient_c', {loop: true})
+                    this.sound.play('ambient_c', { loop: true, volume: Game.MUSIC_VOLUME })
                 }
                 break
             case '4.0':
                 if (!this.sound.get('ambient_d')) {
                     this.sound.removeAll()
-                    this.sound.play('ambient_d', {loop: true})
+                    this.sound.play('ambient_d', { loop: true, volume: Game.MUSIC_VOLUME })
                 }
                 break
             case '5.0':
                 if (!this.sound.get('ambient_e')) {
                     this.sound.removeAll()
-                    this.sound.play('ambient_e', {loop: true})
+                    this.sound.play('ambient_e', { loop: true, volume: Game.MUSIC_VOLUME })
                 }
                 break
         }
