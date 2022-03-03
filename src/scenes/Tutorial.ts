@@ -158,7 +158,8 @@ export default class Tutorial extends Game{
         // Character
         this.player = this.add.player(center, center, 'character', 0)
         this.player.setDepth(1)
-        cam.startFollow(this.player)
+        cam.startFollow(this.player, undefined, 0.4, 0.4)
+
 
         // Character Sword
         this.sword = this.add.sword(this.player.x, this.player.y, 'sword', 7)
@@ -367,7 +368,6 @@ export default class Tutorial extends Game{
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
             .setAlign('center')
-            .setDepth(15)
 
 
 
@@ -388,7 +388,6 @@ export default class Tutorial extends Game{
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
             .setAlign('center')
-            .setDepth(15)
 
 
 
@@ -411,7 +410,6 @@ export default class Tutorial extends Game{
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
             .setAlign('center')
-            .setDepth(15)
 
 
 
