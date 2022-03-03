@@ -424,7 +424,8 @@ export default class Tutorial extends Game{
 
         this.add.text(leftRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
             (roomExampleY - 0.5) * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            "Come here\nand press").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+            "Dig this\nfile with").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+            .setAlign('center')
             .setBackgroundColor('#FFFFFF')
             .setAlpha(0.7)
 
@@ -564,7 +565,7 @@ export default class Tutorial extends Game{
             this.wall2Layer.putTileAt(ConstantsTiles.WALL_FACE + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY).setCollision(true)
             this.wall1Layer.putTileAt(ConstantsTiles.WALL_TIP + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY-1)
         }
-        this.add.text((wallExampleX + totalNbTextureExample / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 0.4, "Walls represent the security")
+        this.add.text((wallExampleX + totalNbTextureExample / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 0.4, "Walls represent the security (vulnerabilities)")
             .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
@@ -579,19 +580,25 @@ export default class Tutorial extends Game{
                 this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, groundExampleX + i, groundExampleY + j)
             }
         }
-        this.add.text((wallExampleX + totalNbTextureExample / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 4.3, "Ground tiles represent the reliability")
+        this.add.text((wallExampleX + (totalNbTextureExample) / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 4.7, "Music and ground tiles\nrepresent the reliability (bugs)")
             .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
+            .setAlign('center')
             .setBackgroundColor('#FFFFFF')
             .setAlpha(0.7)
 
+        
+        //this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
+        this.add.image((wallExampleX + 1.8) * Game.TILE_SIZE, 4.2 * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
+
         let code_smellsX = 5
         let code_smellsY = 3
-        this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
+        this.add.image((this.dungeon_size - code_smellsX - 1) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
         this.add.image((this.dungeon_size - code_smellsX) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
+        this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
 
-        this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Music and \ncracks represent\nthe maintainability")
+        this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Cracks represent\nthe maintainability\n(code smells)")
             .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
