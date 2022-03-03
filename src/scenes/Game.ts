@@ -23,6 +23,7 @@ export default class Game extends Phaser.Scene{
     static readonly ROW_SIZE = 2
     static readonly MIN_NB_FILE_LIMIT_ROW = 2
     static readonly MUSIC_VOLUME = 0.3
+    static readonly CAMERA_SPEED = 7
 
     protected dungeon_size = 10
 
@@ -241,11 +242,13 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer.visible = this.freezing
         
         if(this.freezing){
+            this.cameras.main.stopFollow()
             this.reduceVolume()
             this.physics.pause()
             this.anims.pauseAll()
             this.fileChildren.forEach((el:FileChild) => { el.showName() })
         } else {
+            this.cameras.main.startFollow(this.player, undefined, 0.4, 0.4)
             this.sound.volume = Game.MUSIC_VOLUME
             this.physics.resume()
             this.anims.resumeAll()
@@ -448,16 +451,6 @@ export default class Game extends Phaser.Scene{
                 this.newMonster(file)
             }
         })
-        // this.incomingMonster.push(
-        //     setTimeout(
-        //         () => { 
-        //             file.getMonster()
-        //             this.newMonster(file) 
-        //         }, 
-        //         500*Math.floor((Math.random()+1)*2.5)
-        //     )
-        // ) 
-        // The randomness here is just to make the first spawn more funky :)
     }
 
     handleSwordMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
@@ -597,15 +590,9 @@ export default class Game extends Phaser.Scene{
         }
         
         if(this.freezing){
+            this.updateCamera()
             return
-        }
-
-        // this.incomingMonster.forEach((el:{ durationLeft:number, callback }) => {
-        //     el.durationLeft -= dt
-        //     if(el.durationLeft < 0){
-        //         el.callback()
-        //     }
-        // })
+        } 
         
         let index = this.incomingMonster.length - 1
         let el
@@ -650,6 +637,34 @@ export default class Game extends Phaser.Scene{
             // 
             enemyGo.runTowards(this.player.x, this.player.y)
         })
+    }
+
+    updateCamera(){
+        const cam = this.cameras.main
+        const cameraPositionOffset = new Phaser.Math.Vector2(0, 0)
+
+        // Left
+        if(this.playerControls.left.some(el => el.isDown)) {
+            cameraPositionOffset.x = -1
+        }
+
+        // Right
+        else if(this.playerControls.right.some(el => el.isDown)) {
+            cameraPositionOffset.x = 1
+        }
+
+        // Up
+        if(this.playerControls.up.some(el => el.isDown)) {
+            cameraPositionOffset.y = -1
+        }
+
+        // Down
+        else if(this.playerControls.down.some(el => el.isDown)) {
+            cameraPositionOffset.y = 1
+        }
+
+        cameraPositionOffset.normalize().scale(Game.CAMERA_SPEED)
+        cam.setScroll(cam.scrollX + cameraPositionOffset.x, cam.scrollY + cameraPositionOffset.y)
     }
 
     newLayer(tile_size:number, dungeon_size:number, tilesString:string = "tiles"){
