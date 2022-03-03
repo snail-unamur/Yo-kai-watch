@@ -392,6 +392,7 @@ export default class Tutorial extends Game{
         // Place first file
         let fileId = 0
 
+        // CODE SMELLS FILE GENERATION
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
                 this.fileLayer, 
@@ -401,6 +402,18 @@ export default class Tutorial extends Game{
         }
         fileId += 3
 
+
+        this.add.text((2 + 1.5) * Game.TILE_SIZE, (baseY + 3.5) * Game.TILE_SIZE, "Code smells")
+            .setScale(0.5)
+            .setOrigin(0.5, 0.5)
+            .setColor(this.textColor)
+            .setAlign('center')
+            .setDepth(15)
+
+
+
+
+        // BUGS FILE GENERATION
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
                 this.fileLayer, 
@@ -410,6 +423,18 @@ export default class Tutorial extends Game{
         }
         fileId += 3
 
+
+        this.add.text((this.dungeon_size - 5 + 1.5) * Game.TILE_SIZE, (baseY + 3.5) * Game.TILE_SIZE, "Bugs")
+            .setScale(0.5)
+            .setOrigin(0.5, 0.5)
+            .setColor(this.textColor)
+            .setAlign('center')
+            .setDepth(15)
+
+
+
+
+        // VULNERABILITIES FILE GENERATION
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
                 this.fileLayer, 
@@ -418,6 +443,14 @@ export default class Tutorial extends Game{
                 Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
         }
         fileId += 3
+
+
+        this.add.text((this.dungeon_size / 2) * Game.TILE_SIZE, (this.dungeon_size - 2.5) * Game.TILE_SIZE, "Vulnerabilities")
+            .setScale(0.5)
+            .setOrigin(0.5, 0.5)
+            .setColor(this.textColor)
+            .setAlign('center')
+            .setDepth(15)
 
         
         this.generateFileLimitation(
@@ -592,7 +625,7 @@ export default class Tutorial extends Game{
         this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
         this.add.image((this.dungeon_size - code_smellsX) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.7).setOrigin(0)
 
-        this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Music and \ncracks represent\nthe sqaling")
+        this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Music and \ncracks represent\nthe maintainability")
             .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
