@@ -154,8 +154,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.anims.play('player-idle', true)
         } else {
             // Run
-            if(this.anims.currentAnim.key !== "player-run"){
-                this.scene.sound.play('running', { volume: 0.5, loop: true })
+            let runningSound = this.scene.sound.get('running')
+
+            if(this.anims.currentAnim.key !== "player-run" || (runningSound && !runningSound.isPlaying)){
+                if(runningSound){
+                    runningSound.play()
+                } else {
+                    this.scene.sound.play('running', { volume: 0.5, loop: true })
+                }
             }
             this.anims.play('player-run', true)
 
@@ -183,18 +189,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     dig(){
         if(this.digging || this.goingUp) return
-        this.body.enable = false
-        this.setVelocity(0, 0)
+        this.specialAction()
         this.digging = true
         this.anims.play('player-dig', true)
     }
 
     goUp(){
         if(this.digging || this.goingUp) return
-        this.body.enable = false
-        this.setVelocity(0, 0)
+        this.specialAction()
         this.goingUp = true
         this.anims.play('player-go-up', true)
+    }
+
+    specialAction(){
+        this.body.enable = false
+        this.setVelocity(0, 0)
+        this.scene.sound.stopByKey('running')
     }
 }
 

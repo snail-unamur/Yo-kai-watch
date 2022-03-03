@@ -221,6 +221,7 @@ export default class Game extends Phaser.Scene{
     }
 
     reduceVolume(){
+        this.sound.stopByKey('running')
         let new_vol = Game.MUSIC_VOLUME - 0.1
         if(new_vol > 0){
             this.sound.volume = new_vol
@@ -275,7 +276,7 @@ export default class Game extends Phaser.Scene{
             sceneEvents.off('player-dig-done')
             sceneEvents.off('player-go-up-done')
         })
-        
+
         this.incomingMonster = []
 
         this.fileChildren = []
