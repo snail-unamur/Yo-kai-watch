@@ -59,7 +59,6 @@ export default class GameUI extends Phaser.Scene {
     }
 
     private handlePlayerDead(){
-        console.log("UI player dead")
         this.hearts.children.each((go: Phaser.GameObjects.GameObject, idx) => {
             const heart = go as Phaser.GameObjects.Image
             heart.setTexture('ui_heart_full')

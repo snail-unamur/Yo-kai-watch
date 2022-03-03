@@ -305,6 +305,7 @@ export default class Game extends Phaser.Scene{
         sceneEvents.emit('room-file-update', this.mapContext.file.name)
         this.scene.setVisible(true, "game-ui")
         sceneEvents.emit("monster-reset")
+        sceneEvents.emit('player-dead-ui')
 
 
         this.generation()

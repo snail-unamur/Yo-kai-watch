@@ -132,6 +132,7 @@ export default class Tutorial extends Game{
         sceneEvents.emit('room-file-update', this.mapContext.file.name)
         this.scene.setVisible(true, "game-ui")
         sceneEvents.emit("monster-reset")
+        sceneEvents.emit('player-dead-ui')
 
 
         if(this.mapContext.path.length === 1 && this.mapContext.selected === "root"){
