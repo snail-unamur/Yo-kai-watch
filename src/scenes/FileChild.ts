@@ -30,7 +30,10 @@ export default class FileChild {
         debt:string
     }[] = []
 
+    private totalNbIssues: number = 0
+
     private textObject: Phaser.GameObjects.Text
+    private nbMonsterText: Phaser.GameObjects.Text
 
     constructor(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}, 
         game: Game, x:number, y:number, width:number, height:number){
@@ -49,11 +52,16 @@ export default class FileChild {
         // string = string.slice(0, -1)
 
         this.textObject = this.game.add.text(x + width/2, y + 16, string)
-        this.textObject.setScale(0.5).setOrigin(0.5).setAlpha(1)
-        this.textObject.setBackgroundColor('black')
-        this.textObject.setVisible(false)
-        this.textObject.setAlign('center')
-        this.textObject.setDepth(6)
+            .setScale(0.5).setOrigin(0.5).setDepth(6)
+            .setAlpha(1).setBackgroundColor('black')
+            .setVisible(false)
+            .setAlign('center')
+            .setLineSpacing(2)
+
+        let nbMonsterTextOffest = 6
+        this.nbMonsterText = this.game.add.text(x + nbMonsterTextOffest, y + nbMonsterTextOffest, "")
+        this.nbMonsterText.setScale(0.5).setOrigin(0).setAlpha(0.7).setColor("#000000").setFontStyle("bold")
+        //this.nbMonsterText.setDepth(6)
 
 
         this.x = x
@@ -66,7 +74,7 @@ export default class FileChild {
 
     setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
         this.file = file
-        this.infoString = `${this.file.name}`
+        this.updateInfoString()
 
         // this.infoString = `${this.file.name}, ${this.file.type}, ${this.file.path}, ${this.file.key}\n`
         // if(this.file.measures){
@@ -74,6 +82,10 @@ export default class FileChild {
         //         this.infoString += `${element.metric}, ${element.value}, ${element.bestValue}\n`
         //     }) 
         // }
+    }
+
+    updateInfoString(){
+        this.infoString = `${this.file.name}\n${this.issues.length}/${this.totalNbIssues}`
     }
 
     showName(value:boolean = true){
@@ -93,6 +105,7 @@ export default class FileChild {
     }
 
     getMonster(): Monster | null{
+        this.updateText()
         let issue = this.issues.pop()
         if(!issue) return null
         
@@ -109,7 +122,17 @@ export default class FileChild {
                 this.issues.push(element)
             }
         })
+        this.totalNbIssues = this.issues.length
+        this.updateText()
         sceneEvents.emit("monster-add", this.issues.length)
+    }
+
+    updateText(){
+        if(this.totalNbIssues > 0){
+            this.nbMonsterText.setText(`${this.issues.length}/${this.totalNbIssues}`)
+            this.textObject.setText(`${this.file.name}\n${this.issues.length}/${this.totalNbIssues}`)
+            this.updateInfoString()
+        } 
     }
     
     setIssues(issues: {
