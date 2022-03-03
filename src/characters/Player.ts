@@ -190,6 +190,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     dig(){
         if(this.digging || this.goingUp) return
         this.specialAction()
+        this.scene.sound.play('dig', { volume: 2.5, delay: 0.01 })
         this.digging = true
         this.anims.play('player-dig', true)
     }
@@ -198,6 +199,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if(this.digging || this.goingUp) return
         this.specialAction()
         this.goingUp = true
+        this.scene.sound.play('running', { volume: 0.5, delay: 0.35 })
         this.anims.play('player-go-up', true)
     }
 
