@@ -66,7 +66,7 @@ export default class Game extends Phaser.Scene{
     protected sonarQubeData
 
     protected monsterHovered:boolean = false
-    protected currentTileHovered
+    protected currentTileHovered: Phaser.Tilemaps.Tile | undefined
 
 
     protected fileChildren:FileChild[] = []
@@ -142,9 +142,14 @@ export default class Game extends Phaser.Scene{
 
     dig(fileObject?: FileChild){
         if(this.player.isDigging() || this.player.isGoingUp()) return
-        if(!fileObject) fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y + Game.TILE_SIZE)?.collisionCallback()
+        if(!fileObject){
+            fileObject = this.fileLayer.getTileAtWorldXY(this.player.x, this.player.y + Game.TILE_SIZE)?.collisionCallback()
+        } 
 
-        if(fileObject) this.digProcess(fileObject)
+        if(fileObject){
+            this.player.setPosition(fileObject.getX() + fileObject.getWidth()/2, fileObject.getY() + fileObject.getHeight()/2)
+            this.digProcess(fileObject)
+        } 
     }
 
     digProcess(fileObject: FileChild){
