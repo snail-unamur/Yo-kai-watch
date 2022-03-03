@@ -94,7 +94,11 @@ export default class Tutorial extends Game{
 
         sceneEvents.on('player-dig-done', () => {
             Log.addInformation(LogConstant.DIG, this.mapContext)
-            this.restart()
+            if(this.mapContext.selected === "exit_tutorial"){
+                this.exit()
+            } else {
+                this.restart()
+            }
         })
 
         sceneEvents.on('player-go-up-done', () => {
@@ -261,14 +265,6 @@ export default class Tutorial extends Game{
             this.scene.setVisible(false, "game-ui")
             //this.scene.stop("game-ui")
         })
-    }
-
-    digProcess(fileObject: FileChild): void {
-        if(fileObject.getName() === "exit_tutorial"){
-            this.exit()
-        } else {
-            super.digProcess(fileObject)
-        }
     }
 
     exit(){

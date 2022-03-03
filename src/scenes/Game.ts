@@ -151,24 +151,21 @@ export default class Game extends Phaser.Scene{
 
         if(fileObject){
             this.player.setPosition(fileObject.getX() + fileObject.getWidth()/2, fileObject.getY() + fileObject.getHeight()/2)
-            this.digProcess(fileObject)
+            
+            if(this.mapContext.file.children) {
+                if(this.mapContext.selectedId !== -1){
+                    this.mapContext.path.push(this.mapContext.selectedId)
+                }
+                this.mapContext.selectedId = fileObject.getFile().id
+                this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
+                this.mapContext.selected = fileObject.getFile().name
+                if(this.freezing){
+                    this.restart()
+                } else {
+                    this.player.dig()
+                }
+            }
         } 
-    }
-
-    digProcess(fileObject: FileChild){
-        if(this.mapContext.file.children) {
-            if(this.mapContext.selectedId !== -1){
-                this.mapContext.path.push(this.mapContext.selectedId)
-            }
-            this.mapContext.selectedId = fileObject.getFile().id
-            this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
-            this.mapContext.selected = fileObject.getFile().name
-            if(this.freezing){
-                this.restart()
-            } else {
-                this.player.dig()
-            }
-        }
     }
 
     goUp(){
