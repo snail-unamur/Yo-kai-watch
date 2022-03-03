@@ -3,6 +3,7 @@ import Game from "./Game"
 
 import { MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
 import Monster from "~/enemies/Monster"
+import { sceneEvents } from "~/events/EventCenter"
 
 export default class FileChild {
     private file!: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}
@@ -108,6 +109,7 @@ export default class FileChild {
                 this.issues.push(element)
             }
         })
+        sceneEvents.emit("monster-add", this.issues.length)
     }
     
     setIssues(issues: {

@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import { sceneEvents } from "~/events/EventCenter"
 import HealthBar from "~/graphics/Healthbar"
 
 import { LogConstant, MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
@@ -228,6 +229,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
                 Log.addInformation(LogConstant.KILL, this.issue)
                 this.clearTint()
                 this.healthState = HealthState.DEAD
+                sceneEvents.emit("monster-killed")
                 this.destroy()
             }, [], this)
         } else {

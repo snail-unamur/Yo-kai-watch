@@ -210,8 +210,9 @@ export default class Game extends Phaser.Scene{
 
         this.incomingMonster = []
 
-        this.scene.stop("game-ui")
-        this.scene.start('map', { mapContext: this.mapContext, lastScene: this.scene.key });
+        this.scene.setVisible(false, "game-ui")
+        //this.scene.stop("game-ui")
+        this.scene.start('map', { mapContext: this.mapContext, lastScene: this.scene.key })
     }
 
     handleFreeze(){
@@ -266,11 +267,16 @@ export default class Game extends Phaser.Scene{
                 selectedId:-1
             }
         }
+
+        // Launch UI
+        sceneEvents.emit('room-file-update', this.mapContext.file.name)
+        this.scene.setVisible(true, "game-ui")
+        sceneEvents.emit("monster-reset")
+
+
         this.generation()
 
 
-        // Launch UI
-        this.scene.run('game-ui', { roomFile: this.mapContext.selected })
 
         // Create anims
         createCharacterAnims(this.anims)
@@ -393,6 +399,14 @@ export default class Game extends Phaser.Scene{
         this.physics.add.collider(this.player, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.enemies)
+
+
+        
+
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.scene.setVisible(false, "game-ui")
+            //this.scene.stop("game-ui")
+        })
     }
 
     newMonster(file:FileChild){
@@ -533,7 +547,6 @@ export default class Game extends Phaser.Scene{
         let fileChild = new FileChild(file, this, x*Game.TILE_SIZE, y*Game.TILE_SIZE, size*Game.TILE_SIZE, size*Game.TILE_SIZE)
         this.fileChildren.push(fileChild)
 
-        console.log(y)
         this.fileLayer.tilemap.setTileLocationCallback(x, y, size, size, (): FileChild => {
             return fileChild
         }, {})

@@ -51,7 +51,7 @@ export default class PreloaderTutorial extends Phaser.Scene {
 
         this.load.image('key', 'tiles/key.png')
         this.load.image('large_key', 'tiles/large_key.png')
-        
+
         this.load.image('crack', 'tiles/crack.png')
         this.load.image('music_note', 'tiles/music_note.png')
 
@@ -74,6 +74,7 @@ export default class PreloaderTutorial extends Phaser.Scene {
     }
 
     create() {
+        this.scene.run('game-ui', { roomFile: "root" })
         Log.addInformation(LogConstant.TUTORIAL_LOADED)
         this.scene.start('setup-tutorial')
     }

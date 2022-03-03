@@ -117,6 +117,13 @@ export default class Tutorial extends Game{
                 selectedId:-1
             }
         }
+
+        // Launch UI
+        sceneEvents.emit('room-file-update', this.mapContext.file.name)
+        this.scene.setVisible(true, "game-ui")
+        sceneEvents.emit("monster-reset")
+
+
         if(this.mapContext.path.length === 1 && this.mapContext.selected === "root"){
             this.generationRoot()
         } else {
@@ -124,9 +131,6 @@ export default class Tutorial extends Game{
             this.generation()
         }
 
-
-        // Launch UI
-        this.scene.run('game-ui', { roomFile: this.mapContext.selected })
 
         // Create anims
         createCharacterAnims(this.anims)
@@ -246,6 +250,11 @@ export default class Tutorial extends Game{
         this.physics.add.collider(this.player, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.enemies)
+
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.scene.setVisible(false, "game-ui")
+            //this.scene.stop("game-ui")
+        })
     }
 
     digProcess(fileObject: FileChild): void {

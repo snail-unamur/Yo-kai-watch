@@ -44,6 +44,7 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+        this.scene.run('game-ui', { roomFile: "root" })
         this.load.removeAllListeners()
         Global.fileTree = this.cache.json.get('metrics')
         if(this.cache.json.get('metrics')[0].measures.length === 0){
