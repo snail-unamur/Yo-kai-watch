@@ -16,7 +16,7 @@ export default class MenuProjects extends Phaser.Scene {
     private projectNames: { key:string }[] = []
 
 
-    private projectQuery:string = "abc"
+    private projectQuery:string = ""
 
     private lastTypeTime: number = 0
 
@@ -46,8 +46,8 @@ export default class MenuProjects extends Phaser.Scene {
 
             this.projectNames = this.cache.json.get('project_names')
 
-            this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
-            this.generatePanel()
+            if(this.suggestionPanel) this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+            if(this.projectNames.length !== 0) this.generatePanel()
         })
         this.load.start()
 
@@ -72,13 +72,13 @@ export default class MenuProjects extends Phaser.Scene {
 
         this.textEditZone = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.3, this.projectQuery, { 
             fixedWidth: 300, 
-            fixedHeight: 36,
+            fixedHeight: 45,
             
             backgroundColor: '#202121',
             backgroundCornerRadius: 10,
             valign: "center",
             align:"center",
-            fontFamily: 'Helvetica, sans-serif' 
+            fontFamily: 'Helvetica, sans-serif'
         })
         this.textEditZone.setOrigin(0.5, 0.5)
         this.add.existing(this.textEditZone)
@@ -91,7 +91,14 @@ export default class MenuProjects extends Phaser.Scene {
 
             this.textEdit = this.rexUI.edit(this.textEditZone, {
                 onTextChanged: (textObject, text) => {
+                    // if(text === ""){
+                    //     console.log("here")
+                    //     textObject.text = "Type a project name..."
+                    //     textObject.setColor("#606060")
+                    // } else {
                     textObject.text = text
+                    //     textObject.setColor("#FFFFFF")
+                    // }
                     this.projectQuery = text
 
 
@@ -109,8 +116,8 @@ export default class MenuProjects extends Phaser.Scene {
         
                                 this.projectNames = this.cache.json.get('project_names')
         
-                                this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
-                                this.generatePanel()
+                                if(this.suggestionPanel)this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+                                if(this.projectNames.length !== 0) this.generatePanel()
                             })
                             this.load.start()
                         }
@@ -123,7 +130,7 @@ export default class MenuProjects extends Phaser.Scene {
         })
 
         
-        this.generatePanel()
+        if(this.projectNames.length !== 0) this.generatePanel()
 
 
     }

@@ -1,6 +1,7 @@
 export abstract class ConstantsTiles {
     // Nb of tiles separating each texture
     static readonly tileDistance = 5
+    static readonly EMPTY:number = 0
     static readonly WALL_FACE:number = 33
     static readonly WALL_LEFT:number = 69
     static readonly WALL_TOP_LEFT_CORNER:number = 34

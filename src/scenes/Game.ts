@@ -208,16 +208,21 @@ export default class Game extends Phaser.Scene{
         return currentElement
     }
 
-    startMap(){
-        if(this.mapContext && typeof this.mapContext?.selected !== "string"){
-            this.mapContext.selected = this.mapContext.selected.getName()
-        }
+    clearKeys(){
         Object.keys(this.playerControls).forEach(el => {
             let e:Phaser.Input.Keyboard.Key[] = this.playerControls[el]
             e.forEach((el: Phaser.Input.Keyboard.Key) => {
                 this.input.keyboard.removeCapture(el.keyCode)
             })
         })
+
+    }
+
+    startMap(){
+        if(this.mapContext && typeof this.mapContext?.selected !== "string"){
+            this.mapContext.selected = this.mapContext.selected.getName()
+        }
+        this.clearKeys()
 
         this.incomingMonster = []
         this.reduceVolume()
@@ -764,38 +769,49 @@ export default class Game extends Phaser.Scene{
     }
 
     generateGround(){
- 
- 
-         const probaCracked = -0.2 + this.sqale_rating*0.2
-         const probaSlightlyCracked = 0.2
-         const probaClean = 1 - probaCracked - probaSlightlyCracked
-         
- 
-         // Add ground layer
-         const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
-         fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 0, 0)
-         
-         // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
-         // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
-         this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
- 
-         // But the map is like displayed from theses coordinates
-         this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 2, 2)
- 
-         // Add random cracked tiles based on bugs
-         let r
-         for(let i=2; i < this.dungeon_size-2; i++){
-             for(let j=2; j < this.dungeon_size-2; j++){
-                 r = Math.random()
-                 if(r >= 1 - probaCracked){
-                     this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK + this.groundTexture * ConstantsTiles.tileDistance, i, j)
-                 } else if(r > 1 - probaCracked - probaCracked) {
-                     this.groundLayer.putTileAt(ConstantsTiles.GROUND_SLIGHTLY_CRACKED + this.groundTexture * ConstantsTiles.tileDistance, i, j)
-                 } else {
-                     this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance, i, j)
-                 }
-             }
-         }
+        const probaCracked = -0.2 + this.sqale_rating*0.2
+        const probaSlightlyCracked = 0.2
+        const probaClean = 1 - probaCracked - probaSlightlyCracked
+        
+
+        // Add ground layer
+        const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
+        fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 0, 0)
+        
+        // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
+        // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
+        this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+
+        // But the map is like displayed from theses coordinates
+        this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 2, 2)
+
+        
+        // for(let i=0; i < this.dungeon_size; i++){
+        //     this.groundLayer.putTileAt(ConstantsTiles.EMPTY, 0, i)
+        // }
+        // for(let i=0; i < this.dungeon_size; i++){
+        //     this.groundLayer.putTileAt(ConstantsTiles.EMPTY, this.dungeon_size, i)
+        // }
+        // for(let i=0; i < this.dungeon_size; i++){
+        //     this.groundLayer.putTileAt(ConstantsTiles.EMPTY, i, 0)
+        // }
+        // for(let i=0; i < this.dungeon_size; i++){
+        //     this.groundLayer.putTileAt(ConstantsTiles.EMPTY, i, this.dungeon_size)
+        // }
+        // Add random cracked tiles based on bugs
+        let r
+        for(let i=2; i < this.dungeon_size-2; i++){
+            for(let j=2; j < this.dungeon_size-2; j++){
+                r = Math.random()
+                if(r >= 1 - probaCracked){
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CRACK + this.groundTexture * ConstantsTiles.tileDistance, i, j)
+                } else if(r > 1 - probaCracked - probaCracked) {
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_SLIGHTLY_CRACKED + this.groundTexture * ConstantsTiles.tileDistance, i, j)
+                } else {
+                    this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance, i, j)
+                }
+            }
+        }
     }
 
     generateMusic(){

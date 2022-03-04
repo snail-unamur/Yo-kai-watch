@@ -225,6 +225,7 @@ export default class Map extends Phaser.Scene{
         this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', this.selectRoom, this))
         this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER).on('down', this.selectRoom, this))
         this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.selectRoom, this))
+        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).on('down', this.selectRoom, this))
 
     }
 
