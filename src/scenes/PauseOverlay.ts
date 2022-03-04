@@ -70,6 +70,7 @@ export default class PauseOverlay extends Phaser.Scene {
     onExit(sceneName:string = "menu_projects"){
         Log.addInformation(LogConstant.EXIT)
         Log.sendResult()
+        this.game_.clearKeys()
         this.game_.scene.stop("game-ui")
         this.game_.scene.stop()
         this.scene.start(sceneName)

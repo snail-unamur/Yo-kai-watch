@@ -26,11 +26,16 @@ app.get('/search', async (req, res) => {
     let query = req.query.query
 
     console.log(`Project list queried with ${query}`)
-    if(!query) query = "a" // This is required otherwise the server crash when req.query.query = ""
+    let sqData
+    
+    if(!query){
+        sqData = []
+    } else {
+        sqData = await getSonarqubeProjects(query)
+    } 
 
-    const sqData = await getSonarqubeProjects(query)
 
-    console.log(sqData.length)
+    console.log(sqData)
 
     res.json(sqData)
 })
