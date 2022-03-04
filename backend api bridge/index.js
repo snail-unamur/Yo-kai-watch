@@ -27,15 +27,12 @@ app.get('/search', async (req, res) => {
 
     console.log(`Project list queried with ${query}`)
     let sqData
-    
+
     if(!query){
         sqData = []
     } else {
         sqData = await getSonarqubeProjects(query)
     } 
-
-
-    console.log(sqData)
 
     res.json(sqData)
 })
