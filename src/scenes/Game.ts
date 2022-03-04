@@ -687,11 +687,33 @@ export default class Game extends Phaser.Scene{
 
         return layer
     }
+    
+    newLayerWH(tile_size:number, width:number, height:number, tilesString:string = "tiles"){
+        const map = this.make.tilemap({
+            tileWidth: tile_size,
+            tileHeight: tile_size,
+            width: width,
+            height: height
+        })
+
+        const tileset = map.addTilesetImage(tilesString, undefined, tile_size, tile_size, 1, 2)
+
+        const layer = map.createBlankLayer("Layer Blank", tileset)
+
+        return layer
+    }
 
 
     filledMap(size: number, tile=-1){
         let l = new Array(size).fill(tile)
         let t = new Array(size).fill(l)
+
+        return t
+    }
+
+    filledMapWH(width: number, height: number, tile=-1){
+        let l = new Array(width).fill(tile)
+        let t = new Array(height).fill(l)
 
         return t
     }
@@ -776,14 +798,15 @@ export default class Game extends Phaser.Scene{
 
         // Add ground layer
         const fundationLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size)
-        fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 0, 0)
+        fundationLayer.putTilesAt(this.filledMap(this.dungeon_size, ConstantsTiles.EMPTY/*ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance*/), 0, 0)
         
         // the parameters (..., 1, 1) force the first column and line of the layer to be ignored.
         // It does not display the layer from these coordinates. So, the layer has 5 column and 5 rows even if we want only 4 
-        this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+        //this.groundLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
+        this.groundLayer = this.newLayerWH(Game.TILE_SIZE, this.dungeon_size + 2, this.dungeon_size)
 
         // But the map is like displayed from theses coordinates
-        this.groundLayer.putTilesAt(this.filledMap(this.dungeon_size-4, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 2, 2)
+        this.groundLayer.putTilesAt(this.filledMapWH(this.dungeon_size - 2, this.dungeon_size - 4, ConstantsTiles.GROUND_CLEAN + this.groundTexture * ConstantsTiles.tileDistance), 1, 2)
 
         
         // for(let i=0; i < this.dungeon_size; i++){
