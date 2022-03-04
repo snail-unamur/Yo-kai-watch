@@ -34,7 +34,7 @@ export default class GameUI extends Phaser.Scene {
 
         this.roomFile = this.add.text(5, 35, data.roomFile)
         this.tileFile = this.add.text(5, 55, "NaN")
-        this.nbMonsterText = this.add.text(5, 75, this.nbMonster.toString())
+        this.nbMonsterText = this.add.text(this.game.canvas.width/2, 0, ` ${this.nbMonster.toString()} `).setBackgroundColor("#000000").setPadding(0, 7)
 
 
         sceneEvents.on('player-damage', this.handlePlayerDamage, this)
@@ -66,7 +66,7 @@ export default class GameUI extends Phaser.Scene {
     }
 
     private updateMonsterText(){
-        this.nbMonsterText.setText(this.nbMonster.toString())
+        this.nbMonsterText.setText(` ${this.nbMonster.toString()} `)
     }
 
     private handleMonsterReset(){
