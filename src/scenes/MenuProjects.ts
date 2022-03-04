@@ -105,19 +105,20 @@ export default class MenuProjects extends Phaser.Scene {
                     this.lastTypeTime = Date.now()
                     setTimeout(() => {
                         if(Date.now() - this.lastTypeTime > 500){
+                            let name = this.projectQuery
 
                             this.cache.json.remove('project_names')
                             const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
-                            this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
+                            this.load.json('project_names', `${domain}/search?query=${name}`)
                             this.load.once(Phaser.Loader.Events.COMPLETE, () => {
                                 // TODO : don't reload on each key pressed, but only after a short delay in order to not spawn the API 
                                 // texture loaded so use instead of the placeholder
-                                console.log(`requested ${this.projectQuery}`)
+                                console.log(`requested ${name}`)
         
                                 this.projectNames = this.cache.json.get('project_names')
         
                                 if(this.suggestionPanel)this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
-                                if(this.projectNames.length !== 0) this.generatePanel()
+                                if(name !== "") this.generatePanel()
                             })
                             this.load.start()
                         }
