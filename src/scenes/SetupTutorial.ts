@@ -183,6 +183,7 @@ export default class SetupTutorial extends Phaser.Scene {
             ],
             "children": []
         }]
+        this.issues = []
     }
 }
 
