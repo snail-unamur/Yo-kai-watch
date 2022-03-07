@@ -101,14 +101,14 @@ export default class Game extends Phaser.Scene{
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onPause, this)
 
         this.playerControls = {
-            up: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z)],
-            down: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)],
-            left: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q)],
-            right: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)],
+            up: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)],
+            down: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)],
+            left: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)],
+            right: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)],
             attack: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)],
             dig: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)],
             goUp: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)],
-            openMap: [ this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE) ],
+            openMap: [ this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE)],
             freeze: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X)],
             restart: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)]
         }
