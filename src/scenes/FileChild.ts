@@ -6,7 +6,7 @@ import Monster from "~/enemies/Monster"
 import { sceneEvents } from "~/events/EventCenter"
 
 export default class FileChild {
-    private file!: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}
+    private file!: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}
     private x: number
     private y: number
     private width: number
@@ -35,7 +35,7 @@ export default class FileChild {
     private textObject: Phaser.GameObjects.Text
     private nbMonsterText: Phaser.GameObjects.Text
 
-    constructor(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}, 
+    constructor(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}, 
         game: Game, x:number, y:number, width:number, height:number){
         this.setFile(file)
 
@@ -88,7 +88,9 @@ export default class FileChild {
         return this.height
     }
 
-    setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
+    setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}){
+        
+        if(file.children) file.key += "/"
         this.file = file
         this.updateInfoString()
 

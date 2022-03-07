@@ -538,7 +538,7 @@ export default class Game extends Phaser.Scene{
 
     }
 
-    generateFileLimitation(x:number, y:number, size:number, file:{id:number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
+    generateFileLimitation(x:number, y:number, size:number, file:{id:number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}){
         let l = new Array(size).fill(ConstantsTiles.EMPTY)
         let t = new Array()
         for(let i=0; i < size; i++){
