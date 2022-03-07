@@ -89,8 +89,6 @@ export default class FileChild {
     }
 
     setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}){
-        
-        if(file.children) file.key += "/"
         this.file = file
         this.updateInfoString()
 
@@ -135,8 +133,10 @@ export default class FileChild {
     }
 
     initIssues(){
+        console.log(this.file.name)
         FileChild.projectIssues.forEach((element: { component:string, type:string, severity:string, debt:string }) => {
-            if(element.component.startsWith(this.file.key)){
+            console.log(element.component.split("/"))
+            if(element.component.startsWith(this.file.key) && element.component.split("/").at(-1) === this.file.name){
                 this.issues.push(element)
             }
         })

@@ -103,7 +103,7 @@ export default class SetupTutorial extends Phaser.Scene {
 
 
         this.tutorialLayout[0].children.push(this.createFileChild('file_example.js'))
-        this.tutorialLayout[0].children.push(this.createFileChild('file_example.js'))
+        this.tutorialLayout[0].children.push(this.createFileChild('file_example (1).js'))
 
 
         Global.fileTree = this.tutorialLayout
