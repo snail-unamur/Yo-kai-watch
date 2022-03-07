@@ -23,7 +23,7 @@ export default class Game extends Phaser.Scene{
     static readonly ROW_SIZE = 2
     static readonly MIN_NB_FILE_LIMIT_ROW = 2
     static readonly MUSIC_VOLUME = 0.3
-    static readonly CAMERA_SPEED = 7
+    static readonly CAMERA_SPEED = 5
 
     protected dungeon_size = 10
 
@@ -48,7 +48,7 @@ export default class Game extends Phaser.Scene{
     protected groundTexture: number = 0
 
     protected freezeLayer
-    private freezing: boolean = false
+    protected freezing: boolean = false
     protected playerMonsterCollider?: Phaser.Physics.Arcade.Collider | null
 
 
@@ -66,8 +66,6 @@ export default class Game extends Phaser.Scene{
     }
     protected fileTree
     protected sonarQubeData
-
-    protected monsterHovered:boolean = false
     protected currentTileHovered: Phaser.Tilemaps.Tile | undefined
 
 
@@ -93,8 +91,14 @@ export default class Game extends Phaser.Scene{
 	}
 
 	preload() {
-        FileChild.projectIssues = this.cache.json.get('issues')
-        if(!FileChild.projectIssues) FileChild.projectIssues = []
+        FileChild.projectIssues = Global.issues
+        this.fileTree = Global.fileTree
+
+        let issues = this.cache.json.get('issues')
+        if(issues){
+            FileChild.projectIssues = issues
+        } else {
+        }
 
         // Don't put TAB key in the playerControls object or when the map will be open the capture will be cleared and a "tab action" will happen in the browser
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
@@ -252,22 +256,21 @@ export default class Game extends Phaser.Scene{
             this.reduceVolume()
             this.physics.pause()
             this.anims.pauseAll()
-            this.fileChildren.forEach((el:FileChild) => { el.showName() })
+            // this.fileChildren.forEach((el:FileChild) => { el.showName() })
         } else {
             this.cameras.main.startFollow(this.player, undefined, 0.4, 0.4)
             this.sound.volume = Game.MUSIC_VOLUME
             this.physics.resume()
             this.anims.resumeAll()
-            this.fileChildren.forEach((el:FileChild) => { el.showName(false) })
+            // this.fileChildren.forEach((el:FileChild) => { el.showName(false) })
         }
     }
 
     create(data){
         this.sound.volume = Game.MUSIC_VOLUME
-        this.fileTree = Global.fileTree
         console.log('game scene started')
+
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
-        
         
         // This should be a "once" I think
         sceneEvents.on('player-dead', () => {
@@ -332,7 +335,7 @@ export default class Game extends Phaser.Scene{
 
 
         // Character
-        this.player = this.add.player(center, center, 'character', 0)
+        this.player = this.add.player(center + 16, center + 16, 'character', 0)
         this.player.setDepth(1)
         cam.startFollow(this.player, undefined, 0.4, 0.4)
 
@@ -349,17 +352,6 @@ export default class Game extends Phaser.Scene{
                 enemyGo.setBounce(1)
                 enemyGo.setInteractive()
                 enemyGo.initialize()
-
-                enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
-                    this_game.tooltip.setVisible(true)
-                    this_game.monsterHovered = true
-                    this_game.tooltip.setText(enemyGo.getInfoString())
-                })
-
-                enemyGo.on('pointerout', function(pointer){
-                    this_game.monsterHovered = false
-                    this_game.tooltip.setVisible(false)
-                })
             }
         })
 
@@ -414,18 +406,14 @@ export default class Game extends Phaser.Scene{
             }
             this_game.tooltip.setPosition(x, y)
 
-            if(!this_game.monsterHovered){
-                let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
-                if(tileHovered){
-                    this_game.tooltip.visible = true
-                    this_game.currentTileHovered = tileHovered
-                    
-                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
-                }  else {
-                    this_game.tooltip.visible = false
-                    this_game.currentTileHovered = undefined
-                }
-            } else {
+            let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
+            if(tileHovered){
+                if(this_game.freezing) this_game.tooltip.setVisible(true)
+                this_game.currentTileHovered = tileHovered
+                
+                this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
+            }  else {
+                this_game.tooltip.setVisible(false)
                 this_game.currentTileHovered = undefined
             }
         }, this)

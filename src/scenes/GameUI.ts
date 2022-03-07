@@ -34,8 +34,9 @@ export default class GameUI extends Phaser.Scene {
 
         this.roomFile = this.add.text(5, 35, data.roomFile)
         this.tileFile = this.add.text(5, 55, "NaN")
-        this.nbMonsterText = this.add.text(this.game.canvas.width/2, 0, ` ${this.nbMonster.toString()} `).setBackgroundColor("#000000").setPadding(0, 7)
+        this.nbMonsterText = this.add.text(this.game.canvas.width/2, 0, ` ${this.nbMonster.toString()} `).setBackgroundColor("#000000").setPadding(0, 7, 16).setOrigin(1, 0)
 
+        this.add.image(this.game.canvas.width/2 - 2, 5, "skull").setAlpha(0.7).setOrigin(1, 0)
 
         sceneEvents.on('player-damage', this.handlePlayerDamage, this)
         sceneEvents.on('player-dead-ui', this.handlePlayerDead, this)

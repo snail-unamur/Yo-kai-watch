@@ -51,7 +51,7 @@ export default class FileChild {
 
         // string = string.slice(0, -1)
 
-        this.textObject = this.game.add.text(x + width/2, y + 16, string)
+        this.textObject = this.game.add.text(x + width/2, y - 4, string)
             .setScale(0.5).setOrigin(0.5).setDepth(6)
             .setAlpha(1).setBackgroundColor('black')
             .setVisible(false)
@@ -105,7 +105,7 @@ export default class FileChild {
     }
 
     showName(value:boolean = true){
-        this.textObject.setVisible(value)
+        // this.textObject.setVisible(value)
     }
 
     getFile(){

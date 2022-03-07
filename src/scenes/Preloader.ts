@@ -46,7 +46,16 @@ export default class Preloader extends Phaser.Scene {
     create() {
         this.scene.run('game-ui', { roomFile: "root" })
         this.load.removeAllListeners()
+
         Global.fileTree = this.cache.json.get('metrics')
+        
+        let issues = this.cache.json.get('issues')
+        if(issues){
+            Global.issues = this.cache.json.get('issues')
+        } else {
+            Global.issues = []
+        }
+         
         if(this.cache.json.get('metrics')[0].measures.length === 0){
             this.scene.start('menu_projects', { loadFailed: true })
         } else {

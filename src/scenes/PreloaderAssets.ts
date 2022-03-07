@@ -1,7 +1,7 @@
 import { LogConstant } from "~/utils/Const";
 import Log from "~/utils/Log";
 
-export default class PreloaderTutorial extends Phaser.Scene {
+export default class PreloaderAssets extends Phaser.Scene {
     private swordSize: number = 24
     private extruded:boolean = true
     private suffix:string = ""
@@ -14,7 +14,7 @@ export default class PreloaderTutorial extends Phaser.Scene {
     }[] = []
 
     constructor() {
-        super('preloader-tutorial');
+        super('preloader-assets');
     }
 
     
@@ -55,6 +55,8 @@ export default class PreloaderTutorial extends Phaser.Scene {
         this.load.image('crack', 'tiles/crack.png')
         this.load.image('music_note', 'tiles/music_note.png')
 
+        this.load.image('skull', 'tiles/skull.png')
+        
         // Loading weapons
 
         // Loading music

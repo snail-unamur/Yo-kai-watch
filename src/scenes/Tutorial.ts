@@ -10,6 +10,8 @@ import Game from "./Game";
 
 export default class Tutorial extends Game{
 
+    private exitText = " exit tutorial \nby digging here"
+
     private textColor = "#000000"
 
     private issueExample = {
@@ -80,9 +82,7 @@ export default class Tutorial extends Game{
 
     create(data) {
         this.sound.volume = Game.MUSIC_VOLUME
-        FileChild.projectIssues = Global.issues
         console.log("create tutorial")
-        this.fileTree = Global.fileTree
         
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
 
@@ -94,7 +94,7 @@ export default class Tutorial extends Game{
 
         sceneEvents.on('player-dig-done', () => {
             Log.addInformation(LogConstant.DIG, this.mapContext)
-            if(this.mapContext.selected === "exit_tutorial"){
+            if(this.mapContext.selected === this.exitText){
                 this.exit()
             } else {
                 this.restart()
@@ -157,7 +157,7 @@ export default class Tutorial extends Game{
 
 
         // Character
-        this.player = this.add.player(center, center, 'character', 0)
+        this.player = this.add.player(center + 16, center + 16, 'character', 0)
         this.player.setDepth(1)
         cam.startFollow(this.player, undefined, 0.4, 0.4)
 
@@ -175,17 +175,6 @@ export default class Tutorial extends Game{
                 enemyGo.setBounce(1)
                 enemyGo.setInteractive()
                 enemyGo.initialize()
-
-                enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
-                    this_game.tooltip.setVisible(true)
-                    this_game.monsterHovered = true
-                    this_game.tooltip.setText(enemyGo.getInfoString())
-                })
-
-                enemyGo.on('pointerout', function(pointer){
-                    this_game.monsterHovered = false
-                    this_game.tooltip.setVisible(false)
-                })
             }
         })
 
@@ -236,20 +225,19 @@ export default class Tutorial extends Game{
             }
             this_game.tooltip.setPosition(x, y)
 
-            if(!this_game.monsterHovered){
-                let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
-                if(tileHovered){
-                    this_game.tooltip.visible = true
-                    this_game.currentTileHovered = tileHovered
-                    
-                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
-                }  else {
-                    this_game.tooltip.visible = false
-                    this_game.currentTileHovered = undefined
-                }
-            } else {
+            let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
+            if(tileHovered){
+                if(this_game.freezing) this_game.tooltip.setVisible(true)
+                this_game.input.manager.setCursor({ cursor: 'pointer' })
+                this_game.currentTileHovered = tileHovered
+                
+                this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
+            }  else {
+                this_game.tooltip.setVisible(false)
+                this_game.input.manager.resetCursor({ cursor: true })
                 this_game.currentTileHovered = undefined
             }
+
         }, this)
 
 
@@ -447,10 +435,10 @@ export default class Tutorial extends Game{
 
         // Generate exit tile in the center
         let exitFile = {
-            "name": "exit_tutorial",
+            "name": this.exitText,
             "type": "FIL",
-            "path": "root/exit_tutorial",
-            "key": "project-key-example:exit_tutorial",
+            "path": `root/${this.exitText}`,
+            "key": `project-key-example:${this.exitText}`,
             "id": 0,
             "measures": [
                 {
