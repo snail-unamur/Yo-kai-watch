@@ -42,6 +42,7 @@ export default class Game extends Phaser.Scene{
     protected wall1Layer!: Phaser.Tilemaps.TilemapLayer
     protected wall2Layer!: Phaser.Tilemaps.TilemapLayer
     protected fileLayer!: Phaser.Tilemaps.TilemapLayer
+    protected fileLayerGround!: Phaser.Tilemaps.TilemapLayer
 
     protected wallTexture: number = 0
     protected groundTexture: number = 0
@@ -490,6 +491,7 @@ export default class Game extends Phaser.Scene{
         this.generateGround()
 
         // Add File delimitation layer
+        this.fileLayerGround = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
         this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
         let baseX = Game.ROW_SIZE/2 + 2
         let baseY = baseX
@@ -500,7 +502,6 @@ export default class Game extends Phaser.Scene{
             file = this.sonarQubeData.children[i]
             file.id = i
             this.generateFileLimitation(
-                this.fileLayer, 
                 baseX + (i % nbFileBySide) * (Game.NB_TILE_PER_FILE + Game.ROW_SIZE), 
                 baseY + Math.floor(i / nbFileBySide) * (Game.NB_TILE_PER_FILE + Game.ROW_SIZE), 
                 Game.NB_TILE_PER_FILE, file)
@@ -510,7 +511,6 @@ export default class Game extends Phaser.Scene{
             // We are in a leaf
             this.sonarQubeData.id = 0
             this.generateFileLimitation(
-                this.fileLayer, 
                 Math.floor(this.dungeon_size/2) - 2, 
                 Math.floor(this.dungeon_size/2) - 2, 
                 Game.NB_TILE_PER_FILE + 2, this.sonarQubeData)
@@ -550,27 +550,60 @@ export default class Game extends Phaser.Scene{
 
     }
 
-    generateFileLimitation(fileLayer:Phaser.Tilemaps.TilemapLayer, x:number, y:number, size:number, file:{id:number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
-        let l = new Array(size).fill(0)
+    generateFileLimitation(x:number, y:number, size:number, file:{id:number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[]}){
+        let l = new Array(size).fill(ConstantsTiles.EMPTY)
         let t = new Array()
         for(let i=0; i < size; i++){
             t.push(Array.from(l))
         }
 
-        t[0].fill(ConstantsTiles.FILE_LIMIT_TOP)
-        t[0][0] = ConstantsTiles.FILE_LIMIT_TOP_LEFT
-        t[0][size-1] = ConstantsTiles.FILE_LIMIT_TOP_RIGHT
+        let childSecurityRating = file.measures.find(measure => measure.metric === 'security_rating')?.value
+        
+        let childWallTexture
 
-        t[size-1].fill(ConstantsTiles.FILE_LIMIT_BOTTOM)
-        t[size-1][size-1] = ConstantsTiles.FILE_LIMIT_BOTTOM_RIGHT
-        t[size-1][0] = ConstantsTiles.FILE_LIMIT_BOTTOM_LEFT
+        if(childSecurityRating){
+            childWallTexture = 5 - Math.floor(parseFloat(childSecurityRating))
+        } else {
+            childWallTexture = 0
+        }
+
+
+        t[0].fill(ConstantsTiles.FILE_LIMIT_TOP + childWallTexture * ConstantsTiles.tileDistance)
+        t[0][0] = ConstantsTiles.FILE_LIMIT_TOP_LEFT + childWallTexture * ConstantsTiles.tileDistance
+        t[0][size-1] = ConstantsTiles.FILE_LIMIT_TOP_RIGHT + childWallTexture * ConstantsTiles.tileDistance
+
+        t[size-1].fill(ConstantsTiles.FILE_LIMIT_BOTTOM + childWallTexture * ConstantsTiles.tileDistance)
+        t[size-1][size-1] = ConstantsTiles.FILE_LIMIT_BOTTOM_RIGHT + childWallTexture * ConstantsTiles.tileDistance
+        t[size-1][0] = ConstantsTiles.FILE_LIMIT_BOTTOM_LEFT + childWallTexture * ConstantsTiles.tileDistance
 
         for(let i=1; i < size-1; i++){
-            t[i][0] = ConstantsTiles.FILE_LIMIT_LEFT
-            t[i][size-1] = ConstantsTiles.FILE_LIMIT_RIGHT
+            t[i][0] = ConstantsTiles.FILE_LIMIT_LEFT + childWallTexture * ConstantsTiles.tileDistance
+            t[i][size-1] = ConstantsTiles.FILE_LIMIT_RIGHT + childWallTexture * ConstantsTiles.tileDistance
         }
  
-        this.fileLayer.putTilesAt(t, x, y).alpha = 0.5
+        this.fileLayer.putTilesAt(t, x, y)//.alpha = 0.5
+
+        
+
+        let childReliabilityRating = file.measures.find(measure => measure.metric === 'reliability_rating')?.value
+        let childSqaleRating = file.measures.find(measure => measure.metric === 'sqale_rating')!.value
+
+        let childGroundTexture
+
+        if(childReliabilityRating){
+            childGroundTexture = 5 - Math.floor(parseFloat(childReliabilityRating))
+        } else {
+            childGroundTexture = 0
+        }
+
+        let l2 = new Array(size).fill(ConstantsTiles.GROUND_CLEAN + childGroundTexture * ConstantsTiles.tileDistance)
+        let t2 = new Array()
+        for(let i=0; i < size; i++){
+            t2.push(Array.from(l2))
+        }
+
+        this.fileLayerGround.putTilesAt(t2, x, y)
+
 
         let fileChild = new FileChild(file, this, x*Game.TILE_SIZE, y*Game.TILE_SIZE, size*Game.TILE_SIZE, size*Game.TILE_SIZE)
         this.fileChildren.push(fileChild)

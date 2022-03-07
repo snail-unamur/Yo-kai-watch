@@ -343,6 +343,7 @@ export default class Tutorial extends Game{
         this.generateGround()
 
         // Add File delimitation layer
+        this.fileLayerGround = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
         this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
         let baseX = 3
         let baseY = 8
@@ -356,7 +357,6 @@ export default class Tutorial extends Game{
         // CODE SMELLS FILE GENERATION
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
-                this.fileLayer, 
                 2, 
                 baseY + i * (Game.NB_TILE_PER_FILE + 1), 
                 Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
@@ -376,7 +376,6 @@ export default class Tutorial extends Game{
         // BUGS FILE GENERATION
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
-                this.fileLayer, 
                 this.dungeon_size - 5, 
                 baseY + (2-i) * (Game.NB_TILE_PER_FILE + 1), 
                 Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
@@ -398,7 +397,6 @@ export default class Tutorial extends Game{
 
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
-                this.fileLayer, 
                 vulnerabilitiesStartingX + i * (Game.NB_TILE_PER_FILE + 1), 
                 this.dungeon_size - 6, 
                 Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
@@ -419,7 +417,6 @@ export default class Tutorial extends Game{
         let roomExampleY = 7
         
         this.generateFileLimitation(
-            this.fileLayer, 
             leftRoomExampleX, roomExampleY, 
             Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
 
@@ -439,7 +436,6 @@ export default class Tutorial extends Game{
         fileId++
 
         this.generateFileLimitation(
-            this.fileLayer, 
             rightRoomExampleX, roomExampleY, 
             Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
             
@@ -459,12 +455,12 @@ export default class Tutorial extends Game{
             "measures": [
                 {
                     "metric": "reliability_rating",
-                    "value": "1.0",
+                    "value": "0.0",
                     "bestValue": true
                 },
                 {
                     "metric": "security_rating",
-                    "value": "1.0",
+                    "value": "0.0",
                     "bestValue": true
                 },
                 {
@@ -510,7 +506,6 @@ export default class Tutorial extends Game{
             size: Game.NB_TILE_PER_FILE + 2
         }
         this.generateFileLimitation(
-            this.fileLayer, 
             exitTiles.x, 
             exitTiles.y, 
             Game.NB_TILE_PER_FILE + 2, exitFile)
