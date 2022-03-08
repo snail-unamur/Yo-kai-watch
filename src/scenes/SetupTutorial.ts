@@ -123,6 +123,7 @@ export default class SetupTutorial extends Phaser.Scene {
     }
 
     create() {
+        this.scene.run('game-ui', { roomFile: "root" })
         Log.addInformation(LogConstant.TUTORIAL_LOADED)
         console.log("tuto setup")
         this.scene.start('tutorial')

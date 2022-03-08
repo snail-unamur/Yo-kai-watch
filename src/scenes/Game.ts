@@ -258,6 +258,8 @@ export default class Game extends Phaser.Scene{
         this.freezeLayer.visible = this.freezing
         
         if(this.freezing){
+            
+            this.scene.run('info', { game: this })
             this.cameras.main.stopFollow()
             this.enemies.setAlpha(0.3)
             this.reduceVolume()
@@ -265,6 +267,7 @@ export default class Game extends Phaser.Scene{
             this.anims.pauseAll()
             // this.fileChildren.forEach((el:FileChild) => { el.showName() })
         } else {
+            this.scene.stop('info')
             this.cameras.main.startFollow(this.player, undefined, 0.4, 0.4)
             this.enemies.setAlpha(1)
             this.sound.volume = Game.MUSIC_VOLUME
@@ -383,7 +386,7 @@ export default class Game extends Phaser.Scene{
         
         let gameCanvas = this.sys.game.canvas
         this.freezeLayer = this.add.renderTexture(0, 0, this.dungeon_size*Game.TILE_SIZE, this.dungeon_size*Game.TILE_SIZE)
-        this.freezeLayer.fill(0x000000, 0.5)
+        this.freezeLayer.fill(0x000000, 0)
         this.freezeLayer.setDepth(5)
         this.handleFreeze()
         this.handleFreeze()

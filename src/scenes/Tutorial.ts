@@ -199,7 +199,7 @@ export default class Tutorial extends Game{
         
 
         this.freezeLayer = this.add.renderTexture(0, 0, this.dungeon_size*Game.TILE_SIZE, this.dungeon_size*Game.TILE_SIZE)
-        this.freezeLayer.fill(0x000000, 0.5)
+        this.freezeLayer.fill(0x000000, 0)
         this.freezeLayer.setDepth(5)
         this.handleFreeze()
         this.handleFreeze()

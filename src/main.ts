@@ -11,6 +11,7 @@ import Tutorial from './scenes/Tutorial'
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin'
 import PreloaderAssets from './scenes/PreloaderAssets'
 import SetupTutorial from './scenes/SetupTutorial'
+import InfoOverlay from './scenes/InfoOverlay'
 
 
 export default new Phaser.Game({
@@ -24,7 +25,7 @@ export default new Phaser.Game({
 			//debug: true
 		}
 	},
-	scene: [PreloaderAssets, SetupTutorial, MenuProjects, Preloader, Map, Game, Tutorial, GameUI, PauseOverlay],
+	scene: [PreloaderAssets, SetupTutorial, MenuProjects, Preloader, Map, Game, Tutorial, GameUI, PauseOverlay, InfoOverlay],
 	parent: 'phaser-container',
 	scale: {
 		zoom: 1,
