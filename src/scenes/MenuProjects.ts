@@ -34,6 +34,7 @@ export default class MenuProjects extends Phaser.Scene {
 
 
     create(data) {
+        this.projectQuery = "abc"
         this.sound.removeAll()
         this.sound.play('main_theme', {loop: true})
         // Load project names
@@ -46,7 +47,6 @@ export default class MenuProjects extends Phaser.Scene {
 
             this.projectNames = this.cache.json.get('project_names')
 
-            if(this.suggestionPanel) this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
             if(this.projectNames.length !== 0) this.generatePanel()
         })
         this.load.start()
@@ -116,8 +116,7 @@ export default class MenuProjects extends Phaser.Scene {
                                 console.log(`requested ${name}`)
         
                                 this.projectNames = this.cache.json.get('project_names')
-        
-                                if(this.suggestionPanel)this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead 
+                                 
                                 if(name !== "") this.generatePanel()
                             })
                             this.load.start()
@@ -134,6 +133,11 @@ export default class MenuProjects extends Phaser.Scene {
         if(this.projectNames.length !== 0) this.generatePanel()
 
 
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            console.log("menu projects shutdown")
+            this.textEditZone.removeAllListeners()
+            this.load.removeAllListeners()
+        })
     }
 
     
@@ -142,6 +146,7 @@ export default class MenuProjects extends Phaser.Scene {
     }
 
     generatePanel(){
+        if(this.suggestionPanel) this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead
         let panelData: string[] = []
 
         this.projectNames.forEach(element => {
