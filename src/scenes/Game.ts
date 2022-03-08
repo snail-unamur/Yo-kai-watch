@@ -133,6 +133,7 @@ export default class Game extends Phaser.Scene{
 
     onPause(){
         this.reduceVolume()
+        document.body.style.cursor = 'default';
         this.scene.pause()
         this.scene.run('pause', { game: this })
     }
@@ -166,7 +167,7 @@ export default class Game extends Phaser.Scene{
                 this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
                 this.mapContext.selected = fileObject.getFile().name
                 if(this.freezing){
-                    this.restart()
+                    sceneEvents.emit("player-dig-done")
                 } else {
                     this.player.dig()
                 }
@@ -190,7 +191,7 @@ export default class Game extends Phaser.Scene{
             this.mapContext.selectedId = id_
 
             if(this.freezing){
-                this.restart()
+                sceneEvents.emit("player-go-up-done")
             } else {
                 this.player.goUp()
             }
@@ -199,6 +200,7 @@ export default class Game extends Phaser.Scene{
 
 
     restart(){
+        document.body.style.cursor = 'default';
         this.scene.restart({
             mapContext: this.mapContext
         })
@@ -233,6 +235,7 @@ export default class Game extends Phaser.Scene{
         this.reduceVolume()
         this.scene.setVisible(false, "game-ui")
         //this.scene.stop("game-ui")
+        document.body.style.cursor = 'default';
         this.scene.start('map', { mapContext: this.mapContext, lastScene: this.scene.key })
     }
 
@@ -253,12 +256,14 @@ export default class Game extends Phaser.Scene{
         
         if(this.freezing){
             this.cameras.main.stopFollow()
+            this.enemies.setAlpha(0.3)
             this.reduceVolume()
             this.physics.pause()
             this.anims.pauseAll()
             // this.fileChildren.forEach((el:FileChild) => { el.showName() })
         } else {
             this.cameras.main.startFollow(this.player, undefined, 0.4, 0.4)
+            this.enemies.setAlpha(1)
             this.sound.volume = Game.MUSIC_VOLUME
             this.physics.resume()
             this.anims.resumeAll()
