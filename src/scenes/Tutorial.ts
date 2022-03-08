@@ -228,13 +228,13 @@ export default class Tutorial extends Game{
             let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
             if(tileHovered){
                 if(this_game.freezing) this_game.tooltip.setVisible(true)
-                this_game.input.manager.setCursor({ cursor: 'pointer' })
+                document.body.style.cursor = 'pointer';
                 this_game.currentTileHovered = tileHovered
                 
                 this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
             }  else {
                 this_game.tooltip.setVisible(false)
-                this_game.input.manager.resetCursor({ cursor: true })
+                document.body.style.cursor = 'default';
                 this_game.currentTileHovered = undefined
             }
 
@@ -486,7 +486,8 @@ export default class Tutorial extends Game{
                     "value": "0",
                     "bestValue": true
                 }
-            ]
+            ],
+            children:undefined
         }
         let exitTiles = {
             x: Math.floor(this.dungeon_size/2) - 2,

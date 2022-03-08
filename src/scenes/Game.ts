@@ -409,11 +409,13 @@ export default class Game extends Phaser.Scene{
             let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
             if(tileHovered){
                 if(this_game.freezing) this_game.tooltip.setVisible(true)
+                document.body.style.cursor = 'pointer';
                 this_game.currentTileHovered = tileHovered
                 
                 this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
             }  else {
                 this_game.tooltip.setVisible(false)
+                document.body.style.cursor = 'default';
                 this_game.currentTileHovered = undefined
             }
         }, this)
@@ -538,7 +540,7 @@ export default class Game extends Phaser.Scene{
 
     }
 
-    generateFileLimitation(x:number, y:number, size:number, file:{id:number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}){
+    generateFileLimitation(x:number, y:number, size:number, file:{id:number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]|undefined}){
         let l = new Array(size).fill(ConstantsTiles.EMPTY)
         let t = new Array()
         for(let i=0; i < size; i++){
