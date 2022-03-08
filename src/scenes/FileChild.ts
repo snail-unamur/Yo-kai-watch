@@ -6,7 +6,7 @@ import Monster from "~/enemies/Monster"
 import { sceneEvents } from "~/events/EventCenter"
 
 export default class FileChild {
-    private file!: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}
+    private file!: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]|undefined}
     private x: number
     private y: number
     private width: number
@@ -35,7 +35,7 @@ export default class FileChild {
     private textObject: Phaser.GameObjects.Text
     private nbMonsterText: Phaser.GameObjects.Text
 
-    constructor(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}, 
+    constructor(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]|undefined}, 
         game: Game, x:number, y:number, width:number, height:number){
         this.setFile(file)
 
@@ -88,7 +88,8 @@ export default class FileChild {
         return this.height
     }
 
-    setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]}){
+    setFile(file: {id: number, name: string, type: string, path: string, key: string, measures: {metric: string, value:string, bestValue: boolean}[], children:any[]|undefined}){
+
         this.file = file
         this.updateInfoString()
 
@@ -133,10 +134,12 @@ export default class FileChild {
     }
 
     initIssues(){
-        console.log(this.file.name)
+        let k = this.file.key
+        if(this.file.children){
+            k = this.file.key + "/"
+        }
         FileChild.projectIssues.forEach((element: { component:string, type:string, severity:string, debt:string }) => {
-            console.log(element.component.split("/"))
-            if(element.component.startsWith(this.file.key) && element.component.split("/").at(-1) === this.file.name){
+            if(element.component.startsWith(k)){
                 this.issues.push(element)
             }
         })

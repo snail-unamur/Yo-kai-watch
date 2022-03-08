@@ -48,13 +48,17 @@ export default class Preloader extends Phaser.Scene {
         this.load.removeAllListeners()
 
         Global.fileTree = this.cache.json.get('metrics')
-        
+
         let issues = this.cache.json.get('issues')
         if(issues){
             Global.issues = this.cache.json.get('issues')
         } else {
             Global.issues = []
         }
+        Global.issues.forEach(issue=>{
+            let l = issue.component.split(".")
+            if(l.length === 1) console.log(issue.component)
+        })
          
         if(this.cache.json.get('metrics')[0].measures.length === 0){
             this.scene.start('menu_projects', { loadFailed: true })
