@@ -121,9 +121,13 @@ export default class FileChild {
         return this.file.name
     }
 
+    hasMonster(): boolean{
+        return this.issues.length !== 0
+    }
+
     getMonster(): Monster | null{
-        this.updateText()
         let issue = this.issues.pop()
+        this.updateText()
         if(!issue) return null
         
         let enemy: Monster = this.game.getEnemies().get(this.x + this.width/2, this.y + this.height/2, 'player') // Why "player" here?

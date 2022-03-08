@@ -24,6 +24,7 @@ export default class Game extends Phaser.Scene{
     static readonly MIN_NB_FILE_LIMIT_ROW = 2
     static readonly MUSIC_VOLUME = 0.3
     static readonly CAMERA_SPEED = 5
+    static readonly MONSTER_SPAWN = 1000
 
     protected dungeon_size = 10
 
@@ -84,7 +85,8 @@ export default class Game extends Phaser.Scene{
         restart: Phaser.Input.Keyboard.Key[]
     }
 
-    protected incomingMonster: { durationLeft: number, callback}[] = []
+    private lastIdSpawn: number = 0
+    private lastSpawn: number = 0
 
 	constructor(key:string = "game"){
 		super(key)
@@ -231,7 +233,6 @@ export default class Game extends Phaser.Scene{
         }
         this.clearKeys()
 
-        this.incomingMonster = []
         this.reduceVolume()
         this.scene.setVisible(false, "game-ui")
         //this.scene.stop("game-ui")
@@ -298,8 +299,6 @@ export default class Game extends Phaser.Scene{
             sceneEvents.off('player-dig-done')
             sceneEvents.off('player-go-up-done')
         })
-
-        this.incomingMonster = []
 
         this.fileChildren = []
         if(data?.mapContext){
@@ -427,9 +426,6 @@ export default class Game extends Phaser.Scene{
 
 
         
-        this.fileChildren.forEach(this.newMonster, this)
-
-        
         this.physics.add.collider(this.player, this.wall1Layer)
         this.physics.add.collider(this.enemies, this.wall1Layer)
         this.physics.add.collider(this.player, this.wall2Layer)
@@ -446,13 +442,7 @@ export default class Game extends Phaser.Scene{
     }
 
     newMonster(file:FileChild){
-        this.incomingMonster.push({
-            durationLeft: 500*Math.floor((Math.random()+1)*2.5),
-            callback: () => { 
-                file.getMonster()
-                this.newMonster(file)
-            }
-        })
+        file.getMonster()
     }
 
     handleSwordMonsterCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) {
@@ -628,17 +618,21 @@ export default class Game extends Phaser.Scene{
             return
         } 
         
-        let index = this.incomingMonster.length - 1
-        let el
-      
-        while (index >= 0) {
-            el = this.incomingMonster[index]
-            el.durationLeft -= dt
-            if(el.durationLeft < 0){
-                el.callback()
-                this.incomingMonster.splice(index, 1);
+
+
+        if(t - this.lastSpawn >= Game.MONSTER_SPAWN){
+            this.lastSpawn = t
+
+
+            this.lastIdSpawn = (this.lastIdSpawn + 1) % this.fileChildren.length
+            for(let i = 0; i < this.fileChildren.length && !this.fileChildren[this.lastIdSpawn].hasMonster(); i++){
+                this.lastIdSpawn = (this.lastIdSpawn + 1) % this.fileChildren.length
             }
-            index -= 1
+
+            if(this.fileChildren[this.lastIdSpawn].hasMonster()){
+                this.newMonster(this.fileChildren[this.lastIdSpawn])
+                this.fileChildren[this.lastIdSpawn].getMonster()
+            }
         }
       
 

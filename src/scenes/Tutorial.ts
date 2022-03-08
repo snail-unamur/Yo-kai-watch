@@ -111,7 +111,6 @@ export default class Tutorial extends Game{
             sceneEvents.off('player-dig-done')
             sceneEvents.off('player-go-up-done')
         })
-        this.incomingMonster = []
 
         this.fileChildren = []
 
@@ -278,13 +277,7 @@ export default class Tutorial extends Game{
 
     
     newMonster(file:FileChild){
-        this.incomingMonster.push({
-            durationLeft: 500*Math.floor((Math.random()+1)*2.5),
-            callback: () => { 
-                file.getMonster()?.setCanMove(false)
-                this.newMonster(file)
-            }
-        })
+        file.getMonster()?.setCanMove(false)
     }
 
     generation() {
