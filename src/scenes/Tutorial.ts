@@ -174,6 +174,18 @@ export default class Tutorial extends Game{
                 enemyGo.setBounce(1)
                 enemyGo.setInteractive()
                 enemyGo.initialize()
+
+                
+                enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
+                    if(this_game.freezing) this_game.tooltip.setVisible(true)
+                    this_game.monsterHovered = true
+                    this_game.tooltip.setText(enemyGo.getInfoString())
+                })
+
+                enemyGo.on('pointerout', function(pointer){
+                    this_game.monsterHovered = false
+                    this_game.tooltip.setVisible(false)
+                })
             }
         })
 
@@ -225,15 +237,20 @@ export default class Tutorial extends Game{
             this_game.tooltip.setPosition(x, y)
 
             let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
-            if(tileHovered){
-                if(this_game.freezing) this_game.tooltip.setVisible(true)
-                document.body.style.cursor = 'pointer';
-                this_game.currentTileHovered = tileHovered
-                
-                this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
-            }  else {
-                this_game.tooltip.setVisible(false)
-                document.body.style.cursor = 'default';
+            
+            if(!this_game.monsterHovered){
+                if(tileHovered){
+                    if(this_game.freezing) this_game.tooltip.setVisible(true)
+                    document.body.style.cursor = 'pointer';
+                    this_game.currentTileHovered = tileHovered
+                    
+                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
+                }  else {
+                    this_game.tooltip.setVisible(false)
+                    document.body.style.cursor = 'default';
+                    this_game.currentTileHovered = undefined
+                }
+            } else {
                 this_game.currentTileHovered = undefined
             }
 

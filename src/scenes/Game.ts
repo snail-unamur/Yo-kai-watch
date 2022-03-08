@@ -69,6 +69,7 @@ export default class Game extends Phaser.Scene{
     protected sonarQubeData
     protected currentTileHovered: Phaser.Tilemaps.Tile | undefined
 
+    protected monsterHovered:boolean = false
 
     protected fileChildren:FileChild[] = []
 
@@ -354,8 +355,20 @@ export default class Game extends Phaser.Scene{
                 const enemyGo = go as Monster
                 enemyGo.body.enable = false
                 enemyGo.setBounce(0.2)
-                // enemyGo.setInteractive()
+                enemyGo.setInteractive()
                 enemyGo.initialize()
+
+                
+                enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
+                    this_game.tooltip.setVisible(true)
+                    this_game.monsterHovered = true
+                    this_game.tooltip.setText(enemyGo.getInfoString())
+                })
+
+                enemyGo.on('pointerout', function(pointer){
+                    this_game.monsterHovered = false
+                    this_game.tooltip.setVisible(false)
+                })
             }
         })
 
@@ -411,15 +424,19 @@ export default class Game extends Phaser.Scene{
             this_game.tooltip.setPosition(x, y)
 
             let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
-            if(tileHovered){
-                if(this_game.freezing) this_game.tooltip.setVisible(true)
-                document.body.style.cursor = 'pointer';
-                this_game.currentTileHovered = tileHovered
-                
-                this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
-            }  else {
-                this_game.tooltip.setVisible(false)
-                document.body.style.cursor = 'default';
+            if(!this_game.monsterHovered){
+                if(tileHovered){
+                    if(this_game.freezing) this_game.tooltip.setVisible(true)
+                    document.body.style.cursor = 'pointer';
+                    this_game.currentTileHovered = tileHovered
+                    
+                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
+                }  else {
+                    this_game.tooltip.setVisible(false)
+                    document.body.style.cursor = 'default';
+                    this_game.currentTileHovered = undefined
+                }
+            } else {
                 this_game.currentTileHovered = undefined
             }
         }, this)
