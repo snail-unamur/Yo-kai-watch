@@ -128,7 +128,8 @@ export default class FileChild {
         
         let enemy: Monster = this.game.getEnemies().get(this.x + this.width/2, this.y + this.height/2, 'player') // Why "player" here?
         enemy.setIssue(issue)
-        enemy.input.hitArea = new Phaser.GameObjects.Rectangle(this.game, enemy.body.offset.x, enemy.body.offset.y, enemy.body.width, enemy.body.height)
+        // Remove the line below, in order to remove a part of the interactivity of monsters
+        // enemy.input.hitArea = new Phaser.GameObjects.Rectangle(this.game, enemy.body.offset.x, enemy.body.offset.y, enemy.body.width, enemy.body.height)
 
         return enemy
     }
