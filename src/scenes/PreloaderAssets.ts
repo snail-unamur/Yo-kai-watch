@@ -56,6 +56,9 @@ export default class PreloaderAssets extends Phaser.Scene {
         this.load.image('music_note', 'tiles/music_note.png')
 
         this.load.image('skull', 'tiles/skull.png')
+        this.load.image('left_click', 'tiles/left_click.png')
+        this.load.image('right_click', 'tiles/right_click.png')
+        this.load.image('mouse', 'tiles/mouse.png')
         
         // Loading weapons
 
@@ -80,6 +83,7 @@ export default class PreloaderAssets extends Phaser.Scene {
     }
 
     create() {
+        console.log( this.anims.generateFrameNumbers('character', { start: 0, end: 3 }))
         this.scene.run('game-ui', { roomFile: "root" })
         Log.addInformation(LogConstant.TUTORIAL_LOADED)
         this.scene.start('setup-tutorial')

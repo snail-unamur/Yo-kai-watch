@@ -94,6 +94,7 @@ export default class Game extends Phaser.Scene{
 	}
 
 	preload() {
+        this.input.setPollAlways()
         FileChild.projectIssues = Global.issues
         this.fileTree = Global.fileTree
 
@@ -412,33 +413,6 @@ export default class Game extends Phaser.Scene{
 
 
         this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
-            let x = pointer.worldX
-            let y = pointer.worldY
-
-            if(pointer.x > this_game.game.canvas.width/2){
-                x -= this_game.tooltip.getBounds().width
-            }
-            if(pointer.y > this_game.game.canvas.height/2){
-                y -= this_game.tooltip.getBounds().height
-            }
-            this_game.tooltip.setPosition(x, y)
-
-            let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
-            if(!this_game.monsterHovered){
-                if(tileHovered){
-                    if(this_game.freezing) this_game.tooltip.setVisible(true)
-                    document.body.style.cursor = 'pointer';
-                    this_game.currentTileHovered = tileHovered
-                    
-                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
-                }  else {
-                    this_game.tooltip.setVisible(false)
-                    document.body.style.cursor = 'default';
-                    this_game.currentTileHovered = undefined
-                }
-            } else {
-                this_game.currentTileHovered = undefined
-            }
         }, this)
 
 
@@ -626,6 +600,36 @@ export default class Game extends Phaser.Scene{
     }
 
     update(t:number, dt:number){
+        let pointer = this.input.mousePointer
+        let x = pointer.worldX
+        let y = pointer.worldY
+
+        if(pointer.x > this.game.canvas.width/2){
+            x -= this.tooltip.getBounds().width
+        }
+        if(pointer.y > this.game.canvas.height/2){
+            y -= this.tooltip.getBounds().height
+        }
+        this.tooltip.setPosition(x, y)
+
+        let tileHovered = this.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
+        
+        if(!this.monsterHovered){
+            if(tileHovered){
+                if(this.freezing) this.tooltip.setVisible(true)
+                document.body.style.cursor = 'pointer';
+                this.currentTileHovered = tileHovered
+                
+                this.tooltip.setText(this.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
+            }  else {
+                this.tooltip.setVisible(false)
+                document.body.style.cursor = 'default';
+                this.currentTileHovered = undefined
+            }
+        } else {
+            this.currentTileHovered = undefined
+        }
+
         if(!this.player || !this.sword){
             return
         }

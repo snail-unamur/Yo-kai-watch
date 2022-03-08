@@ -1,5 +1,6 @@
 import { createMonsterAnims } from "~/animations/MonsterAnimation";
 import { createCharacterAnims } from "~/animations/PlayerAnimation";
+import { createUIAnims } from "~/animations/UIAnimation";
 import Monster from "~/enemies/Monster";
 import { sceneEvents } from "~/events/EventCenter";
 import { ConstantsTiles, LogConstant, MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const";
@@ -81,6 +82,7 @@ export default class Tutorial extends Game{
     }
 
     create(data) {
+        createUIAnims(this.anims)
         this.sound.volume = Game.MUSIC_VOLUME
         console.log("create tutorial")
         
@@ -224,38 +226,6 @@ export default class Tutorial extends Game{
         this.tooltip.setDepth(100) // put the tooltip in front of every other things
 
 
-        this.input.on('pointermove', function(pointer: Phaser.Input.Pointer){
-            let x = pointer.worldX
-            let y = pointer.worldY
-
-            if(pointer.x > this_game.game.canvas.width/2){
-                x -= this_game.tooltip.getBounds().width
-            }
-            if(pointer.y > this_game.game.canvas.height/2){
-                y -= this_game.tooltip.getBounds().height
-            }
-            this_game.tooltip.setPosition(x, y)
-
-            let tileHovered = this_game.fileLayer.getTileAtWorldXY(pointer.worldX, pointer.worldY)
-            
-            if(!this_game.monsterHovered){
-                if(tileHovered){
-                    if(this_game.freezing) this_game.tooltip.setVisible(true)
-                    document.body.style.cursor = 'pointer';
-                    this_game.currentTileHovered = tileHovered
-                    
-                    this_game.tooltip.setText(this_game.tooltip.getWrappedText(tileHovered.collisionCallback().getInfoString()))
-                }  else {
-                    this_game.tooltip.setVisible(false)
-                    document.body.style.cursor = 'default';
-                    this_game.currentTileHovered = undefined
-                }
-            } else {
-                this_game.currentTileHovered = undefined
-            }
-
-        }, this)
-
 
         
         this.fileChildren.forEach(this.newMonster, this)
@@ -309,15 +279,52 @@ export default class Tutorial extends Game{
         super.generation()
 
         if(nbFile === 0){
+            const space = 0.8
             this.addKey(
-                this.dungeon_size * 0.7 * Game.TILE_SIZE,
+                (this.dungeon_size * 0.7 + space) * Game.TILE_SIZE,
                 Game.TILE_SIZE * 3.5,
-                "E", "Go up", false, "#000000")
+                "E", undefined, false, "#000000")
                 
             this.addKey(
                 this.dungeon_size * 0.3 * Game.TILE_SIZE,
                 Game.TILE_SIZE * 3.5,
                 "Tab", "Minimap", true, "#000000")
+
+                
+
+
+            this.add.text(
+                (this.dungeon_size * 0.7 - 0.1) * Game.TILE_SIZE,
+                Game.TILE_SIZE * 3.5,
+                "or")
+                .setScale(0.5)
+                .setOrigin(0.5, 0.5)
+                .setColor(this.textColor)
+                .setAlign('center')
+                .setBackgroundColor('#FFFFFF')
+                .setAlpha(0.7)
+
+                
+
+
+            this.add.text(
+                (this.dungeon_size * 0.7) * Game.TILE_SIZE,
+                Game.TILE_SIZE * 2.5,
+                "Go up with")
+                .setScale(0.5)
+                .setOrigin(0.5, 0.5)
+                .setColor(this.textColor)
+                .setAlign('center')
+                .setBackgroundColor('#FFFFFF')
+                .setAlpha(0.7)
+
+
+            let rc = this.add.sprite(
+                (this.dungeon_size * 0.7 - space) * Game.TILE_SIZE,
+                Game.TILE_SIZE * 3.5,
+                "right_click").setAlpha(0.7).setOrigin(0.5, 0.5)
+
+            rc.play("right_click_anim")
         }
     }
 
@@ -438,12 +445,15 @@ export default class Tutorial extends Game{
             rightRoomExampleX, roomExampleY, 
             Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
             
-        this.add.text(rightRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            roomExampleY * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            "Click me").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
-            .setBackgroundColor('#FFFFFF')
-            .setAlpha(0.7)
+        // this.add.text(rightRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+        //     roomExampleY * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+        //     "Click me").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+        //     .setBackgroundColor('#FFFFFF')
+        //     .setAlpha(0.7)
 
+        let lc = this.add.sprite(rightRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
+        roomExampleY * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2,  "left_click").setAlpha(0.7).setOrigin(0.5, 0.5)
+        lc.play("left_click_anim")
         // Generate exit tile in the center
         let exitFile = {
             "name": this.exitText,
@@ -578,7 +588,7 @@ export default class Tutorial extends Game{
                 this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, groundExampleX + i, groundExampleY + j)
             }
         }
-        this.add.text((wallExampleX + (totalNbTextureExample) / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 4.7, "Music and ground tiles\nrepresent the reliability (bugs)")
+        this.add.text((wallExampleX + (totalNbTextureExample) / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 4.7, "Ground tiles represent the reliability (bugs)")
             .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
@@ -587,8 +597,7 @@ export default class Tutorial extends Game{
             .setAlpha(0.7)
 
         
-        //this.add.image((this.dungeon_size - code_smellsX - 2) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
-        this.add.image((wallExampleX + 1.8) * Game.TILE_SIZE, 4.2 * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
+        // this.add.image((wallExampleX + 1.8) * Game.TILE_SIZE, 4.2 * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
 
         let code_smellsX = 5
         let code_smellsY = 3
