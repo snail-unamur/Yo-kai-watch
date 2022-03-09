@@ -73,7 +73,7 @@ export default class PauseOverlay extends Phaser.Scene {
         this.game_.clearKeys()
         this.game_.scene.stop("game-ui")
         this.game_.scene.stop()
-        this.scene.start(sceneName)
+        this.scene.start(sceneName, {})
         console.log("exit pause screen")
     }
 

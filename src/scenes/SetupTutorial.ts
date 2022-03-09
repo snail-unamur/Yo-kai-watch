@@ -62,7 +62,14 @@ export default class SetupTutorial extends Phaser.Scene {
         console.log("Issues", JSON.parse(JSON.stringify(Global.issues)))
 
         this.scene.run('game-ui', { roomFile: "root" })
-        this.scene.start('tutorial', undefined)
+        this.scene.start('tutorial', { 
+            mapContext: {
+                file: Global.fileTree[0],
+                path: [0],
+                selected: "root",
+                selectedId:-1
+            }
+        })
     }
 
     createFileChild(name: string){

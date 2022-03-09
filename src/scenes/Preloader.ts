@@ -55,16 +55,19 @@ export default class Preloader extends Phaser.Scene {
         } else {
             Global.issues = []
         }
-        Global.issues.forEach(issue=>{
-            let l = issue.component.split(".")
-            if(l.length === 1) console.log(issue.component)
-        })
          
         if(this.cache.json.get('metrics')[0].measures.length === 0){
             this.scene.start('menu_projects', { loadFailed: true })
         } else {
             Log.addInformation(LogConstant.PROJECT_LOADED, { name: this.projectName })
-            this.scene.start('game')
+            this.scene.start('game',  {
+                mapContext: {
+                    file: Global.fileTree[0],
+                    path: [0],
+                    selected: "root",
+                    selectedId:-1
+                }
+            })
         }
 
     }

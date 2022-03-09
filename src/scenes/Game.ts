@@ -95,6 +95,7 @@ export default class Game extends Phaser.Scene{
 
 	preload() {
         this.input.setPollAlways()
+
         FileChild.projectIssues = Global.issues
         this.fileTree = Global.fileTree
 
@@ -102,6 +103,7 @@ export default class Game extends Phaser.Scene{
         if(issues){
             FileChild.projectIssues = issues
         } else {
+            FileChild.projectIssues = []
         }
 
         // Don't put TAB key in the playerControls object or when the map will be open the capture will be cleared and a "tab action" will happen in the browser

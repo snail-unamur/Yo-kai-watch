@@ -4,6 +4,7 @@ import { createUIAnims } from "~/animations/UIAnimation";
 import Monster from "~/enemies/Monster";
 import { sceneEvents } from "~/events/EventCenter";
 import { LogConstant } from "~/utils/Const";
+import { Global } from "~/utils/Global";
 import Log from "~/utils/Log";
 import FileChild from "./FileChild";
 import Game from "./Game";
@@ -17,9 +18,15 @@ export default class Tutorial extends Game{
     }
 
     create(data) {
+        Log.print(data, "Tutorial data:")
+        Log.print(this.mapContext, "Tutorial initial this.mapContext:")
         createUIAnims(this.anims)
         this.sound.volume = Game.MUSIC_VOLUME
         console.log("create tutorial")
+
+        
+        this.fileTree = Global.fileTree
+        FileChild.projectIssues = Global.issues
         
         Log.addInformation(LogConstant.START_ROOM, this.mapContext)
 
@@ -47,6 +54,7 @@ export default class Tutorial extends Game{
             sceneEvents.off('player-dead')
             sceneEvents.off('player-dig-done')
             sceneEvents.off('player-go-up-done')
+            this.scene.setVisible(false, "game-ui")
         })
 
         this.fileChildren = []
@@ -63,6 +71,7 @@ export default class Tutorial extends Game{
                 selectedId:-1
             }
         }
+        Log.print(this.mapContext, "Tutorial this.mapContext:")
 
         // Launch UI
         sceneEvents.emit('room-file-update', this.mapContext.file.name)
@@ -171,10 +180,6 @@ export default class Tutorial extends Game{
         this.physics.add.collider(this.player, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.wall2Layer)
         this.physics.add.collider(this.enemies, this.enemies)
-
-        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            this.scene.setVisible(false, "game-ui")
-        })
     }
 
     exit(){
@@ -263,6 +268,7 @@ export default class Tutorial extends Game{
     }
 
     generationRoot() {
+        Log.print(this.sonarQubeData, "Tutorial data:")
         this.wallTexture = 5
         this.groundTexture = 5
         // This function is called only in the root room then we can
