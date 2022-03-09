@@ -5,21 +5,10 @@ export default class PreloaderAssets extends Phaser.Scene {
     private swordSize: number = 24
     private extruded:boolean = true
     private suffix:string = ""
-    
-    private issues: {
-        "severity": string,
-        "component": string,
-        "debt": string,
-        "type": string
-    }[] = []
 
     constructor() {
         super('preloader-assets');
     }
-
-    
-
-    init(){}
 
     preload(){
         Log.addInformation(LogConstant.TUTORIAL_LOADING)
@@ -83,12 +72,9 @@ export default class PreloaderAssets extends Phaser.Scene {
     }
 
     create() {
-        console.log( this.anims.generateFrameNumbers('character', { start: 0, end: 3 }))
         Log.addInformation(LogConstant.TUTORIAL_LOADED)
         this.scene.start('setup-tutorial')
     }
-
-
 
     createLoading(){
         let progressBar = this.add.graphics();
