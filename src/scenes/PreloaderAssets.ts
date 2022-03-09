@@ -49,6 +49,8 @@ export default class PreloaderAssets extends Phaser.Scene {
         this.load.image('left_click', 'tiles/left_click.png')
         this.load.image('right_click', 'tiles/right_click.png')
         this.load.image('mouse', 'tiles/mouse.png')
+        this.load.image('folder', 'tiles/folder.png')
+        this.load.image('file', 'tiles/file.png')
         
         // Loading weapons
 
