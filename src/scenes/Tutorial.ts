@@ -280,10 +280,6 @@ export default class Tutorial extends Game{
 
         if(nbFile === 0){
             const space = 0.8
-            this.addKey(
-                (this.dungeon_size * 0.7 + space) * Game.TILE_SIZE,
-                Game.TILE_SIZE * 3.5,
-                "E", undefined, false, "#000000")
                 
             this.addKey(
                 this.dungeon_size * 0.3 * Game.TILE_SIZE,
@@ -291,6 +287,10 @@ export default class Tutorial extends Game{
                 "Tab", "Minimap", true, "#000000")
 
                 
+            this.addKey(
+                (this.dungeon_size * 0.7 + space) * Game.TILE_SIZE,
+                Game.TILE_SIZE * 3.5,
+                "E", undefined, false, "#000000")
 
 
             this.add.text(
@@ -344,15 +344,14 @@ export default class Tutorial extends Game{
 
         let nbFileBySide = Math.ceil(Math.sqrt(nbFile))
 
-        this.dungeon_size = 29
-
+        this.dungeon_size = 27
         this.generateGround()
 
         // Add File delimitation layer
         this.fileLayerGround = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
         this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-        let baseX = 3
-        let baseY = 8
+        let baseX = 2
+        let baseY = 9
 
         let file
 
@@ -363,38 +362,22 @@ export default class Tutorial extends Game{
         // CODE SMELLS FILE GENERATION
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
-                2, 
+                baseX, 
                 baseY + i * (Game.NB_TILE_PER_FILE + 1), 
                 Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
         }
         fileId += 3
 
 
-        this.add.text((2 + 1.5) * Game.TILE_SIZE, (baseY + 3.5) * Game.TILE_SIZE, "Code smells")
-            .setScale(0.5)
-            .setOrigin(0.5, 0.5)
-            .setColor(this.textColor)
-            .setAlign('center')
-
-
-
 
         // BUGS FILE GENERATION
         for(let i=0; i<3; i++){
             this.generateFileLimitation(
-                this.dungeon_size - 5, 
+                this.dungeon_size - baseX - 3, 
                 baseY + (2-i) * (Game.NB_TILE_PER_FILE + 1), 
                 Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId+i])
         }
         fileId += 3
-
-
-        this.add.text((this.dungeon_size - 5 + 1.5) * Game.TILE_SIZE, (baseY + 3.5) * Game.TILE_SIZE, "Bugs")
-            .setScale(0.5)
-            .setOrigin(0.5, 0.5)
-            .setColor(this.textColor)
-            .setAlign('center')
-
 
 
 
@@ -410,50 +393,16 @@ export default class Tutorial extends Game{
         fileId += 3
 
 
-        this.add.text((this.dungeon_size / 2) * Game.TILE_SIZE, (this.dungeon_size - 2.5 - Game.NB_TILE_PER_FILE - 1) * Game.TILE_SIZE, "Vulnerabilities")
-            .setScale(0.5)
-            .setOrigin(0.5, 0.5)
-            .setColor(this.textColor)
-            .setAlign('center')
 
+        let leftRoomExampleX = 7
+        let rightRoomExampleX = this.dungeon_size - 5 - leftRoomExampleX
+        let roomExampleY = 5
 
-
-        let leftRoomExampleX = 8
-        let rightRoomExampleX = this.dungeon_size - 11
-        let roomExampleY = 7
-        
-        this.generateFileLimitation(
-            leftRoomExampleX, roomExampleY, 
-            Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
-
-        this.add.text(leftRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            (roomExampleY - 0.5) * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            "Dig this\nfile with").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
-            .setAlign('center')
-            .setBackgroundColor('#FFFFFF')
-            .setAlpha(0.7)
-
-
-        this.addKey(
-            leftRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-            (roomExampleY + 0.5) * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2,
-            "A")
-
+        this.generateFileExample(leftRoomExampleX, roomExampleY, fileId)
         fileId++
+        this.generateFileExample(rightRoomExampleX, roomExampleY, fileId)
 
-        this.generateFileLimitation(
-            rightRoomExampleX, roomExampleY, 
-            Game.NB_TILE_PER_FILE, this.sonarQubeData.children[fileId])
-            
-        // this.add.text(rightRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-        //     roomExampleY * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-        //     "Click me").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
-        //     .setBackgroundColor('#FFFFFF')
-        //     .setAlpha(0.7)
 
-        let lc = this.add.sprite(rightRoomExampleX * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2, 
-        roomExampleY * Game.TILE_SIZE + Game.NB_TILE_PER_FILE*Game.TILE_SIZE/2,  "left_click").setAlpha(0.7).setOrigin(0.5, 0.5)
-        lc.play("left_click_anim")
         // Generate exit tile in the center
         let exitFile = {
             "name": this.exitText,
@@ -515,6 +464,16 @@ export default class Tutorial extends Game{
             y: Math.floor(this.dungeon_size/2) - 2,
             size: Game.NB_TILE_PER_FILE + 2
         }
+        
+
+        this.add.text(
+            exitTiles.x * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2) * Game.TILE_SIZE / 2, 
+            (exitTiles.y - 1) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2) * Game.TILE_SIZE / 2, 
+            "Dig this place\nto exit\nthe tutorial").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+            .setAlign('center')
+            .setBackgroundColor('#FFFFFF')
+            .setAlpha(0.7)
+
         this.generateFileLimitation(
             exitTiles.x, 
             exitTiles.y, 
@@ -563,32 +522,31 @@ export default class Tutorial extends Game{
         let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
         this.wall1Layer = walls[0]
         this.wall2Layer = walls[1]
+    }
 
-        // add wall texture examples
-        let wallExampleX = 4
-        let wallExampleY = 1
-        let totalNbTextureExample = 15
-        let totalNbVerticalTextureExample = 10
-        for(let i=0; i < totalNbTextureExample; i++){
-            this.wall2Layer.putTileAt(ConstantsTiles.WALL_FACE + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY).setCollision(true)
-            this.wall1Layer.putTileAt(ConstantsTiles.WALL_TIP + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, wallExampleX+i, wallExampleY-1)
-        }
-        this.add.text((wallExampleX + totalNbTextureExample / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 0.4, "Walls represent the security (vulnerabilities)")
-            .setScale(0.5)
-            .setOrigin(0.5, 0.5)
-            .setColor(this.textColor)
+    generateFileExample(roomExampleX, roomExampleY, fileId){
+        this.generateFileLimitation(
+            roomExampleX, roomExampleY, 
+            Game.NB_TILE_PER_FILE + 2, this.sonarQubeData.children[fileId])
+
+        this.add.text(roomExampleX * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2, 
+            (roomExampleY - 0.5) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2, 
+            "Dig a\nfile with").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
+            .setAlign('center')
             .setBackgroundColor('#FFFFFF')
             .setAlpha(0.7)
 
-        // add ground texture examples
-        let groundExampleX = wallExampleX
-        let groundExampleY = wallExampleY+1
-        for(let i=0; i < totalNbTextureExample; i++){
-            for(let j=0; j < Math.floor(totalNbVerticalTextureExample / 5); j++){
-                this.groundLayer.putTileAt(ConstantsTiles.GROUND_CLEAN + Math.floor(i / Math.floor(totalNbTextureExample / 5)) * ConstantsTiles.tileDistance, groundExampleX + i, groundExampleY + j)
-            }
-        }
-        this.add.text((wallExampleX + (totalNbTextureExample) / 2) * Game.TILE_SIZE, Game.TILE_SIZE * 4.7, "Ground tiles represent the reliability (bugs)")
+
+        this.addKey(
+            (roomExampleX - 0.8) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2, 
+            (roomExampleY + 0.5) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2,
+            "A")
+
+
+        this.add.text(
+            (roomExampleX + 0.1) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2, 
+            (roomExampleY + 0.5) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2,
+            "or")
             .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setColor(this.textColor)
@@ -596,22 +554,11 @@ export default class Tutorial extends Game{
             .setBackgroundColor('#FFFFFF')
             .setAlpha(0.7)
 
-        
-        // this.add.image((wallExampleX + 1.8) * Game.TILE_SIZE, 4.2 * Game.TILE_SIZE, "music_note").setAlpha(0.7).setOrigin(0)
 
-        let code_smellsX = 5
-        let code_smellsY = 3
-        for(let i=0; i < 3; i++){
-            this.add.image((this.dungeon_size - code_smellsX - i) * Game.TILE_SIZE, code_smellsY * Game.TILE_SIZE, "crack").setAlpha(0.4).setOrigin(0)
-        }
-
-        this.add.text((this.dungeon_size - code_smellsX - 0.5) * Game.TILE_SIZE, (code_smellsY + 2) * Game.TILE_SIZE, "Cracks represent\nthe maintainability\n(code smells)")
-            .setScale(0.5)
-            .setOrigin(0.5, 0.5)
-            .setColor(this.textColor)
-            .setAlign('center')
-            .setBackgroundColor('#FFFFFF')
-            .setAlpha(0.7)
+        let lc = this.add.sprite(
+            (roomExampleX + 0.8) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2, 
+            (roomExampleY + 0.5) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2,  "left_click").setAlpha(0.7).setOrigin(0.5, 0.5)
+        lc.play("left_click_anim")
     }
 
     addKey(x: number, y: number, keyName: string, caption?:string, large:boolean = false, captionColor:string = this.textColor){
