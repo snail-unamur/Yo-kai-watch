@@ -20,69 +20,14 @@ export default class SetupTutorial extends Phaser.Scene {
         measures:any[]
     }[] = []
 
-    private childExample = {
-        "name": "small_demon_room.js",
-        "type": "FIL",
-        "path": "root/small_demon_room.js",
-        "key": "project-key-example:small_demon_room.js",
-        "measures": [
-            {
-                "metric": "reliability_rating",
-                "value": "1.0",
-                "bestValue": true
-            },
-            {
-                "metric": "security_rating",
-                "value": "1.0",
-                "bestValue": true
-            },
-            {
-                "metric": "sqale_rating",
-                "value": "1.0",
-                "bestValue": true
-            },
-            {
-                "metric": "code_smells",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "bugs",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "reliability_remediation_effort",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "security_remediation_effort",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "vulnerabilities",
-                "value": "0",
-                "bestValue": true
-            },
-            {
-                "metric": "sqale_index",
-                "value": "0",
-                "bestValue": true
-            }
-        ]
-    }
-
-    private key:string = ""
+    private key:string = "project-key-example"
 
     constructor() {
-        super('setup-tutorial');
+        super('setup-tutorial')
     }
 
     preload(){
-        this.resetTutorialLayout()
-        this.key = this.tutorialLayout[0].key
+        this.resetData()
 
         let types = ['CODE_SMELL', "BUG", "VULNERABILITY"]
         let severities = ['INFO', 'MAJOR', 'CRITICAL']
@@ -104,15 +49,77 @@ export default class SetupTutorial extends Phaser.Scene {
 
         this.tutorialLayout[0].children.push(this.createFileChild('file_example.js'))
         this.tutorialLayout[0].children.push(this.createFileChild('file_example (1).js'))
+    }
 
-
+    create() {
         Global.fileTree = this.tutorialLayout
         Global.issues = this.issues
 
+        Log.addInformation(LogConstant.TUTORIAL_LOADED)
+
+        console.log(`Tutorial setup`)
+        console.log("File tree", JSON.parse(JSON.stringify(Global.fileTree)))
+        console.log("Issues", JSON.parse(JSON.stringify(Global.issues)))
+
+        this.scene.run('game-ui', { roomFile: "root" })
+        this.scene.start('tutorial', undefined)
     }
 
     createFileChild(name: string){
-        let child = JSON.parse(JSON.stringify(this.childExample))
+        let child = {
+            "id": 0,
+            "name": "small_demon_room.js",
+            "type": "FIL",
+            "path": "root/small_demon_room.js",
+            "key": "project-key-example:small_demon_room.js",
+            "measures": [
+                {
+                    "metric": "reliability_rating",
+                    "value": "1.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "security_rating",
+                    "value": "1.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "sqale_rating",
+                    "value": "1.0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "bugs",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "reliability_remediation_effort",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "security_remediation_effort",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "vulnerabilities",
+                    "value": "0",
+                    "bestValue": true
+                },
+                {
+                    "metric": "sqale_index",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        }
 
         child.name = name
         child.path = `root/${child.name}`
@@ -122,19 +129,12 @@ export default class SetupTutorial extends Phaser.Scene {
         return child
     }
 
-    create() {
-        this.scene.run('game-ui', { roomFile: "root" })
-        Log.addInformation(LogConstant.TUTORIAL_LOADED)
-        console.log("tuto setup")
-        this.scene.start('tutorial')
-    }
-
-    resetTutorialLayout(){
+    resetData(){
         this.tutorialLayout = [{
             "name": "root",
             "type": "TRK",
             "path": "root",
-            "key": "project-key-example",
+            "key": this.key,
             "measures": [
                 {
                     "metric": "security_remediation_effort",
@@ -187,7 +187,3 @@ export default class SetupTutorial extends Phaser.Scene {
         this.issues = []
     }
 }
-
-
-
-

@@ -10,6 +10,9 @@ export default class Log{
 
     }
 
+    static print(object: Object, text: string = ""){
+        console.log(text, JSON.parse(JSON.stringify(object)))
+    }
 
     static addInformation(key: string, detail?){
         if(typeof detail === 'object'){

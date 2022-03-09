@@ -146,7 +146,9 @@ export default class Game extends Phaser.Scene{
         if(pointer.rightButtonDown()){
             this.goUp()
         } else if(this.currentTileHovered){
-            this.dig(this.currentTileHovered.collisionCallback())
+            let fileObject: FileChild = this.currentTileHovered.collisionCallback() 
+            Log.print(fileObject.getFile(), "Tile hovered")
+            this.dig(fileObject)
         }
     }
 

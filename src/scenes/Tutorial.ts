@@ -9,72 +9,8 @@ import FileChild from "./FileChild";
 import Game from "./Game";
 
 export default class Tutorial extends Game{
-
     private exitText = "exit_place.php"
-
     private textColor = "#000000"
-
-    private issueExample = {
-        "severity": "MINOR",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "CODE_SMELL"
-    }
-
-    private issues = [{
-        "severity": "CRITICAL",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "CODE_SMELL"
-    },
-    {
-        "severity": "MINOR",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "CODE_SMELL"
-    },
-    {
-        "severity": "INFO",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "CODE_SMELL"
-    },
-    {
-        "severity": "CRITICAL",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "VULNERABILITY"
-    },
-    {
-        "severity": "MINOR",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "VULNERABILITY"
-    },
-    {
-        "severity": "INFO",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "VULNERABILITY"
-    },
-    {
-        "severity": "CRITICAL",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "BUG"
-    },
-    {
-        "severity": "MINOR",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "BUG"
-    },
-    {
-        "severity": "INFO",
-        "component": "abc-map_abc-map:packages/server/src/utils/Validation.ts",
-        "debt": "1min",
-        "type": "BUG"
-    }]
     
     constructor(){
         super('tutorial')
@@ -218,7 +154,7 @@ export default class Tutorial extends Game{
 
         this.tooltip = this.add.text(0, 0, "this is a tooltip", textStyle)
         this.tooltip.setScale(0.5) // revert camera zoom
-        this.tooltip.setWordWrapWidth(500) // buggy when text is overriden
+        this.tooltip.setWordWrapWidth(500)
         this.tooltip.setBackgroundColor('black')
         this.tooltip.setAlpha(1)
         this.tooltip.setVisible(false)
@@ -238,7 +174,6 @@ export default class Tutorial extends Game{
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.scene.setVisible(false, "game-ui")
-            //this.scene.stop("game-ui")
         })
     }
 
@@ -333,15 +268,10 @@ export default class Tutorial extends Game{
         // This function is called only in the root room then we can
         // make the assumption that we're in it. Thus we will place 
         // files manually, not with the automatic way
-        let nbFile
-
+        let nbFile: number = 0
         if(this.sonarQubeData.children){
             nbFile = this.sonarQubeData.children.length
-        } else {
-            nbFile = 0
         }
-
-        let nbFileBySide = Math.ceil(Math.sqrt(nbFile))
 
         this.dungeon_size = 27
         this.generateGround()
@@ -352,14 +282,13 @@ export default class Tutorial extends Game{
         let baseX = 2
         let baseY = 9
 
-        let file
-
 
         // Place first file
         let fileId = 0
 
         // CODE SMELLS FILE GENERATION
         for(let i=0; i<3; i++){
+            this.sonarQubeData.children[fileId+i].id = fileId+i
             this.generateFileLimitation(
                 baseX, 
                 baseY + i * (Game.NB_TILE_PER_FILE + 1), 
@@ -371,6 +300,7 @@ export default class Tutorial extends Game{
 
         // BUGS FILE GENERATION
         for(let i=0; i<3; i++){
+            this.sonarQubeData.children[fileId + i].id = fileId+i
             this.generateFileLimitation(
                 this.dungeon_size - baseX - 3, 
                 baseY + (2-i) * (Game.NB_TILE_PER_FILE + 1), 
@@ -384,6 +314,7 @@ export default class Tutorial extends Game{
         let vulnerabilitiesStartingX = Math.ceil(this.dungeon_size / 2 - (Game.NB_TILE_PER_FILE + 1) * 1.5)
 
         for(let i=0; i<3; i++){
+            this.sonarQubeData.children[fileId+i].id = fileId+i
             this.generateFileLimitation(
                 vulnerabilitiesStartingX + i * (Game.NB_TILE_PER_FILE + 1), 
                 this.dungeon_size - 6, 
@@ -524,6 +455,8 @@ export default class Tutorial extends Game{
     }
 
     generateFileExample(roomExampleX, roomExampleY, fileId){
+        this.sonarQubeData.children[fileId].id = fileId
+
         this.generateFileLimitation(
             roomExampleX, roomExampleY, 
             Game.NB_TILE_PER_FILE + 2, this.sonarQubeData.children[fileId])
