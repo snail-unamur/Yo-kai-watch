@@ -108,7 +108,7 @@ export default class Tutorial extends Game{
 
 
         // Character Sword
-        this.sword = this.add.sword(this.player.x, this.player.y, 'sword', 7)
+        this.sword = this.add.sword(this.player.x, this.player.y, 'slash', 6)
 
         // Enemies
         let this_game = this

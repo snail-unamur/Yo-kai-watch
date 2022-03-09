@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import SwordContainer from '~/weapons/Sword'
+import Sword from '~/weapons/Sword'
 import { sceneEvents } from '~/events/EventCenter'
 import Log from '~/utils/Log'
 import { LogConstant } from '~/utils/Const'
@@ -19,6 +19,8 @@ enum HealthState {
 }
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
+    static ATTACK_DELAY: number = 500
+
     private healthState: HealthState = HealthState.IDLE
     private inControl: boolean = true
     private health = 3
@@ -114,7 +116,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         openMap: Phaser.Input.Keyboard.Key[],
         freeze: Phaser.Input.Keyboard.Key[],
         restart: Phaser.Input.Keyboard.Key[]
-    }, sword: SwordContainer, dt: number) {
+    }, sword: Sword, dt: number) {
         
         if(!cursors || this.healthState === HealthState.DEAD
             || !this.inControl
@@ -179,19 +181,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    attack(sword){
+    attack(sword: Sword){
         this.scene.sound.play('sword_slash', { volume: 0.5 })
         this.attacking = true
-        let swordSprite = sword
-        swordSprite.body.enable = true
-        swordSprite.anims.play('player-attack', true)
-
-        swordSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
-            swordSprite.body.enable = false
-            setTimeout(() => {
-                this.attacking = false
-            }, 500)
-        })
+        sword.attack(this)
     }
 
     dig(){
@@ -214,6 +207,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.enable = false
         this.setVelocity(0, 0)
         this.scene.sound.stopByKey('running')
+    }
+
+    setAttacking(val: boolean){        
+        this.attacking = val
     }
 }
 

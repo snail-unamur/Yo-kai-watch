@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import Player from '~/characters/Player'
 
 declare global {
     namespace Phaser.GameObjects {
@@ -20,7 +21,8 @@ export default class Sword extends Phaser.Physics.Arcade.Sprite
 	}
 
     updatePosition(x: number, y: number, direction: Phaser.Math.Vector2) {
-
+		this.setPosition(x, y + 8)
+		return
 		if(direction.x === 0 && direction.y === 0){
 			direction = this.lastDirection
 		}
@@ -40,6 +42,19 @@ export default class Sword extends Phaser.Physics.Arcade.Sprite
 
 		this.setPosition(x, y + this.height/2)
     }
+
+	attack(player: Player){
+        this.body.enable = true
+        // this.anims.play('player-attack', true)
+		this.anims.play('slash', true)
+
+        this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
+            this.body.enable = false
+            setTimeout(() => {
+				player.setAttacking(false)
+            }, Player.ATTACK_DELAY)
+        })
+	}
 }
 
 Phaser.GameObjects.GameObjectFactory.register('sword', function (this: Phaser.GameObjects.GameObjectFactory, x: number, y: number, texture: string, frame?: string | number) {
@@ -52,7 +67,7 @@ Phaser.GameObjects.GameObjectFactory.register('sword', function (this: Phaser.Ga
 	sprite.body.enable = false
 
 
-    sprite.body.setSize(24, 24)
+    sprite.body.setSize(48, 48)
     //sprite.body.setOffset(-2, -2)
 
     return sprite

@@ -33,6 +33,7 @@ export default class PreloaderAssets extends Phaser.Scene {
         this.load.spritesheet('small_medium_monsters', `tiles/small_medium_monsters${this.suffix}.png`, { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  })
 
         this.load.spritesheet('sword', `tiles/sword${this.suffix}.png`, { frameWidth: this.swordSize, frameHeight: this.swordSize, margin: 1, spacing: 2  })
+        this.load.spritesheet('slash', `tiles/slash.png`, { frameWidth: 48, frameHeight: 48 })
 
         // Loading ui
         this.load.image('ui_heart_empty', 'ui/ui_heart_empty.png')

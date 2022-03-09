@@ -353,7 +353,7 @@ export default class Game extends Phaser.Scene{
         cam.startFollow(this.player, undefined, 0.4, 0.4)
 
         // Character Sword
-        this.sword = this.add.sword(this.player.x, this.player.y, 'sword', 7)
+        this.sword = this.add.sword(this.player.x, this.player.y, 'slash', 6)
 
         // Enemies
         let this_game = this
