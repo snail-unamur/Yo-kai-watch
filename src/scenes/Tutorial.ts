@@ -3,15 +3,14 @@ import { createCharacterAnims } from "~/animations/PlayerAnimation";
 import { createUIAnims } from "~/animations/UIAnimation";
 import Monster from "~/enemies/Monster";
 import { sceneEvents } from "~/events/EventCenter";
-import { ConstantsTiles, LogConstant, MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const";
-import { Global } from "~/utils/Global";
+import { LogConstant } from "~/utils/Const";
 import Log from "~/utils/Log";
 import FileChild from "./FileChild";
 import Game from "./Game";
 
 export default class Tutorial extends Game{
 
-    private exitText = " exit tutorial \nby digging here"
+    private exitText = "exit_place.php"
 
     private textColor = "#000000"
 
