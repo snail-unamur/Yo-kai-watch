@@ -3,6 +3,8 @@ import { LogConstant } from "./Const"
 export default class Log{
     static information: { key: string, time:number, detail? }[] = []
 
+    static toLog: boolean = false
+
     static nbDeath: number = 0
     static nbKills: number = 0
     
@@ -11,7 +13,13 @@ export default class Log{
     }
 
     static print(object: Object, text: string = ""){
-        console.log(text, JSON.parse(JSON.stringify(object)))
+        if(!this.toLog) return
+        
+        if(!object){
+            console.log(text, "undefined")
+        } else {
+            console.log(text, JSON.parse(JSON.stringify(object)))
+        }
     }
 
     static addInformation(key: string, detail?){
