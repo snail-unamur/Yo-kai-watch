@@ -48,15 +48,14 @@ export default class Tutorial extends Game{
 
         sceneEvents.on('player-dig-done', () => {
             Log.addInformation(LogConstant.DIG, this.mapContext)
+            console.log(this.mapContext.selected)
             switch(this.mapContext.selected){
                 case this.exitText:
                     this.exit()
                     break;
                 default:
                     this.restart()
-
             }
-            this.restart()
         })
 
         sceneEvents.on('player-go-up-done', () => {
@@ -466,12 +465,7 @@ export default class Tutorial extends Game{
             this.sound.play('main_theme', { loop: true, volume: Game.MUSIC_VOLUME })
         }
 
-        
-        let settingsFile = JSON.parse(JSON.stringify(exitFile))
-        settingsFile.name = "settings"
-        settingsFile.id = fileId
-
-        this.generateFileLimitation(2, 2, Game.NB_TILE_PER_FILE - 1, this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
+        this.generateFileLimitation(this.dungeon_size - Game.NB_TILE_PER_FILE - 1, 2, Game.NB_TILE_PER_FILE - 1, this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
 
         
         
