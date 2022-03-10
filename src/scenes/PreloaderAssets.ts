@@ -18,7 +18,11 @@ export default class PreloaderAssets extends Phaser.Scene {
          * 1 tile = 16x16 pixels
          * 1 row = 32 tiles
          * */
-        this.load.spritesheet('tiles', `tiles/dungeon_tiles${this.suffix}.png`, { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  })
+        const tilesetSetup = { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  }
+        this.load.spritesheet('tiles', `tiles/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('tiles_funky', `tiles/funkyscale/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('tiles_grayscale_light', `tiles/grayscale_light/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('tiles_grayscale_dark', `tiles/grayscale_dark/dungeon_tiles${this.suffix}.png`, tilesetSetup)
 
         // TODO: clean. There are 3 strategies right now, load frame by frame from separated files.
         // Or load the entire tileset with different frame size.

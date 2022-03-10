@@ -165,22 +165,26 @@ export default class Game extends Phaser.Scene{
         } 
 
         if(fileObject){
-            this.player.setPosition(fileObject.getX() + fileObject.getWidth()/2, fileObject.getY() + fileObject.getHeight()/2)
-            
-            if(this.mapContext.file.children) {
-                if(this.mapContext.selectedId !== -1){
-                    this.mapContext.path.push(this.mapContext.selectedId)
-                }
-                this.mapContext.selectedId = fileObject.getFile().id
-                this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
-                this.mapContext.selected = fileObject.getFile().name
-                if(this.freezing){
-                    sceneEvents.emit("player-dig-done")
-                } else {
-                    this.player.dig()
-                }
-            }
+            this.digProcess(fileObject)
         } 
+    }
+
+    digProcess(fileObject: FileChild){
+        this.player.setPosition(fileObject.getX() + fileObject.getWidth()/2, fileObject.getY() + fileObject.getHeight()/2)
+        
+        if(this.mapContext.file.children) {
+            if(this.mapContext.selectedId !== -1){
+                this.mapContext.path.push(this.mapContext.selectedId)
+            }
+            this.mapContext.selectedId = fileObject.getFile().id
+            this.mapContext.file = this.mapContext.file.children[fileObject.getFile().id]
+            this.mapContext.selected = fileObject.getFile().name
+            if(this.freezing){
+                sceneEvents.emit("player-dig-done")
+            } else {
+                this.player.dig()
+            }
+        }
     }
 
     goUp(){
@@ -723,7 +727,7 @@ export default class Game extends Phaser.Scene{
         cam.setScroll(cam.scrollX + cameraPositionOffset.x, cam.scrollY + cameraPositionOffset.y)
     }
 
-    newLayer(tile_size:number, dungeon_size:number, tilesString:string = "tiles"){
+    newLayer(tile_size:number, dungeon_size:number){
         const map = this.make.tilemap({
             tileWidth: tile_size,
             tileHeight: tile_size,
@@ -731,14 +735,14 @@ export default class Game extends Phaser.Scene{
             height: dungeon_size
         })
 
-        const tileset = map.addTilesetImage(tilesString, undefined, tile_size, tile_size, 1, 2)
+        const tileset = map.addTilesetImage(Global.tileset, undefined, tile_size, tile_size, 1, 2)
 
         const layer = map.createBlankLayer("Layer Blank", tileset)
 
         return layer
     }
     
-    newLayerWH(tile_size:number, width:number, height:number, tilesString:string = "tiles"){
+    newLayerWH(tile_size:number, width:number, height:number){
         const map = this.make.tilemap({
             tileWidth: tile_size,
             tileHeight: tile_size,
@@ -746,7 +750,7 @@ export default class Game extends Phaser.Scene{
             height: height
         })
 
-        const tileset = map.addTilesetImage(tilesString, undefined, tile_size, tile_size, 1, 2)
+        const tileset = map.addTilesetImage(Global.tileset, undefined, tile_size, tile_size, 1, 2)
 
         const layer = map.createBlankLayer("Layer Blank", tileset)
 
@@ -769,9 +773,9 @@ export default class Game extends Phaser.Scene{
     }
 
     createWalls(tile_size:number, dungeon_size:number){
-        const topWallLayer = this.newLayer(tile_size, dungeon_size, "tiles")
+        const topWallLayer = this.newLayer(tile_size, dungeon_size)
         topWallLayer.setDepth(0)
-        const wallsLayer = this.newLayer(tile_size, dungeon_size, "tiles")
+        const wallsLayer = this.newLayer(tile_size, dungeon_size)
         wallsLayer.setDepth(2)
         let tile:Phaser.Tilemaps.Tile
 

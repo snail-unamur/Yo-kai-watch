@@ -1,4 +1,4 @@
-import { LogConstant } from "~/utils/Const";
+import { LogConstant, TileSetName } from "~/utils/Const";
 import { Global } from "~/utils/Global";
 import Log from "~/utils/Log";
 
@@ -49,6 +49,14 @@ export default class SetupTutorial extends Phaser.Scene {
 
         this.tutorialLayout[0].children.push(this.createFileChild('file_example.js'))
         this.tutorialLayout[0].children.push(this.createFileChild('file_example (1).js'))
+
+        let settings = this.createFileChild('settings')
+        settings.children = []
+        this.tutorialLayout[0].children.push(settings)
+        
+        TileSetName.tilesets.forEach((tilesetName, index) => {
+            settings.children?.push(this.createFileChild(tilesetName))
+        })
     }
 
     create() {
@@ -73,7 +81,15 @@ export default class SetupTutorial extends Phaser.Scene {
     }
 
     createFileChild(name: string){
-        let child = {
+        let child: {
+            children:any[]|undefined,
+            name:string,
+            type:string,
+            path:string,
+            key:string,
+            measures:any[],
+            id:number
+        } = {
             "id": 0,
             "name": "small_demon_room.js",
             "type": "FIL",
@@ -125,7 +141,8 @@ export default class SetupTutorial extends Phaser.Scene {
                     "value": "0",
                     "bestValue": true
                 }
-            ]
+            ],
+            children:undefined
         }
 
         child.name = name

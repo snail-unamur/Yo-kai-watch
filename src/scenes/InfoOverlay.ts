@@ -1,5 +1,6 @@
 import Phaser from "phaser"
 import { ConstantsTiles, LogConstant } from "~/utils/Const"
+import { Global } from "~/utils/Global"
 import Log from "~/utils/Log"
 import Game from './Game'
 
@@ -40,15 +41,15 @@ export default class InfoOverlay extends Phaser.Scene {
 
         const wallFirstY = firstY + 40
         for(let i = 0; i < 10; i++){
-            this.add.image(this.veilX + 20 + 16*i, firstY + wallFirstY, "tiles", ConstantsTiles.WALL_TIP + ConstantsTiles.tileDistance * Math.floor(i/2))
-            this.add.image(this.veilX + 20 + 16*i, firstY + wallFirstY + 16, "tiles", ConstantsTiles.WALL_FACE + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + wallFirstY, Global.tileset, ConstantsTiles.WALL_TIP + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + wallFirstY + 16, Global.tileset, ConstantsTiles.WALL_FACE + ConstantsTiles.tileDistance * Math.floor(i/2))
         }
 
         this.addText(10, firstY + space, "Ground Tiles \nrepresent the \nreliability (bugs)")
         const groundFirstY = firstY + space + 50
         for(let i = 0; i < 10; i++){
-            this.add.image(this.veilX + 20 + 16*i, firstY + groundFirstY, "tiles", ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
-            this.add.image(this.veilX + 20 + 16*i, firstY + groundFirstY + 16, "tiles", ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + groundFirstY, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + groundFirstY + 16, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
         }
 
         this.addText(10, firstY + 2 * space, "Cracks represent \nthe reliability \n(code smells)")
@@ -56,8 +57,8 @@ export default class InfoOverlay extends Phaser.Scene {
         const crackFirstY = firstY + 2 * space + 50
         const crackAlpha = 0.6
         for(let i = 0; i < 10; i++){
-            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY, "tiles", ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
-            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY + 16, "tiles", ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY + 16, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
             this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY, "crack").setAlpha(crackAlpha)
             this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY + 16, "crack").setAlpha(crackAlpha)
         }

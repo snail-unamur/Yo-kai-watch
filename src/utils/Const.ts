@@ -63,3 +63,17 @@ export abstract class LogConstant{
     static readonly FREEZE = 'freeze'
     static readonly EXIT = 'exit'
 }
+
+export abstract class TileSetName{
+    static readonly CLASSIC = "tiles"
+    static readonly FUNKY = "tiles_funky"
+    static readonly GRAY_DARK = "tiles_grayscale_dark"
+    static readonly GRAY_LIGHT = "tiles_grayscale_light"
+
+    static tilesets: string[] = [
+        TileSetName.CLASSIC,
+        TileSetName.FUNKY,
+        TileSetName.GRAY_DARK,
+        TileSetName.GRAY_LIGHT
+    ]
+}
