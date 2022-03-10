@@ -182,7 +182,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     attack(sword: Sword){
-        this.scene.sound.play('sword_slash', { volume: 0.5 })
+        this.scene.sound.play('sword_slash', { volume: 4 })
         this.attacking = true
         sword.attack(this)
     }
@@ -190,7 +190,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     dig(){
         if(this.digging || this.goingUp) return
         this.specialAction()
-        this.scene.sound.play('dig', { volume: 2.5, delay: 0.01 })
+        this.scene.sound.play('dig', { volume: 1.7, delay: 0.01 })
         this.digging = true
         this.anims.play('player-dig', true)
     }
