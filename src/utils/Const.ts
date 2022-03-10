@@ -64,6 +64,10 @@ export abstract class LogConstant{
     static readonly EXIT = 'exit'
 }
 
+export abstract class MonsterConstants{
+    static readonly SPEED = 15
+}
+
 export abstract class TileSetName{
     static readonly FUNKY = "funky"
     static readonly GRAY_DARK = "grayscale_dark"

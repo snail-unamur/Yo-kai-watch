@@ -2,7 +2,7 @@ import Phaser from "phaser"
 import { sceneEvents } from "~/events/EventCenter"
 import HealthBar from "~/graphics/Healthbar"
 
-import { LogConstant, MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
+import { LogConstant, MonsterConstants, MonsterConstantsSize, MonsterConstantsType } from "~/utils/Const"
 import Log from "~/utils/Log"
 
 enum HealthState {
@@ -191,12 +191,11 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         if (this.healthState === HealthState.DAMAGE) {
             return
         }
-        const speed = 10
 
         const dx = x - this.x
         const dy = y - this.y
 
-        const monsterVelocity = new Phaser.Math.Vector2(dx, dy).normalize().scale(speed)
+        const monsterVelocity = new Phaser.Math.Vector2(dx, dy).normalize().scale(MonsterConstants.SPEED)
 
         // Flip sprite to match the direciton of the monster
         if(monsterVelocity.x < 0){
