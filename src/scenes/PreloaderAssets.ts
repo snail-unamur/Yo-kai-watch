@@ -19,8 +19,7 @@ export default class PreloaderAssets extends Phaser.Scene {
          * 1 row = 32 tiles
          * */
         const tilesetSetup = { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  }
-        this.load.spritesheet('classic', `tiles/dungeon_tiles${this.suffix}.png`, tilesetSetup)
-        this.load.spritesheet('funky', `tiles/funkyscale/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('funky', `tiles/funky/dungeon_tiles${this.suffix}.png`, tilesetSetup)
         this.load.spritesheet('grayscale_light', `tiles/grayscale_light/dungeon_tiles${this.suffix}.png`, tilesetSetup)
         this.load.spritesheet('grayscale_dark', `tiles/grayscale_dark/dungeon_tiles${this.suffix}.png`, tilesetSetup)
         this.load.spritesheet('rainbow', `tiles/rainbow/dungeon_tiles${this.suffix}.png`, tilesetSetup)

@@ -65,7 +65,6 @@ export abstract class LogConstant{
 }
 
 export abstract class TileSetName{
-    static readonly CLASSIC = "classic"
     static readonly FUNKY = "funky"
     static readonly GRAY_DARK = "grayscale_dark"
     static readonly GRAY_LIGHT = "grayscale_light"
@@ -77,7 +76,6 @@ export abstract class TileSetName{
 
     
     static tilesets: string[] = [
-        TileSetName.CLASSIC,
         TileSetName.FUNKY,
         TileSetName.GRAY_DARK,
         TileSetName.GRAY_LIGHT,
