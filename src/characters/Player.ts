@@ -19,7 +19,7 @@ enum HealthState {
 }
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-    static ATTACK_DELAY: number = 500
+    static ATTACK_DELAY: number = 300
 
     private healthState: HealthState = HealthState.IDLE
     private inControl: boolean = true

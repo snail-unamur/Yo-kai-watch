@@ -11,41 +11,19 @@ declare global {
 
 export default class Sword extends Phaser.Physics.Arcade.Sprite
 {
-	private lastDirection: Phaser.Math.Vector2
+	private swordScale: number = 1.5
 
 	constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
 		super(scene, x, y, texture, frame)
-
-		this.lastDirection = new Phaser.Math.Vector2(0, 1)
-		//this.setScale(1.5)
+		this.setScale(this.swordScale)
 	}
 
     updatePosition(x: number, y: number, direction: Phaser.Math.Vector2) {
 		this.setPosition(x, y + 8)
-		return
-		if(direction.x === 0 && direction.y === 0){
-			direction = this.lastDirection
-		}
-
-		this.lastDirection = direction
-
-		x += direction.x * 16//this.width
-		y += direction.y * 16//this.height
-
-
-		if(direction.y === 0 && direction.x === -1){
-			this.setAngle(-180)
-
-		} else {
-			this.setAngle(direction.y * Math.abs(direction.x - 2) * 45)
-		}
-
-		this.setPosition(x, y + this.height/2)
     }
 
 	attack(player: Player){
         this.body.enable = true
-        // this.anims.play('player-attack', true)
 		this.anims.play('slash', true)
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (animation) => {
