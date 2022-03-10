@@ -48,7 +48,6 @@ export default class Tutorial extends Game{
 
         sceneEvents.on('player-dig-done', () => {
             Log.addInformation(LogConstant.DIG, this.mapContext)
-            console.log(this.mapContext.selected)
             switch(this.mapContext.selected){
                 case this.exitText:
                     this.exit()
