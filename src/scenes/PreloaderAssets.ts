@@ -19,15 +19,21 @@ export default class PreloaderAssets extends Phaser.Scene {
          * 1 row = 32 tiles
          * */
         const tilesetSetup = { frameWidth: 16, frameHeight: 16, margin: 1, spacing: 2  }
-        this.load.spritesheet('tiles', `tiles/dungeon_tiles${this.suffix}.png`, tilesetSetup)
-        this.load.spritesheet('tiles_funky', `tiles/funkyscale/dungeon_tiles${this.suffix}.png`, tilesetSetup)
-        this.load.spritesheet('tiles_grayscale_light', `tiles/grayscale_light/dungeon_tiles${this.suffix}.png`, tilesetSetup)
-        this.load.spritesheet('tiles_grayscale_dark', `tiles/grayscale_dark/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('classic', `tiles/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('funky', `tiles/funkyscale/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('grayscale_light', `tiles/grayscale_light/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('grayscale_dark', `tiles/grayscale_dark/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('rainbow', `tiles/rainbow/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('materials', `tiles/materials/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('grayscale_rainbow', `tiles/grayrainbowscale/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('grayscale_rainbow2', `tiles/grayrainbow2colorscale_too light/dungeon_tiles${this.suffix}.png`, tilesetSetup)
+        this.load.spritesheet('grayscale_rainbow2_cheat', `tiles/grayrainbow2colorscale_cheatedwalles/dungeon_tiles${this.suffix}.png`, tilesetSetup)
 
+        
         // TODO: clean. There are 3 strategies right now, load frame by frame from separated files.
         // Or load the entire tileset with different frame size.
         // Or load multiple tilesets with different frame size.
-
+        
         
         // loading for big monsters
         this.load.spritesheet('big_monsters', `tiles/big_monsters${this.suffix}.png`, { frameWidth: 32, frameHeight: 32, margin: 1, spacing: 2  })

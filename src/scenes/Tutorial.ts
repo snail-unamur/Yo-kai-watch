@@ -281,92 +281,6 @@ export default class Tutorial extends Game{
         }
     }
 
-    generateSettings(){
-        let nbFile
-
-        this.wallTexture = 5
-        this.groundTexture = 5
-        if(this.sonarQubeData.children){
-            nbFile = this.sonarQubeData.children.length
-        } else {
-            nbFile = 12
-        }
-
-        this.dungeon_size = 27
-        this.generateGround()
-
-        let themeFile = {
-            "name": this.exitText,
-            "type": "FIL",
-            "path": `root/${this.exitText}`,
-            "key": `project-key-example:${this.exitText}`,
-            "id": 0,
-            "measures": [
-                {
-                    "metric": "reliability_rating",
-                    "value": "0.0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "security_rating",
-                    "value": "0.0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "sqale_rating",
-                    "value": "1.0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "code_smells",
-                    "value": "0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "bugs",
-                    "value": "0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "reliability_remediation_effort",
-                    "value": "0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "security_remediation_effort",
-                    "value": "0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "vulnerabilities",
-                    "value": "0",
-                    "bestValue": true
-                },
-                {
-                    "metric": "sqale_index",
-                    "value": "0",
-                    "bestValue": true
-                }
-            ],
-            children:undefined
-        }
-
-        this.fileLayerGround = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-        this.fileLayer = this.newLayer(Game.TILE_SIZE, this.dungeon_size-2)
-        // Theme selection
-        let themeY = 3
-        let themeX = 4
-        TileSetName.tilesets.forEach((tilesetName, index) => {
-            let theme = JSON.parse(JSON.stringify(themeFile))
-            theme.name = tilesetName
-    
-            this.generateFileLimitation(themeX + 4 * index, themeY, Game.NB_TILE_PER_FILE, theme)
-        })
-        let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
-        this.wall1Layer = walls[0]
-        this.wall2Layer = walls[1]
-    }
-
     generationRoot() {
         Log.print(this.sonarQubeData, "Tutorial data:")
         this.wallTexture = 5
@@ -556,8 +470,6 @@ export default class Tutorial extends Game{
         let settingsFile = JSON.parse(JSON.stringify(exitFile))
         settingsFile.name = "settings"
         settingsFile.id = fileId
-        console.log(this.sonarQubeData.children)
-        console.log(this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
 
         this.generateFileLimitation(2, 2, Game.NB_TILE_PER_FILE - 1, this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
 

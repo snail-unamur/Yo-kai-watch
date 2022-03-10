@@ -37,16 +37,24 @@ export default class InfoOverlay extends Phaser.Scene {
 
         const space = 120
         const firstY = 10
-        this.addText(10, firstY, "Walls represent \nthe security \n(vulnerabilities)")
+        this.add.text(this.veilX + 10, firstY, `Tile theme:\n${Global.tileset}`)
+            .setColor(this.textColor)
+            .setBackgroundColor("#000000")
+            .setColor("#FFFFFF")
+            .setAlpha(0.7)
+            .setAlign("left")
 
-        const wallFirstY = firstY + 40
+
+        this.addText(10, firstY + 40, "Walls represent \nthe security \n(vulnerabilities)")
+
+        const wallFirstY = firstY + 40 + 40
         for(let i = 0; i < 10; i++){
             this.add.image(this.veilX + 20 + 16*i, firstY + wallFirstY, Global.tileset, ConstantsTiles.WALL_TIP + ConstantsTiles.tileDistance * Math.floor(i/2))
             this.add.image(this.veilX + 20 + 16*i, firstY + wallFirstY + 16, Global.tileset, ConstantsTiles.WALL_FACE + ConstantsTiles.tileDistance * Math.floor(i/2))
         }
 
-        this.addText(10, firstY + space, "Ground Tiles \nrepresent the \nreliability (bugs)")
-        const groundFirstY = firstY + space + 50
+        this.addText(10, firstY + space + 10, "Ground Tiles \nrepresent the \nreliability (bugs)")
+        const groundFirstY = firstY + space + 60
         for(let i = 0; i < 10; i++){
             this.add.image(this.veilX + 20 + 16*i, firstY + groundFirstY, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
             this.add.image(this.veilX + 20 + 16*i, firstY + groundFirstY + 16, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
@@ -57,8 +65,8 @@ export default class InfoOverlay extends Phaser.Scene {
         const crackFirstY = firstY + 2 * space + 50
         const crackAlpha = 0.6
         for(let i = 0; i < 10; i++){
-            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
-            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY + 16, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY, Global.tileset, ConstantsTiles.GROUND_CRACK + ConstantsTiles.tileDistance * Math.floor(i/2))
+            this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY + 16, Global.tileset, ConstantsTiles.GROUND_CRACK + ConstantsTiles.tileDistance * Math.floor(i/2))
             this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY, "crack").setAlpha(crackAlpha)
             this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY + 16, "crack").setAlpha(crackAlpha)
         }
@@ -88,8 +96,8 @@ export default class InfoOverlay extends Phaser.Scene {
         this.add.image(monsterStartX + 2*monsterSpace, vulnerabilitiesY, "big_monsters", 28)
     }
     
-    addText(x: number, y: number, text: string){
-        this.add.text(this.veilX + x, y, text)
+    addText(x: number, y: number, text: string): Phaser.GameObjects.Text{
+        return this.add.text(this.veilX + x, y, text)
             .setColor(this.textColor)
             .setBackgroundColor("#FFFFFF")
             .setAlpha(0.7)

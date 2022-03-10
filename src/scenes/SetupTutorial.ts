@@ -55,7 +55,23 @@ export default class SetupTutorial extends Phaser.Scene {
         this.tutorialLayout[0].children.push(settings)
         
         TileSetName.tilesets.forEach((tilesetName, index) => {
-            settings.children?.push(this.createFileChild(tilesetName))
+            let c = this.createFileChild(tilesetName)
+            let i = 0
+            c.measures.find(el => {
+                i++
+                return el.metric === "reliability_rating"
+            })
+            i--
+            c.measures[i].value = `${Math.floor(Math.random()*5)}.0`
+
+            i = 0
+            c.measures.find(el => {
+                i++
+                return el.metric === "security_rating"
+            })
+            i--
+            c.measures[i].value = `${Math.floor(Math.random()*5)}.0`
+            settings.children?.push(c)
         })
     }
 

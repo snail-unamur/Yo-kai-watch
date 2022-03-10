@@ -65,15 +65,25 @@ export abstract class LogConstant{
 }
 
 export abstract class TileSetName{
-    static readonly CLASSIC = "tiles"
-    static readonly FUNKY = "tiles_funky"
-    static readonly GRAY_DARK = "tiles_grayscale_dark"
-    static readonly GRAY_LIGHT = "tiles_grayscale_light"
+    static readonly CLASSIC = "classic"
+    static readonly FUNKY = "funky"
+    static readonly GRAY_DARK = "grayscale_dark"
+    static readonly GRAY_LIGHT = "grayscale_light"
+    static readonly RAINBOW = "rainbow"
+    static readonly MATERIALS = "materials"
+    static readonly GRAY_RAINBOW = "grayscale_rainbow"
+    static readonly GRAY_RAINBOW2 = "grayscale_rainbow2"
+    static readonly GRAY_RAINBOW2_CHEAT = "grayscale_rainbow2_cheat"
 
+    
     static tilesets: string[] = [
         TileSetName.CLASSIC,
         TileSetName.FUNKY,
         TileSetName.GRAY_DARK,
-        TileSetName.GRAY_LIGHT
+        TileSetName.GRAY_LIGHT,
+        TileSetName.RAINBOW,
+        TileSetName.MATERIALS,
+        TileSetName.GRAY_RAINBOW2,
+        TileSetName.GRAY_RAINBOW2_CHEAT
     ]
 }
