@@ -16,8 +16,8 @@ import InfoOverlay from './scenes/InfoOverlay'
 
 export default new Phaser.Game({
 	type: Phaser.AUTO,
-	width: 1000,
-	height: 800,
+	width: 800,
+	height: 600,
 	physics: {
 		default: 'arcade',
 		arcade: {
