@@ -9,6 +9,7 @@ import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/Sc
 import FileChild from "./FileChild";
 import { Global } from "~/utils/Global";
 import Game from "./Game";
+import KeysGenerator from "~/utils/KeysGenerator";
 
 export default class Map extends Phaser.Scene{
     private static readonly FILE_STEP = 3/10
@@ -330,6 +331,8 @@ export default class Map extends Phaser.Scene{
         zone.setOrigin(0, 0)
 
         this.generateSearchBar()
+
+        KeysGenerator.generateZQSD(this)
     }
 
     update(t:number, dt:number){

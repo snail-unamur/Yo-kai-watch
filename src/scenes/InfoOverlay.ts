@@ -1,6 +1,7 @@
 import Phaser from "phaser"
 import { ConstantsTiles, LogConstant } from "~/utils/Const"
 import { Global } from "~/utils/Global"
+import KeysGenerator from "~/utils/KeysGenerator"
 import Log from "~/utils/Log"
 import Game from './Game'
 
@@ -94,6 +95,8 @@ export default class InfoOverlay extends Phaser.Scene {
         this.add.image(monsterStartX, vulnerabilitiesY, "small_medium_monsters", 29)
         this.add.image(monsterStartX + monsterSpace, vulnerabilitiesY, "small_medium_monsters", 65)
         this.add.image(monsterStartX + 2*monsterSpace, vulnerabilitiesY, "big_monsters", 28)
+
+        KeysGenerator.generateZQSD(this)
     }
     
     addText(x: number, y: number, text: string): Phaser.GameObjects.Text{
