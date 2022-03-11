@@ -24,7 +24,7 @@ export default class Game extends Phaser.Scene{
     static readonly MIN_NB_FILE_LIMIT_ROW = 2
     static readonly MUSIC_VOLUME = 0.3
     static readonly CAMERA_SPEED = 5
-    static readonly MONSTER_SPAWN = 1000
+    static readonly MONSTER_SPAWN = 500
 
     protected dungeon_size = 10
 
@@ -619,6 +619,8 @@ export default class Game extends Phaser.Scene{
         }
         if(pointer.y > this.game.canvas.height/2){
             y -= this.tooltip.getBounds().height
+        } else {
+            y += 8
         }
         this.tooltip.setPosition(x, y)
 
@@ -654,7 +656,7 @@ export default class Game extends Phaser.Scene{
         if(t - this.lastSpawn >= Game.MONSTER_SPAWN){
             this.lastSpawn = t
 
-
+            // Could be highly optimized. Might be important to fix if there is any performance issue
             this.lastIdSpawn = (this.lastIdSpawn + 1) % this.fileChildren.length
             for(let i = 0; i < this.fileChildren.length && !this.fileChildren[this.lastIdSpawn].hasMonster(); i++){
                 this.lastIdSpawn = (this.lastIdSpawn + 1) % this.fileChildren.length
@@ -662,7 +664,7 @@ export default class Game extends Phaser.Scene{
 
             if(this.fileChildren[this.lastIdSpawn].hasMonster()){
                 this.newMonster(this.fileChildren[this.lastIdSpawn])
-                this.fileChildren[this.lastIdSpawn].getMonster()
+                //this.fileChildren[this.lastIdSpawn].getMonster()
             }
         }
       
