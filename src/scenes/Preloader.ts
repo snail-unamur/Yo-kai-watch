@@ -87,7 +87,7 @@ export default class Preloader extends Phaser.Scene {
         let loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - 50,
-            text: 'Loading...',
+            text: 'Downloading...',
             style: {
                 font: '20px monospace'
             }
