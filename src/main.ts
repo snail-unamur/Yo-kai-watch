@@ -25,7 +25,7 @@ export default new Phaser.Game({
 			//debug: true
 		}
 	},
-	scene: [PreloaderAssets, SetupTutorial, MenuProjects, Preloader, Map, Game, Tutorial, GameUI, PauseOverlay, InfoOverlay],
+	scene: [PreloaderAssets, SetupTutorial, MenuProjects, Preloader, Map, Game, Tutorial, GameUI, InfoOverlay, PauseOverlay],
 	parent: 'phaser-container',
 	scale: {
 		zoom: 1,

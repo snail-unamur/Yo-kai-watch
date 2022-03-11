@@ -139,7 +139,7 @@ export default class Game extends Phaser.Scene{
 
     onPause(){
         this.reduceVolume()
-        document.body.style.cursor = 'default';
+        document.body.style.cursor = 'default'
         this.scene.pause()
         this.scene.run('pause', { game: this })
     }
@@ -246,6 +246,8 @@ export default class Game extends Phaser.Scene{
         this.scene.setVisible(false, "game-ui")
         //this.scene.stop("game-ui")
         document.body.style.cursor = 'default';
+        
+        this.scene.stop('info')
         this.scene.start('map', { mapContext: this.mapContext, lastScene: this.scene.key })
     }
 
