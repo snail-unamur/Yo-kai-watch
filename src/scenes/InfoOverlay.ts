@@ -9,7 +9,7 @@ export default class InfoOverlay extends Phaser.Scene {
     private veil!: Phaser.GameObjects.Graphics
 
     private veilX!: number
-    private veilWidth!: number
+    private veilWidth: number = 190
 
     
     private textColor = "#000000"
@@ -21,8 +21,7 @@ export default class InfoOverlay extends Phaser.Scene {
     create() {
         Log.addInformation(LogConstant.PAUSE, { state: true })
 
-        this.veilX = this.game.canvas.width * 3/4
-        this.veilWidth = this.game.canvas.width - this.veilX
+        this.veilX = this.game.canvas.width - this.veilWidth
 
         this.veil = this.add.graphics({ 
             x:0, 
@@ -40,10 +39,7 @@ export default class InfoOverlay extends Phaser.Scene {
         const firstY = 10
         this.add.text(this.veilX + 10, firstY, `Tile theme:\n${Global.tileset}`)
             .setColor(this.textColor)
-            .setBackgroundColor("#000000")
             .setColor("#FFFFFF")
-            .setAlpha(0.7)
-            .setAlign("left")
 
 
         this.addText(10, firstY + 40, "Walls represent \nthe security \n(vulnerabilities)")
