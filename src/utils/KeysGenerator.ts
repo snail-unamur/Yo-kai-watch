@@ -44,6 +44,6 @@ export default class KeysGenerator{
         }
 
         scene.add.image(x, y, keyId).setAlpha(0.7).setOrigin(0.5, 0.5).setScale(2)
-        scene.add.text(x, y - 0.5, keyName).setOrigin(0.5, 0.5).setColor(KeysGenerator.textColor)
+        scene.add.text(x, y - 2, keyName).setOrigin(0.5, 0.5).setColor(KeysGenerator.textColor)
     }
 }
