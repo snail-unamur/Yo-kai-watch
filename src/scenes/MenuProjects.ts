@@ -10,6 +10,9 @@ export default class MenuProjects extends Phaser.Scene {
     private suggestionPanel!: ScrollablePanel
     private textEdit!: TextEdit
 
+    private mostPopular!: BBCodeText
+    private mostPopularName: string = "brave_brave-core"
+
     private sceneUI!: Phaser.Scene
 
     private rexUI
@@ -124,7 +127,12 @@ export default class MenuProjects extends Phaser.Scene {
         
                                 this.projectNames = this.cache.json.get('project_names')
                                  
-                                if(name !== "") this.generatePanel()
+                                if(name !== ""){
+                                    this.generatePanel()
+
+                                } else if(this.suggestionPanel){ 
+                                    this.suggestionPanel.destroy()
+                                } 
                             })
                             this.load.start()
                         }
@@ -152,6 +160,37 @@ export default class MenuProjects extends Phaser.Scene {
             console.log("menu projects shutdown")
             this.textEditZone.removeAllListeners()
             this.load.removeAllListeners()
+        })
+        
+        
+        this.mostPopular = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.38, `Most popular project: ${this.mostPopularName}`, { 
+            fixedWidth: 460, 
+            fixedHeight: 36,
+            
+            backgroundColor: '#171818',
+            backgroundCornerRadius: 10,
+            valign: "center",
+            align:"center",
+            fontFamily: 'Helvetica, sans-serif'
+        })
+        this.mostPopular.setOrigin(0.5, 0.5)
+        this.add.existing(this.mostPopular)
+
+        let this_game = this
+        
+        this.mostPopular.setInteractive().on('pointerover', function () {
+            this_game.mostPopular.alpha = 0.5
+            document.body.style.cursor = 'pointer'
+        })
+        
+        this.mostPopular.on('pointerout', function () {
+            this_game.mostPopular.alpha = 1
+            document.body.style.cursor = 'default'
+        })
+        
+        this.mostPopular.on('pointerdown', function () {
+            this_game.mostPopular.alpha = 1
+            this_game.selectProject(this_game.mostPopularName)
         })
     }
 
@@ -206,7 +245,7 @@ export default class MenuProjects extends Phaser.Scene {
 
         this.suggestionPanel = this.rexUI.add.scrollablePanel({
             x: this.game.canvas.width/2,
-            y: this.game.canvas.height * 0.3 + 40,
+            y: this.game.canvas.height * 0.3 + 80,
             // anchor: undefined,
             width: 480,
             height: heightPanel + 15,
@@ -275,14 +314,26 @@ export default class MenuProjects extends Phaser.Scene {
     
         for(let i=0; i < data.length; i++){
             let bg = this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, 0x171818)
+
+
+            let name = data[i]
+            let list_ = name.match(/.{1,50}/g)
+            let string = ""
+
+            list_!.forEach(el => {
+                string += el + "\n"
+            })
+
+            string = string.slice(0, -1)
    
+            
             panel.add(this.rexUI.add.label({
                 orientation: 'y',
                 width: 460,
                 height: 10,
         
                 background: bg,
-                text: this.add.text(0, 0, data[i], { fontFamily: 'Helvetica, sans-serif' }),
+                text: this.add.text(0, 0, string, { fontFamily: 'Helvetica, sans-serif' }),
         
                 align: 'center',
                 name: data[i],
