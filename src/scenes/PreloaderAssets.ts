@@ -89,10 +89,12 @@ export default class PreloaderAssets extends Phaser.Scene {
     }
 
     createLoading(){
-        let progressBar = this.add.graphics();
-        let progressBox = this.add.graphics();
-        progressBox.fillStyle(0x222222, 0.8);
-        progressBox.fillRect(240, 270, 320, 50);
+        let pgBoxWidth = 320
+        let progressBar = this.add.graphics()
+        let progressBox = this.add.graphics()
+        progressBox.fillStyle(0x222222, 0.8)
+        progressBox.fillRect((this.game.canvas.width - pgBoxWidth)/2, (this.game.canvas.height - 50 - 10)/2, pgBoxWidth, 50)
+        
         
         let width = this.cameras.main.width;
         let height = this.cameras.main.height;
@@ -125,12 +127,17 @@ export default class PreloaderAssets extends Phaser.Scene {
             }
         });
         assetText.setOrigin(0.5, 0.5);
+
+        let this_game = this
+        let pgBoxInsideWidth = 300
+
+        
         
         this.load.on('progress', function (value) {
             percentText.setText((value * 100).toString() + '%');
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect(250, 280, 300 * value, 30);
+            progressBar.fillRect((this_game.game.canvas.width - pgBoxInsideWidth)/2, (this_game.game.canvas.height - 30 - 10)/2, pgBoxInsideWidth * value, 30);
         });
         
         this.load.on('fileprogress', function (file) {

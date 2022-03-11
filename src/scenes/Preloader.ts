@@ -75,17 +75,19 @@ export default class Preloader extends Phaser.Scene {
 
 
     createLoading(){
-        let progressBar = this.add.graphics();
-        let progressBox = this.add.graphics();
-        progressBox.fillStyle(0x222222, 0.8);
-        progressBox.fillRect(240, 270, 320, 50);
+        let pgBoxWidth = 320
+        let progressBar = this.add.graphics()
+        let progressBox = this.add.graphics()
+        progressBox.fillStyle(0x222222, 0.8)
+        progressBox.fillRect((this.game.canvas.width - pgBoxWidth)/2, (this.game.canvas.height - 50 - 10)/2, pgBoxWidth, 50)
+        
         
         let width = this.cameras.main.width;
         let height = this.cameras.main.height;
         let loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - 50,
-            text: 'Downloading project...',
+            text: 'Loading...',
             style: {
                 font: '20px monospace'
             }
@@ -111,17 +113,21 @@ export default class Preloader extends Phaser.Scene {
             }
         });
         assetText.setOrigin(0.5, 0.5);
-        assetText.setText('Downloading: metrics');
+
+        let this_game = this
+        let pgBoxInsideWidth = 300
+
+        
         
         this.load.on('progress', function (value) {
             percentText.setText((value * 100).toString() + '%');
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect(250, 280, 300 * value, 30);
+            progressBar.fillRect((this_game.game.canvas.width - pgBoxInsideWidth)/2, (this_game.game.canvas.height - 30 - 10)/2, pgBoxInsideWidth * value, 30);
         });
         
         this.load.on('fileprogress', function (file) {
-            assetText.setText('Downloading: ' + file.key);
+            assetText.setText('Loading asset: ' + file.key);
         });
 
     }

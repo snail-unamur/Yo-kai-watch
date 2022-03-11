@@ -76,7 +76,7 @@ export default class MenuProjects extends Phaser.Scene {
 
         //this.projectNames = this.cache.json.get('project_names')
 
-        this.add.text(this.game.canvas.width/2, this.game.canvas.height*0.1, "The Coding of Isaac", {
+        this.add.text(this.game.canvas.width/2, (this.game.canvas.height * 0.3 - 36)/2, "The Coding of Isaac", {
             fontSize: "40px"
         }).setOrigin(0.5)
 
@@ -163,7 +163,7 @@ export default class MenuProjects extends Phaser.Scene {
         })
         
         
-        this.mostPopular = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.38, `Most popular project: ${this.mostPopularName}`, { 
+        this.mostPopular = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.3 + 50, `Most popular project: ${this.mostPopularName}`, { 
             fixedWidth: 460, 
             fixedHeight: 36,
             
