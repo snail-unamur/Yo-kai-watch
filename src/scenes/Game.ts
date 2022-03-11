@@ -371,7 +371,7 @@ export default class Game extends Phaser.Scene{
 
                 
                 enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
-                    this_game.tooltip.setVisible(true)
+                    if(this_game.freezing) this_game.tooltip.setVisible(true)
                     this_game.monsterHovered = true
                     this_game.tooltip.setText(enemyGo.getInfoString())
                 })
