@@ -234,7 +234,6 @@ export default class Game extends Phaser.Scene{
                 this.input.keyboard.removeCapture(el.keyCode)
             })
         })
-
     }
 
     startMap(){

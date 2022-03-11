@@ -51,7 +51,7 @@ export default class SetupTutorial extends Phaser.Scene {
         this.tutorialLayout[0].children.push(this.createFileChild('file_example (1).js'))
 
         let settings = this.createFileChild('settings')
-        settings.children = []
+        settings["children"] = []
         this.tutorialLayout[0].children.push(settings)
         
         TileSetName.tilesets.forEach((tilesetName, index) => {
@@ -71,7 +71,7 @@ export default class SetupTutorial extends Phaser.Scene {
             })
             i--
             c.measures[i].value = `${Math.floor(Math.random()*5)}.0`
-            settings.children?.push(c)
+            settings["children"]?.push(c)
         })
     }
 
@@ -98,7 +98,6 @@ export default class SetupTutorial extends Phaser.Scene {
 
     createFileChild(name: string){
         let child: {
-            children:any[]|undefined,
             name:string,
             type:string,
             path:string,
@@ -157,8 +156,7 @@ export default class SetupTutorial extends Phaser.Scene {
                     "value": "0",
                     "bestValue": true
                 }
-            ],
-            children:undefined
+            ]
         }
 
         child.name = name

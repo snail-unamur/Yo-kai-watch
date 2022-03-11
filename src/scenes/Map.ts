@@ -8,6 +8,7 @@ import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
 import FileChild from "./FileChild";
 import { Global } from "~/utils/Global";
+import Game from "./Game";
 
 export default class Map extends Phaser.Scene{
     private static readonly FILE_STEP = 3/10
@@ -212,6 +213,8 @@ export default class Map extends Phaser.Scene{
         // Setup keyboard control
         this.keys = []
         
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onPause, this)
+        
         this.keys.push(this.input.keyboard.addKey('right').on('down', this.rightPressed, this))
         this.keys.push(this.input.keyboard.addKey('left').on('down', this.leftPressed, this))
         this.keys.push(this.input.keyboard.addKey('up').on('down', this.upPressed, this))
@@ -226,7 +229,24 @@ export default class Map extends Phaser.Scene{
         this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER).on('down', this.selectRoom, this))
         this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.selectRoom, this))
         this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).on('down', this.selectRoom, this))
+    }
 
+
+    onPause(){
+        this.reduceVolume()
+        document.body.style.cursor = 'default';
+        this.scene.pause()
+        this.scene.run('pause', { game: this })
+    }
+
+    reduceVolume(){
+        this.sound.stopByKey('running')
+        let new_vol = Game.MUSIC_VOLUME - 0.1
+        if(new_vol > 0){
+            this.sound.volume = new_vol
+        } else {
+            this.sound.volume = 0
+        }
     }
 
     preload(){
@@ -472,10 +492,17 @@ export default class Map extends Phaser.Scene{
     }
 
 
+    clearKeys(){
+        this.keys.forEach((el:Phaser.Input.Keyboard.Key) => {
+            console.log("delete", el.keyCode)
+            this.input.keyboard.removeKey(el.keyCode)
+            this.input.keyboard.removeCapture(el.keyCode)
+        })
+        this.keys = []
+    }
 
     generateSearchBar(){
-        
-        this.textEditZone = new BBCodeText(this, 15, 15, "text", { 
+        this.textEditZone = new BBCodeText(this, 15, 15, "", { 
             fixedWidth: 220, 
             fixedHeight: 36,
             padding:{
@@ -493,12 +520,7 @@ export default class Map extends Phaser.Scene{
         
 
         this.textEditZone.setInteractive().on('pointerdown', () => {
-            this.keys.forEach((el:Phaser.Input.Keyboard.Key) => {
-                console.log("delete", el.keyCode)
-                this.input.keyboard.removeKey(el.keyCode)
-                this.input.keyboard.removeCapture(el.keyCode)
-            })
-            this.keys = []
+            this.clearKeys()
 
             this.textEdit = this.rexUI.edit(this.textEditZone, {
                 onTextChanged: (textObject, text) => {

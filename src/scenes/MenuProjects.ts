@@ -3,6 +3,7 @@ import { TextEdit } from "phaser3-rex-plugins/plugins/textedit";
 import ScrollablePanel from "phaser3-rex-plugins/templates/ui/scrollablepanel/ScrollablePanel";
 import { LogConstant } from "~/utils/Const";
 import Log from "~/utils/Log";
+import Game from "./Game";
 
 export default class MenuProjects extends Phaser.Scene {
     private textEditZone!: BBCodeText
@@ -26,10 +27,15 @@ export default class MenuProjects extends Phaser.Scene {
     }
 
     preload() {
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onPause, this)
         this.rexUI = this['rexUI']
         const domain = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'http://bynge.synology.me:8081'
         // Don't call the API for project names here, to smoothen the loading here
         //this.load.json('project_names', `${domain}/search?query=${this.projectQuery}`)
+    }
+
+    clearKeys(){
+        this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.ESC)
     }
 
 
@@ -140,6 +146,23 @@ export default class MenuProjects extends Phaser.Scene {
         })
     }
 
+
+    onPause(){
+        this.reduceVolume()
+        document.body.style.cursor = 'default';
+        this.scene.pause()
+        this.scene.run('pause', { game: this })
+    }
+
+    reduceVolume(){
+        this.sound.stopByKey('running')
+        let new_vol = Game.MUSIC_VOLUME - 0.1
+        if(new_vol > 0){
+            this.sound.volume = new_vol
+        } else {
+            this.sound.volume = 0
+        }
+    }
     
     selectProject(projectName:string){
         this.scene.start('preloader', { projectName: projectName })
