@@ -48,6 +48,15 @@ export default class PauseOverlay extends Phaser.Scene {
 
         this.exitText = this.add.text(this.game.canvas.width/2, this.game.canvas.height * 0.5, 'PROJECT SELECTION').setOrigin(0.5)
 
+        
+        this.exitButton.on('pointerover', function () {
+            document.body.style.cursor = 'pointer'
+        })
+        
+        this.exitButton.on('pointerout', function () {
+            document.body.style.cursor = 'default'
+        })
+
 
 
         // EXIT TO TUTORIAL
@@ -57,6 +66,15 @@ export default class PauseOverlay extends Phaser.Scene {
 
         this.tutorialText = this.add.text(this.game.canvas.width/2, this.game.canvas.height * 0.7, 'TUTORIAL').setOrigin(0.5)
 
+        
+        this.tutorialButton.on('pointerover', function () {
+            document.body.style.cursor = 'pointer'
+        })
+        
+        this.tutorialButton.on('pointerout', function () {
+            document.body.style.cursor = 'default'
+        })
+
 
 
         // RESUME
@@ -65,6 +83,15 @@ export default class PauseOverlay extends Phaser.Scene {
         this.resumeButton.on('pointerdown', this.onResume, this)
         
         this.resumeText = this.add.text(this.game.canvas.width/2, this.game.canvas.height * 0.3, 'RESUME').setOrigin(0.5)
+
+        
+        this.resumeButton.on('pointerover', function () {
+            document.body.style.cursor = 'pointer'
+        })
+        
+        this.resumeButton.on('pointerout', function () {
+            document.body.style.cursor = 'default'
+        })
     }
 
     onExit(sceneName:string = "menu_projects"){
@@ -75,6 +102,7 @@ export default class PauseOverlay extends Phaser.Scene {
         this.game_.scene.stop()
         this.scene.start(sceneName, {})
         console.log("exit pause screen")
+        document.body.style.cursor = 'default'
     }
 
     onGoProjectSelection(){

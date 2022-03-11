@@ -40,6 +40,7 @@ export default class MenuProjects extends Phaser.Scene {
 
 
     create(data) {
+        document.body.style.cursor = 'default'
         this.projectQuery = "abc"
         this.sound.removeAll()
         this.sound.play('main_theme', {loop: true})
@@ -135,6 +136,14 @@ export default class MenuProjects extends Phaser.Scene {
             //To get the dom element use that: const elem = this.textEdit.inputText.node
         })
 
+        
+        this.textEditZone.on('pointerover', function () {
+            document.body.style.cursor = 'text'
+        })
+        
+        this.textEditZone.on('pointerout', function () {
+            document.body.style.cursor = 'default'
+        })
         
         if(this.projectNames.length !== 0) this.generatePanel()
 
@@ -248,10 +257,12 @@ export default class MenuProjects extends Phaser.Scene {
         
         el.on('child.over', function (child) {
             child.backgroundChildren[0].alpha = 0.2
+            document.body.style.cursor = 'pointer'
         })
         
         el.on('child.out', function (child) {
             child.backgroundChildren[0].alpha = 1
+            document.body.style.cursor = 'default'
         })
     }
 

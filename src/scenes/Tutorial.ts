@@ -208,8 +208,8 @@ export default class Tutorial extends Game{
         Log.addInformation(LogConstant.EXIT)
         this.scene.stop("game-ui")
         this.scene.stop()
-        document.body.style.cursor = 'default';
         this.scene.start('menu_projects')
+        document.body.style.cursor = 'default'
         console.log("exit tutorial")
     }
 

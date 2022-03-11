@@ -17,6 +17,7 @@ export default class Preloader extends Phaser.Scene {
     }
 
     preload() {
+        document.body.style.cursor = 'default'
         this.createLoading()
         // Load metrics data
         /**
