@@ -215,7 +215,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     handleDamage(dir: Phaser.Math.Vector2) {
         if(this.healthState === HealthState.DAMAGE) return
 
-        this.health = this.healthBar.decrease(5)
+        this.health = this.healthBar.decrease(2.5)
 
         this.scene.sound.play('sword_hit', { volume: 0.5 })
 

@@ -65,7 +65,7 @@ export abstract class LogConstant{
 }
 
 export abstract class MonsterConstants{
-    static readonly SPEED = 15
+    static readonly SPEED = 20
 }
 
 export abstract class TileSetName{
