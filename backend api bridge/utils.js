@@ -112,6 +112,29 @@ export async function getSonarqubeProjects(query) {
     const url = `https://sonarcloud.io/api/components/search_projects?boostNewProjects=false&ps=25&f=analysisDate&filter=query=${query}&s=analysisDate&asc=false`
 
     const sonarQubeDataRes = await axios.get(url)
+
+    const organizations = {}
+    sonarQubeDataRes.data.components.forEach(component => {
+        organizations[component.organization] = ""
+    })
+
+    let urlOrganization = `https://sonarcloud.io/api/organizations/search?organizations=`
+    Object.keys(organizations).forEach(organizationKey => {
+        urlOrganization += `${organizationKey},`
+    })
+    urlOrganization = urlOrganization.slice(0, -1)
+
+    const sonarQubeOrganisationDataRes = await axios.get(urlOrganization)
+
+    sonarQubeOrganisationDataRes.data.organizations.forEach(organization => {
+        organizations[organization.key] = organization.name
+    })
+
+    sonarQubeDataRes.data.components.forEach(component => {
+        component.organizationName = organizations[component.organization]
+    })
+
+
     return sonarQubeDataRes.data.components
 }
 

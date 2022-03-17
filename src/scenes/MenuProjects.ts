@@ -11,13 +11,19 @@ export default class MenuProjects extends Phaser.Scene {
     private textEdit!: TextEdit
 
     private mostPopular!: BBCodeText
-    private mostPopularName: string = "brave_brave-core"
+    private mostPopularName: string = "Brave Software / brave-core"
+    private mostPopularKey: string = "brave_brave-core"
 
     private sceneUI!: Phaser.Scene
 
     private rexUI
 
-    private projectNames: { key:string }[] = []
+    private projectNames: { 
+        key:string, 
+        name:string, 
+        organizationName:string, 
+        organization:string 
+    }[] = []
 
 
     private projectQuery:string = ""
@@ -163,7 +169,7 @@ export default class MenuProjects extends Phaser.Scene {
         })
         
         
-        this.mostPopular = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.3 + 50, `Most popular project: ${this.mostPopularName}`, { 
+        this.mostPopular = new BBCodeText(this, this.game.canvas.width/2, this.game.canvas.height * 0.3 + 50, `Recomended project: ${this.mostPopularName}`, { 
             fixedWidth: 460, 
             fixedHeight: 36,
             
@@ -190,7 +196,7 @@ export default class MenuProjects extends Phaser.Scene {
         
         this.mostPopular.on('pointerdown', function () {
             this_game.mostPopular.alpha = 1
-            this_game.selectProject(this_game.mostPopularName)
+            this_game.selectProject(this_game.mostPopularKey)
         })
     }
 
@@ -218,10 +224,14 @@ export default class MenuProjects extends Phaser.Scene {
 
     generatePanel(){
         if(this.suggestionPanel) this.suggestionPanel.destroy() // TODO: if possible, don't destroy and recreate but change children instead
-        let panelData: string[] = []
+        let panelData: {name:string, key:string, organizationName:string}[] = []
 
         this.projectNames.forEach(element => {
-            panelData.push(element.key)
+            panelData.push({
+                name: element.name,
+                key: element.key,
+                organizationName: element.organizationName
+            })
         })
 
         let nbSuggestion = panelData.length
@@ -305,7 +315,7 @@ export default class MenuProjects extends Phaser.Scene {
         })
     }
 
-    createPanel(data) {
+    createPanel(data:{name:string, key:string, organizationName:string}[]) {
         let panel = this.rexUI.add.sizer({
             orientation: 'y',
             space: { item: 7.5, top: 0, bottom: 20 }
@@ -316,7 +326,7 @@ export default class MenuProjects extends Phaser.Scene {
             let bg = this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, 0x171818)
 
 
-            let name = data[i]
+            let name = `${data[i].organizationName} / ${data[i].name}`
             let list_ = name.match(/.{1,50}/g)
             let string = ""
 
@@ -336,7 +346,7 @@ export default class MenuProjects extends Phaser.Scene {
                 text: this.add.text(0, 0, string, { fontFamily: 'Helvetica, sans-serif' }),
         
                 align: 'center',
-                name: data[i],
+                name: data[i].key,
                 
                 space: {
                     left: 10,
