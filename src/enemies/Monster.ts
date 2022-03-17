@@ -57,6 +57,10 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     setIssue(issue:{ component:string, type:string, severity:string, debt:string }){
         this.issue = issue
 
+        if(!issue.debt){
+            issue.debt = "1min"
+        }
+
         let l = [issue.debt]
         let hours = 0
         let minutes
