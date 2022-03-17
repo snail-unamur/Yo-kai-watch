@@ -346,12 +346,74 @@ export default class Tutorial extends Game{
         let rightRoomExampleX = this.dungeon_size - 5 - leftRoomExampleX
         let roomExampleY = 5
 
-        this.generateFileExample(leftRoomExampleX, roomExampleY, fileId)
-        fileId++
-        this.generateFileExample(rightRoomExampleX, roomExampleY, fileId)
 
 
         // Generate exit tile in the center
+        let centerTiles = {
+            x: Math.floor(this.dungeon_size/2) - 2,
+            y: Math.floor(this.dungeon_size/2) - 2,
+            size: Game.NB_TILE_PER_FILE + 2
+        }
+
+        this.generateExit(rightRoomExampleX, roomExampleY)
+
+
+        this.generateFileLimitation(
+            centerTiles.x, 
+            centerTiles.y, 
+            Game.NB_TILE_PER_FILE + 2, this.sonarQubeData.children[fileId])
+
+        fileId++
+        this.generateFileExample(leftRoomExampleX, roomExampleY, fileId)
+
+        this.addKey(
+            (centerTiles.x + centerTiles.size / 2) * Game.TILE_SIZE, 
+            (centerTiles.y - 0.5) * Game.TILE_SIZE, 
+            "Z")
+
+        this.addKey(
+            (centerTiles.x + centerTiles.size / 2) * Game.TILE_SIZE, 
+            (centerTiles.y + centerTiles.size + 0.5) * Game.TILE_SIZE, 
+            "S")
+
+        this.addKey(
+            (centerTiles.x - 0.5) * Game.TILE_SIZE, 
+            (centerTiles.y + centerTiles.size / 2) * Game.TILE_SIZE, 
+            "Q")
+
+        this.addKey(
+            (centerTiles.x + centerTiles.size + 0.5) * Game.TILE_SIZE, 
+            (centerTiles.y + centerTiles.size / 2) * Game.TILE_SIZE, 
+            "D")
+
+
+        let sizeKeyDistance = 2.5
+        this.addKey(
+            (centerTiles.x + centerTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
+            (centerTiles.y + centerTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
+            "X", "(un)freeze")
+
+        this.addKey(
+            (centerTiles.x -sizeKeyDistance) * Game.TILE_SIZE, 
+            (centerTiles.y + centerTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
+            "space", "Attack", true)
+
+        if(!this.sound.get('main_theme')){
+            this.sound.removeAll()
+            this.sound.play('main_theme', { loop: true, volume: Game.MUSIC_VOLUME })
+        }
+
+        this.generateFileLimitation(this.dungeon_size - Game.NB_TILE_PER_FILE - 1, 2, Game.NB_TILE_PER_FILE - 1, this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
+
+        
+        
+        // Add walls layer
+        let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
+        this.wall1Layer = walls[0]
+        this.wall2Layer = walls[1]
+    }
+
+    generateExit(x:number, y:number){
         let exitFile = {
             "name": this.exitText,
             "type": "FIL",
@@ -407,71 +469,20 @@ export default class Tutorial extends Game{
             ],
             children:undefined
         }
-        let exitTiles = {
-            x: Math.floor(this.dungeon_size/2) - 2,
-            y: Math.floor(this.dungeon_size/2) - 2,
-            size: Game.NB_TILE_PER_FILE + 2
-        }
-        
 
+        this.generateFileLimitation(
+            x, 
+            y, 
+            Game.NB_TILE_PER_FILE + 2, exitFile)
+        
         this.add.text(
-            exitTiles.x * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2) * Game.TILE_SIZE / 2, 
-            (exitTiles.y - 1) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2) * Game.TILE_SIZE / 2, 
+            x * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2) * Game.TILE_SIZE / 2, 
+            (y - 1) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2) * Game.TILE_SIZE / 2, 
             "Dig this place\nto exit\nthe tutorial").setScale(0.5).setOrigin(0.5, 0.5).setColor(this.textColor)
             .setAlign('center')
             .setBackgroundColor('#FFFFFF')
             .setAlpha(0.7)
 
-        this.generateFileLimitation(
-            exitTiles.x, 
-            exitTiles.y, 
-            Game.NB_TILE_PER_FILE + 2, exitFile)
-
-        this.addKey(
-            (exitTiles.x + exitTiles.size / 2) * Game.TILE_SIZE, 
-            (exitTiles.y - 0.5) * Game.TILE_SIZE, 
-            "Z")
-
-        this.addKey(
-            (exitTiles.x + exitTiles.size / 2) * Game.TILE_SIZE, 
-            (exitTiles.y + exitTiles.size + 0.5) * Game.TILE_SIZE, 
-            "S")
-
-        this.addKey(
-            (exitTiles.x - 0.5) * Game.TILE_SIZE, 
-            (exitTiles.y + exitTiles.size / 2) * Game.TILE_SIZE, 
-            "Q")
-
-        this.addKey(
-            (exitTiles.x + exitTiles.size + 0.5) * Game.TILE_SIZE, 
-            (exitTiles.y + exitTiles.size / 2) * Game.TILE_SIZE, 
-            "D")
-
-
-        let sizeKeyDistance = 2.5
-        this.addKey(
-            (exitTiles.x + exitTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
-            (exitTiles.y + exitTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
-            "X", "(un)freeze")
-
-        this.addKey(
-            (exitTiles.x -sizeKeyDistance) * Game.TILE_SIZE, 
-            (exitTiles.y + exitTiles.size +sizeKeyDistance) * Game.TILE_SIZE, 
-            "space", "Attack", true)
-
-        if(!this.sound.get('main_theme')){
-            this.sound.removeAll()
-            this.sound.play('main_theme', { loop: true, volume: Game.MUSIC_VOLUME })
-        }
-
-        this.generateFileLimitation(this.dungeon_size - Game.NB_TILE_PER_FILE - 1, 2, Game.NB_TILE_PER_FILE - 1, this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
-
-        
-        
-        // Add walls layer
-        let walls = this.createWalls(Game.TILE_SIZE, this.dungeon_size)
-        this.wall1Layer = walls[0]
-        this.wall2Layer = walls[1]
     }
 
     generateFileExample(roomExampleX, roomExampleY, fileId){
