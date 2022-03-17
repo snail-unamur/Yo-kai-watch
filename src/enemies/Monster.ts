@@ -67,8 +67,14 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
         if(issue.debt.includes("h")){
             l = issue.debt.split("h")
+            console.log(l)
             hours = parseInt(l[0])
-            minutes = parseInt(l[1].slice(0, -3))
+            
+            if(l[1].length>0){
+                minutes = parseInt(l[1].slice(0, -3))
+            } else {
+                minutes = 0
+            }
         } else {
             minutes = parseInt(l[0].slice(0, -3))
         }
