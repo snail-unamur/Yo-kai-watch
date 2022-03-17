@@ -215,7 +215,7 @@ export default class Tutorial extends Game{
 
     
     newMonster(file:FileChild){
-        file.getMonster()?.setCanMove(false)
+        file.getMonster(true)?.setCanMove(false)
     }
 
     generation() {

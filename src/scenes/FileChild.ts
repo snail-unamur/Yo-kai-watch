@@ -125,12 +125,19 @@ export default class FileChild {
         return this.issues.length !== 0
     }
 
-    getMonster(): Monster | null{
+    getMonster(center:boolean=false): Monster | null{
         let issue = this.issues.pop()
         this.updateText()
         if(!issue) return null
         
-        let enemy: Monster = this.game.getEnemies().get(this.x + this.width/2, this.y + this.height/2, 'player') // Why "player" here?
+        // Add a bit of random for the spawn position
+        let ratioConstant = 0.5
+        if(center) ratioConstant = 0
+        let ratio = 2
+        let mX = Math.floor((Math.random()*ratioConstant+(1-ratioConstant)/2)*(this.width/ratio))*ratio
+        let mY = Math.floor((Math.random()*ratioConstant+(1-ratioConstant)/2)*(this.height/ratio))*ratio
+
+        let enemy: Monster = this.game.getEnemies().get(this.x + mX, this.y + mY, 'player') // Why "player" here? Anyway it will be overwritten by the animation
         enemy.setIssue(issue)
         enemy.input.hitArea = new Phaser.GameObjects.Rectangle(this.game, enemy.body.offset.x, enemy.body.offset.y, enemy.body.width, enemy.body.height)
 
