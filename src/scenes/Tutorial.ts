@@ -358,6 +358,7 @@ export default class Tutorial extends Game{
         this.generateExit(rightRoomExampleX, roomExampleY)
 
 
+        this.sonarQubeData.children[fileId].id = fileId
         this.generateFileLimitation(
             centerTiles.x, 
             centerTiles.y, 
