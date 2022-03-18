@@ -20,14 +20,16 @@ export default class FileChild {
         component:string,
         type:string, 
         severity:string,
-        debt:string
+        debt:string, 
+        key:string
     }[] = []
 
     private issues: {
         component:string,
         type:string, 
         severity:string,
-        debt:string
+        debt:string,
+        key:string
     }[] = []
 
     private totalNbIssues: number = 0
@@ -149,7 +151,7 @@ export default class FileChild {
         if(this.file.children){
             k = this.file.key + "/"
         }
-        FileChild.projectIssues.forEach((element: { component:string, type:string, severity:string, debt:string }) => {
+        FileChild.projectIssues.forEach((element: { component:string, type:string, severity:string, debt:string, key:string }) => {
             if(element.component.startsWith(k)){
                 this.issues.push(element)
             }
@@ -171,7 +173,8 @@ export default class FileChild {
         component:string,
         type:string, 
         severity:string,
-        debt:string
+        debt:string, 
+        key:string
     }[]){
         this.issues = issues
     }

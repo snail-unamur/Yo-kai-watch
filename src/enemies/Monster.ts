@@ -24,7 +24,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     private issue?: {
         component:string,
         type:string, 
-        severity:string
+        severity:string,
+        key:string
     }
 
     private knockBackScaling: { x:number, y:number } = { x:1, y:1 }
@@ -54,7 +55,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         this.removeListener('animationrepeat')
     }
 
-    setIssue(issue:{ component:string, type:string, severity:string, debt:string }){
+    setIssue(issue:{ component:string, type:string, severity:string, debt:string, key:string }){
         this.issue = issue
 
         if(!issue.debt){
@@ -183,6 +184,10 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     getMonsterHealth() {
         return this.health
+    }
+
+    getIssue(){
+        return this.issue
     }
 
     playAnim(animKey:string='appear'){
