@@ -270,7 +270,7 @@ export default class Game extends Phaser.Scene{
             
             this.scene.run('info', { game: this })
             this.cameras.main.stopFollow()
-            this.enemies.setAlpha(0.3)
+            this.enemies.setAlpha(0.7)
             this.reduceVolume()
             this.physics.pause()
             this.anims.pauseAll()
@@ -373,18 +373,22 @@ export default class Game extends Phaser.Scene{
 
                 
                 enemyGo.on('pointerover', function(pointer: Phaser.Input.Pointer){
-                    if(this_game.freezing) this_game.tooltip.setVisible(true)
+                    if(this_game.freezing){
+                        this_game.tooltip.setVisible(true)
+                        document.body.style.cursor = 'pointer'
+                    } 
                     this_game.monsterHovered = true
                     this_game.tooltip.setText(enemyGo.getInfoString())
                 })
 
                 enemyGo.on('pointerout', function(pointer){
+                    document.body.style.cursor = 'default'
                     this_game.monsterHovered = false
                     this_game.tooltip.setVisible(false)
                 })
 
                 enemyGo.on('pointerdown', function(pointer){
-                    if(!this_game.freezing){
+                    if(this_game.freezing){
                         const url = `https://sonarcloud.io/project/issues?id=${this_game.sonarQubeData.key.split(":")[0]}&open=${enemyGo.getIssue()?.key}`
                         window.open(url, '_blank')?.focus()
                     }
