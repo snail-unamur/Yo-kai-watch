@@ -24,7 +24,7 @@ export default class Game extends Phaser.Scene{
     static readonly MIN_NB_FILE_LIMIT_ROW = 2
     static readonly MUSIC_VOLUME = 0.3
     static readonly CAMERA_SPEED = 5
-    static readonly MONSTER_SPAWN = 500
+    static readonly MONSTER_SPAWN = 100
 
     protected dungeon_size = 10
 
@@ -170,9 +170,10 @@ export default class Game extends Phaser.Scene{
     }
 
     digProcess(fileObject: FileChild){
-        this.player.setPosition(fileObject.getX() + fileObject.getWidth()/2, fileObject.getY() + fileObject.getHeight()/2)
+
         
         if(this.mapContext.file.children) {
+            this.player.setPosition(fileObject.getX() + fileObject.getWidth()/2, fileObject.getY() + fileObject.getHeight()/2)
             if(this.mapContext.selectedId !== -1){
                 this.mapContext.path.push(this.mapContext.selectedId)
             }
