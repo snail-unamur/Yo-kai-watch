@@ -386,7 +386,7 @@ export default class Game extends Phaser.Scene{
                 enemyGo.on('pointerdown', function(pointer){
                     console.log(enemyGo)
                     console.log(this_game.sonarQubeData.key.split(":")[0])
-                    this_game.handleFreeze()
+                    if(!this_game.freezing) this_game.handleFreeze()
                     const url = `https://sonarcloud.io/project/issues?id=${this_game.sonarQubeData.key.split(":")[0]}&open=${enemyGo.getIssue()?.key}`
                     window.open(url, '_blank')?.focus()
                 })
