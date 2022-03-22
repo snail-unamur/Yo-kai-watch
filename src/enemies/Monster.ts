@@ -130,7 +130,19 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     }
 
     updateInfo(){
-        this.infoString = `${this.monsterSize} ${this.monsterType}\n ${this.issue?.severity} ${this.issue?.type}`
+        let name = "No name"
+        if(this.issue){
+            let l = this.issue.component.split(":")[1]
+            let list_ = l.match(/.{1,25}/g)
+            let string = ""
+    
+            list_!.forEach(el => {
+                string += el + "\n"
+            })
+    
+            name = string.slice(0, -1)
+        }
+        this.infoString = `${this.issue?.severity.toLowerCase()} ${this.issue?.type.toLowerCase()}\n\n${name}`
     }
 
     getInfoString(){
