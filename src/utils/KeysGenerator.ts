@@ -1,3 +1,5 @@
+import Game from "~/scenes/Game"
+
 export default class KeysGenerator{
     static textColor = "#000000"
     static keySize = 32
@@ -6,7 +8,7 @@ export default class KeysGenerator{
 
     static readonly playerMovements = {
         up: [
-            'Z', 
+            'W', 
             'UP'
         ],
         down: [
@@ -14,7 +16,7 @@ export default class KeysGenerator{
             'DOWN'
         ],
         left: [
-            'Q', 
+            'A', 
             'LEFT'
         ],
         right: [
@@ -24,8 +26,8 @@ export default class KeysGenerator{
     }
 
     static readonly playerControls = {
-        dig: ['A'],
-        restart: ['W'],
+        dig: ['Q'],
+        restart: ['Z'],
         openMap: [],
         attack: ['SPACE'],
         goUp: ['E'],
@@ -47,7 +49,14 @@ export default class KeysGenerator{
 
     }
 
-    static generateZQSD(scene: Phaser.Scene, up="z", left="q", right="d", down="s"){
+    static generateZQSD(
+        scene: Phaser.Scene,
+        caption:boolean = false, 
+        up=KeysGenerator.playerMovements.up[0], 
+        left=KeysGenerator.playerMovements.left[0], 
+        right=KeysGenerator.playerMovements.right[0], 
+        down=KeysGenerator.playerMovements.down[0])
+        {
         KeysGenerator.addKey(
             scene, 
             KeysGenerator.keyX, 
@@ -71,16 +80,25 @@ export default class KeysGenerator{
             KeysGenerator.keyX + KeysGenerator.keySize, 
             scene.game.canvas.height - KeysGenerator.keyY - KeysGenerator.keySize*2,
             up)
+
+        if(caption){
+            scene.add.text(
+                KeysGenerator.keyX + KeysGenerator.keySize, 
+                scene.game.canvas.height - KeysGenerator.keyY - KeysGenerator.keySize*2 - 1.8 * Game.TILE_SIZE, 
+                " movements ").setOrigin(0.5, 0.5).setColor("#000000")
+                .setBackgroundColor('#FFFFFF').setPadding(2, 2)
+        }
+        
     }
 
-    static addKey(scene: Phaser.Scene, x: number, y: number, keyName: string, large:boolean = false){
+    static addKey(scene: Phaser.Scene, x: number, y: number, keyName: string, caption?:string, large:boolean = false){
         let keyId = "key"
 
         if(large){
             keyId = "large_key"
         }
 
-        scene.add.image(x, y, keyId).setAlpha(0.7).setOrigin(0.5, 0.5).setScale(2)
+        scene.add.image(x, y, keyId).setOrigin(0.5, 0.5).setScale(2)
         scene.add.text(x, y - 2, keyName).setOrigin(0.5, 0.5).setColor(KeysGenerator.textColor)
     }
 }
