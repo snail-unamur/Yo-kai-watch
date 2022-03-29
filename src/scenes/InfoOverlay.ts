@@ -57,7 +57,7 @@ export default class InfoOverlay extends Phaser.Scene {
             this.add.image(this.veilX + 20 + 16*i, firstY + groundFirstY + 16, Global.tileset, ConstantsTiles.GROUND_CLEAN + ConstantsTiles.tileDistance * Math.floor(i/2))
         }
 
-        this.addText(10, firstY + 2 * space, "Cracks represent \nthe reliability \n(code smells)")
+        this.addText(10, firstY + 2 * space, "Cracks represent \nthe maintainability\n(code smells)")
 
         const crackFirstY = firstY + 2 * space + 50
         const crackAlpha = 0.6
