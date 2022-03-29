@@ -92,7 +92,38 @@ export default class InfoOverlay extends Phaser.Scene {
         this.add.image(monsterStartX + monsterSpace, vulnerabilitiesY, "small_medium_monsters", 65)
         this.add.image(monsterStartX + 2*monsterSpace, vulnerabilitiesY, "big_monsters", 28)
 
-        KeysGenerator.generateZQSD(this)
+        let keyY = 4.5
+        this.addKey(
+            KeysGenerator.keyX + KeysGenerator.keySize, 
+            this.game.canvas.height - KeysGenerator.keyY - keyY*KeysGenerator.keySize,
+            'TAB',
+            'map',
+            true
+        )
+
+        keyY += 2.5
+        this.addKey(
+            KeysGenerator.keyX + KeysGenerator.keySize,
+            this.game.canvas.height - KeysGenerator.keyY - keyY*KeysGenerator.keySize,
+            'X',
+            'freeze'
+        )
+
+        keyY += 2.5
+        this.addKey(
+            KeysGenerator.keyX+ KeysGenerator.keySize/2, 
+            this.game.canvas.height - KeysGenerator.keyY - keyY*KeysGenerator.keySize,
+            KeysGenerator.playerControls.dig[0],
+            'dig/'
+        )
+
+        this.addKey(
+            KeysGenerator.keyX + KeysGenerator.keySize*1.5, 
+            this.game.canvas.height - KeysGenerator.keyY - keyY*KeysGenerator.keySize,
+            KeysGenerator.playerControls.goUp[0],
+            '/up'
+        )
+        KeysGenerator.generateZQSD(this, true)
     }
     
     addText(x: number, y: number, text: string): Phaser.GameObjects.Text{
@@ -110,14 +141,13 @@ export default class InfoOverlay extends Phaser.Scene {
             keyId = "large_key"
         }
 
-        this.add.image(x, y, keyId).setAlpha(0.7).setOrigin(0.5, 0.5)
-        this.add.text(x, y - 0.5, keyName).setOrigin(0.5, 0.5).setScale(0.5).setColor(this.textColor)
+        this.add.image(x, y, keyId).setOrigin(0.5, 0.5).setScale(2)
+        this.add.text(x, y - 0.5, keyName).setOrigin(0.5, 0.5).setColor(this.textColor)
         if(caption){
             this.add.text(
-                x, y - 0.8 * Game.TILE_SIZE, 
-                caption).setScale(0.5).setOrigin(0.5, 0.5).setColor(captionColor)
-                .setBackgroundColor('#FFFFFF')
-                .setAlpha(0.7)
+                x, y - 1.8 * Game.TILE_SIZE, 
+                caption).setOrigin(0.5, 0.5).setColor(captionColor)
+                .setBackgroundColor('#FFFFFF').setPadding(2, 2)
         }
     }
 }
