@@ -210,7 +210,6 @@ export default class Map extends Phaser.Scene{
 
 
     addKeys(){
-        // TODO keep button left & right pressed
         // Setup keyboard control
         this.keys = []
         
@@ -225,15 +224,11 @@ export default class Map extends Phaser.Scene{
         }
         
         for(const key of KeysGenerator.playerMovements.left){
-            this.keys.push(this.input.keyboard.addKey(key).on('down', this.leftPressed, this))
+            this.keys.push(this.input.keyboard.addKey(key, undefined, true).on('down', this.leftPressed, this))
         }
         
         for(const key of KeysGenerator.playerMovements.right){
-            this.keys.push(this.input.keyboard.addKey(key).on('down', this.rightPressed, this))
-        }
-        
-        for(const key of KeysGenerator.playerControls.dig){
-            this.keys.push(this.input.keyboard.addKey(key).on('down', this.selectRoom, this))
+            this.keys.push(this.input.keyboard.addKey(key, undefined, true).on('down', this.rightPressed, this))
         }
         
         // Investigate emit on repeat
