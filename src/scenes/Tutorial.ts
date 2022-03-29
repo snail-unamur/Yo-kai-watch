@@ -5,6 +5,7 @@ import Monster from "~/enemies/Monster";
 import { sceneEvents } from "~/events/EventCenter";
 import { ConstantsTiles, LogConstant, TileSetName } from "~/utils/Const";
 import { Global } from "~/utils/Global";
+import KeysGenerator from "~/utils/KeysGenerator";
 import Log from "~/utils/Log";
 import FileChild from "./FileChild";
 import Game from "./Game";
@@ -12,6 +13,8 @@ import Game from "./Game";
 export default class Tutorial extends Game{
     private exitText = "exit_place.php"
     private textColor = "#000000"
+    private swapKey = "P"
+    private cThemeId = 0
     
     constructor(){
         super('tutorial')
@@ -25,6 +28,22 @@ export default class Tutorial extends Game{
         } else {
             super.digProcess(fileObject)
         }
+    }
+
+    swapTheme(){
+        this.cThemeId = (this.cThemeId + 1) % TileSetName.tilesets.length
+        Global.tileset = TileSetName.tilesets[this.cThemeId]
+        this.restart()
+    }
+
+    clearKeys(){
+        this.input.keyboard.removeCapture(this.swapKey)
+        super.clearKeys()
+    }
+
+    preload(){
+        this.input.keyboard.addKey(this.swapKey).on('down', this.swapTheme, this)
+        super.preload()
     }
 
     create(data) {
@@ -371,22 +390,22 @@ export default class Tutorial extends Game{
         this.addKey(
             (centerTiles.x + centerTiles.size / 2) * Game.TILE_SIZE, 
             (centerTiles.y - 0.5) * Game.TILE_SIZE, 
-            "Z")
+            KeysGenerator.playerMovements.up[0])
 
         this.addKey(
             (centerTiles.x + centerTiles.size / 2) * Game.TILE_SIZE, 
             (centerTiles.y + centerTiles.size + 0.5) * Game.TILE_SIZE, 
-            "S")
+            KeysGenerator.playerMovements.down[0])
 
         this.addKey(
             (centerTiles.x - 0.5) * Game.TILE_SIZE, 
             (centerTiles.y + centerTiles.size / 2) * Game.TILE_SIZE, 
-            "Q")
+            KeysGenerator.playerMovements.left[0])
 
         this.addKey(
             (centerTiles.x + centerTiles.size + 0.5) * Game.TILE_SIZE, 
             (centerTiles.y + centerTiles.size / 2) * Game.TILE_SIZE, 
-            "D")
+            KeysGenerator.playerMovements.right[0])
 
 
         let sizeKeyDistance = 2.5
@@ -405,7 +424,9 @@ export default class Tutorial extends Game{
             this.sound.play('main_theme', { loop: true, volume: Game.MUSIC_VOLUME })
         }
 
-        this.generateFileLimitation(this.dungeon_size - Game.NB_TILE_PER_FILE - 1, 2, Game.NB_TILE_PER_FILE - 1, this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
+
+        // Settings room
+        //this.generateFileLimitation(this.dungeon_size - Game.NB_TILE_PER_FILE - 1, 2, Game.NB_TILE_PER_FILE - 1, this.sonarQubeData.children[this.sonarQubeData.children.length - 1])
 
         
         
@@ -505,7 +526,7 @@ export default class Tutorial extends Game{
         this.addKey(
             (roomExampleX - 0.8) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2, 
             (roomExampleY + 0.5) * Game.TILE_SIZE + (Game.NB_TILE_PER_FILE + 2)*Game.TILE_SIZE/2,
-            "A")
+            KeysGenerator.playerControls.dig[0])
 
 
         this.add.text(

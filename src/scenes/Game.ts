@@ -142,8 +142,6 @@ export default class Game extends Phaser.Scene{
         }
 
 
-        console.log(this.playerControls)
-
         this.playerControls.openMap.forEach(element => { element.on('down', this.startMap, this) });
         this.playerControls.freeze.forEach(element => { element.on('down', this.handleFreeze, this) });
 

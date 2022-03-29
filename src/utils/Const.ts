@@ -79,13 +79,17 @@ export abstract class TileSetName{
     static readonly GRAY_RAINBOW2_CHEAT = "grayscale_rainbow2_cheat"
 
     
+    // static tilesets: string[] = [
+    //     TileSetName.FUNKY,
+    //     TileSetName.GRAY_DARK,
+    //     TileSetName.GRAY_LIGHT,
+    //     TileSetName.RAINBOW,
+    //     TileSetName.MATERIALS,
+    //     TileSetName.GRAY_RAINBOW2,
+    //     TileSetName.GRAY_RAINBOW2_CHEAT
+    // ]
     static tilesets: string[] = [
         TileSetName.FUNKY,
-        TileSetName.GRAY_DARK,
-        TileSetName.GRAY_LIGHT,
-        TileSetName.RAINBOW,
-        TileSetName.MATERIALS,
-        TileSetName.GRAY_RAINBOW2,
-        TileSetName.GRAY_RAINBOW2_CHEAT
+        TileSetName.RAINBOW
     ]
 }
