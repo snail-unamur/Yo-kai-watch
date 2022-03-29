@@ -1,10 +1,47 @@
-
-
 export default class KeysGenerator{
     static textColor = "#000000"
     static keySize = 32
     static keyX = 20
     static keyY = 0
+
+    static readonly playerMovements = {
+        up: [
+            'Z', 
+            'UP'
+        ],
+        down: [
+            'S', 
+            'DOWN'
+        ],
+        left: [
+            'Q', 
+            'LEFT'
+        ],
+        right: [
+            'D', 
+            'RIGHT'
+        ]
+    }
+
+    static readonly playerControls = {
+        dig: ['A'],
+        restart: ['W'],
+        openMap: [],
+        attack: ['SPACE'],
+        goUp: ['E'],
+        freeze: ['X']
+    }
+
+    static readonly openMap = [
+        'TAB'
+    ]
+
+    static readonly mapClosingKeys = [
+        KeysGenerator.playerControls.dig,
+        KeysGenerator.playerControls.openMap,
+        KeysGenerator.playerControls.attack,
+        ['ENTER', 'TAB']
+    ]
 
     constructor(){
 

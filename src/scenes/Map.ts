@@ -216,20 +216,32 @@ export default class Map extends Phaser.Scene{
         
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onPause, this)
         
-        this.keys.push(this.input.keyboard.addKey('right').on('down', this.rightPressed, this))
-        this.keys.push(this.input.keyboard.addKey('left').on('down', this.leftPressed, this))
-        this.keys.push(this.input.keyboard.addKey('up').on('down', this.upPressed, this))
-        this.keys.push(this.input.keyboard.addKey('down').on('down', this.downPressed, this))
-        // Setup keyboard control
-        this.keys.push(this.input.keyboard.addKey('d').on('down', this.rightPressed, this))
-        this.keys.push(this.input.keyboard.addKey('q').on('down', this.leftPressed, this))
-        this.keys.push(this.input.keyboard.addKey('z').on('down', this.upPressed, this))
-        this.keys.push(this.input.keyboard.addKey('s').on('down', this.downPressed, this))
-
-        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', this.selectRoom, this))
-        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER).on('down', this.selectRoom, this))
-        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.selectRoom, this))
-        this.keys.push(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).on('down', this.selectRoom, this))
+        for(const key of KeysGenerator.playerMovements.up){
+            this.keys.push(this.input.keyboard.addKey(key).on('down', this.upPressed, this))
+        }
+        
+        for(const key of KeysGenerator.playerMovements.down){
+            this.keys.push(this.input.keyboard.addKey(key).on('down', this.downPressed, this))
+        }
+        
+        for(const key of KeysGenerator.playerMovements.left){
+            this.keys.push(this.input.keyboard.addKey(key).on('down', this.leftPressed, this))
+        }
+        
+        for(const key of KeysGenerator.playerMovements.right){
+            this.keys.push(this.input.keyboard.addKey(key).on('down', this.rightPressed, this))
+        }
+        
+        for(const key of KeysGenerator.playerControls.dig){
+            this.keys.push(this.input.keyboard.addKey(key).on('down', this.selectRoom, this))
+        }
+        
+        // Investigate emit on repeat
+        for(const keyGroup of KeysGenerator.mapClosingKeys){
+            for(const key of keyGroup){
+                this.keys.push(this.input.keyboard.addKey(key).on('down', this.selectRoom, this))
+            }
+        }
     }
 
 

@@ -16,6 +16,7 @@ import '~/weapons/Sword'
 import FileContainer from './FileContainer'
 import Log from '~/utils/Log'
 import { Global } from '~/utils/Global'
+import KeysGenerator from '~/utils/KeysGenerator'
 
 export default class Game extends Phaser.Scene{
     static readonly TILE_SIZE = 16
@@ -107,21 +108,41 @@ export default class Game extends Phaser.Scene{
         }
 
         // Don't put TAB key in the playerControls object or when the map will be open the capture will be cleared and a "tab action" will happen in the browser
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB).on('down', this.startMap, this)
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC).on('down', this.onPause, this)
 
         this.playerControls = {
-            up: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)],
-            down: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)],
-            left: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)],
-            right: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D), this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)],
-            attack: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)],
-            dig: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)],
-            goUp: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)],
-            openMap: [ this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE)],
-            freeze: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X)],
-            restart: [this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)]
+            up: [],
+            down: [],
+            left: [],
+            right: [],
+            attack: [],
+            dig: [],
+            goUp: [],
+            openMap: [],
+            freeze: [],
+            restart: []
         }
+
+        for(const key in KeysGenerator.playerControls){
+            this.playerControls[key] = []
+            for(const keyName of KeysGenerator.playerControls[key]){
+                this.playerControls[key].push(this.input.keyboard.addKey(keyName))
+            }
+        }
+
+        for(const key in KeysGenerator.playerMovements){
+            this.playerControls[key] = []
+            for(const keyName of KeysGenerator.playerMovements[key]){
+                this.playerControls[key].push(this.input.keyboard.addKey(keyName))
+            }
+        }
+
+        for(const key of KeysGenerator.openMap){
+            this.input.keyboard.addKey(key).on('down', this.startMap, this)
+        }
+
+
+        console.log(this.playerControls)
 
         this.playerControls.openMap.forEach(element => { element.on('down', this.startMap, this) });
         this.playerControls.freeze.forEach(element => { element.on('down', this.handleFreeze, this) });
