@@ -85,7 +85,7 @@ export default class KeysGenerator{
             scene.add.text(
                 KeysGenerator.keyX + KeysGenerator.keySize, 
                 scene.game.canvas.height - KeysGenerator.keyY - KeysGenerator.keySize*2 - 1.8 * Game.TILE_SIZE, 
-                " movements ").setOrigin(0.5, 0.5).setColor("#000000")
+                "movements").setOrigin(0.5, 0.5).setColor("#000000")
                 .setBackgroundColor('#FFFFFF').setPadding(2, 2)
         }
         
