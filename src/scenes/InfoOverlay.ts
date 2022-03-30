@@ -68,26 +68,28 @@ export default class InfoOverlay extends Phaser.Scene {
             this.add.image(this.veilX + 20 + 16*i, firstY + crackFirstY + 16, "crack").setAlpha(crackAlpha)
         }
 
-        this.addText(10, firstY + 3 * space, "Code smells \nmonsters")
+        this.addText(10, firstY + 3 * space, "Monsters are \nissues in code")
+
+        this.addText(10, firstY + 3.4 * space, "Code smells")
         const monsterStartX = this.veilX + 35
         const monsterSpace = 30
-        const code_smellsY = firstY + 3 * space + 50
+        const code_smellsY = firstY + 3.4 * space + 30
         this.add.image(monsterStartX, code_smellsY, "small_medium_monsters", 5)
         this.add.image(monsterStartX + monsterSpace, code_smellsY, "small_medium_monsters", 41)
         this.add.image(monsterStartX + 2*monsterSpace, code_smellsY, "big_monsters", 4)
 
 
 
-        this.addText(10, firstY + 3.7 * space, "Bugs monsters")
-        const bugsY = firstY + 3.7 * space + 30
+        this.addText(10, firstY + 3.9 * space, "Bugs")
+        const bugsY = firstY + 3.9 * space + 30
         this.add.image(monsterStartX, bugsY, "small_medium_monsters", 17)
         this.add.image(monsterStartX + monsterSpace, bugsY, "small_medium_monsters", 53)
         this.add.image(monsterStartX + 2*monsterSpace, bugsY, "big_monsters", 16)
 
 
 
-        this.addText(10, firstY + 4.2 * space, "Vulnerabilities \nmonsters")
-        const vulnerabilitiesY = firstY + 4.2 * space + 50
+        this.addText(10, firstY + 4.4 * space, "Vulnerabilities")
+        const vulnerabilitiesY = firstY + 4.4 * space + 30
         this.add.image(monsterStartX, vulnerabilitiesY, "small_medium_monsters", 29)
         this.add.image(monsterStartX + monsterSpace, vulnerabilitiesY, "small_medium_monsters", 65)
         this.add.image(monsterStartX + 2*monsterSpace, vulnerabilitiesY, "big_monsters", 28)
