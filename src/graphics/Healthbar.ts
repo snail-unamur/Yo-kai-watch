@@ -5,6 +5,13 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
     private offsetX: number
     private offsetY: number
 
+    static readonly barHeight: number= 5
+    static readonly ratioHeight: number= 0.7
+
+    static readonly colorComplementGreen = 0x75B57D
+    static readonly colorComplementGreenLighter = 0x8DB575
+    static readonly colorInitialGreen = 0x69ff4f
+
     constructor(scene, offsetY, value:number = 3) {
         super(scene)
         this.value = value
@@ -36,11 +43,11 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
 
         // Background
         this.fillStyle(0x202121)
-        this.fillRect(this.offsetX, this.offsetY, 31.5, 5)
+        this.fillRect(this.offsetX, this.offsetY, 31.5, HealthBar.barHeight)
 
         // Health
-        this.fillStyle(0x69ff4f)
-        this.fillRect(this.offsetX, this.offsetY, 30*(this.value/this.maxValue), 3.5)
+        this.fillStyle(HealthBar.colorComplementGreenLighter)
+        this.fillRect(this.offsetX, this.offsetY, 30*(this.value/this.maxValue), HealthBar.barHeight*HealthBar.ratioHeight)
 
         /* TODO: color bar based on reamining health points
         
