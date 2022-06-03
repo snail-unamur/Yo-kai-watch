@@ -9,24 +9,6 @@ pathFile = 'D:\\Github\\Yo-Kai-Watch\\evaluation\\interview_data\\' + fileName
 
 f = open(pathFile, 'r', encoding="utf8")
 
-categories = {
-    "LAG": [
-        "LAG",
-        "LAG-SOLUTION"
-    ],
-    "SCALE_DIRECTION": [
-        "SCALE_DIRECTION-NOT_INTUITIVE",
-        "SCALE_DIRECTION-EXPERIENCE",
-        "SCALE_DIRECTION-LEFT_TO_RIGHT"
-    ],
-    "GAMIFICATION_SPLIT": [
-        "GAMIFICATION_SPLIT-ISSUE",
-        "GAMIFICATION_SPLIT-TOOL_INFORMATION",
-        "GAMIFICATION_SPLIT-GAME_LESS_INFORMATION"
-    ],
-    "UNCATEGORIZED":[]
-}
-
 tags = []
 questions = {}
 for i in range(1, 11):
