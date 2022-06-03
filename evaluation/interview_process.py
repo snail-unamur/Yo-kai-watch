@@ -2,10 +2,10 @@ import json
 import os, os.path
 import matplotlib.pyplot as plt
 files = [
-    "2022-04-05 09_30 coded transcript.txt"
+    "2022-04-05 09_30 coded transcript final.txt"
 ]
 fileName = files[0]
-pathFile = 'D:\\Github\\Yo-Kai-Watch\\interviews\\first_round_coding\\' + fileName
+pathFile = 'D:\\Github\\Yo-Kai-Watch\\evaluation\\interview_data\\' + fileName
 
 f = open(pathFile, 'r', encoding="utf8")
 
