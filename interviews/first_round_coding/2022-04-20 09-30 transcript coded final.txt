@@ -1,0 +1,126 @@
+﻿#8 2022-04-20 09-30 transcript
+Exclusion criterias:
+* Interviewer describing the project
+
+
+FUNKY: A E C B D (Swapped B and D, start dark)
+
+
+RAINBOW: C A E D B (Green, Yellow, Red, Orange, Black)
+
+
+Music: 2 4 1 5 3
+[T:TUTORIAL-CLICK_ON_MONSTER] [00:10:17] Interviewee: *Player first action is to click on the purple file* *read indication minimap key* *Opens map and closes it* *Go up with click or E maybe* *Click on the small code smell file* *read again, opens map, move up a bit* *Go up again* *Tries once to click on the small code smell*
+[00:10:23] Interviewer: Okay, but so you're thinking right now, 
+[00:10:27] Interviewee: I tried the digging file feature. Oh, uh, so when I click here, I can select my file, I guess, but I feel, uh.
+[00:10:43] Interviewer: Yeah. 
+[00:11:00] Interviewee: *Doesn’t move* *Tries attack key twice* *Open freeze* Start reading* *Hover elements in the information panel* *Read*
+[00:11:08] Interviewer: What do you understand?
+[T:FREEZE_INFORMATION-INTUITIVE] [T:MONSTERS-ARE_ISSUES] [00:11:12] Interviewee: Now, I can see the type of bugs and vulnerabilities? Yeah, this classification. So. *Click on the information panel and teleport him in the room*
+[00:11:08] Interviewer: What do you understand?
+[00:11:39] Interviewee: Uh, the ground tiles are the reliability *Literally reading*. How can I shift this to walls —.
+[00:11:51] Interviewer: Yeah, the walls represent the vulnerab…. What do you understand from that? 
+[T:SECURITY_METRIC-NOTICED] [00:12:00] Interviewee: Um. *Think hard* So. It just represents the vulnerabilities, like generally —, like evaluating protecting.
+[00:12:28] Interviewer: Yeah. Yeah sure, the walls.
+[00:12:29] Interviewee: So you’re representing that as walls.
+[00:12:38] Interviewer: And do you understand where the walls are in the game? 
+[00:12:41] Interviewee: Yeah. Yeah yeah. Uh, am I in a – place no.
+[00:12:47] Interviewer: Uh, you are still in the tutorial, but yeah, this is basically one room, one file.
+[T:CONTROLS-NOT_INTUITIVE] [00:12:58] Interviewer: Uh, have you figured  out how to move? [00:13:00] Interviewee: *Is already in freeze mode* *Participant says slightly “yeah”* *moves the camera in freeze mode* [00:13:04] Interviewer: Yeah, but now you are in the freeze mode. So you can press X. [00:13:08]  Interviewee: Yup. Yup. Okay. *Unfreeze and start moving* *Run into the monster to death* [00:13:31] Interviewer: And have you figured out how to attack? Yeah. [00:13:33] Interviewee: Yeah. Yeah. I think —- *Maybe they said that they have forgotten it*. [00:13:39] Interviewer: Oh, ok, you have to press space. You have a sword.
+[00:13:42] Interviewee: *Press space and kill the monster*
+[T:GO_UP_KEY-MISSED] [00:13:56] Interviewer: And then you can go up from this room.
+[T:BUG-OUT_OF_MAP] [00:13:57] Interviewee: *Open map, point to a random file in the search bar suggestions (which is different then the current one)* *Come back to the current room*  *Out of the map bug*
+[T:GO_UP_KEY-MISSED] [T:MOUSE-NOT_FOUND] [00:14:05] Interviewer: You see that you can either right-click or press E to go up. 
+[00:14:10] Interviewee: Yes. So what it is like, if I do right click I go to this part.
+[00:14:21] Interviewer: When you, uh… What do you mean when you right-click? 
+[T:MOUSE-NOT_INTUITIVE] [T:GO_UP_KEY-MISSED] [00:14:26] Interviewee: When I press the right click for 2 seconds it came to this *This is the tutorial main room*. [00:14:32] Interviewer: Oh, uh, no, actually when you left click on the ground, like a square on the ground, you go inside, you can also dig it by pressing Q if you are on it basically. [00:14:45] Interviewee: Ok ok.
+[00:14:58] Interviewer: How do you feel about the controls 
+[00:15:00] Interviewee: Yeah, now I understand.
+[00:15:01] Interviewer: Now you you get it, but it was it like a complicated at the beginning. 
+[00:15:09] Interviewee: No, not really complicated.
+[T:TRACKPAD-BAD] [00:15:29] Well, it seems like because I'm using the trackpad I couldn’t understand that I could click click.
+[00:15:40] Interviewer: But there's no problem because you can also just use the keyboard and use the Q and E keys to dig and go up, you just have to stand on the square to dig it.
+[00:16:01] Alright. And when you feel ready and that you are getting like a good hand around. Like you can move around easily. You can exit the tutorial when you want.
+[T:CONTROLS-NOT_INTUITIVE] [00:16:12] Interviewee: Yep. I’m not sure how to do this. Can I exit walking to that place. *Walk towards the exit place, stand on it for 1 second, press space, wait 1 second, press Q*
+[00:16:27] Interviewer: Perfect. So here you are in the project selection. Basically you can access any open source projects that use SonarCloud. But for this demo I recommend that you just take the recommended project, which is brave software at the top. Basically the first one you see that there’s the recommended project, brave software. It will take a little bit of time to download. And after that, you will be in the real game.
+[T:CONTROLS-SPAM_ATTACK] [00:17:10] Interviewee: *Runs around, smashes attack button without hit and run, and dies*
+[00:17:26] Interviewer: Again, what are your first thoughts?
+[T:BUG-OUT_OF_MAP] [00:17:46] Interviewee: *Out of the map bug* [00:18:06] Interviewer: *Interviewer slight laugh* Ok that’s cheating there, but you exited the space. It’s a bug you're not supposed to be able to do that, but that's fine. [00:18:18] Interviewee: Can I get into this wall? *Talking about an actual wall in the game*  [00:18:23] Interviewer: No it’s not possible. It's because you glitched through the wall. Yeah. But that's fine. What do you understand from the game right now? [00:18:33] Interviewee: The move that I’ve done, like going through the wall, is it a correct move or is it a glitch? [00:18:42] Interviewer: No, no. It was a glitch to go outside, like on the black space. 
+[T:GOAL-LACKING] [00:18:48] Interviewee: So it’s just like killing the bugs and, and, uh, gaining them, uh, like, uh, yeah, [00:19:00] it's just killing the bugs and, uh, I’m getting no goal really.
+[00:19:07] Interviewer: And what do you think is the goal of killing the bugs and going around?
+[00:19:16] Interviewee: *In map* Uh, no. How can I get into the bug *Not sure about the “bug” word”*.
+[00:19:21] Interviewer: Uh, here in the map, you mean?
+[00:19:22] Interviewee: Yeah
+[T:MAP-USABILITY_BAD] [00:19:23] Interviewer:  you can use the WASD keys to navigate. The map is the project’ structure. It is the project structure.
+[00:19:46] Interviewer: Like, do you understand what are the tiles?
+[00:19:47] Interviewee: No no no no.
+[00:19:51] Interviewer: Like each, each square on the ground? 
+[T:RELIABILITY_METRIC-NOTICED] [00:19:54] Interviewee: Ok ok ok. Uh, I think it is something like reliability or, uh, something like this, right?
+[T:ROOM-NOT_INTUITIVE] [00:20:02] Interviewer: Yeah. Okay. But the actual tiles, like when you go inside the room, like right now, you are in a room. What do you think this room represents? [00:20:15] Interviewee: Um, so I think this room represents the file which I selected. [00:20:23] Interviewer: Okay. Yeah. It's not really the file, it is the folder because you are in the root folder right now, but I get it. So I and then if this is a folder, what are all these squares on the ground? [00:20:53] Interviewee: So, uh. No, I don't know what these squares are. [00:20:56] Interviewer: Okay. No problem. Um, basically you are right now in a folder, which is the root folder of the brave project and each square is either a fine or another directory. So with your character, you can move around and enter a file or a directory and get inside it. [00:21:05] Interviewee: Ok.
+[T:FREEZE_KEY-MISSED] [00:21:19] Interviewer: You can also freeze time and do it by clicking, like this monsters don't attack you.
+[00:21:31] Interviewer: Uh, up until now, did you feel overwhelmed or underwhelmed by the information? Too much information or too little information. 
+[T:FREEZE_INFORMATION-NOT_INTUITIVE] [00:21:40] Interviewee: No, no, no. It’s good. You've not. I'm not being lost. Like, I’m a bit confused about this *Opens the freeze panel and point out at the colors*.
+[00:21:55] Interviewer: okay. You don't have any guesses about what it is. If not, it’s fine, I can tell you. 
+[T:FUNKY-INTUITIVE] [T:FUNKY-LEFT_TO_RIGHT] [00:22:12] Interviewee: Okay. I think this color *point to the colors of the walls one by one from left to right* — is a, um, [00:22:22] represents the range of the difficulty or something. [00:22:22] Interviewee: Like if there are too many bugs. It will be a dark color. So when the color is getting lighter and lighter bugs are getting decreased.
+[00:22:59] Interviewer: Perfect. Then you understand it completely. That's exactly it. The ground tiles are the bugs and the walls are the security, vulnerabilities, well you get it don't worry.
+[00:23:14] Interviewer: Then now that you understand that, uh, what do you think about this room that you are in right now? [00:23:20] Which is a file. Yeah. Like what do you think is the severity of the problems in this room? 
+[T:PERFECT_ROOM_PERFECT_CODE] [T:RELIABILITY_METRIC-NOTICED] [00:23:27] Interviewee: *In perfect room* *In freeze mode* Yeah. It has no severities. Like severity level is very low *Point to ground tiles lightest color in the freeze information panel*
+[00:23:43] Interviewer: Okay. And if you switch to another room, like maybe just go up for example. Like you can right click or press E. Yep.
+[00:23:59] What about this room?
+[T:PERFECT_ROOM_PERFECT_CODE] [T:TILE_NUMBER-NOT_INTUITIVE] [00:24:08] Interviewee: *Big room, perfect colors, some files with numbers* Uh, everything is fine here. 
+[00:24:13] Interviewer: Okay, perfect.
+[00:24:17] Yeah, you  are in lots of rooms where everything is quite okay. But maybe if you go up a little more, you might find one that's different.
+[T:MAP-NOT_FOUND] [00:24:41] Interviewer: You can also use the map to navigate maybe more easily. [00:24:43] Interviewee: The map? [00:24:48] Interviewer: Yeah the map by pressing tab.
+[T:FILE_HOVER-INTUITIVE] [T:COLORS-GENERAL_QUALITY] [00:24:53] Interviewee: Yeah, yeah, yeah. *Back in root folder* Again this chromium *Name of the sub-dir displayed in the tooltip is “chromium-src”* thing *Point to a sub-directory with second dark color starting left as ground* has more bugs. [00:25:05] But hu, uh, when I compare it to this “script” *Name of the sub dir they are pointing out right now*. *This sub dir has second light color starting from the right as ground*[00:25:10] Interviewee: Script has, uh, uh, less problems in the code. And coming to this, uh,
+[T:CONTROLS-NOT_INTUITIVE] [00:25:29] Uh *Click on a sub-directory* I’ve did something, I want to go back, uh *Opens the map*
+[00:25:39] Interviewer: You can just right click to go back. Yeah. You can use the map by pressing WASD, yeah. 
+[T:RELIABILITY_METRIC-NOTICED] [T:SECURITY_METRIC-NOTICED] [00:25:49] Interviewee: So, uh, yeah. [00:26:05] Uh, tiles are surrounded by the walls. Yeah. So, um, when it comes to chromium *Name of the file they are pointing at*, vulnerabilities is not very less, but, um, bugs are very high. 
+[00:26:20] Interviewer: Okay. Yeah, exactly. I think you have a good understanding of it now. Um, uh, what about the combat? Here, we are in freeze mode, but if you unfreeze monsters we'll start moving.
+[T:MONSTER_NUMBER-SUM_SUBDIRECTORIES] [T:GOAL-KILL_ALL_MONSTERS] [00:26:41] Interviewee: So ok. Now. I, uh, like, uh, I can find all the bugs from each of the sub-files.
+[00:26:54] So, I’m just killing all the bugs from each of the files, like you everything is getting reduced. Bugs are getting reduced.
+[00:27:08] Interviewer: And, uh, just about the combat aspect. What do you think about it? Is it intuitive, not intuitive, complicated, easy? What are your thoughts on combat?
+[00:27:16] Interviewee: You’re asking.. One second *Turn on freeze mode*. You’re asking about combat?
+[00:27:26]  Interviewer: Yep. Yeah, I'm just asking. Yeah, the, basically just the fighting part, like pressing space and moving around. How do you feel about it? 
+[T:ATTACK_SPEED-LOW] [T:CONTROLS-SPAM_ATTACK] [00:27:40] Interviewee: Yeah, it’s good but I think. It’s not killing bugs properly. [00:27:53] Interviewer: Oh, okay. You think, it's not doing that right. Okay. [00:27:58] Interviewee: So now you can see here, right. *Fighting monsters, spamming the attack* Here, it’s good [00:28:08] Interviewer: Oh, yeah. You mean like when you are pressing multiple times the space bar, it doesn't. Okay. Yeah.. [00:28:17] Interviewee: Something it’s missing. A multiple. [00:28:18] Interviewer: Okay. This is frustrating.  Okay. Okay. I see.  Um, another question would be.
+[T:FIXING-POSITIVE] [00:28:31] Do you feel motivated to fix the technical debt and bugs and everything when you are playing this game? Do you think this game can really motivate you, fixing them. [00:28:45] Interviewee: Yeah yeah yeah, everyone would feel good.
+[00:28:47] Interviewer: Okay because this game can, it doesn't allow you to fix the bugs while playing basically here, you just are fighting them, but they're not really disappearing in the code.
+[00:28:59] So you would have to go back to your code and you fixed the bugs and then they would completely disappear from the game.
+[00:29:04] Interviewee: Oh okay okay
+[00:29:05] Interviewer: Do we think this is motivating to do that? 
+[00:29:13] Interviewee: Like you're dealing with two cases, right? 
+[00:29:18] Interviewer: Uh, basically do you feel motivated to go back to your code, your actual code and fix the bugs because of this game?
+[T:FIXING-POSITIVE] [00:29:13] Interviewee: Yes. I’m motivated.
+[00:29:32] Interviewer: Can you tell me a bit more why you think that it's motivating. 
+[T:SCENARIO-DEBT_FIGHT_ENGAGEMENT] [00:29:37] Interviewee: uh, like, uh, like any human, like if he considers — — —. They might get bored and like, they will lose interest in between. So like if they have this type of platform, they can feed some interest and they can get good motivation to compete with — and —.
+[00:30:10] Interviewer: Okay, alright. You're a student, right? But would you use this tool in your everyday life as a student? Like, do you think if you had some projects to do, you would use this tool to check if your project has bugs? 
+[T:ME-POSITIVE] [00:30:27] Interviewee: Yeah, I would use it.
+[00:30:29] Interviewer: Okay. When would you use this tool, is it something that you would use often like once a week, a month? What’s the frequency?
+[T:FREQUENCY-EARLY_STAGE] [00:30:43] Interviewee: if I have a deadline 2 weeks ahead of this date. I would use it in the early stages of the code. [00:31:01] But, when it comes to the end. I might not use this. Because I should fix this before the deadline so, it may be a little bit confusing, I feel it may take a little time. [00:31:19] Interviewer: Okay. You mean like you wouldn't be able to fix lots of bugs when you are close to the deadline. So you wouldn't use this tool. To not see the bugs basically. Okay.
+[00:31:39] Interviewer: Do you think anyone else would play this game? Like, maybe not students, but do you think maybe software developers or any other, um, job would benefit using this video game to visualize the bugs to technical depth of a program. 
+[00:32:03] Interviewee: Yeah. As I said before, as it really interacts with the code.So we can understand the problems easily, like this you can solve it.
+[00:32:21] Interviewer: So do you think this tool is only for students to understand what is technical and everything? Or do you think that professionals could use it? 
+[T:STUDENTS-POSITIVE] [00:32:31] Interviewee:I think, uh, yeah, I mean, uh, it may be good for beginners and intermediates [00:32:43] For the beginners or something. It may help them to motivate to solve all the bugs and clean the code
+[00:33:01] Interviewer: Okay, like engage them into doing that.
+[00:33:11] Interviewer: What did you like or dislike about the game, anything else that we haven’t covered yet. 
+[T:GOAL-LACKING] [T:USER_AGENCY-LACKING] [00:33:30] Interviewee: Uh, what is the point of killing these bugs? I mean, these enemies. [00:33:46] Interviewer: Okay, so you didn't feel there was a goal in game. [00:33:51] Interviewee: Yeah, because when I go back to my code I’ll find those bugs. So what is the point of killing these bugs here? 
+[00:34:05] Interviewer: Yeah. Okay. Yeah, logical, um, well in the game, basically killing the bugs. Doesn't do anything to the code base obviously. it's not magical yet, sadly. Uh, but, um, killing the bugs can help you like understand how difficult the bugs are to kill, because if you are like, you know, in a file, and there's like tons of books between like overwhelming, you would die quickly, you have trouble getting them all, which means that basically this file has lots of problems.
+[T:ISSUE_ACCESS-NOT_FOUND] [T:ISSUE_ACCESS-USEFUL] [T:FILE_HOVER-INTUITIVE] [00:34:43] Interviewee: Like, is there any possibility to know the names to each, of each of the bugs, name quality of the bug? *Hover to bugs and started reading a bit* [00:34:54] Interviewer: Uh, yeah. Each bug has a severity when you hover on it like this. [00:35:00] Yeah. Yeah. And if you actually click on the bug or code smell. It will actually open the bug in SonarCloud. And tell you where it is in the code, where the bug is.
+[00:35:14] Interviewee: Oh, ok, yeah. Okay. Now it’s good, it’s good. 
+[00:35:21] Interviewee: Anyone can use this like professionals also can use this. But, why I said beginners and intermediates, because they won’t be coding for hours and hours. Like professionals they may have to work for hours all day. —
+[00:35:45] Interviewer: Okay. Did you like or dislike anything else? 
+[00:35:52] Interviewee: No 
+[00:35:52] Interviewer: Don't have anything else to say, no other questions. Like you didn't get.
+[00:36:01] Interviewee: Uh, I didn’t know about that feature *Access bug in SonarCloud by clicking monsters*
+[00:36:03] Interviewer: Yeah, you didn't get it right away.
+[T:ISSUE_ACCESS-USEFUL] [00:36:04] Interviewee: Now, now. It’s useful, it’s worthy.
+[00:36:15] Interviewer: Ok ok, very good then, well if there is nothing else. I think we can. 
+[T:MUSIC-NEEDS_CUSTOMIZATION] [00:36:25] Interviewee: Yeah, the music. If there are any chances to add our own music to that then it would be good.
+[00:36:30] Interviewer: Oh, so you didn't feel that there was like a link, uh, to the music, like the music and the game. 
+[T:MUSIC-IS_DANGER] [00:36:43] Interviewee: Well they are related. When music has high ptich bugs are getting closer and closer.
+[00:36:50] Interviewer: Yeah. All right. All right. But you would prefer to have your own music in the game? 
+[00:36:55] Interviewee: Yeah, sometimes. Yeah, because, uh, I’m coding right.
+[T:MUSIC-NEEDS_CUSTOMIZATION] [00:37:01] So it would be good, like if it was my choice of music. 
+[T:MAP-NOT_FOUND]
+[T:MAP_SEARCH_BAR-NOT_USED]
+[T:MOUSE-NOT_FOUND]
+[T:ISSUE_ACCESS-NOT_FOUND]

@@ -1,0 +1,133 @@
+﻿2022-04-23 11-01 transcript
+Exclusion criteria:
+* Interviewer asking the participant what their thoughts are.
+
+
+FUNKY: C E A D B (Wrong order)
+
+
+RAINBOW: A C D E B (Yellow, Green, Orange, Red, Black)
+
+
+Music: 4 1 3 2 5
+
+
+FUNKY used
+
+
+*test attack key* *test freeze key* *clicks to dig the main square in tutorial* *goes back up* *moves with wasd* * kills a few monsters*
+
+
+[00:26:21] Um, so let's move.[00:27:00] 
+[00:27:30] I'm trying to see if all of the enemies have the same damage, like the bigger ones like these *points to vulns in tutorial room*, these awkward one is the same as others. Like small one has the same damage of like the big one. 
+[00:27:49] Um,
+[00:27:54] *enters tutorial room with one medium bug* oh, it a boss.[00:28:00] 
+[00:28:01] Interviewee: So what happened with if you dig in again?
+[00:28:58] Interviewee: *reads freeze information carefully* I can [00:29:00] see different texture for walls, like, like red or others. And like, what’s the difference between bugs and vulnerabilities and code smells.
+[00:29:13] Interviewer: You're not sure, about the difference in terms of…
+[00:29:20] Interviewee: yeah, like in the game. *kills a few tutorial monsters* *dig in & dig up*
+[00:29:13] Interviewer: Were you expecting something else?
+[T:MONSTER_RESPAWN-NOT_INTUITIVE] [00:29:48] Interviewee: um, like, like the ones that I kill shouldn't be there anymore. It says zero out of one. 
+[00:30:07] Interviewee: So. The first place. (?)
+[00:30:11] Interviewee: see what happens is you kill all of them
+[00:30:18] Is that the tutorial ? So what is this? 
+[00:30:22] Interviewer: Yeah yeah you are in the tutorial right now.
+[T:FIRST_ACTION-BROWSING] [00:30:29] Interviewer  *Scrolls down on projects* So here you are in the project section. So you have access to all the open source stuff, public projects that are available on sonarcloud, but for the purpose of this interview, I, I recommend we just go for the recommended projects. Brave software on the top.
+[00:30:49] Interviewee: *goes around killing monsters and digging files
+[00:31:30] Interviewer: So what are you first thoughts?
+[00:31:42] Interviewee: So it’s impossible to kill them *slight laugh* [00:31:46] Like.[00:32:00] What should I do ? *randomly visits rooms and fight monsters*
+[00:32:09] Interviewer: can you, do you see, uh, links with the code quality, like, um, some things that are related or… [00:32:24] like, for example, do you understand what a, what a room is? And right now you are in a room, what do you think the room represents in terms of Software quality
+[T:PERFECT_ROOM_PERFECT_CODE] [00:32:36] Interviewee: *enters perfect room with 2 squares A Rating*  so actually it has a, um, a directory “vendor/bat-native-ads/data” *Name of the directory in the top left label*, nothing is here. So. There's probably no bugs in there, but I can see 2 different squares “resources”, “test” *Names of the sub-dir that the player know by walking on it and looking at the top left label* so we can begin another,[00:33:00] 
+[T:ROOM-PACKAGE_STRUCTURE] [00:33:06] so nothing here. So, so, so it has, um, Can we dig into the files. *does so* [00:33:18] So we reach into file. So we can't like.. it's actually changed the directory [00:33:26] like CD’ing 
+[00:33:34] Interviewer: What do you think the monsters represent? [00:33:47] So you must have noticed that like monsters coming after you, uh, why do you think the monsters represent? 
+[T:MONSTERS-ARE_ISSUES] [00:33:57] Interviewee: So there are actually, they should represent the bugs. But I'm not sure they are following me when I'm in the top directory. So, um, so, and the like, so they're, um, they suffer different damages like it was mentioned by the guide *”The guide” is the freeze mode information panel*, I guess, like not sure each of them had different, uh, had more powers. 
+[00:34:35] So when I hit them, they didn't suffer the same damage. I think so. Like, so there's a file here, a Python file. Let's go back to see if they're following me. So there are different numbers here *Big dir with 30+ files*.
+[00:34:55] So I definitely try to kill of them *The player is not moving, they are in the middle of the room keeping (or spamming) attack key, a lot of monsters are coming, but in the end the player dies* They are faster than me.
+[00:35:09] See *Walking towards a monster and attacking it against a wall*, it is very powerful.
+[00:35:17] Interviewer: For example, like this room what does it tell you about the code quality? 
+[00:35:24] Interviewee: Um, let's stop. *Turn on freeze mode* 
+[T:MUSIC-DISLIKED] [T:VOLUME-NOT_MODIFIABLE] [00:35:27] I don't like the music. I want to freeze, I mean pause the music. I can't talk at the same time. 
+[00:35:35] Interviewer: Oh, okay. Uh, sadly, there is no way to reduce the volume of the music, because if you reduce the volume of the browser it will reduce my voice too.
+[00:35:47] Interviewee: So, there are many, many, like big code smells coming out from that. *In a room with 5 files, 1 with 1 issue and another one with 151 with a lot of big code smells coming out + some small code smells and bugs*
+[T:EXPLORING-HARD_WHEN_MONSTERS] [00:35:53] Interviewee: So like 151. So it's impossible to reach that square. So going to that directory, there are many of them densely populated there, and I can't keep all of them. So I can't access that code.
+[T:MOUSE-NOT_FOUND] [00:36:24] Interviewer: And if you stay in the freeze mode like that and go around, you can click on the square to get inside it.
+[T:ISSUE_ACCESS-NOT_FOUND] [00:36:34] Here, you can also click on the monsters to open the information about it directly from SonarCloud. It just tells you what the issue is.
+[00:36:46] Interviewee: So 1000 issues in this project.
+[00:37:08] Interviewer: Yeah it is SonarCloud. But then if you come back to the game yeah. You can click on the square and get inside and you can right click to go up. [00:37:21] Now you can go into any places. 
+[00:37:26] Uh, so  my question is like: if you go a little up, like this room *Perfect room*, what does it tell you about the code quality? Like it's 
+[T:PERFECT_ROOM_PERFECT_CODE] [00:37:40] Interviewee: Like it’s zero. So there are no bugs here. Not at all.
+[00:37:43] Interviewer: And about the colors used here?
+[T:RELIABILITY_METRIC-NOTICED] [T:SECURITY_METRIC-NOTICED] [T:MAINTAINABILITY_METRIC-CONFUSING] [00:37:44] Interviewee: So the ground tiles are pink. So no bugs and the walls represent the security. [00:37:57] So it's not the lightest but still not vulnerable *They think it is ⅘ but in fact it’s 5/5*. And the cracks, uh, can't see any cracks here. So like it's, these ones are this ones, right? *Asking if the first line about walls in the information panel are the walls surrounding the room*. And not */!\ Not sure about the not need to verify* these *Pointing to walls of sub-dir*.
+[T:MAINTAINABILITY_METRIC-CRACKS_NOT_FOUND] Uhm, I can't find the cracks, like, like each of them are these *Pointing to the room in general*.
+[00:38:30] Interviewer: There's probably no cracks here. And if you go to another room, yeah, like this one *5 sub-dir, one with 1 issue, another one with 151 and ground 3/5, overall perfect walls, ground 3/5*, colors are changing. So what does it tell you? 
+[T:RELIABILITY_METRIC-NOTICED] [T:SECURITY_METRIC-NOTICED] [T:TILE_NUMBER-NOT_INTUITIVE] [00:38:35] Interviewee: *Freeze mode is on* *Slight sight* So, it's one of the darkest one. Um, so there are many bugs here, but the walls, I'm not sure, the walls are like, there are no vulnerabilities here, but there are many bugs. And about the cracks? I can't see any. So, but it's like one out of one *Hover on a file with 1/1*. Is that the number of file? *Clicks on it to dig in. Arrives in a room with 3 sub dir, one of them is also 1/1* *Point to the 1/1 file* Yeah 1 out of 1. 
+[T:MONSTER_NB_TOT-NOT_INTUITIVE] [00:39:15] *again click on it, arrives in a leaf with 1/1* Ok so one *Point nb tot of monsters* some thing.
+[T:FREEZE_INFORMATION-USEFUL] [00:39:20] *Turn off freeze mode, let a monster spawn, turn on freeze mode, check in the doc which type of monster it is* So that's a medium code smells. 
+[T:GOAL-LACKING] [00:39:22] So what's the point of killing them?
+[00:39:23] Interviewer: You don’t think there is a point?
+[00:39:29] Interviewee: Yeah.
+[00:39:32] Interviewer: Um, if you had to guess, like, what would be the goal. What would you say it is?
+[T:USER_AGENCY-LACKING] [00:39:40] Interviewee: It shows me that, like there's no bug here. *Pointing to total number of monsters which is zero here*. But still, what's the point of killing them? 
+[00:39:53] Interviewer: Okay. Yeah. Well um, I'll tell you so it's easier for you to get it, um, killing the bugs, killing the issues. Doesn't do anything thanking. Your goal is not to kill them. The goal is just to fight them to get an idea of how difficult it is to clean them.
+[00:40:19] If you are in a room where there are not a lot of issues and you can kill them really quickly and be done with it. Then it indicates: “okay, this room has bugs, but it's manageable”. And if you're in one, that has too many bugs, too many issues and that you die continuously. And you know that it's a problem, like bad things are happening in this room.
+[00:40:44] It's more like to give you this intuition. 
+[T:GOAL-LACKING] [00:40:48] Interviewee: Now, I understand what you are trying to say, but, um, it's not very intuitive, I guess, in my opinion.
+[00:41:06] Interviewee: So any other things like, like most of the bugs are from one directory, like most of the directors don't have anything like it's the same pattern in every room.
+[00:41:20] This one, like there 2, 1, but one 105. *In root talking about tile number, 3 tiles, one with 2, one with 1 and the last with 105*
+[00:41:28] Interviewer: So now you get what the numbers are? 
+[T:TILE_NUMBER-EMPIRICAL_DEDUCTION] [00:41:31] Interviewee: Yeah, I know the number one, like —, like there's too much difference between the numbers for different directories so some directories have too many bugs, some others have like 1 or 2.
+[00:41:46] Like this is 700.
+[00:42:08] Interviewer: Did you feel overwhelmed by the information in the game, or there's too much information or on the contrary not enough information or is the information too complex? 
+[T:ROOM_INFORMATION-COMPLEX] [00:42:20] Interviewee: It's a bit complex, not overwhelming. Um, like if you didn't guide me as to all of these, I couldn't find out pretty soon by myself. And, um, so I'm still not getting what's.
+[T:MAINTAINABILITY_METRIC-CRACKS_NOT_FOUND] [T:MAINTAINABILITY_METRIC-CONFUSING] [T:SECURITY_METRIC-NOT_INTUITIVE] [00:42:38] *Freeze mode on, pointing to colors* Why is it like, like I get the tiles are different, so it shows something so it's intuitive, but about the walls and the cracks. I don't see any, any intuivity of them, like, I haven't seen any cracks yet. What are these? 
+[00:42:55] Interviewer: Yeah. Okay. I see. And you, you think the walls too are not very clear? 
+[T:SECURITY_METRIC-NOT_INTUITIVE] [00:42:59] Interviewee: Not really intuitive. Like, I just like, did it, they, most of the part in the screen are the tiles. [00:43:08] So I don't even notice the walls.
+[00:43:19] Interviewer: What did you think about the combat, the fighting in the game? 
+[00:43:25] Interviewee: So, so, um, the only thing that it delivers is that, as you said, there are some rooms that it's impossible to kill all of them, but there are some rooms that we can kill, but other than that not really. Like.
+[00:43:44] So I didn't even get to know much about the different sizes and like, how is it important? So, and, um, you know, let's see if I can kill them. 
+[00:44:05] So it’s not a critical path here.
+[00:44:10] Interviewer: And about purely the gameplay aspect of the combat, like fighting, slicing through them. Uh, do we think it's like, what do you think about it? About the controls of combat, the intuitivity of combat? Is it, good, not good, what do you think?
+[00:44:32] Interviewee: um, so looking as a game. 
+[00:44:34] Interviewer: Yeah yeah, as a game perspective. 
+[T:GOAL-LACKING] [00:44:37] Interviewee: So, uh, so when we, when we talk about the game, it should have some kind of gameplay. So it's, I can't find any gameplay here. Like, like what is the mission, killing all of them? So it's impossible in depth, like in a buggy directories to kill all of them and small rooms like here.
+[T:HEARTS-USELESS] [00:45:05] It's easy. I look, I have three lives. I don't know. How are they important?
+[00:45:15] Interviewer: Uh, do you feel motivated to fix technical debt when playing the game? Does the game motivate you to fix the technical? When you see all these bugs?
+[T:FIXING-NEGATIVE] [T:USER_AGENCY-LACKING] [T:GOAL-LACKING] [00:45:35] Interviewee: Somehow I can’t say like, yes. Yes. Cause like I can't find the motivation behind killing them. So why should I kill them?
+[00:45:52] Uh, 
+[00:45:54] Interviewer: Like, coming back to your code, do you think that this game would motivate you to say: “okay, this room has a lot of problems. I am motivated to go into my code and fix the issues. So these bugs disappear from the game”. Do you think this thing can motivate you. Can the game motivate you? 
+[T:ME-CLASSIC_VIS_EASIER] [T:ME-NEGATIVE] [00:46:14] Interviewee: So. So a plain, a plain screen of seeing numbers is enough for me to see if so these directories have too much bug, too many bugs, so I need to go and fix them, but like, uh, like bugs being some animals coming out, it doesn't motivate me any anyhow, like, um, like I already, when I see the numbers, I know which directories are most vulnerable. [00:46:40] So the moving objects here, uh, have no, um, no reason for me.
+[00:46:51] Interviewer: So my next question would be like, um, would you personally use this tool in your everyday life? 
+[00:47:00] Interviewee: The exact game? 
+[00:47:01] Interviewer: Uh, yeah, pretty much. Maybe with some fine tuning, but, uh, yeah, the idea of this game. 
+[00:47:06] Interviewee: um, the idea of, um, so how is the idea of this game different from SonarCloud? 
+[00:47:13] Interviewer: Um, like basically this game exactly makes the thing more intuitive to the user, like you don't have to read the numbers.
+[00:47:25] It's more like you fight through them. Do you think this is something that you would use in your everyday life as a tool? 
+[T:GOAL-LACKING] [T:ME-NEGATIVE] [00:47:32] Interviewee: I think, I think yes, but some so, so much similar, um, similar, um, screen, similar path. Not, not very complicated like this, so like, It's a game, but lacks proper gamification still. [00:47:55] So I'm not motivated to play the game. So when I, when I open the screen, I'd see, okay, this, this tile is darker. So there are many more bugs here. So that's enough for me to understand what I should do next.
+[00:48:12] Interviewer: If I rephrase my question, like for this game, exactly. That would be a no? 
+[00:48:18] Interviewee: No. 
+[00:48:21] Interviewer: Okay. It is because of the lack of gamification..
+[00:48:24] Interviewee: Yeah, like this is enough for me. So for example, it's 16 here *shows a square with 16/16*. So it's more important than this one that doesn't have anything, but like, like reading, waiting for them to come … and what should I do now?
+[00:48:54] Interviewer: if you think that's not something that will fit you, do you think that anyone else, maybe [00:49:00] in your team in your company would like, uh, see benefits of playing this game ? Any other role ? Maybe not data scientist, but a…
+[T:JUNIOR_DEV-NEGATIVE] [T:SENIOR_DEV-NEGATIVE] [00:49:10] Interviewee: Um, I’m not sure about the software engineers [00:49:18] like senior ones definetly not. But about the the junior ones, I'm not sure. I don't think so, but I'm not sure. I can't say no a hundred percent. No, like, like 80%, no, 70% something like this.
+[00:49:40] Interviewer: because of the lack of gamification aspect or just because… 
+[T:ME-CLASSIC_VIS_EASIER] [00:49:44] Interviewee: I think, I think the gamification aspect and at the same time, the complexity, like, like the numbers here are enough for me or the color, the color difference. So, so the moving objects, I can’t see any points.[00:50:00] 
+[00:50:01] Interviewer: Now Finally, is there anything else that you liked or disliked about the game? 
+[T:DESIGN-GOOD] [00:50:07] Interviewee: I liked the design, so, so that reminds me of, of old 2d games. I like that. Uh, I really liked some, some kind of adventure games like this, that you have different, um, different stages. You need to do different [00:50:23] missions. 
+[00:50:25] Interviewee: Um, you know, other than that, let me go back to… *explores a couple of rooms using the mouse right/left click*
+[00:51:27] the license (html licence file) has  bugs ?! 
+[T:REQUIREMENT-NOT_BIG_PROJECTS] [00:51:29] Interviewee: yeah. [00:51:36] Um, like other than that, it's good. Like for big projects, with many directories, it could be somehow complicated, like moving around different, um, different rooms. So it could be, it could be pretty complex 
+[T:MAP-NOT_FOUND] [00:51:52] Interviewer: actually for that, we made a map. You can press tab to open the map, try to figure maybe out [00:52:00] how it works. [00:52:01] So you can then see maybe if it's better like this
+[00:52:14] Interviewer: So you can use WASD in the map to navigate.
+[T:MAP-USABILITY_BAD] [00:52:16] Interviewee: *doesn’t think about going down when on a folder to get inside of it* So there is no path like seeking or ?
+[00:52:35] Interviewer: You have to press S to go down.
+[00:52:59] So how does the map feel actually ? 
+[00:53:00] Interviewee: it’s pretty straight forward.
+[00:53:12] Interviewee: like I'm browsing depot. It feels the same.
+[00:53:36] Interviewer: Is there anything else that you may be disliking or like,
+[T:RELIABILITY_METRIC-NOT_INTUITIVE] [00:53:47] Interviewee: *in a room bugs class E and only one bug* Not really. There's, there's just one bug here. why is the tiles very dark? So how is the different colors of the tiles represent anything ?
+[00:53:59] Interviewer: they represent? [00:54:00] Uh, they represent like the severity of the, of the room so here you have only one bug, but the room is like really dark. So it basically means that the bug is really critical.
+[00:54:14] Interviewee: I, I was thinking like by default, I was thinking there is a relation between the color and the number rather than —
+[00:54:28] Interviewer: You thought that a tire was like a darker? It means that there is lots of bugs. Not necessarily like critical ones.
+[00:54:35] Interviewee: Exactly.
+[00:54:48] Interviewer: Anything else?
+[00:54:53] Interviewee: um, no, I guess not nothing, nothing else. [00:55:00]

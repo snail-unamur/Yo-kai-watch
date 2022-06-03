@@ -1,0 +1,40 @@
+{
+	"name": "the-coding-of-isaac",
+	"version": "1.0.0",
+	"description": "A dungeon crawler game which is also a code quality visualization tool for public projects on SonarCloud",
+	"scripts": {
+		"start": "parcel src/index.html -p 8000",
+		"build": "parcel build src/index.html --out-dir dist",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+	},
+	"author": "",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/snail-unamur/Yo-kai-watch.git"
+	},
+	"homepage": "https://github.com/snail-unamur/Yo-kai-watch",
+	"devDependencies": {
+		"@types/node": "^17.0.21",
+		"@typescript-eslint/eslint-plugin": "^2.29.0",
+		"@typescript-eslint/parser": "^2.29.0",
+		"eslint": "^6.8.0",
+		"minimist": ">=1.2.2",
+		"parcel-plugin-clean-easy": "^1.0.2",
+		"parcel-plugin-static-files-copy": "^2.4.3",
+		"typescript": "^3.8.3"
+	},
+	"dependencies": {
+		"parcel-bundler": "^1.12.5",
+		"phaser": "^3.55.2",
+		"phaser3-rex-plugins": "^1.1.66"
+	},
+	"parcelCleanPaths": [
+		"dist"
+	],
+	"staticFiles": {
+		"staticPath": "public",
+		"watcherGlob": "**"
+	}
+}

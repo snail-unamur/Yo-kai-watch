@@ -1,0 +1,78 @@
+﻿2022-04-19 15-04 transcript
+Exclusion criterias:
+* Interviewer describing the project
+
+
+FUNKY: A E C D B (Good order, start dark)
+
+
+RAINBOW: C A D B E (Green, Yellow, Orange, Black, Red)
+
+
+Music: 4 3 5 1 2
+[T:PROJECT_LOADING-BORING] [00:07:20] Interviewee: Got a good long weekend? *During game loading*
+[00:09:38] Interviewer: Yeah yeah 
+*Game loaded*
+[T:TUTORIAL-CONTROLS_UNNOTICED] [00:08:09] Interviewee: My eyes focused right away on X, and the attack so I did not early see the controls to move. 
+[T:TUTORIAL-LEAVING_EARLY] *Read a bit everything and then dig to leave the tutorial*
+[00:08:35] Interviewer: Here you are in the project selection. Uh, you can actually look for any project that is public on SonarCloud. But for this interview, we will just go for the recommended one: the brave software.
+[T:COMBAT-FLEE] [00:09:15]  Interviewee: *Running around without attacking* So it’s similar I should avoid these guys. *Get stuck in a corner and get hit* Oh jeez.
+[T:GO_UP_KEY-MISSED] *Dig into perfect rooms* *Walk around in a perfect leaf* [00:09:38] Interviewer: So you don't know how to get out of here? [00:09:15]  Interviewee: No… [00:09:42] Interviewer: Okay. You may have missed it in the tutorial. You can dig up by pressing the E key.
+[00:09:43]  Interviewee: Oh okay
+[T:ROOM-PACKAGE_STRUCTURE] [T:FILE_NAME_INDICATOR-NOTICED] [00:10:01] Interviewer: What do you think, all these squares on the ground? [00:10:06] Interviewee: Uh, right now looking at the top left, I think they are all files, my first approach was to look at the top left corner. 
+[T:MAP-PACKAGE_STRUCTURE] [00:10:35] *Open the map* Okay so this is like a project or a file structure like, uh, more like a project or something like that. Based on what I see I think it is a project.
+[T:EXPLORING-HARD_WHEN_MONSTERS] Seems like there is some nasty stuff going on here, so I can’t get in *Trying to go into a file but the user is blocked by monster on their way*
+*Did not use the attack yet* *Goes into the 2 bugs room* *Walk a bit around fleeing the monsters and then kill them*
+[T:EXPLORING-HARD_WHEN_MONSTERS] [00:11:28] Interviewer: So the squares on the ground, are files and folders [00:11:46] Interviewee: So I probably want to jump there to see where it is connected. See if I can, *Walk into a monster* nop.
+[00:12:02] *Wait to go into a room, a monster is on the way* *The player doesn’t move, just attack*
+Jump down, jump in.
+[T:FREEZE_KEY-MISSED] [00:12:11] Interviewer: You can actually also like, uh, press the X button to freeze time and also get more information.
+[T:FREEZE_FREEZE-TO_FIGHT] [00:12:15] Interviewee: *They are fighting a monster* *They freeze 1 demi second, than unfreeze to hit once, then freeze 1 demi, unfreeze to hit, freeze, until the monster is dead* *Read* Oh I’ve already mapped my tab, he, there is another key I can use or?
+[00:12:36] Interviewer: Oh you’ve mapped your tab button?
+[00:12:38] Interviewee: Yeah. 
+[00:12:39] Interviewer: Yeah. Yeah. But I've seen that you’ve actually opened the map up before, like what you were using the folder.
+[00:13:00] Interviewee: Oh yes, so tab works.
+[T:USER_AGENCY-LACKING] [00:13:25] Interviewee: Not sure yet how to get to make things better, eventually. Seems like there is other stuff. Seems like, there could be, uh, a way to compare under that flashing things, maybe
+*Phone ringing, user looked at it*
+[T:MONSTER_RESPAWN-NOT_INTUITIVE] [00:14:06] the, uh, go down and up. There we go. *In perfect room* I feel I’ve been here and killed these guys.
+[00:14:16] Interviewer: Yeah, that might not be a way to actually solve the bugs, except if you go in code and actually solve. 
+[00:14:24]  Interviewee: uh, that makes a lot more sense, okay. I felt like I’ve been into code. Okay *Browsing in the map*
+[00:14:41] Interviewer: Up until now. Do you feel overwhelmed or underwhelmed by the information in the game, too much information, too little, too complex maybe? Yeah. 
+[00:14:53] Interviewee: Uh, I don't think I felt overwhelmed, but I definitely, uh. For some reason — intuitive. Yeah I [00:15:08] didn't make the connection to the actual file. I don’t know why.
+*Scrolling the list of file in the search bar in the map menu*
+[00:15:13] Interviewer: The actual files like, um, the rooms that you are in? 
+[00:15:17] Interviewee: Well, yeah, no. It’s how to make a kind of a connection where the guys —. This file actually contains vulnerabilities or bugs. Eventually.
+[00:15:49] Interviewee: I’ve noticed that I can jump to a file. I don’t think it is.
+[00:16:10] Interviewer: Yeah, actually right now you are in a file. 
+[00:16:14] Interviewee: Can I actually edit this file? 
+[00:16:16] Interviewer: Nope. You can’t edit. It's just visualizing the quality. 
+[00:16:25] Interviewee: Uh, okay. So there's no actual, like real code in this code.
+[T:COMBAT-PACE_OVERWHELMING] [00:16:37] Okay then for like visualizing and definitely this is overwhelming what it is for like trying to figure it out now I'm like fight flight mode. [00:16:53]  Unless I’m like trying to find out where is to go, what I should do with my legs *Note: legs might not be the good word*. Okay, at the same time trying to run away when you're trying to figure out where to go. [00:17:00] 
+[T:FREEZE_FREEZE-MISSED] [T:MOUSE-NOT_FOUND] [00:17:01] Interviewer: Yeah, I get it. You can maybe slow things down by pressing the X key, cause it freezes time and then you can move around with the same arrow keys. While you are in freezing mode, you can use your mouse to click on tiles to teleport.
+[T:FREEZE_FREEZE-USEFUL_TO_LOOK_AROUND] [T:MOUSE-USEFUL] [00:17:15] Interviewee: Oh, that’s a lot better
+[T:MOUSE-NOT_FOUND] [00:17:20] Interviewer: And right clicking means that you go up.
+[T:MAP_NUMBER-EMPIRICAL_DEDUCTION] [00:17:36] Interviewee: So I haven't made the connection yet. Between the number here *Talking about the number in map under folder* These guys came out. uh. [00:18:00] 
+So these are always the same 4 files *Navigating horizontally between files in the map* 
+[T:MAP_SEARCHBAR-TYPE_NAME_OF_FILE] *Scroll in the search bar suggestions* Oh no, ok interesting. *Try to type the name of the file* *No file shows up in the list* *Delete what they typed* *Back to keyboard, goes up* Interesting. *Hit the top* Okay that’s the main room. Okay 26 files.
+[00:18:50] Interviewee: Yeah, this is actually not too bad. I should be able to —
+[00:18:58] There's probably 200. 
+[T:FREEZE_FREEZE-USEFUL_TO_LOOK_AROUND] [T:MOUSE-USEFUL] [T:MAP-USABILITY_GOOD] [00:19:07] There must be something in here. Uh, that’s not that bad to navigate *They are using freeze mode and map* around to find where in the project this is.
+[00:19:18] Interviewer: If you go back to a room like this one or any other what do you think the severity of the issues in the room is? 
+[T:COLORS-GENERAL_QUALITY] [T:TILE_NUMBER-INTUITIVE] [T:TILE_NUMBER-CONFUSING_COMPARABILITY] [00:19:27] Interviewee: *Time frozen in a perfect room with 1 file and 2 monsters that could spawn* This one's pretty low. *Pointing to monsters in the freeze information panel* Uh, I can't tell like the size wise, so let me explain myself. *Go back to root* So there's one here *point to a file with 1 issue* and then the 105 *point to a file with 105 issues* here. But I don’t know the size, the 105 could be small and the one could be giant.
+[00:19:58] Interviewer: uh, and about the colors in that room?
+[T:MAINTAINABILITY_METRIC-CRACKS_NOT_FOUND] [00:20:03] Interviewee: Yeah. So we've got that mapping in there. I don’t know where that are *Pointing to cracks*.
+[T:COLORS-GENERAL_QUALITY] [T:LEGEND_SCALE_DIRECTION-INTUITIVE] [T:LEGEND_SCALE_DIRECTION-LEFT_TO_RIGHT] [00:20:30] So this one *Dark sub dir* is definitely worse than this *Light sub dir*.
+[00:20:47] Interviewer: Do you think this game would motivate you to fix the technical debt? Like after that, in your code, if this was your code base?
+[T:ME-POSITIVE] [T:FIXING-POSITIVE] [T:SCENARIO-DEBT_FIGHT_ENGAGEMENT] [00:20:58]  Interviewee: Yeah, actually, well, it could be interesting. It could be, I dunno if I would use this all the time, to do that, but I could definitely see like, uh a game of mine. I guess, uh. [00:21:15] So something that I’m working on. You know, we also have personal —, like when a conflict we have roughly one day where we can just make the code source better I can see, this, being part of that culture as well.
+[00:21:39] A team, or the whole company has to tackle some vulnerabilities.
+[00:21:49] Like I wouldn't use it every day for me personally, but I can see using something like that.
+[T:GOAL-FIND_WORSE_FILE] [T:COMBAT-OVERWHELMING_IS_BAD_CODE] [T:MONSTER_NUMBER-INTUITIVE] [00:21:59] Like have a game or competition between each other to kinda like [00:22:04] have a day of hacking and finding where the bugs are, targeting them [00:22:11] You know, it’s pretty relatively easy to find [00:22:17] Like with an example, here. There's one here *Moving around the camera in freeze mode and pointing to a sub-dir with 1 issue* even if you don’t know the type and size of the monster. [00:22:25] Here seven might be overwhelming.
+[00:22:38] Interviewer: When you said that you could be playing this with your team. What kind of profile in your team would play this game, only software developers, or are there any other roles that could benefit playing this game? 
+[00:22:53] Interviewee: Yeah. Um, so we're a cross functional team. I can see a lot of UX *Note: not sure about the UX*.
+[T:MANAGER-MEDIUM] [T:SCENARIO-PAIR_PROGRAMMING] [00:23:10] Interviewee: I might be a stretch, but maybe the product manager, like a co-op, is not actually fixing the bugs. We had a co-op game where maybe two are paired up. Like a developer and a designer could co-op. 
+[00:23:44] Interviewer: So you would probably use this game if it was released.
+[T:FREQUENCY-TRY_BY_CURIOSITY] [00:23:50] Interviewee: Yeah. I’ll for sure at least like an experiment or something to try.
+[00:24:17] Interviewer: I've noticed that you didn't engage a lot in combat against the monsters. You were mostly fleeing them, but you didn't try to press the space key a lot to kill them. So what do you think actually, about the combat was it like, um, what's your thoughts about it?
+[T:COMBAT-ONLY_WHEN_FEELING_ACHIEVABLE] [T:COMBAT-PACE_OVERWHELMING] [00:24:36] Interviewee: Uh, so the very top one, it was definitely overwhelming. I couldn’t make it so I tried to hide in a room. And when I was feeling I could engage then I tried to attack one.
+[00:25:11] Interviewer: I see what you mean. Um, is there anything else that you liked about the game or disliked?
+[T:LEARNING_CURVE-MEDIUM] [00:25:24] Interviewee: Yeah, no. Uh, I'm not. [00:25:34] I think it probably was just me, but I was kind of slow to pick up some new stuff. [00:25:44] Interviewer: It’s completely fine, so what kind of stuff did you have trouble picking up? [00:25:47] Interviewee: Yeah. Like, just the navigation like WASD, jumping in, jumping out.

@@ -1,0 +1,77 @@
+﻿2022-04-06 09-32 transcript
+[00:00:00] B D C E A
+[00:00:26] C A D E B
+[00:04:30] 2 5 4 1 3
+[Interviewer] Um, before starting anything, can you just press. So inches of colors. Okay, perfect. Because we will be doing it like this.
+[T:CONTROLS-INTUITIVE] [00:08:12] [Interviewee] Yeah uh, it’s intuitive, I think
+[T:FREEZE_INFORMATION-USEFUL] [T:FREEZE_INFORMATION-INTUITIVE] Mmh, the documentation *Talking about the information panel in the freeze mode* is good as well. I think I pretty much understand how it works. *Leaving the tutorial*
+[00:08:59] [Interviewer] So, yeah, here, you can actually choose any open source public project that uses SonarCloud. But for this demo, I think we’ll just go for Brave. Um, at least we tested it.
+[00:09:28] [Interviewee] Yeah, I wasn't expecting. haha. That.
+[00:09:33] [Interviewer] Yeah. What's uh, what were you expecting? What happened? 
+[Interviewee] I don't know. [00:09:40] I feel kind of submerged. [00:09:50] Okay. [00:10:00] *Enter perfect room* Here I’m kind of safe.
+[00:10:11] *Go back to main room* Okay, there’s 1200 monsters *It’s the number written in the center on the top of the screen*. Is that right? [Interviewer] Yeah. [Interviewee] Okay. haha. Okay. That room is impossible.
+[00:10:22] [Interviewer] Do you understand what the squares on the ground are for?
+[T:SECURITY_METRIC-IS_COLORS] [00:10:43] [Interviewee] Okay. Yes. Here it is more vulnerable and here *Red* less vulnerable *Green sub* *Dig in the subdirectory*. [Interviewer] And what indicates that? [00:10:53] [Interviewee] I guess the colors. And the monsters [00:11:00] related to the colors of the tiles. If I understand well.
+[00:11:09] [Interviewer] And do you get what the tiles are, what do they represent each square? 
+[T:ROOM-IS_FILE_SIZE] [Interviewee] I guess it's the size of the file. No, actually not so. I guess it’s a... I don't know because this zone is a file *Walking inside a square*. But here, there is no file at all *Stand between squares*. But I guess, it’s the size of the file.
+[00:11:41] [Interviewer] I will actually tell you then. So right now you are in a big room, which is a directory and each square is either a directory or a file. [00:12:00] It doesn't represent the size. It’s just a file or a directory. 
+[Interviewee] Yeah. Okay. Okay. *Dig down to a file*
+[00:12:10] [Interviewer] Okay. And so here you are in a file because you can’t get deeper, when you can't go deeper, it means that you are in a file. 
+[T:FILE_NAME_INDICATOR-NOT_INTUITIVE] [T:FILE_NAME_INDICATOR-NOTICED] [Interviewee] *Went up and the player is in a big room* Okay. I can see that I am in a file but also in a directory *Talking about the labels* [00:12:28] 
+[Interviewer] Okay. Yeah. So the first line is the directory you are in and the second is where your character is standing. 
+[Interviewee] Okay. So if I go there, *Dig in the file* okay. Okay.[00:13:00] 
+[00:13:02] So, I guess it's easier, when we go directly in the file and not staying in a directory.
+[T:GOAL-LACKING] [00:13:21] Yeah, but I'm not sure what's the, if there is an [00:13:31] end game. 
+[Interviewer] An end game you mean like an objective, a goal.
+[T:COLORS-GENERAL_QUALITY] [T:MONSTERS-ARE_ISSUES] [Interviewee] Yes yes, other than just visualizing the bugs and the code smells, the securities issue, et cetera. I mean, it's pretty obvious where the main issues are in the code because it's related to either the color or the number of monsters.
+[00:13:57] But other than that, [00:14:00] is there, as you said, a goal?
+[Interviewer] Uh, do you feel like you don't find any goal?
+[T:MONSTER_RESPAWN-NOT_INTUITIVE] [00:14:11] [Interviewee] Oh no I feel there is the goal to kill the monsters, of course. But for example, if I go there, *Dig in a subdirectory* Then I kill the monsters. [00:14:22] And I go up again and then down again, they will respawn right.
+[00:14:31] Yeah, it feels useful.
+[00:14:36] [Interviewer] Yeah. All right. Um, I think I can then tell you the goal. Actually the goal is really like, as you said, the visualization part. Fighting the monsters is a way to experience the difficulty of the bugs or the smells[00:15:00] you have to fix. That's why you, they always respawn. Like this, each time you reload the room, you can fight them again and then have the same experience of fighting this room, these bugs.
+[00:15:23] [Interviewee] It’s interesting because, in this room *root of Brave* it feels overwhelming, like it’s not possible to kill them all.
+[T:COMBAT-OVERWHELMING_IS_BAD_CODE] [00:15:32] [Interviewer] And so what does it tell you about the code quality of the final director? [Interviewee] Yeah, I'd say, uh, I guess it's hard to tell because I don't have a comparison against other codebase, but as it feels overwhelming in this game in particular, I’d say the code quality is not that good. But [00:16:00] it's difficult to really answer the question because I have no comparison over other codebases. [00:16:09] I don't know if, if what I say is understandable. [00:16:20] Yeah, definitely. It feels like there are a lot of issues with the code quality.
+[00:16:31] [Interviewer] Okay. And like if you pick two rooms you can really differentiate the code quality between two. 
+[T:PERFECT_ROOM_PERFECT_CODE] [Interviewee] *Enter a perfect room* Uh, yes, for example, here, basically there is no, no issue with the code.
+[T:RELIABILITY_METRIC-NOTICED] [T:BUGS-NOTICED] [00:16:52] *Back to root than go a file room B reliability with 2 bugs* I mean here [00:16:58] it feels like [00:17:00] it's okay. Maybe a few issues. But it feels manageable.
+[00:17:07] Uh, and of course, if you go into another  room like the red one [00:17:12] um, yeah, again, I feel already overwhelmed by these monsters. *10 monsters in a 2 files room*
+[00:17:23] And again here in the file *With only one monster*. [00:17:28] I mean, it's kind of okay, because I mean, a file. 
+But if I go back up, it's already overwhelming.
+[T:GOAL-FIND_WORSE_FILE] [00:17:47] So I think what I can learn here is that I have to go room by room, fight by fight. To really understand which [00:18:00] file or directory has the most issues in it. 
+[T:GOAL-CONFUSING] But it's, um, I mean, without having to dig into a file or directory. I already know which one are the easiest and know which one are the hardest. 
+[Interviewer] Okay. Do the walls tell you anything?
+[T:SECURITY_METRIC-HARD_RECALL] [00:18:25] Um, yeah there is documentation *Press X and read* I have to admit I’m not sure about this. Because, I didn’t pay attention to the walls really. Because walls are always green here I guess. Or maybe there are different color here *Dig in another file*. Ok green here too.
+[00:18:53] Well, those are always green walls. So I guess there are no security vulnerabilities. Within the codebase. Yes. 
+[T:MAP-NOT_FOUND] [Interviewer] Okay. Um, maybe we can try to use the map. You didn't use it yet.
+[T:MAP-PACKAGE_STRUCTURE] [00:19:32] [Interviewee] Ok, so these are the directories of the source code and I can I guess teleport to a room directly.
+[T:MAP-LINK_WITH_COLORS] [00:19:44] [Interviewer] Okay. Did it feel intuitive? [Interviewee] Uh, yes. Yes. It feels intuitive. Uh, maybe, I don't know if the colors are related, [00:20:01] like it's always yellow, I don't know if it is related the same way as the tile colors. [Interviewer] Oh, okay. You would have expected the colors here to match the one from the rooms. [Interviewer] Yes, yes. But that's maybe not the purpose. 
+[Interviewer] Oh, that's a good input. [00:20:30] Yeah. And, um, yeah. Is there any other, uh, thing you want to say about. How does it feel?
+[00:20:45] [Interviewee] Not really. But, it's a very interesting way to visualize bugs, the code quality in general. I kinda like it.
+[T:DEV-POSITIVE] [00:20:58] It should be a good experiment to give this game to the developer of the software so they can play against their own work and see “ok there is a lot of issues or not”
+[T:FREEZE_FREEZE-MISSED] [Interviewer] Yeah, of course. The goal is to allow anyone to use their own project so they can really get to know their own codebase. [00:21:30] Uh, I let you know, another secret. You know, when you press X, there is the documentation on the right and left, but actually you are in freeze mode. You can move around the camera and you can also right click to go up and left click to dig into files. So it may be easier or not, I don’t know, to navigate sometimes when [00:22:00] there are a lot of monsters.
+[00:22:01] [Interviewee] Yes. Yes, indeed. It's really easier because I don't feel overwhelmed at all. And yes,[00:22:13] it's really easier. 
+[T:CODEBASE_UNKNOWN-FILE_STRUCTURE_UNKNOWN] Um, I guess one of the other difficulty, as I don't know the code base here. I mean, I can see it with the tab. [00:22:31] But, as I'm not familiar with the codebase it’s harder for me to navigate through it. So I'm here, but I don't know really, what is really *Hovering a file named as following* “policy_source_helper.py”. I mean, it’s a python file but that's all I know.
+[00:22:51] Um, so I guess it makes more sense [00:23:00] as a player to know the codebase. — Yes that’s pretty much it.
+[00:23:15] [Interviewer] Uhm, earlier when you started playing around. Did you feel at any point overwhelmed by the information in the game? Like if you felt like there was too much information or on the contrary, like enough information for you to understand? 
+[T:FREEZE_INFORMATION-USEFUL] [Interviewee] Um, no, the information, because I have read the documentation before. I didn't feel overwhelmed by the information, 
+[T:COMBAT-PACE_OVERWHELMING] but more by the moving monsters. [00:23:47] That was overwhelming, but the, the [00:23:52] what I saw was well, I didn't feel uninformed about what was going on. 
+[00:24:00] [Interviewer] Okay, perfect. Um, what did you think about combat? Literally gameplay wise, fighting the monster.
+[T:COMBAT-INTUITIVE] [T:COMBAT-SIMPLE] [Interviewee] It’s intuitive. Uh. It’s intuitive. Simple but good enough to understand and play it.
+[00:24:36] [Interviewer] When you are playing, do you feel like, uh, of course, if it was your project, because I know it's not, but if it was your project, would you feel motivated to fix that because of playing this game?
+[00:24:54] [Interviewee] Yes definitely. *Sligh laugh*
+[Interviewer] Can you develop a little? 
+[T:FIXING-POSITIVE] [Interviewee] Um, just having, [00:25:00] yeah. The feeling of being overwhelmed by monsters it's like: “Oh, there are so many problems” that I can't just look at it and say “no it’s nothing”. So yes, just the feeling of being overwhelmed by monsters is a driver to fix the bugs.
+[00:25:28] [Interviewer] Okay. So you would see yourself using that tool if it was available, released. 
+[T:ME-POSITIVE] [Interviewee] Yes. I will definitely use it. Maybe not on a regular basis, but, uh, time to time to check if the code quality is still good or not. So, not regularly but from time to time.
+[00:25:56] [Interviewer] Okay. So you're saying from time to time, but, um, can you be precise, like when would be the right moment to play this game? 
+[T:FREQUENCY-RELEASE] [T:FREQUENCY-AGILE] [T:SCENARIO-MONITOR_DEBT] [Interviewee] Um, I think at the end of the development cycle, for example, when a large feature has been developed and you want to ensure that code quality is good enough before being really put to production, it’s a good time. So I don't know. It may vary from project to another, but let's say you’re in a typical Agile projects and the you have, uh, four weeks sprints. [00:26:42] And at the end, of the four weeks sprints you play the game to see if the code quality is good.
+[00:26:55] [Interviewer] Interesting. Um, and apart from [00:27:00] you, would you see anyone else using this tool?
+[Interviewee] uh, not anyone else, because some people might just not feel the need to fix code quality, but yes, definitely. For example, in my team there are probably some people who would try this kind of game to judge the code quality and to see where the vulnerabilities are. But there are other people that won’t play this game. That's for sure. So, again it depends on the people, yeah.
+[00:27:45] [Interviewer] Okay. Do you think this is just for software developers or maybe a manager could also use this, any other role maybe in the industry?
+[T:MANAGER-POSITIVE]  [T:CODER-POSITIVE][T:FUNCTIONAL_ANALYST-NEGATIVE] [T:TESTER-POSITIVE] [Interviewee] Yes. Maybe not any of the roles because some roles [00:28:00] are less connected to the base, but for roles are definitely connected to the codebase. Yes. So a project manager could play this game, a tester could be, but maybe a pure functional analyst won’t be interested in this game but it may vary from role to role.
+[00:28:43] [Interviewer] To conclude. Maybe you can tell me anything else you want to say about what you liked or disliked about the game. 
+[Interviewee] Yeah. Uh, I liked, uh, it's simple to understand. [00:29:00] Simple to get into the game.
+[00:29:06] So yeah, this part is really important I think.
+[T:CODEBASE_UNKNOWN-FILE_STRUCTURE_UNKNOWN] [T:MUST_KNOW_CODEBASE] [00:29:15] And what I disliked is more about the fact that you need to know the code base before playing the game. I mean, it's logical in the sense that you have to know the code base before playing the game because playing this game on a code base you don't know makes less sense, but. I don't know if, um, if there is a way around that, I said I dislike it but it's, it's maybe not related to this game, like, uh, it’s like going on SonarQube and watching the numbers of a code base, you don't know [00:30:00] it doesn't really tell much either. [00:30:04] So that's not negative feedback. 
+[Interviewer] That's okay. But if you have actual negative feedback.
+[Interviewee] No, not really. [00:30:13] it's pretty nice.

@@ -1,0 +1,22 @@
+{
+    "(": [
+        {
+            "organization": "navit",
+            "key": "navikt_fp-kontrakter",
+            "name": "(FPSAK) Kontrakter - Root",
+            "tags": [],
+            "visibility": "public",
+            "eligibilityStatus": "COMPLETED",
+            "eligible": false,
+            "isNew": false
+        },
+        {
+            "organization": "ideative",
+            "key": "ideativedigital_t3-redirect40x",
+            "name": "(T3) redirect40x",
+            "tags": [],
+            "visibility": "public",
+            "isNew": false
+        }
+    ]
+}

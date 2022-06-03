@@ -1,0 +1,87 @@
+﻿#12 2022-04-27 15-02 transcript
+Exclusion criteria:
+
+
+FUNKY: A E C B D (from worst to best)
+
+
+RAINBOW: E D A C B (Red, Orange, Yellow, Green, Black) (color blindness is a problem here)
+
+
+Music: 2 5 4 1 3 (Participant if it was their taste order)
+
+
+FUNKY used
+
+
+[00:01:13] Interviewee: Um, one thing I'll let you know, I am slightly colorblind, so this could be fun. Could I ask which color is a and which color is a. 
+[00:01:24] Interviewer: Okay. Oh yeah, sure. Wait, actually I have to turn off my night shift mode. Alright. But that would be fun. So that's where we can know if it also works for color blind people. So it's perfect. Um, so A's like dark red and B’s like pretty much the same, but a little less. I won't tell you too much, because it might be interesting.
+[T:CONTROLS-INTUITIVE] [T:FREEZE_FREEZE-FOUND] [00:10:40] Interviewee: *Tries WASD* *Tries attack* *Open freeze panel* *Tries WASD while freeze mode is on*
+[T:FREEZE_INFORMATION-USEFUL] [T:FREEZE_INFORMATION-INTUITIVE] [00:10:44] Okay. I'm liking the freeze panel and getting to see stuff. That's nice, uh, uh, dig up, freeze *Reading controls, in the bottom left corner*. Okay. So we have some code smells, bugs, vulnerabilities. 
+[T:CONTROLS-INTUITIVE] [00:11:06] Nice, um, movements *Label of the movement keys in the freeze panel*. Ok, controls seem pretty straight forward. 
+[00:11:19] *Read the panel with the mapping information* Um, oh, I like that. I like the, um, walls and tiles and, um, cracks. 
+[T:MONSTER_HEALTH-CONFUSING] [00:11:29] Let's jump in then. *Go towards enemies and kill them* The big enemies are just as easy to kill as the smaller ones? 
+[T:DIG_GO_UP-MISSED] [00:11:41] *Goes on the middle square* Was well, that's the wrong button.
+[T:TUTORIAL-LEAVING_EARLY] *Go to the exit square, and press Q. It might be not completely on purpose.* 
+[00:12:00] Interviewer: So, now you are in the project selection. So you can choose any project from SonarCloud, but here for the purpose of this situation, I would recommend that we go for the recommended one. So the brave software.
+[T:FIRST_ACTION-BROWSING] [T:SCROLL-CLICK_CIRCLE] [00:12:25] Interviewee: *Mouse directly goes on the first one in the list (not the recommended one). Then try to scroll by dragging the scroll indicator (the circle).* *When the interviewer says it, they go for the brave software*
+[T:BUGS-NOTICED] [T:CODE_SMELLS-NOTICED] [T:FREEZE_INFORMATION-USEFUL] [00:12:38] *Project load. Attack twice in the pack then flee a bit* Okay. *Turn on freeze mode* So, that's a lot of code smells and a few bugs and of the ground tiles. So not a great degree of reliability here. *Turn off freeze mode*
+[00:13:04] Interviewer: Uh, do you know what the squares on the ground represent? 
+[T:ROOM-PACKAGE_STRUCTURE] [00:13:10] Interviewee: Um, I'm assuming they look like packages with an open —, they look like. *Fleeing monsters at the same time* *Dies* Oh *Stop a second* I assume I’ve died. They look like packages or files. Yeah, looking like files, but then that seems like a package to me. 
+[T:FREEZE_INFORMATION-USEFUL] Um, and so then, *Turn on freeze mode to check information in the information panel* those correspond to the vulnerabilities and bugs.
+[T:COLORS-GENERAL_QUALITY] [00:13:41] Okay. So it seems that those packages have been pretty well *Talking about perfect sub-dir*. Some up here are not doing so great *Talking about sub-dir with C ground and A walls*.
+[T:MONSTER_NUMBER-INTUITIVE] [00:13:55] Okay. I see. So the packages and files are going to spawn enemies, the packages or files that are not so good have a lot of enemies.
+[00:14:10] Um, okay. *Freeze and read for 2s*
+[00:14:17] Interviewer: Do you have any thoughts on the combat aspect? In the game. 
+[T:COMBAT-PACE_OVERWHELMING] [T:COMBAT-OVERWHELMING_IS_BAD_CODE] [00:14:22] Interviewee: It feels overwhelming, um, depending on what you're trying to get across with, uh, uh, how endangered the project is that may well be the way to go.
+[00:14:37] Yes, — — — — —. But yeah, it's coming up from all sides. It was very difficult to keep up.
+[T:GOAL-KILL_ALL_MONSTERS] [00:14:53] Okay I'm saying, well, it seems like for as many code smells and bugs as they're on something that's spawned that many enemies, probably at some point I will defeat them all. *Dies* Oh boy, but that's not easy.
+[T:PERFECT_ROOM_PERFECT_CODE] [00:15:14] Oh, I can dig. *Enters perfect room* Okay this one looks fine. *Go up to root folder* 
+[00:15:27] *Go to room with 1 sub-dir with 2 issues but perfect ground tiles and walls* *Fight the monsters to kill them* *Step on subdir* Let’s go back on top *Go up to root folder*
+[T:FILE_NAME_INDICATOR-NOTICED] [00:15:42] If I’m digging I can see, I can take one of these files *Going in a C ground subdir*. Okay. So I can see some more specifics. “rust” *Reading the subdir name in the top left corner* build. Okay. So these are different directories for files within the folder I jumped into, which is the “build” *Name of the folder they are into right now, name display in the top left corner* stuff. So it looks likes the “commands” *Name of the folder he just jumped into with 57 issues* have some –, in “library” *Name of the dir they are talking about is “lib”* in particular.
+[T:MOUSE-NOT_FOUND] [00:16:23] Interviewer: I’ll let you know that. Also, if you feel that it's kinda hard to navigate through the monsters to dig in a directory or file. You can also freeze time and use the mouse to click on the square to get inside. 
+[T:FREEZE_FREEZE-USEFUL_TO_LOOK_AROUND] [T:FREEZE_FREEZE-FOUND] [T:MOUSE-USEFUL] [00:16:42] Interviewee: *Hover sub dirs and navigate a bit with WASD to move the camera too* Ooh, oh, nice. I like that. 
+[00:16:44] Interviewer: And if you right click then you go up.
+[T:FILE_HOVER-INTUITIVE] [00:16:57] Interviewee: *Hover the components sub dir with 738 issues* Ouh. “Components”, That's it. — —. *Goes into components* *Navigates with WASD and hover only files with dark ground*
+[T:FUNKY-DISCRIMINABLE] [00:17:08] I feel like it's pretty easy for me to spot where the issues are in terms of like the coloring and things. I mean, you can probably see, I'm not even looking at these ones, low numbers. 
+[T:FILE_SIZE-ADD_MAPPING] [00:17:22] Um, wonder also hard to tell from this how big the package is. Cause this one. Might be tiny seems like, *Dig in, there 3 sub-dir there* okay. “Android” “resources” *They are reading files name*.
+[T:TILE_NUMBER-CONFUSING_COMPARABILITY] [00:17:43] Yeah, so like determining this “brave_wallet_ui” *Name of the subdir with most issues 294 , but with A ground compared to some others*, it seems like there's quite a bit of stuff going on in here. That's hard to tell, like for instance, which of these two is bigger *Pointing to 2 sub dir with A ground but one with 294 issues and one with 16*. Um, and so if 300 here *in brave_wallet_ui* is a problem and 16 here is a problem, depending on the size
+[T:MAINTAINABILITY_METRIC-CRACKS_NOT_FOUND] [00:18:13] Uh, I haven't seen any cracks, yet. That may just be me.
+[T:VULNS-NOTICED] [00:18:29] And not many security vulnerabilities either.
+[00:18:40] Interviewer: Maybe, that’s a good project. *Very slight laugh*
+[00:18:41] Interviewee: *Very slight laugh and smiling* That's true. 
+[00:18:43] So it is not built by one of our students, these walls would all be red.
+[00:19:02] Interviewer: So I'm gonna ask you, do you feel motivated to fix technical debt when playing the game? Like if this was like your code base, your project and you’re playing the game to get to know how to code base he's doing. Would that make you feel motivated to fix, like to actually go back to your code and fix the problems?
+[T:SCENARIO-MONITOR_DEBT] [T:FIXING-MEDIUM] [00:19:29] Interviewee: I think that I could actually keep playing the game over time and like see some positive impact of me making those fixes. 
+[T:GAMIFICATION-MISSING] [T:SCENARIO-PEOPLE_PERFORMANCE_TRACKING] Yeah. I'm even thinking like, in terms of gamification since. If you could compete with your classmates, um, you've got a project course and everyone's building — thing and then say who's making the game harder for themselves.
+[T:COMBAT-OVERWHELMING_IS_BAD_CODE] [00:19:57] Yeah. I quite a bit visualize it, I think. And actually, yeah, the overwhelmingness of potential bugs and issues is suddenly coming across.
+[00:20:16] Interviewer: And, you were talking about classmates. So who would you see playing this game? 
+[T:STUDENTS-POSITIVE] [T:SCENARIO-PEOPLE_PERFORMANCE_TRACKING] [00:20:22] Interviewee: Um, so for us, we run a lot of our, like, uh, big software engineering projects courses. Um, so a big year long one with I don’t know eight person teams. Um, and this year we have eight teams of eight people, um, and they love to compete.
+[T:SCENARIO-DEBT_FIGHT_ENGAGEMENT] [00:20:40] So. I think, yeah, I think this would be a good one for them. Um, I can see having a lot of fun out of, you know, having competitions with each other, seeing whose code is better is worse. 
+[T:GOAL-FUN] Um, and even just the fun of being able to look through other people's eventually to make themselves feel better about their own.
+[00:21:03] Then jumped into someone else's game. Then see just all sorts of bugs and vulnerabilities. This is also a lot more engaging for them to hips then, um, that SonarQube dashboard itself, because each of the things has a SonarQube project. That I can all look at, like and see all the statistics there. I don't think that it's used very much, change to just get used either three months or at the end of the race sprint.
+[00:21:35] When we ask for them to do a presentation to the rest of the class, and then they'll go back and just see what happened rather than actually using it as a tool as they go. 
+[00:21:53] Interviewer: When would you use this tool in your workflow? Like everyday workflow or maybe they could, like you said, more like only for meetings to present how the code is doing.
+[T:FREQUENCY-1_WEEK] [00:22:07] Interviewee: I think that this, this seems like the kind of thing that, you know, potentially would have it every week.
+[T:SCENARIO-COMMUNICATION] [T:SCENARIO-MONITOR_DEBT] [T:SCENARIO-COMPLEMENTS_CLASSIC_VIS] [T:GOAL-FIND_WORSE_FILE] [00:22:17] You know, during our morning tea break, we all come and play it. And we see if it's gotten much worse than last week. Um, well I think this would probably what prompts us to really take a look at the SonarQube in more detail as we notice that certain, um, packages or parts of the code are getting worse, or I suppose as well, if we notice the larger monsters, uh, highest severity bugs.
+[00:22:46] And vulnerabilities and code smells. So if we started seeing the monsters in here, moving from smaller to bigger, I think that would definitely be a kind of indicator that we need to come and take a closer look. 
+[T:ISSUE_ACCESS-NOT_FOUND] [T:ISSUE_ACCESS-USEFUL] [00:23:01] Interviewer: And we have tried to make it like it's integrated with SonarCloud, but it's like the same as SonarQube so like if you freeze and click on the code smell or bug. It will open the actual code smell in your browser. Like, to see, what's the issue is exactly. 
+[00:23:22] Interviewee: Ooh. That's cool. 
+[T:DEATH_RECAP-MISSING] Oh, in that case, what would be awesome? I'm just thinking it'd be like, you know, a really, a really fun thing is when you die, you see which code smell, uh, which bug killed you. [00:23:36] And then that'll give developers a personal reason to go in and take that one out. [00:23:48] It makes it personal.
+[00:23:56] *Hover multiple issues and read the name* Yeah. Critical. Ok that makes sense. Bugs.
+[00:24:08] Interviewer: Uh, about the amount of information that we give in the game. Do you feel overwhelmed by it or underwhelmed? There is not enough information for you to understand everything or is it completely them too much, too much to remember? 
+[T:DILEMMA_TOOL-MISSING_INFORMATION] [T:DILEMMA_TOOL-DETAILS_HARD_TO_ACCESS] [T:DILEMMA_TOOL-MISSING_EVOLUTION_DETAILS] [00:24:22] Interviewee: Um, I don't think that there's enough that this could replace SonarQube. Just because, you know, at the moment I'm saying that there's lots of, uh, code smells and a few bugs, but with a need to be mousing over each one to see where they come from.
+[T:FILE_HOVER-INTUITIVE] [00:24:43] Um, suddenly I could take a look around here and kind of see which ones have more *Froze the time and is hovering tiles*. Um, yeah, so I don't think that would be a replacement for SonarQube. At least not in its current setting. Um, even just, you know, trying to track, uh, code smells over time or things like that. Um, it doesn't seem like it necessarily be a way that this would happen, at least not in a way that was easy to visualize.
+[T:SCENARIO-MONITOR_DEBT] [00:25:15] I suppose each time we play it we would be able to check if we've gotten better or worse as we go along. 
+[T:GOAL-FUN] Uh, but I think one of the main things that would make me do is look closer into SonarQube because honestly, SonarQube, isn't, isn’t all that thrilling, um, to look at on its own. It's neither too exciting.
+[00:25:38] It's just gonna look at all the reasons why your code is bad. Um, but I think you’re making it a bit more fun, certainly glad to help. I'm particularly thinking of like for our students that don't even know what SonarQube things mean most of the time. But, you know, we try to teach them what a code smell is and we'll still be coming back and saying things that are not in any way kind of smells.
+[00:26:09] Interviewer: I have just one last question. It's more about what did you like about the game or dislike that we may have not covered yet, and that you would like to say. 
+[T:TILE_NUMBER-MISSING_INFORMATION] [00:26:34] Interviewee: yeah, a lot of it might be good to see, like these numbers, you can't say which like what proportion is critical or just major or info. 
+[00:26:56] Um, I think we've covered much of it. 
+[T:FUNKY-COLORBLIND_FRIENDLY] [00:27:01] Interviewer: Okay. Now I’ll ask you another question, as you told me that you are a bit colorblind. Because we have two sets of colors. Do these colors work well, you think, like you can, see the difference between each of them? 
+[00:27:18] Interviewee: Yes, yes, I actually did. So the reason I asked initially was because if there had been.
+[T:RAINBOW-NOT_COLORBLIND_FRIENDLY][00:27:23] Some red and some green and the scale had gone from red through yellow to green. That would have been bad. Um, but like, yeah, looking at these, it is very easy for me to see a progression from like, I don't, I wouldn't necessarily describe them as, in terms of colors myself. Cause I, you know, not super reliable for me, but I can definitely see like dark and scary up to a lot less bad.
+[T:FUNKY-COLORBLIND_FRIENDLY] [00:27:50] So assuming that is the correct scale. And for me, that works totally fine. Okay. And being able to see them in the order and know that yeah. Especially when that, beside each other, like that, it's a lot easier for me to go. Yes. So yeah, for me, I'm intentionally looking at how dark and read something is how white and blue.
+[T:FREEZE_INFORMATION-USEFUL] [00:28:15] Um, yeah. So as far as the colors go, seeing them in game, like that *In the freeze menu*. Yeah. I think that works fine to me.
+[T:MAP_SEARCH_BAR-NOT_USED]
+[T:MAP-NOT_USED]

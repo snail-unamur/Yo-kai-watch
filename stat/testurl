@@ -1,0 +1,11 @@
+duplicated_lines_density%20<%2010%20and%20duplicated_lines_density%20>%205%20and%20
+
+
+https://sonarcloud.io/api/components/search_projects?boostNewProjects=false&facets=duplicated_lines_density%2Clanguages&ps=50&f=analysisDate&filter=languages%20%3D%20xml&s=analysisDate&asc=false
+
+https://sonarcloud.io/api/components/search_projects?boostNewProjects=false&ps=50&f=analysisDate&filter=languages%20%3D%20xml&s=analysisDate&asc=false&facets=duplicated_lines_density
+
+https://sonarcloud.io/api/components/search_projects?ps=50&p=1&asc=false&facets=duplicated_lines_density
+
+
+https://sonarcloud.io/api/components/search_projects?ps=50&p=1&asc=false&facets=duplicated_lines_density&query=duplicated_lines_density%20<%2010%20and%20duplicated_lines_density%20>%205%20and%20

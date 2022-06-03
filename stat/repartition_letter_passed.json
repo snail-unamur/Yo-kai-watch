@@ -1,0 +1,366 @@
+{
+    "a": {
+        "number": 22616,
+        "facets": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "xml",
+                        "count": 4580
+                    },
+                    {
+                        "val": "web",
+                        "count": 3884
+                    },
+                    {
+                        "val": "java",
+                        "count": 3869
+                    },
+                    {
+                        "val": "js",
+                        "count": 3721
+                    },
+                    {
+                        "val": "css",
+                        "count": 3168
+                    },
+                    {
+                        "val": "apex",
+                        "count": 2502
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1488
+                    },
+                    {
+                        "val": "py",
+                        "count": 1154
+                    },
+                    {
+                        "val": "ts",
+                        "count": 1084
+                    },
+                    {
+                        "val": "php",
+                        "count": 551
+                    }
+                ]
+            }
+        ],
+        "max_language": 4580,
+        "tot_languages": 26001
+    },
+    "c": {
+        "number": 17785,
+        "facets": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "xml",
+                        "count": 3937
+                    },
+                    {
+                        "val": "java",
+                        "count": 3571
+                    },
+                    {
+                        "val": "js",
+                        "count": 3105
+                    },
+                    {
+                        "val": "web",
+                        "count": 2919
+                    },
+                    {
+                        "val": "css",
+                        "count": 2529
+                    },
+                    {
+                        "val": "py",
+                        "count": 1161
+                    },
+                    {
+                        "val": "cs",
+                        "count": 979
+                    },
+                    {
+                        "val": "ts",
+                        "count": 796
+                    },
+                    {
+                        "val": "php",
+                        "count": 763
+                    },
+                    {
+                        "val": "go",
+                        "count": 355
+                    }
+                ]
+            }
+        ],
+        "max_language": 3937,
+        "tot_languages": 20115
+    },
+    "d": {
+        "number": 14292,
+        "facets": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "web",
+                        "count": 2819
+                    },
+                    {
+                        "val": "xml",
+                        "count": 2664
+                    },
+                    {
+                        "val": "js",
+                        "count": 2584
+                    },
+                    {
+                        "val": "java",
+                        "count": 2502
+                    },
+                    {
+                        "val": "css",
+                        "count": 2429
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1404
+                    },
+                    {
+                        "val": "py",
+                        "count": 1237
+                    },
+                    {
+                        "val": "php",
+                        "count": 509
+                    },
+                    {
+                        "val": "ts",
+                        "count": 496
+                    },
+                    {
+                        "val": "jsp",
+                        "count": 196
+                    }
+                ]
+            }
+        ],
+        "max_language": 2819,
+        "tot_languages": 16840
+    },
+    "m": {
+        "number": 18147,
+        "facets": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "web",
+                        "count": 3583
+                    },
+                    {
+                        "val": "css",
+                        "count": 3295
+                    },
+                    {
+                        "val": "xml",
+                        "count": 3232
+                    },
+                    {
+                        "val": "java",
+                        "count": 3031
+                    },
+                    {
+                        "val": "js",
+                        "count": 2852
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1829
+                    },
+                    {
+                        "val": "php",
+                        "count": 1024
+                    },
+                    {
+                        "val": "py",
+                        "count": 760
+                    },
+                    {
+                        "val": "ts",
+                        "count": 576
+                    },
+                    {
+                        "val": "go",
+                        "count": 224
+                    }
+                ]
+            }
+        ],
+        "max_language": 3583,
+        "tot_languages": 20406
+    },
+    "p": {
+        "number": 20285,
+        "facets": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "web",
+                        "count": 5247
+                    },
+                    {
+                        "val": "js",
+                        "count": 4995
+                    },
+                    {
+                        "val": "css",
+                        "count": 4782
+                    },
+                    {
+                        "val": "xml",
+                        "count": 3838
+                    },
+                    {
+                        "val": "java",
+                        "count": 3532
+                    },
+                    {
+                        "val": "cs",
+                        "count": 3373
+                    },
+                    {
+                        "val": "py",
+                        "count": 1646
+                    },
+                    {
+                        "val": "php",
+                        "count": 868
+                    },
+                    {
+                        "val": "ts",
+                        "count": 750
+                    },
+                    {
+                        "val": "plsql",
+                        "count": 256
+                    }
+                ]
+            }
+        ],
+        "max_language": 5247,
+        "tot_languages": 29287
+    },
+    "s": {
+        "number": 32377,
+        "facets": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "java",
+                        "count": 6710
+                    },
+                    {
+                        "val": "xml",
+                        "count": 6006
+                    },
+                    {
+                        "val": "web",
+                        "count": 5433
+                    },
+                    {
+                        "val": "cs",
+                        "count": 5068
+                    },
+                    {
+                        "val": "js",
+                        "count": 4550
+                    },
+                    {
+                        "val": "css",
+                        "count": 4321
+                    },
+                    {
+                        "val": "py",
+                        "count": 1524
+                    },
+                    {
+                        "val": "ts",
+                        "count": 1059
+                    },
+                    {
+                        "val": "php",
+                        "count": 857
+                    },
+                    {
+                        "val": "plsql",
+                        "count": 367
+                    }
+                ]
+            }
+        ],
+        "max_language": 6710,
+        "tot_languages": 35895
+    },
+    "t": {
+        "number": 16749,
+        "facets": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "xml",
+                        "count": 2782
+                    },
+                    {
+                        "val": "java",
+                        "count": 2661
+                    },
+                    {
+                        "val": "js",
+                        "count": 2453
+                    },
+                    {
+                        "val": "web",
+                        "count": 2360
+                    },
+                    {
+                        "val": "css",
+                        "count": 1940
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1032
+                    },
+                    {
+                        "val": "py",
+                        "count": 983
+                    },
+                    {
+                        "val": "ts",
+                        "count": 699
+                    },
+                    {
+                        "val": "php",
+                        "count": 523
+                    },
+                    {
+                        "val": "c",
+                        "count": 270
+                    }
+                ]
+            }
+        ],
+        "max_language": 2782,
+        "tot_languages": 15703
+    }
+}

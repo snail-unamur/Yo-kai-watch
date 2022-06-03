@@ -1,0 +1,134 @@
+﻿2022-04-22 12_35 transcript
+Exclusion criteria:
+* Interviewer asking the participant what their thoughts are.
+
+
+FUNKY: A E C D B (Good order, start dark)
+
+
+RAINBOW: B D E C A (Black, Orange, Red, Green, Yellow)
+
+
+Music: 4 3 2 1 5
+
+
+RAINBOW used
+
+
+Content
+[00:05:40] Interviewer: I can see, uh, you can maybe zoom in a little on the browser. So the game will be bigger, it might be easier.
+[00:06:50] Interviewee: so the character in the central box, like, do we have to take that somewhere or like, what 
+[00:07:00] Interviewer: Yes, you can just try to…
+[T:CONTROLS-STROKE_MOUVEMENTS] [00:07:05] Interviewee: *Player using only one hand* *The player, in order to move, doesn’t keep the button pressed but instead they push the button by strokes* *Moves toward a monster get hit* *Comes close to the same one and hit it* *Goes to other monsters and kills them*
+[T:CONTROLS-HANDS_USAGE_EVOLUTION] [00:07:47] I was trying to see if, like that, uh, that is kind of hard — or whatever, and trying to eliminate them. *Walk a bit around* *Leave the keyboard with his hand and use the mouse to click on the green file* *Put second hand on the keyboard to press tab and open the map* Oh *Press escape* *Click on “RESUME”* How do I? *Press escape* *Click on “TUTORIAL”*
+[T:TUTORIAL-MISSING_CONTEXT_INFORMATION] [00:08:41] I am a bit lost here, could you give me some context?
+[00:08:46] Interviewer: Right now, you are in the tutorial. So basically just teaching you about how to move around and what are the controls? And after that, you will actually be in the real game. 
+[00:09:02] Interviewee: Oh, okay. 
+[00:09:04] Interviewer: So here, there is nothing to do or think about just, just to go around and try to figure out how everything works.
+[00:09:19] Interviewee: Okay. I guess then we can move out
+[00:09:25] Interviewer: when you are ready, you can exit the tutorial at any time.
+[00:09:27] Interviewee: *Click on the exit tile*
+[00:09:33] Interviewer: So right now you are in the project selection. Um, so you can basically choose any open source project, uh, that uses SonarCloud. 
+[T:FIRST_ACTION-BROWSING] [00:09:43] Interviewee: *First, browse the list*
+[00:09:45] Interviewer: But here for this interview, we will go for the recommendend. Yeah, brave software.
+[00:09:55] Interviewee: *Flee monsters* 
+[T:CONTROLS-SPAM_ATTACK] [T:COMBAT-RUSH] [00:10:00] *Rush into them and start spamming attack key* *Got hit twice* *Flee again and die*
+[T:CONTROLS-SPAM_ATTACK] [T:COMBAT-RUSH] [00:10:25] Interviewee: So everybody is trying to come, so I'm just trying to attack. I need to find out the… *Is stuck in a corner and fights desperately for their life by spamming the attack key. But in the end. They die* where. Okay. Wait. So there are green boxes. [00:10:45] And then there are some with different colors. 
+[T:CONTROLS-SPAM_ATTACK] [00:10:51] *Spam attack but dies quickly* Aaagh. Okay. 
+[00:10:53] Interviewer: Do you think the boxes mean anything? 
+[T:CONTROLS-SPAM_ATTACK] [T:COMBAT-RUSH] [00:10:56] Interviewee: Yeah. Looks like. *Surrounded by enemies. Spam the attack key but dies quickly* Aaagh. Okay. 
+[00:11:28] Interviewer: Is something bothering you?
+[00:11:28] Interviewee: So do I have to go in order like the way I chose there? No.
+[00:11:31] Interviewer: What do you mean by order? 
+[00:11:38] Interviewee: So I choose the numbers, right? Which will go first. [00:11:50] Everybody is trying to attack me. *Fleeing way more*
+[00:12:05] Interviewer: Do you have any thoughts on combat at the moment? Like when do you think about combat? How is it for you?
+[T:FREEZE_INFORMATION-USEFUL] [00:12:34] Interviewee: Uhm Ok. *Turn on freeze mode and read* That's a good thing to know these things. 
+[00:12:39] Interviewer: Tell me what’s interesting for you here.
+[00:12:45] Interviewee: Give me a second *Still reading* Walls represent security. Ground tiles represent reliability.
+[T:FREEZE_INFORMATION-DIG_GO_UP_LABEL_UNCLEAR] [00:13:14] Dig up. Okay. Freeze. Okay. Mouvements. Okay. [00:13:28] Let me try what was that.
+*Dies* *Move on the center of a box* *Press Q and dig* *Not sure if this was intentional*
+[00:13:30] Interviewer: So did you figure something out.
+[00:13:35] Interviewee: Yeah. I “dig up”. [00:13:38] *Press E and go up to the root file*
+[00:13:44] *Goes on another sub-dir and press E* *Goes again on another sub-dir and press E* Okay. So I'm not able to dig in this one. 
+[00:13:51] Interviewer: When you were in the freeze panel, like in freeze mode, you were reading some things. Can you tell me a little more about what you understood from it?
+[00:14:08] Interviewee: *Sigh* Okay, give me one more minute. *Removes hands from keyboard and start reading very conscientiously*
+[00:14:13] Interviewee: Vulnerabilities, bugs, code smells, monsters, cracks represent maintainability, walls represent security. [00:14:28] Okay. And.
+[T:FREEZE_FREEZE-NOT_INTUITIVE_TO_LOOK_AROUND] [00:14:55] *Uses movement keys on freeze mode* What’s happening.
+[00:15:00] Interviewer: You are still in the freeze mode.
+[T:COMBAT-FORCES_DIGGING] [00:15:04] Interviewee: *Unfreeze and start moving* *Goes into monsters, gets hit twice, flee a bit and, dig in a sub-dir*
+[00:15:07] *Enters a perfect file* Okay. So this one has different tiles, right?
+[00:15:13] Interviewer: Yeah. Well, what does it tell you? What do you think this room has us like code quality-wise? 
+[00:15:24] Interviewee: So can I check it again or do I have to remember like what? 
+[00:15:27] Interviewer: No, no, no. You can check it as many times as you want. There is no wrong answer. Just tell me what you think, what are the first things that come to your mind?
+[T:ROOM_INFORMATION-NOT_INTUITIVE] [00:15:38] Interviewee: *Sigh* [00:15:46] Well, okay. So from the first one who, so I guess. [00:15:56] So the up and down walls represent vulnerabilities and I guess green box *Not sure about they said green box* it's, uh, bugs. 
+[00:16:08] And if I dig up so other, and if I find something like this crack, uh, then it means code smells. These are like monsters. So basically I can go into different one and dig and find out where the vulnerabilities, bugs, and maintainability, right? [00:16:34] Okay. 
+[00:16:35] Interviewer: Did you also figure out what a room is? Like right now your character is in a room. What do you think that room represents?
+[00:16:51] Interviewee: Oooh..kay. 
+[00:17:04] Interviewer: It's okay if you're not sure, uh, it's our fault, basically, because it wasn't clear enough. So just tell me if you think there is a meaning for this room. If not, I can tell you. 
+[T:ROOM-NOT_INTUITIVE] [T:CONTEXT-MISSING] [00:17:17] Interviewee: Okay, uh. [00:17:26] *Freeze mode is still on. Reads in the panel* represents security. [00:17:38] Um, could you give me some context? 
+[00:17:41] Interviewer: Yeah. Maybe you can dig up once to go back to the previous room *Referring to the root*. Yeah. So here you see, there's lots of squares on the ground. Is there anything that you think these squares represent? Like if you remember that we are like in a development project and when do we think that the squares represent?
+[T:ROOM-NOT_INTUITIVE] [T:BUGS-IS_GROUND] [00:18:04] Interviewee: These are bugs, right? 
+[T:ROOM-NOT_INTUITIVE] [00:18:09] Interviewer: Okay. So the squares are files or directories.
+[00:18:12] Interviewee: Oh okay, got it.
+[00:18:13] Interviewer: Yeah, but basically like you are in one big room, which is like the directory and each square that you see is like either a file or a directory. And then these squares have colors, but can you tell me what the colors mean here? For example, if you see like the third one it's written 97 out of 97. [00:18:40] So this square, what do you think this square means in terms of colors? [00:18:45]
+[T:COLORS-VALUE_MAPPED][a] [00:19:11] Interviewee: The colors… But nowhere in the info it's provided, what are the colors about? So it’s just, do we have to think.
+[00:19:22] Interviewer: I don’t fully understand what you mean, like the colors. Um, the square colors. They're not provided. 
+[00:19:29] Interviewee: No, I'm saying that I went through boxes. Uh, you are providing information here. Like these are monsters. These are code smells. What I haven't seen, uh, what did I miss, like what do the colors represent? I'm just saying, or do I have to understand myself that what? Um. 
+[00:19:49] Interviewer: Uh, so what I'm asking you is like, try to guess. With all the information you have right now. Can you guess what each square can mean? 
+[T:COLORS-GENERAL_QUALITY] [T:RAINBOW-INTUITIVE] [00:20:03] Interviewee: So, it’s green, more, uh, less bugs. Is it? It's about the green is better. And then with colors changing, there are more issues in that, with that.
+[T:SECURITY_METRIC-NOTICED] [00:20:13] Interviewer: Oh yeah. So you think that's the severity basically?
+[00:20:23] Interviewee: Yeah.
+[00:20:26] Interviewer: And same question, but for the walls, you see like around the squares. 
+[00:20:37] Interviewee: Okay. So every box has a green wall, right? 
+[00:20:43] Interviewer: Yeah. It looks like it. So what do you think it means?
+[00:20:51] Interviewee: So they’re basically the security protecting it. 
+[00:21:02] Interviewer: How would you rate that security?
+[00:21:04] Interviewee: Mmh
+[00:21:06] Interviewer: It can be good, medium, low, bad.
+[T:TILE_NUMBER-EMPIRICAL_DEDUCTION] [00:21:17] Interviewee: Okay. That's interesting to understand. All squares have the same green border.
+[00:21:39] And some boxes, some of these don't have any numbers and the rest of them have numbers. So. 
+[00:21:46] Interviewer: Yeah, that's true. And also that then do you think it has a meaning, the numbers that you can see on the squares? [00:22:00] Maybe if you unfreeze the game, you might understand that.
+[00:22:14] Interviewee: *Unfreezes, lets spawn for 2 seconds, then digs in perfect sub-dir* Okay. Now. [00:22:19] So the square which doesn't have a number and I dug in, and I can see there are two more squares inside. Okay. Just let me go back
+[T:EXPLORING-HARD_WHEN_MONSTERS] [00:22:34] I’d like to go to a square with the number 1 then. *Runs into monsters to try to force to go to a file and dies* Come on, let me. *Forces and enters a 97 room*
+[T:MOUSE-HARD_RECALL] [00:22:41] Interviewer: Yeah, you can actually also if there are too many monsters coming at you, you can just freeze time and then click on the squares to navigate inside them and right click to go back. 
+[00:22:59] Interviewee: *Freeze time* Okay. Okay. Okay. Okay. Okay. Okay. This is different now. Okay. So now I went to three different squares, one with numbers, one with green, one with numbers, and this one is a different one.
+[T:PERFECT_ROOM_PERFECT_CODE] [00:23:15] Okay. And that I had two green boxes, which means security good. I didn’t see any bugs there. Right. So those files are, you could say, tests were fine. There were no issues with that. *The 97 room which they are in* But with this one, we have issues.
+[00:23:43] Interviewer: What represent the issues in the game?[00:24:00] 
+[00:24:22] Interviewer: Basically, I was just asking what the issues in the game are? Like what is representing the issues.
+[00:24:35] Okay. Basically here. You see the monsters. The monsters are the issues. Each monster, you can see that they are a little different, some are green, some are brown and, um, yeah they represent different things. 
+[T:CODE_SMELLS-TERM_UNKNOWN] [00:24:54] Interviewee: So what are code smells? 
+[00:24:57] Interviewer: Oh, you don't know. Uh, okay. I'm sorry. Um, code smells are like when you are in your code, um, when you write a code that works, but not with good practices, like it's not following the standards. 
+[00:25:18] Interviewee: Oh okay. We have different terms. Yes, in Google they have other internal tools that’s why it has been hard. 
+[00:25:30] Interviewee: Okay. And so what was your question again?
+[00:25:31] Interviewer: Just like, can you tell me a bit more about the different type of issues that you can see in this room? The different types of monsters? What can you see?
+[00:25:41] What can you identify? 
+[T:MONSTERS-MISSING_AS_IN_GAME_ELEMENTS] [T:VULNS-NOTICED] [T:CODE_SMELLS-NOTICED] [T:BUGS-NOTICED] [00:25:44] Interviewee: I can see bugs here. Uh, I mean, let me unfreeze it, but I don't see any monsters. Monsters, so I don't see issues in code. Uh, I could see that, uh, the code has not followed the correct practice and I could see the bugs but I haven't seen the vulnerabilities. Yeah. Well, I haven't seen vulnerabilities in this.
+[00:26:14] Okay. So basically when you dig in and if you see monsters, it means there are issues with the code. Uh, if you see these red ones, there are vulnerabilities. And yeah. So basically whenever you dig up in a file just by playing this, you are finding out, uh, that, okay, this wall represents security [00:26:36] These are the bugs, and these are the issues happening. Yeah.
+[00:26:51] Interviewer: Yeah, again, it can be a bit complicated to figure out if it works. And so did you feel overwhelmed by the amount of information in the game or on the contrary? Did you feel there wasn't enough information? Or was the information too complex or too simple for you? Like what do you think about the information that the game needs you to understand?
+[T:CONTEXT-MISSING] [T:FREEZE_INFORMATION-MONSTERS_UNCLEAR] [T:FREEZE_INFORMATION-NOT_INTUITIVE] [00:27:16] Interviewee: Okay. Uh, I guess you could provide a means for monsters here. Like to give more context, so that'd be. Like this people can understand, uh, that is a monster, what does a monster look like? Because just by these images, I know. Okay. What is a code smell? What is a bug? But I don't see any monster pictures. So that would help. Also, I believe there should be more info like about this, uh, the wall security and the bugs, a bit creating some misrepresentation, some —. To get that first impression?
+[T:DIG_GO_UP-NOT_INTUITIVE] [00:28:12] No, there was no, the information was good. Just that we could provide a bit more context to the current information otherwise. Yeah. I was able to find out. It took me a while to understand, dig in, dig out, the Q. Yeah, we can have, you can have a better symbol for Q, I was not able to understand that that exactly is Q.
+[T:FREEZE_INFORMATION-Q_LABEL_NOT_CLEAR][00:28:36] I was trying to see if there is a symbol like that on my keyboard, but that's a Q. Uh, then I was able to freeze and unfreeze, move around. So I was able to move in. Uh, I was moving around my up and down arrow keys. [T:FREEZE_INFORMATION-ARROW_KEYS_MISSING_INFORMATION] So I guess you could also write if they should use the up and down arrow keys are not on the only movement should be done with, uh, [00:29:01] these things *Refers to WASD*.
+[00:29:03] Interviewer: Yes, sure. That's like how you prefer, there’s no problem. Oh, okay. 
+Um, did you feel motivated, uh, when you are playing this game, now that you understand better how it works and what it is, did you feel motivated to fix the technical debt when playing, like, if this was like your project, because it's like the brave browser. So obviously you're not working on that.
+[00:29:32] But if it was your project and you were working on it and you were seeing all the bugs coming and everything, like, would it motivate you or..?
+[T:SCENARIO-COMMUNICATION] [T:SCENARIO-DEBT_FIGHT_ENGAGEMENT] [T:FIXING-FOR_MY_PROJECT] [00:29:40] Interviewee: Yeah, it's going to be really interesting. Uh, if people can understand, like, it took me a while, but if they can comprehend it easily and once they have proper info, like maybe if it's my project, I could give a demo to my team that, okay, this is how it works.
+[00:29:57] I guess then everyone will be interested to see, just dig into a file and it will be interesting to see, okay. There are different numbers of issues. Okay. I don't see any issue with the code. That is really, instead of just looking at the code and running any automation tools. I believe this is much better.
+[00:30:20] Interviewer: Okay, nice. Um, so would you personally use this tool in your everyday life?
+[00:30:29] Interviewee: Hmm, that's an interesting question. 
+[T:ME-NEGATIVE] [00:30:34] See, uh, my job basically revolves around accessibility right now. I work for Google Cloud and my job basically is about making the cloud accessible. So if you go just by my job, I don't know how accessible it is for people who are blind or people with low vision or.
+[00:30:56] Yeah. So in that, like, yes, there are an enormous number of users who have disabilities. And right now there is not much to be done for those people. So we are trying to make the cloud completely accessible for any kind of disability. 
+[T:ME-POSITIVE] [00:31:21] So. It will help me to work faster on my issue instead of looking at code, if I could see and then find out what exactly needs to be done.
+[T:ME-NEGATIVE] [00:31:31] Yeah. But from an accessible point of view, I'm not sure how accessible it can be. Yes. *Here when the participant is talking about “how accessible it can be” I guess they are talking about “how the game could help them improving the accessibility”*
+[00:31:42] Interviewer: But then, uh, do you think there is any other role, maybe in your team, that would benefit from using this tool.
+[T:MANAGER-POSITIVE] [T:SCENARIO-COMMUNICATION] [00:31:54] Interviewee: So, it would be better for managers. Like they don't have time. So in a meeting, if we can show them in an interesting way, it would be easy for us to give the data instead of just going through graphs or like a list that okay, this happened.
+[T:MANAGER-POSITIVE] [T:UX_DESIGNER-POSITIVE] [00:32:10] So basically this will make interesting. If we have project managers, TPMS, TPDMS, UX designers or anyone like what meeting or if you are giving a demo to their team that, okay, uh, this is your product. If they go inside this, these are the issues, this represents that. So yeah. Then we can definitely use this.
+[00:32:36] Interviewer: What did you think about the fighting? Did you like or dislike it? What are you thoughts about it?
+[T:COMBAT-NO_LESSON] [T:USER_AGENCY-LACKING] [00:32:48] Interviewee: About the attack. Okay. So basically what does the attack do I want to know, like, what's the point of attack right now? Attacking is basically, are we going with that we can fix the thing. So it is just for the game. 
+[00:33:04] Interviewer: Okay. So you're not sure about if there's a goal of the attack, basically. 
+[00:33:12] Interviewee: Yes. Of the attack.
+[00:33:13] Interviewer: Here, the goal is like, obviously you cannot fix the bugs by just killing them in a game, sadly. But here, the goal is more like to give you an overview through the fighting, if it's hard to kill the bugs or easy. So basically if you are in a room where you can slash through the monster.
+[00:33:39] Interviewee: Okay. Yeah, that's a good perspective to tell the user that how difficult or how many issues and then how hard it is to fight or fix those things.
+[00:33:52] Interviewer: Is there anything else that you liked or disliked about the game in general that we haven't discussed yet but you would like to say?
+[T:CONTEXT-MISSING] [00:34:22] Interviewee: Uh, the game is good. Just that if you could provide more information before starting the game. Uh, if people don’t have more context. For example, if I like your product and I want to share it with my team. So even before I do this, they're going to ask me exactly what, which things mean what?
+[00:34:45] So if we could provide more info, then it would be really easy for people to understand. And I want to know, like, what was the reason behind — those tiles, and, uh, the music, like I want to know first.
+[a]Pour le merge: à remplacer par "FREEZE_INFORMATION-NOT_INTUITIVE

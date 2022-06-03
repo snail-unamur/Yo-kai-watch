@@ -1,0 +1,3593 @@
+{
+    "a": {
+        "alert_status": [
+            {
+                "property": "alert_status",
+                "values": [
+                    {
+                        "val": "ERROR",
+                        "count": 1371
+                    },
+                    {
+                        "val": "OK",
+                        "count": 6083
+                    }
+                ]
+            }
+        ],
+        "coverage": [
+            {
+                "property": "coverage",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 13268
+                    },
+                    {
+                        "val": "*-30.0",
+                        "count": 7737
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 252
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 365
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 263
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 735
+                    }
+                ]
+            }
+        ],
+        "duplicated_lines_density": [
+            {
+                "property": "duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "*-3.0",
+                        "count": 10314
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 641
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 642
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 810
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 899
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 9314
+                    }
+                ]
+            }
+        ],
+        "languages": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "xml",
+                        "count": 4580
+                    },
+                    {
+                        "val": "web",
+                        "count": 3887
+                    },
+                    {
+                        "val": "java",
+                        "count": 3869
+                    },
+                    {
+                        "val": "js",
+                        "count": 3720
+                    },
+                    {
+                        "val": "css",
+                        "count": 3168
+                    },
+                    {
+                        "val": "apex",
+                        "count": 2502
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1489
+                    },
+                    {
+                        "val": "py",
+                        "count": 1154
+                    },
+                    {
+                        "val": "ts",
+                        "count": 1084
+                    },
+                    {
+                        "val": "php",
+                        "count": 551
+                    }
+                ]
+            }
+        ],
+        "ncloc": [
+            {
+                "property": "ncloc",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 7057
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 3515
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 1927
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 608
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 61
+                    }
+                ]
+            }
+        ],
+        "new_coverage": [
+            {
+                "property": "new_coverage",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1089
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 98
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 114
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 68
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 405
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 20846
+                    }
+                ]
+            }
+        ],
+        "new_duplicated_lines_density": [
+            {
+                "property": "new_duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 19387
+                    },
+                    {
+                        "val": "*-3.0",
+                        "count": 2921
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 61
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 91
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 82
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 78
+                    }
+                ]
+            }
+        ],
+        "new_lines": [
+            {
+                "property": "new_lines",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 4310
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 608
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 123
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 11
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 0
+                    }
+                ]
+            }
+        ],
+        "new_maintainability_rating": [
+            {
+                "property": "new_maintainability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 5052
+                    },
+                    {
+                        "val": "2",
+                        "count": 68
+                    },
+                    {
+                        "val": "3",
+                        "count": 21
+                    },
+                    {
+                        "val": "4",
+                        "count": 11
+                    },
+                    {
+                        "val": "5",
+                        "count": 10
+                    }
+                ]
+            }
+        ],
+        "new_reliability_rating": [
+            {
+                "property": "new_reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4807
+                    },
+                    {
+                        "val": "2",
+                        "count": 50
+                    },
+                    {
+                        "val": "3",
+                        "count": 204
+                    },
+                    {
+                        "val": "4",
+                        "count": 40
+                    },
+                    {
+                        "val": "5",
+                        "count": 61
+                    }
+                ]
+            }
+        ],
+        "new_security_hotspots_reviewed": [
+            {
+                "property": "new_security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 125
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 3
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 2240
+                    }
+                ]
+            }
+        ],
+        "new_security_rating": [
+            {
+                "property": "new_security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4948
+                    },
+                    {
+                        "val": "2",
+                        "count": 122
+                    },
+                    {
+                        "val": "3",
+                        "count": 4
+                    },
+                    {
+                        "val": "4",
+                        "count": 40
+                    },
+                    {
+                        "val": "5",
+                        "count": 48
+                    }
+                ]
+            }
+        ],
+        "new_security_review_rating": [
+            {
+                "property": "new_security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 2240
+                    },
+                    {
+                        "val": "2",
+                        "count": 3
+                    },
+                    {
+                        "val": "3",
+                        "count": 0
+                    },
+                    {
+                        "val": "4",
+                        "count": 0
+                    },
+                    {
+                        "val": "5",
+                        "count": 125
+                    }
+                ]
+            }
+        ],
+        "reliability_rating": [
+            {
+                "property": "reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 7856
+                    },
+                    {
+                        "val": "2",
+                        "count": 325
+                    },
+                    {
+                        "val": "3",
+                        "count": 2790
+                    },
+                    {
+                        "val": "4",
+                        "count": 671
+                    },
+                    {
+                        "val": "5",
+                        "count": 1912
+                    }
+                ]
+            }
+        ],
+        "security_hotspots_reviewed": [
+            {
+                "property": "security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 2491
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 11
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 29
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 11
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 5643
+                    }
+                ]
+            }
+        ],
+        "security_rating": [
+            {
+                "property": "security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 10710
+                    },
+                    {
+                        "val": "2",
+                        "count": 883
+                    },
+                    {
+                        "val": "3",
+                        "count": 88
+                    },
+                    {
+                        "val": "4",
+                        "count": 511
+                    },
+                    {
+                        "val": "5",
+                        "count": 1362
+                    }
+                ]
+            }
+        ],
+        "security_review_rating": [
+            {
+                "property": "security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 5644
+                    },
+                    {
+                        "val": "2",
+                        "count": 11
+                    },
+                    {
+                        "val": "3",
+                        "count": 29
+                    },
+                    {
+                        "val": "4",
+                        "count": 11
+                    },
+                    {
+                        "val": "5",
+                        "count": 2491
+                    }
+                ]
+            }
+        ],
+        "sqale_rating": [
+            {
+                "property": "sqale_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 13375
+                    },
+                    {
+                        "val": "2",
+                        "count": 143
+                    },
+                    {
+                        "val": "3",
+                        "count": 28
+                    },
+                    {
+                        "val": "4",
+                        "count": 6
+                    },
+                    {
+                        "val": "5",
+                        "count": 2
+                    }
+                ]
+            }
+        ],
+        "tag": null
+    },
+    "c": {
+        "alert_status": [
+            {
+                "property": "alert_status",
+                "values": [
+                    {
+                        "val": "ERROR",
+                        "count": 1384
+                    },
+                    {
+                        "val": "OK",
+                        "count": 5546
+                    }
+                ]
+            }
+        ],
+        "coverage": [
+            {
+                "property": "coverage",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 11377
+                    },
+                    {
+                        "val": "*-30.0",
+                        "count": 4503
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 270
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 333
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 255
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 1047
+                    }
+                ]
+            }
+        ],
+        "duplicated_lines_density": [
+            {
+                "property": "duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "*-3.0",
+                        "count": 7550
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 543
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 788
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 556
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 771
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 7577
+                    }
+                ]
+            }
+        ],
+        "languages": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "xml",
+                        "count": 3937
+                    },
+                    {
+                        "val": "java",
+                        "count": 3571
+                    },
+                    {
+                        "val": "js",
+                        "count": 3105
+                    },
+                    {
+                        "val": "web",
+                        "count": 2919
+                    },
+                    {
+                        "val": "css",
+                        "count": 2529
+                    },
+                    {
+                        "val": "py",
+                        "count": 1161
+                    },
+                    {
+                        "val": "cs",
+                        "count": 979
+                    },
+                    {
+                        "val": "ts",
+                        "count": 796
+                    },
+                    {
+                        "val": "php",
+                        "count": 763
+                    },
+                    {
+                        "val": "go",
+                        "count": 355
+                    }
+                ]
+            }
+        ],
+        "ncloc": [
+            {
+                "property": "ncloc",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 5261
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 3097
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 1449
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 282
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 53
+                    }
+                ]
+            }
+        ],
+        "new_coverage": [
+            {
+                "property": "new_coverage",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1137
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 93
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 104
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 61
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 528
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 15862
+                    }
+                ]
+            }
+        ],
+        "new_duplicated_lines_density": [
+            {
+                "property": "new_duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 14575
+                    },
+                    {
+                        "val": "*-3.0",
+                        "count": 2869
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 71
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 85
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 69
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 116
+                    }
+                ]
+            }
+        ],
+        "new_lines": [
+            {
+                "property": "new_lines",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 4009
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 618
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 120
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 11
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 3
+                    }
+                ]
+            }
+        ],
+        "new_maintainability_rating": [
+            {
+                "property": "new_maintainability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4799
+                    },
+                    {
+                        "val": "2",
+                        "count": 34
+                    },
+                    {
+                        "val": "3",
+                        "count": 22
+                    },
+                    {
+                        "val": "4",
+                        "count": 12
+                    },
+                    {
+                        "val": "5",
+                        "count": 8
+                    }
+                ]
+            }
+        ],
+        "new_reliability_rating": [
+            {
+                "property": "new_reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4499
+                    },
+                    {
+                        "val": "2",
+                        "count": 53
+                    },
+                    {
+                        "val": "3",
+                        "count": 215
+                    },
+                    {
+                        "val": "4",
+                        "count": 39
+                    },
+                    {
+                        "val": "5",
+                        "count": 69
+                    }
+                ]
+            }
+        ],
+        "new_security_hotspots_reviewed": [
+            {
+                "property": "new_security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 140
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 4
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 1984
+                    }
+                ]
+            }
+        ],
+        "new_security_rating": [
+            {
+                "property": "new_security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4734
+                    },
+                    {
+                        "val": "2",
+                        "count": 67
+                    },
+                    {
+                        "val": "3",
+                        "count": 4
+                    },
+                    {
+                        "val": "4",
+                        "count": 30
+                    },
+                    {
+                        "val": "5",
+                        "count": 40
+                    }
+                ]
+            }
+        ],
+        "new_security_review_rating": [
+            {
+                "property": "new_security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 1984
+                    },
+                    {
+                        "val": "2",
+                        "count": 0
+                    },
+                    {
+                        "val": "3",
+                        "count": 4
+                    },
+                    {
+                        "val": "4",
+                        "count": 0
+                    },
+                    {
+                        "val": "5",
+                        "count": 140
+                    }
+                ]
+            }
+        ],
+        "reliability_rating": [
+            {
+                "property": "reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 6128
+                    },
+                    {
+                        "val": "2",
+                        "count": 219
+                    },
+                    {
+                        "val": "3",
+                        "count": 2405
+                    },
+                    {
+                        "val": "4",
+                        "count": 541
+                    },
+                    {
+                        "val": "5",
+                        "count": 1169
+                    }
+                ]
+            }
+        ],
+        "security_hotspots_reviewed": [
+            {
+                "property": "security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 2164
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 19
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 39
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 10
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 3237
+                    }
+                ]
+            }
+        ],
+        "security_rating": [
+            {
+                "property": "security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8480
+                    },
+                    {
+                        "val": "2",
+                        "count": 634
+                    },
+                    {
+                        "val": "3",
+                        "count": 66
+                    },
+                    {
+                        "val": "4",
+                        "count": 424
+                    },
+                    {
+                        "val": "5",
+                        "count": 858
+                    }
+                ]
+            }
+        ],
+        "security_review_rating": [
+            {
+                "property": "security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3237
+                    },
+                    {
+                        "val": "2",
+                        "count": 10
+                    },
+                    {
+                        "val": "3",
+                        "count": 39
+                    },
+                    {
+                        "val": "4",
+                        "count": 19
+                    },
+                    {
+                        "val": "5",
+                        "count": 2164
+                    }
+                ]
+            }
+        ],
+        "sqale_rating": [
+            {
+                "property": "sqale_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 10249
+                    },
+                    {
+                        "val": "2",
+                        "count": 145
+                    },
+                    {
+                        "val": "3",
+                        "count": 54
+                    },
+                    {
+                        "val": "4",
+                        "count": 7
+                    },
+                    {
+                        "val": "5",
+                        "count": 7
+                    }
+                ]
+            }
+        ],
+        "tag": null
+    },
+    "d": {
+        "alert_status": [
+            {
+                "property": "alert_status",
+                "values": [
+                    {
+                        "val": "ERROR",
+                        "count": 865
+                    },
+                    {
+                        "val": "OK",
+                        "count": 4215
+                    }
+                ]
+            }
+        ],
+        "coverage": [
+            {
+                "property": "coverage",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 9028
+                    },
+                    {
+                        "val": "*-30.0",
+                        "count": 4030
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 163
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 262
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 222
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 588
+                    }
+                ]
+            }
+        ],
+        "duplicated_lines_density": [
+            {
+                "property": "duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "*-3.0",
+                        "count": 5791
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 430
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 404
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 467
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 736
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 6465
+                    }
+                ]
+            }
+        ],
+        "languages": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "web",
+                        "count": 2819
+                    },
+                    {
+                        "val": "xml",
+                        "count": 2664
+                    },
+                    {
+                        "val": "js",
+                        "count": 2584
+                    },
+                    {
+                        "val": "java",
+                        "count": 2502
+                    },
+                    {
+                        "val": "css",
+                        "count": 2429
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1404
+                    },
+                    {
+                        "val": "py",
+                        "count": 1237
+                    },
+                    {
+                        "val": "php",
+                        "count": 509
+                    },
+                    {
+                        "val": "ts",
+                        "count": 496
+                    },
+                    {
+                        "val": "jsp",
+                        "count": 196
+                    }
+                ]
+            }
+        ],
+        "ncloc": [
+            {
+                "property": "ncloc",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 3783
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 2265
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 1474
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 211
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 32
+                    }
+                ]
+            }
+        ],
+        "new_coverage": [
+            {
+                "property": "new_coverage",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 755
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 38
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 76
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 42
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 382
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 13000
+                    }
+                ]
+            }
+        ],
+        "new_duplicated_lines_density": [
+            {
+                "property": "new_duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 12072
+                    },
+                    {
+                        "val": "*-3.0",
+                        "count": 2034
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 42
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 45
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 36
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 64
+                    }
+                ]
+            }
+        ],
+        "new_lines": [
+            {
+                "property": "new_lines",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 3110
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 340
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 74
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 6
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 3
+                    }
+                ]
+            }
+        ],
+        "new_maintainability_rating": [
+            {
+                "property": "new_maintainability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3519
+                    },
+                    {
+                        "val": "2",
+                        "count": 35
+                    },
+                    {
+                        "val": "3",
+                        "count": 26
+                    },
+                    {
+                        "val": "4",
+                        "count": 12
+                    },
+                    {
+                        "val": "5",
+                        "count": 1
+                    }
+                ]
+            }
+        ],
+        "new_reliability_rating": [
+            {
+                "property": "new_reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3379
+                    },
+                    {
+                        "val": "2",
+                        "count": 22
+                    },
+                    {
+                        "val": "3",
+                        "count": 121
+                    },
+                    {
+                        "val": "4",
+                        "count": 23
+                    },
+                    {
+                        "val": "5",
+                        "count": 48
+                    }
+                ]
+            }
+        ],
+        "new_security_hotspots_reviewed": [
+            {
+                "property": "new_security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 94
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 5
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 1515
+                    }
+                ]
+            }
+        ],
+        "new_security_rating": [
+            {
+                "property": "new_security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3507
+                    },
+                    {
+                        "val": "2",
+                        "count": 39
+                    },
+                    {
+                        "val": "3",
+                        "count": 2
+                    },
+                    {
+                        "val": "4",
+                        "count": 21
+                    },
+                    {
+                        "val": "5",
+                        "count": 24
+                    }
+                ]
+            }
+        ],
+        "new_security_review_rating": [
+            {
+                "property": "new_security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 1515
+                    },
+                    {
+                        "val": "2",
+                        "count": 0
+                    },
+                    {
+                        "val": "3",
+                        "count": 5
+                    },
+                    {
+                        "val": "4",
+                        "count": 0
+                    },
+                    {
+                        "val": "5",
+                        "count": 94
+                    }
+                ]
+            }
+        ],
+        "reliability_rating": [
+            {
+                "property": "reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4351
+                    },
+                    {
+                        "val": "2",
+                        "count": 175
+                    },
+                    {
+                        "val": "3",
+                        "count": 2043
+                    },
+                    {
+                        "val": "4",
+                        "count": 590
+                    },
+                    {
+                        "val": "5",
+                        "count": 858
+                    }
+                ]
+            }
+        ],
+        "security_hotspots_reviewed": [
+            {
+                "property": "security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 2048
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 17
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 21
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 5
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 2314
+                    }
+                ]
+            }
+        ],
+        "security_rating": [
+            {
+                "property": "security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 6410
+                    },
+                    {
+                        "val": "2",
+                        "count": 375
+                    },
+                    {
+                        "val": "3",
+                        "count": 75
+                    },
+                    {
+                        "val": "4",
+                        "count": 282
+                    },
+                    {
+                        "val": "5",
+                        "count": 875
+                    }
+                ]
+            }
+        ],
+        "security_review_rating": [
+            {
+                "property": "security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 2314
+                    },
+                    {
+                        "val": "2",
+                        "count": 5
+                    },
+                    {
+                        "val": "3",
+                        "count": 21
+                    },
+                    {
+                        "val": "4",
+                        "count": 17
+                    },
+                    {
+                        "val": "5",
+                        "count": 2048
+                    }
+                ]
+            }
+        ],
+        "sqale_rating": [
+            {
+                "property": "sqale_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 7895
+                    },
+                    {
+                        "val": "2",
+                        "count": 98
+                    },
+                    {
+                        "val": "3",
+                        "count": 20
+                    },
+                    {
+                        "val": "4",
+                        "count": 3
+                    },
+                    {
+                        "val": "5",
+                        "count": 1
+                    }
+                ]
+            }
+        ],
+        "tag": null
+    },
+    "m": {
+        "alert_status": [
+            {
+                "property": "alert_status",
+                "values": [
+                    {
+                        "val": "ERROR",
+                        "count": 1107
+                    },
+                    {
+                        "val": "OK",
+                        "count": 6538
+                    }
+                ]
+            }
+        ],
+        "coverage": [
+            {
+                "property": "coverage",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 11426
+                    },
+                    {
+                        "val": "*-30.0",
+                        "count": 5344
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 173
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 340
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 201
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 664
+                    }
+                ]
+            }
+        ],
+        "duplicated_lines_density": [
+            {
+                "property": "duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "*-3.0",
+                        "count": 7457
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 504
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 592
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 462
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 626
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 8507
+                    }
+                ]
+            }
+        ],
+        "languages": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "web",
+                        "count": 3584
+                    },
+                    {
+                        "val": "css",
+                        "count": 3297
+                    },
+                    {
+                        "val": "xml",
+                        "count": 3232
+                    },
+                    {
+                        "val": "java",
+                        "count": 3031
+                    },
+                    {
+                        "val": "js",
+                        "count": 2853
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1829
+                    },
+                    {
+                        "val": "php",
+                        "count": 1024
+                    },
+                    {
+                        "val": "py",
+                        "count": 761
+                    },
+                    {
+                        "val": "ts",
+                        "count": 576
+                    },
+                    {
+                        "val": "go",
+                        "count": 224
+                    }
+                ]
+            }
+        ],
+        "ncloc": [
+            {
+                "property": "ncloc",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 4105
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 3579
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 1643
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 216
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 68
+                    }
+                ]
+            }
+        ],
+        "new_coverage": [
+            {
+                "property": "new_coverage",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1016
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 47
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 64
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 37
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 408
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 16576
+                    }
+                ]
+            }
+        ],
+        "new_duplicated_lines_density": [
+            {
+                "property": "new_duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 15500
+                    },
+                    {
+                        "val": "*-3.0",
+                        "count": 2359
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 71
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 83
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 56
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 79
+                    }
+                ]
+            }
+        ],
+        "new_lines": [
+            {
+                "property": "new_lines",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 3711
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 485
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 82
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 16
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 2
+                    }
+                ]
+            }
+        ],
+        "new_maintainability_rating": [
+            {
+                "property": "new_maintainability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4468
+                    },
+                    {
+                        "val": "2",
+                        "count": 46
+                    },
+                    {
+                        "val": "3",
+                        "count": 19
+                    },
+                    {
+                        "val": "4",
+                        "count": 9
+                    },
+                    {
+                        "val": "5",
+                        "count": 4
+                    }
+                ]
+            }
+        ],
+        "new_reliability_rating": [
+            {
+                "property": "new_reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4253
+                    },
+                    {
+                        "val": "2",
+                        "count": 41
+                    },
+                    {
+                        "val": "3",
+                        "count": 167
+                    },
+                    {
+                        "val": "4",
+                        "count": 28
+                    },
+                    {
+                        "val": "5",
+                        "count": 57
+                    }
+                ]
+            }
+        ],
+        "new_security_hotspots_reviewed": [
+            {
+                "property": "new_security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 97
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 2
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 1437
+                    }
+                ]
+            }
+        ],
+        "new_security_rating": [
+            {
+                "property": "new_security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4377
+                    },
+                    {
+                        "val": "2",
+                        "count": 93
+                    },
+                    {
+                        "val": "3",
+                        "count": 3
+                    },
+                    {
+                        "val": "4",
+                        "count": 35
+                    },
+                    {
+                        "val": "5",
+                        "count": 38
+                    }
+                ]
+            }
+        ],
+        "new_security_review_rating": [
+            {
+                "property": "new_security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 1437
+                    },
+                    {
+                        "val": "2",
+                        "count": 0
+                    },
+                    {
+                        "val": "3",
+                        "count": 2
+                    },
+                    {
+                        "val": "4",
+                        "count": 0
+                    },
+                    {
+                        "val": "5",
+                        "count": 97
+                    }
+                ]
+            }
+        ],
+        "reliability_rating": [
+            {
+                "property": "reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 5214
+                    },
+                    {
+                        "val": "2",
+                        "count": 215
+                    },
+                    {
+                        "val": "3",
+                        "count": 3205
+                    },
+                    {
+                        "val": "4",
+                        "count": 594
+                    },
+                    {
+                        "val": "5",
+                        "count": 1031
+                    }
+                ]
+            }
+        ],
+        "security_hotspots_reviewed": [
+            {
+                "property": "security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1613
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 15
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 16
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 6
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 2350
+                    }
+                ]
+            }
+        ],
+        "security_rating": [
+            {
+                "property": "security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8144
+                    },
+                    {
+                        "val": "2",
+                        "count": 950
+                    },
+                    {
+                        "val": "3",
+                        "count": 56
+                    },
+                    {
+                        "val": "4",
+                        "count": 373
+                    },
+                    {
+                        "val": "5",
+                        "count": 736
+                    }
+                ]
+            }
+        ],
+        "security_review_rating": [
+            {
+                "property": "security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 2350
+                    },
+                    {
+                        "val": "2",
+                        "count": 6
+                    },
+                    {
+                        "val": "3",
+                        "count": 16
+                    },
+                    {
+                        "val": "4",
+                        "count": 15
+                    },
+                    {
+                        "val": "5",
+                        "count": 1614
+                    }
+                ]
+            }
+        ],
+        "sqale_rating": [
+            {
+                "property": "sqale_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 10066
+                    },
+                    {
+                        "val": "2",
+                        "count": 149
+                    },
+                    {
+                        "val": "3",
+                        "count": 32
+                    },
+                    {
+                        "val": "4",
+                        "count": 11
+                    },
+                    {
+                        "val": "5",
+                        "count": 1
+                    }
+                ]
+            }
+        ],
+        "tag": null
+    },
+    "p": {
+        "alert_status": [
+            {
+                "property": "alert_status",
+                "values": [
+                    {
+                        "val": "ERROR",
+                        "count": 1259
+                    },
+                    {
+                        "val": "OK",
+                        "count": 6699
+                    }
+                ]
+            }
+        ],
+        "coverage": [
+            {
+                "property": "coverage",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 11667
+                    },
+                    {
+                        "val": "*-30.0",
+                        "count": 6958
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 258
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 312
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 220
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 872
+                    }
+                ]
+            }
+        ],
+        "duplicated_lines_density": [
+            {
+                "property": "duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "*-3.0",
+                        "count": 7230
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 506
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 707
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 611
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 3153
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 8080
+                    }
+                ]
+            }
+        ],
+        "languages": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "web",
+                        "count": 5248
+                    },
+                    {
+                        "val": "js",
+                        "count": 4996
+                    },
+                    {
+                        "val": "css",
+                        "count": 4782
+                    },
+                    {
+                        "val": "xml",
+                        "count": 3838
+                    },
+                    {
+                        "val": "java",
+                        "count": 3532
+                    },
+                    {
+                        "val": "cs",
+                        "count": 3373
+                    },
+                    {
+                        "val": "py",
+                        "count": 1646
+                    },
+                    {
+                        "val": "php",
+                        "count": 868
+                    },
+                    {
+                        "val": "ts",
+                        "count": 750
+                    },
+                    {
+                        "val": "plsql",
+                        "count": 256
+                    }
+                ]
+            }
+        ],
+        "ncloc": [
+            {
+                "property": "ncloc",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 4833
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 3235
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 3748
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 283
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 43
+                    }
+                ]
+            }
+        ],
+        "new_coverage": [
+            {
+                "property": "new_coverage",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1051
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 50
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 100
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 52
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 391
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 18643
+                    }
+                ]
+            }
+        ],
+        "new_duplicated_lines_density": [
+            {
+                "property": "new_duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 17364
+                    },
+                    {
+                        "val": "*-3.0",
+                        "count": 2577
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 86
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 89
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 75
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 96
+                    }
+                ]
+            }
+        ],
+        "new_lines": [
+            {
+                "property": "new_lines",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 3904
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 539
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 111
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 7
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 2
+                    }
+                ]
+            }
+        ],
+        "new_maintainability_rating": [
+            {
+                "property": "new_maintainability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4595
+                    },
+                    {
+                        "val": "2",
+                        "count": 60
+                    },
+                    {
+                        "val": "3",
+                        "count": 20
+                    },
+                    {
+                        "val": "4",
+                        "count": 13
+                    },
+                    {
+                        "val": "5",
+                        "count": 6
+                    }
+                ]
+            }
+        ],
+        "new_reliability_rating": [
+            {
+                "property": "new_reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4324
+                    },
+                    {
+                        "val": "2",
+                        "count": 31
+                    },
+                    {
+                        "val": "3",
+                        "count": 222
+                    },
+                    {
+                        "val": "4",
+                        "count": 29
+                    },
+                    {
+                        "val": "5",
+                        "count": 88
+                    }
+                ]
+            }
+        ],
+        "new_security_hotspots_reviewed": [
+            {
+                "property": "new_security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 113
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 3
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 9
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 3
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 1832
+                    }
+                ]
+            }
+        ],
+        "new_security_rating": [
+            {
+                "property": "new_security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 4507
+                    },
+                    {
+                        "val": "2",
+                        "count": 81
+                    },
+                    {
+                        "val": "3",
+                        "count": 4
+                    },
+                    {
+                        "val": "4",
+                        "count": 50
+                    },
+                    {
+                        "val": "5",
+                        "count": 52
+                    }
+                ]
+            }
+        ],
+        "new_security_review_rating": [
+            {
+                "property": "new_security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 1832
+                    },
+                    {
+                        "val": "2",
+                        "count": 3
+                    },
+                    {
+                        "val": "3",
+                        "count": 9
+                    },
+                    {
+                        "val": "4",
+                        "count": 3
+                    },
+                    {
+                        "val": "5",
+                        "count": 113
+                    }
+                ]
+            }
+        ],
+        "reliability_rating": [
+            {
+                "property": "reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 5691
+                    },
+                    {
+                        "val": "2",
+                        "count": 180
+                    },
+                    {
+                        "val": "3",
+                        "count": 2348
+                    },
+                    {
+                        "val": "4",
+                        "count": 2914
+                    },
+                    {
+                        "val": "5",
+                        "count": 1305
+                    }
+                ]
+            }
+        ],
+        "security_hotspots_reviewed": [
+            {
+                "property": "security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 2848
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 14
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 30
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 6
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 3217
+                    }
+                ]
+            }
+        ],
+        "security_rating": [
+            {
+                "property": "security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8748
+                    },
+                    {
+                        "val": "2",
+                        "count": 569
+                    },
+                    {
+                        "val": "3",
+                        "count": 61
+                    },
+                    {
+                        "val": "4",
+                        "count": 747
+                    },
+                    {
+                        "val": "5",
+                        "count": 2313
+                    }
+                ]
+            }
+        ],
+        "security_review_rating": [
+            {
+                "property": "security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3217
+                    },
+                    {
+                        "val": "2",
+                        "count": 6
+                    },
+                    {
+                        "val": "3",
+                        "count": 30
+                    },
+                    {
+                        "val": "4",
+                        "count": 14
+                    },
+                    {
+                        "val": "5",
+                        "count": 2848
+                    }
+                ]
+            }
+        ],
+        "sqale_rating": [
+            {
+                "property": "sqale_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 12218
+                    },
+                    {
+                        "val": "2",
+                        "count": 169
+                    },
+                    {
+                        "val": "3",
+                        "count": 39
+                    },
+                    {
+                        "val": "4",
+                        "count": 9
+                    },
+                    {
+                        "val": "5",
+                        "count": 3
+                    }
+                ]
+            }
+        ],
+        "tag": null
+    },
+    "s": {
+        "alert_status": [
+            {
+                "property": "alert_status",
+                "values": [
+                    {
+                        "val": "ERROR",
+                        "count": 2027
+                    },
+                    {
+                        "val": "OK",
+                        "count": 10697
+                    }
+                ]
+            }
+        ],
+        "coverage": [
+            {
+                "property": "coverage",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 18128
+                    },
+                    {
+                        "val": "*-30.0",
+                        "count": 11697
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 411
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 565
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 250
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 1334
+                    }
+                ]
+            }
+        ],
+        "duplicated_lines_density": [
+            {
+                "property": "duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "*-3.0",
+                        "count": 14685
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 685
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 956
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 775
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 1568
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 13716
+                    }
+                ]
+            }
+        ],
+        "languages": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "java",
+                        "count": 6712
+                    },
+                    {
+                        "val": "xml",
+                        "count": 6007
+                    },
+                    {
+                        "val": "web",
+                        "count": 5434
+                    },
+                    {
+                        "val": "cs",
+                        "count": 5068
+                    },
+                    {
+                        "val": "js",
+                        "count": 4550
+                    },
+                    {
+                        "val": "css",
+                        "count": 4321
+                    },
+                    {
+                        "val": "py",
+                        "count": 1524
+                    },
+                    {
+                        "val": "ts",
+                        "count": 1059
+                    },
+                    {
+                        "val": "php",
+                        "count": 858
+                    },
+                    {
+                        "val": "plsql",
+                        "count": 367
+                    }
+                ]
+            }
+        ],
+        "ncloc": [
+            {
+                "property": "ncloc",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 10343
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 5085
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 2532
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 531
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 81
+                    }
+                ]
+            }
+        ],
+        "new_coverage": [
+            {
+                "property": "new_coverage",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1680
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 105
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 142
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 81
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 695
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 29682
+                    }
+                ]
+            }
+        ],
+        "new_duplicated_lines_density": [
+            {
+                "property": "new_duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 27686
+                    },
+                    {
+                        "val": "*-3.0",
+                        "count": 4251
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 78
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 115
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 107
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 148
+                    }
+                ]
+            }
+        ],
+        "new_lines": [
+            {
+                "property": "new_lines",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 7415
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 786
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 183
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 13
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 3
+                    }
+                ]
+            }
+        ],
+        "new_maintainability_rating": [
+            {
+                "property": "new_maintainability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8319
+                    },
+                    {
+                        "val": "2",
+                        "count": 119
+                    },
+                    {
+                        "val": "3",
+                        "count": 65
+                    },
+                    {
+                        "val": "4",
+                        "count": 34
+                    },
+                    {
+                        "val": "5",
+                        "count": 12
+                    }
+                ]
+            }
+        ],
+        "new_reliability_rating": [
+            {
+                "property": "new_reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8040
+                    },
+                    {
+                        "val": "2",
+                        "count": 62
+                    },
+                    {
+                        "val": "3",
+                        "count": 295
+                    },
+                    {
+                        "val": "4",
+                        "count": 62
+                    },
+                    {
+                        "val": "5",
+                        "count": 90
+                    }
+                ]
+            }
+        ],
+        "new_security_hotspots_reviewed": [
+            {
+                "property": "new_security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 198
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 1
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 4
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 2
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 3586
+                    }
+                ]
+            }
+        ],
+        "new_security_rating": [
+            {
+                "property": "new_security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8283
+                    },
+                    {
+                        "val": "2",
+                        "count": 116
+                    },
+                    {
+                        "val": "3",
+                        "count": 10
+                    },
+                    {
+                        "val": "4",
+                        "count": 54
+                    },
+                    {
+                        "val": "5",
+                        "count": 86
+                    }
+                ]
+            }
+        ],
+        "new_security_review_rating": [
+            {
+                "property": "new_security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3586
+                    },
+                    {
+                        "val": "2",
+                        "count": 2
+                    },
+                    {
+                        "val": "3",
+                        "count": 4
+                    },
+                    {
+                        "val": "4",
+                        "count": 1
+                    },
+                    {
+                        "val": "5",
+                        "count": 198
+                    }
+                ]
+            }
+        ],
+        "reliability_rating": [
+            {
+                "property": "reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8971
+                    },
+                    {
+                        "val": "2",
+                        "count": 391
+                    },
+                    {
+                        "val": "3",
+                        "count": 6314
+                    },
+                    {
+                        "val": "4",
+                        "count": 1105
+                    },
+                    {
+                        "val": "5",
+                        "count": 2190
+                    }
+                ]
+            }
+        ],
+        "security_hotspots_reviewed": [
+            {
+                "property": "security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 2938
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 24
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 55
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 8
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 6601
+                    }
+                ]
+            }
+        ],
+        "security_rating": [
+            {
+                "property": "security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 15408
+                    },
+                    {
+                        "val": "2",
+                        "count": 1247
+                    },
+                    {
+                        "val": "3",
+                        "count": 61
+                    },
+                    {
+                        "val": "4",
+                        "count": 773
+                    },
+                    {
+                        "val": "5",
+                        "count": 1482
+                    }
+                ]
+            }
+        ],
+        "security_review_rating": [
+            {
+                "property": "security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 6601
+                    },
+                    {
+                        "val": "2",
+                        "count": 8
+                    },
+                    {
+                        "val": "3",
+                        "count": 55
+                    },
+                    {
+                        "val": "4",
+                        "count": 24
+                    },
+                    {
+                        "val": "5",
+                        "count": 2938
+                    }
+                ]
+            }
+        ],
+        "sqale_rating": [
+            {
+                "property": "sqale_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 18519
+                    },
+                    {
+                        "val": "2",
+                        "count": 370
+                    },
+                    {
+                        "val": "3",
+                        "count": 71
+                    },
+                    {
+                        "val": "4",
+                        "count": 6
+                    },
+                    {
+                        "val": "5",
+                        "count": 5
+                    }
+                ]
+            }
+        ],
+        "tag": null
+    },
+    "t": {
+        "alert_status": [
+            {
+                "property": "alert_status",
+                "values": [
+                    {
+                        "val": "ERROR",
+                        "count": 1014
+                    },
+                    {
+                        "val": "OK",
+                        "count": 4467
+                    }
+                ]
+            }
+        ],
+        "coverage": [
+            {
+                "property": "coverage",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 11360
+                    },
+                    {
+                        "val": "*-30.0",
+                        "count": 4279
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 162
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 242
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 156
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 552
+                    }
+                ]
+            }
+        ],
+        "duplicated_lines_density": [
+            {
+                "property": "duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "*-3.0",
+                        "count": 6311
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 377
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 486
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 420
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 653
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 8504
+                    }
+                ]
+            }
+        ],
+        "languages": [
+            {
+                "property": "languages",
+                "values": [
+                    {
+                        "val": "xml",
+                        "count": 2782
+                    },
+                    {
+                        "val": "java",
+                        "count": 2661
+                    },
+                    {
+                        "val": "js",
+                        "count": 2453
+                    },
+                    {
+                        "val": "web",
+                        "count": 2360
+                    },
+                    {
+                        "val": "css",
+                        "count": 1940
+                    },
+                    {
+                        "val": "cs",
+                        "count": 1033
+                    },
+                    {
+                        "val": "py",
+                        "count": 983
+                    },
+                    {
+                        "val": "ts",
+                        "count": 699
+                    },
+                    {
+                        "val": "php",
+                        "count": 523
+                    },
+                    {
+                        "val": "c",
+                        "count": 270
+                    }
+                ]
+            }
+        ],
+        "ncloc": [
+            {
+                "property": "ncloc",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 4643
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 2101
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 1109
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 232
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 46
+                    }
+                ]
+            }
+        ],
+        "new_coverage": [
+            {
+                "property": "new_coverage",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1000
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 54
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 78
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 39
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 291
+                    },
+                    {
+                        "val": "NO_DATA",
+                        "count": 15289
+                    }
+                ]
+            }
+        ],
+        "new_duplicated_lines_density": [
+            {
+                "property": "new_duplicated_lines_density",
+                "values": [
+                    {
+                        "val": "NO_DATA",
+                        "count": 14258
+                    },
+                    {
+                        "val": "*-3.0",
+                        "count": 2262
+                    },
+                    {
+                        "val": "3.0-5.0",
+                        "count": 35
+                    },
+                    {
+                        "val": "5.0-10.0",
+                        "count": 69
+                    },
+                    {
+                        "val": "10.0-20.0",
+                        "count": 54
+                    },
+                    {
+                        "val": "20.0-*",
+                        "count": 73
+                    }
+                ]
+            }
+        ],
+        "new_lines": [
+            {
+                "property": "new_lines",
+                "values": [
+                    {
+                        "val": "*-1000.0",
+                        "count": 3315
+                    },
+                    {
+                        "val": "1000.0-10000.0",
+                        "count": 369
+                    },
+                    {
+                        "val": "10000.0-100000.0",
+                        "count": 103
+                    },
+                    {
+                        "val": "100000.0-500000.0",
+                        "count": 7
+                    },
+                    {
+                        "val": "500000.0-*",
+                        "count": 1
+                    }
+                ]
+            }
+        ],
+        "new_maintainability_rating": [
+            {
+                "property": "new_maintainability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3802
+                    },
+                    {
+                        "val": "2",
+                        "count": 51
+                    },
+                    {
+                        "val": "3",
+                        "count": 25
+                    },
+                    {
+                        "val": "4",
+                        "count": 9
+                    },
+                    {
+                        "val": "5",
+                        "count": 8
+                    }
+                ]
+            }
+        ],
+        "new_reliability_rating": [
+            {
+                "property": "new_reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3621
+                    },
+                    {
+                        "val": "2",
+                        "count": 16
+                    },
+                    {
+                        "val": "3",
+                        "count": 178
+                    },
+                    {
+                        "val": "4",
+                        "count": 37
+                    },
+                    {
+                        "val": "5",
+                        "count": 43
+                    }
+                ]
+            }
+        ],
+        "new_security_hotspots_reviewed": [
+            {
+                "property": "new_security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 86
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 7
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 0
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 1509
+                    }
+                ]
+            }
+        ],
+        "new_security_rating": [
+            {
+                "property": "new_security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 3756
+                    },
+                    {
+                        "val": "2",
+                        "count": 76
+                    },
+                    {
+                        "val": "3",
+                        "count": 4
+                    },
+                    {
+                        "val": "4",
+                        "count": 25
+                    },
+                    {
+                        "val": "5",
+                        "count": 34
+                    }
+                ]
+            }
+        ],
+        "new_security_review_rating": [
+            {
+                "property": "new_security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 1509
+                    },
+                    {
+                        "val": "2",
+                        "count": 0
+                    },
+                    {
+                        "val": "3",
+                        "count": 7
+                    },
+                    {
+                        "val": "4",
+                        "count": 0
+                    },
+                    {
+                        "val": "5",
+                        "count": 86
+                    }
+                ]
+            }
+        ],
+        "reliability_rating": [
+            {
+                "property": "reliability_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 5271
+                    },
+                    {
+                        "val": "2",
+                        "count": 163
+                    },
+                    {
+                        "val": "3",
+                        "count": 1757
+                    },
+                    {
+                        "val": "4",
+                        "count": 490
+                    },
+                    {
+                        "val": "5",
+                        "count": 850
+                    }
+                ]
+            }
+        ],
+        "security_hotspots_reviewed": [
+            {
+                "property": "security_hotspots_reviewed",
+                "values": [
+                    {
+                        "val": "*-30.0",
+                        "count": 1705
+                    },
+                    {
+                        "val": "30.0-50.0",
+                        "count": 12
+                    },
+                    {
+                        "val": "50.0-70.0",
+                        "count": 19
+                    },
+                    {
+                        "val": "70.0-80.0",
+                        "count": 5
+                    },
+                    {
+                        "val": "80.0-*",
+                        "count": 2696
+                    }
+                ]
+            }
+        ],
+        "security_rating": [
+            {
+                "property": "security_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 7184
+                    },
+                    {
+                        "val": "2",
+                        "count": 417
+                    },
+                    {
+                        "val": "3",
+                        "count": 35
+                    },
+                    {
+                        "val": "4",
+                        "count": 296
+                    },
+                    {
+                        "val": "5",
+                        "count": 599
+                    }
+                ]
+            }
+        ],
+        "security_review_rating": [
+            {
+                "property": "security_review_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 2697
+                    },
+                    {
+                        "val": "2",
+                        "count": 5
+                    },
+                    {
+                        "val": "3",
+                        "count": 19
+                    },
+                    {
+                        "val": "4",
+                        "count": 12
+                    },
+                    {
+                        "val": "5",
+                        "count": 1705
+                    }
+                ]
+            }
+        ],
+        "sqale_rating": [
+            {
+                "property": "sqale_rating",
+                "values": [
+                    {
+                        "val": "1",
+                        "count": 8163
+                    },
+                    {
+                        "val": "2",
+                        "count": 229
+                    },
+                    {
+                        "val": "3",
+                        "count": 128
+                    },
+                    {
+                        "val": "4",
+                        "count": 10
+                    },
+                    {
+                        "val": "5",
+                        "count": 1
+                    }
+                ]
+            }
+        ],
+        "tag": null
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "a": {
+        "totalNumber": 26016,
+        "uniqueNumber": 12679
+    },
+    "c": {
+        "totalNumber": 20163,
+        "uniqueNumber": 9573
+    },
+    "d": {
+        "totalNumber": 16899,
+        "uniqueNumber": 7430
+    },
+    "m": {
+        "totalNumber": 20424,
+        "uniqueNumber": 9300
+    },
+    "p": {
+        "totalNumber": 29317,
+        "uniqueNumber": 11718
+    },
+    "s": {
+        "totalNumber": 35940,
+        "uniqueNumber": 17831
+    },
+    "t": {
+        "totalNumber": 15705,
+        "uniqueNumber": 7642
+    }
+}
