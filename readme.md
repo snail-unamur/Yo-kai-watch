@@ -9,7 +9,7 @@ This repository is splitted in 3 parts stored in the 3 main folders. In each of 
 To build this project easily you will need docker
 
 ```
-git clone https://github.com/linuxserver/docker-sonarr.git
+git clone https://github.com/snail-unamur/Yo-kai-watch.git
 cd Yo-kai-watch/source
 docker build \
   --no-cache \
